@@ -11,6 +11,9 @@ import Rcmnd from './pages/Rcmnd'
 import NameCard from './pages/NameCard'
 import FinReport from './pages/FinReport'
 
+// 카카오톡 공유하기 API KEY setting
+const KAKAO_KEY = process.env.REACT_APP_KAKAO_API_KEY
+window.Kakao.init(KAKAO_KEY); 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
