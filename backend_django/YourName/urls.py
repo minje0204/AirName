@@ -4,5 +4,5 @@ from RecName.views import NameListAPI
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/rec', NameListAPI.as_view())
+    path('rec/', NameListAPI.as_view())
 ]

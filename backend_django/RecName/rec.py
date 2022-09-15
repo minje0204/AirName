@@ -3,9 +3,11 @@ import os
 import sys
 import jellyfish
 import urllib.request
-from parse import *
 import pandas as pd
 from bs4 import BeautifulSoup
+
+DATA_DIR = "DataName"
+DUMP_FILE = os.path.join(DATA_DIR, "dump.pkl")
 
 def LoadDataframes():
     return pd.read_pickle(DUMP_FILE)
@@ -43,12 +45,8 @@ def JaroDistance(data, name):
     return sim
 
 
-def main():
+def Recommend(kor_name):
     data = LoadDataframes()
-
-    #rest API로 바꿔야할 부분
-    print("한국 이름을 입력하세요.")
-    kor_name = input()
 
     #로마화
     rom_name = Romanization(kor_name)
@@ -64,7 +62,5 @@ def main():
     df_sim = df_sim.sort_values('nysiis_sim',ascending=False)
 
     name_array = df_sim['name'].to_numpy()
-    print(name_array[1])
 
-if __name__ == '__main__':
-    main()
+    return name_array
