@@ -6,7 +6,9 @@ import styled from "styled-components";
 function Home() {
   return (
     <StyledWrapper>
-      <AirplaneWindow />
+      <div id="left-container">
+        <AirplaneWindow />
+      </div>
       <div id="right-container">
         <div>
           <img src="/logo.png" alt="logo" width={"300px"} />
@@ -41,6 +43,9 @@ const StyledWrapper = styled.div`
   @media (max-width: 650px) {
     flex-direction: column;
     justify-content: space-evenly;
+    #left-container {
+      display: none;
+    }
   }
 
   display: flex;
