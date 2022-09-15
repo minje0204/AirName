@@ -1,8 +1,11 @@
 import React from 'react'
+import TTSBtn from '../components/finreport/TTSBtn'
 
 function FinReport() {
   return (
-    <div>FinReport</div>
+    <div>FinReport
+      <TTSBtn></TTSBtn>
+    </div>
   )
 }
 
