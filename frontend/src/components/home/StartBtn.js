@@ -1,21 +1,21 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
-function StartBtn(props) {
+function StartBtn({ title, subtitle, to }) {
   return (
     <div>
-      {props.subtitle}
+      {subtitle}
       <br />
       <Button
         variant="contained"
         color="primary"
         size="large"
         component={Link}
-        to={props.to}
-        style={{ width: "300px " }}
+        to={to}
+        style={{ width: '300px ' }}
       >
-        <span style={{ fontSize: "20px" }}>{props.title}</span>
+        <span style={{ fontSize: '20px' }}>{title}</span>
       </Button>
     </div>
   );
