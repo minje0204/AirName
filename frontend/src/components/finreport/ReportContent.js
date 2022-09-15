@@ -4,7 +4,7 @@ import ReportContentItems from './ReportContentItems'
 function ReportContent(props) {
   return (
     <div>
-      <ReportContentItems></ReportContentItems>
+      <ReportContentItems username = {props.username} hometown = {props.hometown}></ReportContentItems>
     </div>
   );
 }

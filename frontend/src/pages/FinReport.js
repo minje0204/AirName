@@ -6,13 +6,15 @@ import MyCard from '../components/finreport/MyCard';
 import ReportContent from '../components/finreport/ReportContent';
 
 function FinReport() {
+  const hometown = 'babo';
+  const username = 'junny';
   return (
     <StyledWrapper>
       <div>
-        <FinTitle />
+        <FinTitle username = {username} hometown = {hometown}/>
         <FinBtns />
         <MyCard />
-        <ReportContent />
+        <ReportContent username = {username} hometown = {hometown}/>
       </div>
     </StyledWrapper>
   );
@@ -23,5 +25,6 @@ export default FinReport;
 const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   color: blue;
 `;

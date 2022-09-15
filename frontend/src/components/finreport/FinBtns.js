@@ -10,14 +10,14 @@ function FinBtns() {
       objectType: "feed",
       content: {
         title: "AIR NAME",
-        description: "#이름 #영어이름 #알잘딱깔센",
+        description: "#영어이름 #알잘딱깔센",
         imageUrl:
-          "http://mud-kage.kakao.co.kr/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
+          "https://ifh.cc/g/PBX9v2.png",
         link: {
           mobileWebUrl:
-            "https://www.notion.so/AirName-32a98977827a47b6b1c6a560aa9bd75f/",
+            "https://blog.naver.com/2riing/",
           webUrl:
-            "https://www.notion.so/AirName-32a98977827a47b6b1c6a560aa9bd75f/",
+            "https://blog.naver.com/2riing/",
         },
       },
       buttons: [
@@ -25,9 +25,9 @@ function FinBtns() {
           title: "웹으로 보기",
           link: {
             mobileWebUrl:
-              "https://www.notion.so/AirName-32a98977827a47b6b1c6a560aa9bd75f/",
+              "https://blog.naver.com/2riing/",
             webUrl:
-              "https://www.notion.so/AirName-32a98977827a47b6b1c6a560aa9bd75f/",
+              "https://blog.naver.com/2riing/",
           },
         },
       ],

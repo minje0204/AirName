@@ -1,36 +1,14 @@
 import React from 'react';
-import Box from '@mui/material/Box';
+
 import styled from 'styled-components';
 
 function ReportContentItems(props) {
   return (
     <div>
-      <ContentBoxWrapper>
-        <Box
-            sx={{
-              width: 800,
-              height: 300,
-              backgroundColor: 'primary.dark',
-              '&:hover': {
-                backgroundColor: 'primary.main',
-                opacity: [0.9, 0.8, 0.7],
-              },
-            }}
-          />
-      </ContentBoxWrapper>
-      <ContentBoxWrapper>
-        <Box
-          sx={{
-            width: 800,
-            height: 300,
-            backgroundColor: 'primary.dark',
-            '&:hover': {
-              backgroundColor: 'primary.main',
-              opacity: [0.9, 0.8, 0.7],
-            },
-          }}
-        />
-      </ContentBoxWrapper>
+      <ContentBox>
+        <h3>💕 당신의 명예 고향은 {props.hometown}!</h3>
+        {props.username}이라는 이름은 {props.hometown}에서 가장 많이 사용되는 이름이에요! 
+      </ContentBox>
     </div>
   );
 }
@@ -38,6 +16,10 @@ function ReportContentItems(props) {
 export default ReportContentItems;
 
 
-const ContentBoxWrapper = styled.div`
+const ContentBox = styled.div`
   margin:10px;
+  padding: 30px;
+  background-color: #F9F7F4;
+  color: black;
+  border-radius: 10px;
 `;
