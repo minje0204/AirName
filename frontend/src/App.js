@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider } from "@mui/material/styles";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./index.css";
+import {
+  Entry,
+  FinReport,
+  Home,
+  Loading,
+  NameCard,
+  Rcmnd,
+  Survey,
+} from "./pages";
+import theme from "./theme";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/entry" element={<Entry />}></Route>
+          <Route path="/survey" element={<Survey />}></Route>
+          <Route path="/loading" element={<Loading />}></Route>
+          <Route path="/rcmnd" element={<Rcmnd />}></Route>
+          <Route path="/namecard" element={<NameCard />}></Route>
+          <Route path="/finreport" element={<FinReport />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
