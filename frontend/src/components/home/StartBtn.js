@@ -1,5 +1,6 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 function StartBtn(props) {
   return (
@@ -10,7 +11,8 @@ function StartBtn(props) {
         variant="contained"
         color="primary"
         size="large"
-        href={props.to}
+        component={Link}
+        to={props.to}
         style={{ width: "300px " }}
       >
         <span style={{ fontSize: "20px" }}>{props.title}</span>
