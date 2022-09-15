@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react'
+import Button from '@mui/material/Button';
+import styled from 'styled-components';
 
 // 카카오톡 공유하기 버튼 
 function FinBtns() {
@@ -27,11 +29,19 @@ function FinBtns() {
     });
   })
   return (
-    <div>
-        <button>이미지 저장</button>
-        <button className="Kakao" id="kakao-link-btn" >카카오톡 공유하기</button>
-    </div>
+    <StyledWrapper>
+      <div>
+        <Button variant="contained" >이미지 저장</Button>
+        <Button variant="contained" className="Kakao" id="kakao-link-btn" >카카오톡 공유하기</Button>
+      </div>
+    </StyledWrapper>
   );
 }
 
-export default FinBtns
+export default FinBtns;
+const StyledWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  color: blue;
+  margin: 20px;
+`;
