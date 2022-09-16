@@ -19,18 +19,13 @@ from .rec import *
 #         serializer = RecSerializer(queryset, many=True)
 #         return Response(serializer.data)
 
-class NameListAPI(APIView):
+class NameList(APIView):
     def get(self, request):
         #Json 파일로 받아야 하지만 테스트를 위해 현재 한글이름 string값 받아서 처리하도록 함
-        #data = JSONParser().parse(request)
-        #kor_name = request.GET.get('KorName', None)
-
         arr = Recommend(request.data['name'])
         print(request.data['gender'])
         print(request.data['age'])
 
-        #배열을 Json파일로 변환 후 넘겨줘야 함
-        #serializer = RecSerializer(data=data)
         data = json.dumps(arr)
 
         return JsonResponse(data, safe=False)

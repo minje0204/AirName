@@ -5,12 +5,7 @@ import jellyfish
 import urllib.request
 import pandas as pd
 from bs4 import BeautifulSoup
-
-DATA_DIR = "DataName"
-DUMP_FILE = os.path.join(DATA_DIR, "dump.pkl")
-
-def LoadDataframes():
-    return pd.read_pickle(DUMP_FILE)
+from .parse import *
 
 def Romanization(input):
     kor_name = urllib.parse.quote(input)
@@ -44,22 +39,30 @@ def JaroDistance(data, name):
     sim = jellyfish.jaro_distance(data,NysCode)
     return sim
 
-def Filter(dataframes):
-    #연령대 필터
-    #1안. 내 나이에서 멀어질수록 가중치가 낮아짐
-    #이 경우
-    #2안. 내 나이 +-3년 안에 있는 데이터만 이용
-
+def Filter(dataframes, gender, year):
     #성별 필터
     #설문조사에서 응답한 값에 따라 데이터셋 자체에서 필터링
+    if gender == 'M':
+        dataframes = dataframes[dataframes['gender']=='M']
+    elif gender == 'F':
+        dataframes = dataframes[dataframes['gender']=='F']
+    elif gender == 'U':
+        dataframes = dataframes[dataframes['gender']=='U']
 
-    #희귀도 필터
-    #연령대, 성별 필터를 거친 후 추천도가 같은 배열에 대하여 희귀도 순으로 정렬
+    #연령대 필터
+    #내 나이에서 멀어질수록 가중치가 낮아지도록?
+    #현재 프레임과 비교해 같은 년도에서 사용빈도가 적으면 가중치 떨어지도록 설정
 
-    return 0
+    #연도 데이터프레임 불러옴
+    #data = LoadDataframes("year_dump")
+    
+
+
+    return dataframes
 
 def Recommend(kor_name):
-    data = LoadDataframes()
+    #발음코드 데이터프레임 불러옴
+    data = LoadDataframes("code_dump")
 
     #로마화
     rom_name = Romanization(kor_name)
@@ -73,6 +76,9 @@ def Recommend(kor_name):
     df_sim['nysiis_sim'] = df_sim['nysiis'].apply(NameSimilarity)
     #유사도 기준 정렬
     df_sim = df_sim.sort_values('nysiis_sim',ascending=False)
+
+    #필터링(gender~rarity 부분을 설문조사 배열 형태로 넘길지 생각중)
+    df_sim = Filter(df_sim, 'M', 1996)
 
     name_array = df_sim['name'].head(4).to_numpy()
     #list를 dict로 바꿔야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
