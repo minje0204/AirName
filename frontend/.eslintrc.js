@@ -21,8 +21,5 @@ module.exports = {
     'no-underscore-dangle': 'warn',
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'comma-dangle': ['error', 'never']
-  },
-  eslintConfig: {
-    parser: 'babel-eslint'
-  }  
+  }
 };
