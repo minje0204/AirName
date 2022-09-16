@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function Entry() {
-  return (
-    <div>Entry</div>
-  )
+  return <div>Entry</div>;
 }
 
-export default Entry
+export default Entry;

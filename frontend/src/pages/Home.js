@@ -1,7 +1,7 @@
-import React from "react";
-import AirplaneWindow from "./../components/home/AirplaneWindow.js";
-import StartBtn from "./../components/home/StartBtn.js";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import AirplaneWindow from '../components/home/AirplaneWindow';
+import StartBtn from '../components/home/StartBtn';
 
 function Home() {
   return (
@@ -11,21 +11,21 @@ function Home() {
       </div>
       <div id="right-container">
         <div>
-          <img src="/logo.png" alt="logo" width={"300px"} />
+          <img src="/logo.png" alt="logo" width="300px" />
         </div>
         <div id="button-container">
           <div>
             <StartBtn
-              title={"영어 이름 추천받기"}
-              subtitle={"영어 이름이 없다면? 🙅‍♀️"}
-              to={"/entry"}
+              title="영어 이름 추천받기"
+              subtitle="영어 이름이 없다면? 🙅‍♀️"
+              to="/entry"
             />
           </div>
           <div>
             <StartBtn
-              title={"내 이름 레포트 보기"}
-              subtitle={"이미 영어 이름이 있어요 ! 🙆‍♂️ "}
-              to={"/finReport"}
+              title="내 이름 레포트 보기"
+              subtitle="이미 영어 이름이 있어요 ! 🙆‍♂️ "
+              to="/finReport"
             />
           </div>
         </div>
