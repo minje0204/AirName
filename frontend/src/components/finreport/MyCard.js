@@ -1,11 +1,11 @@
 import React from 'react';
-import SampleTicket from '../../asset/img/finreport/SampleTicket.png';
 import styled from 'styled-components';
+import SampleTicket from '../../asset/img/finreport/SampleTicket.png';
 
-function MyCard(props) {
+function MyCard() {
   return (
     <MyCardContainter>
-      <MyCardImg src={SampleTicket} alt='MyTicket'/>
+      <MyCardImg src={SampleTicket} alt="MyTicket" />
     </MyCardContainter>
   );
 }
@@ -19,4 +19,4 @@ const MyCardContainter = styled.div`
 
 const MyCardImg = styled.img`
   width: 80%;
-`
+`;

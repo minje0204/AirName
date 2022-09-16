@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function Rcmnd() {
-  return (
-    <div>Rcmnd</div>
-  )
+  return <div>Rcmnd</div>;
 }
 
-export default Rcmnd
+export default Rcmnd;

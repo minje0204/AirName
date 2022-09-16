@@ -1,12 +1,12 @@
 import React from 'react';
+import styled from 'styled-components';
 import FinBtns from '../components/finreport/FinBtns';
 import FinTitle from '../components/finreport/FinTitle';
-import styled from 'styled-components';
 import MyCard from '../components/finreport/MyCard';
 import ReportContent from '../components/finreport/ReportContent';
 
 function FinReport() {
-  const hometown = 'babo';
+  const hometown = 'multicampus';
   const username = 'junny';
   return (
     <StyledWrapper>

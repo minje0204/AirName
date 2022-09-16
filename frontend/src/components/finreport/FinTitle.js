@@ -1,14 +1,17 @@
 import React from 'react';
-import TTSBtn from './TTSBtn';
 import styled from 'styled-components';
+import TTSBtn from './TTSBtn';
 
 function FinTitle(props) {
   return (
     <StyledWrapper>
       <div id="fintitle-container">
-        <WelcomeWrapper>Welcome to<HomeTownWrapper>{props.hometown}</HomeTownWrapper>,</WelcomeWrapper>
-        <NameWrapper>{props.username}!
-          <TTSBtn username = {props.username} hometown = {props.hometown} />
+        <WelcomeWrapper>
+          Welcome to<HomeTownWrapper>{props.hometown}</HomeTownWrapper>,
+        </WelcomeWrapper>
+        <NameWrapper>
+          {props.username}!
+          <TTSBtn username={props.username} hometown={props.hometown} />
         </NameWrapper>
       </div>
     </StyledWrapper>
@@ -44,5 +47,3 @@ const HomeTownWrapper = styled.div`
   font-size: 40px;
   margin-left: 10px;
 `;
-
-
