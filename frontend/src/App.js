@@ -9,7 +9,7 @@ import {
   Loading,
   NameCard,
   Rcmnd,
-  Survey,
+  Survey
 } from './pages';
 import theme from './theme';
 
