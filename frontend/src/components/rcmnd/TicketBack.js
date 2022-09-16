@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import TicketHeadAirplane from '../../asset/img/rcmnd/TicketHeadAirplane.png';
 import TicketTTSBtn from './TicketTTSBtn';
 
-function TicketFront() {
+function TicketFront(props) {
   return (
     <div>
       <TicketContainer>
@@ -12,9 +12,9 @@ function TicketFront() {
           AIR TICKET
         </TicketHead>
         <TicketBody>
-          <TickeNameContainer>Jimmy</TickeNameContainer>
+          <TickeNameContainer>{props.name}</TickeNameContainer>
           <TicketTTSBtnContainer>
-            <TicketTTSBtn />
+            <TicketTTSBtn username={props.name}/>
           </TicketTTSBtnContainer>
         </TicketBody>
       </TicketContainer>

@@ -19,23 +19,31 @@ class RcmndCardItems extends React.Component {
   }
 
   render() {
-    // const { name } = this.props;
+    const { name } = this.props;
     return (
-      <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical">
-        <FRONT_COMPONENT onClick={this.handleClick}>
-          <TicketFront />
-        </FRONT_COMPONENT>
-
-        <BACK_COMPONENT onClick={this.handleClick}>
-          <TicketBack />
-        </BACK_COMPONENT>
-      </ReactCardFlip>
+      <EachTicketContainer>
+        <ReactCardFlip
+          isFlipped={this.state.isFlipped}
+          flipDirection="vertical"
+        >
+          <FRONT_COMPONENT onClick={this.handleClick}>
+            <TicketFront name={name} />
+          </FRONT_COMPONENT>
+          <BACK_COMPONENT onClick={this.handleClick}>
+            <TicketBack name={name} />
+          </BACK_COMPONENT>
+        </ReactCardFlip>
+      </EachTicketContainer>
     );
   }
 }
 
 export default RcmndCardItems;
 
-const FRONT_COMPONENT = styled.div``;
+const EachTicketContainer = styled.div`
+  margin: 20px;
+`;
 
 const BACK_COMPONENT = styled.div``;
+
+const FRONT_COMPONENT = styled.div``;
