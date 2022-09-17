@@ -24,7 +24,7 @@ export default function EntryCard() {
               color="warning"
               placeholder="한국어로 이름을 입력해주세요"
               id="answer"
-              onChange={e => {
+              onChange={(e) => {
                 setName(e.target.value);
               }}
             />
@@ -36,7 +36,7 @@ export default function EntryCard() {
               color="warning"
               placeholder="생년월일 8자리를 입력해주세요"
               id="answer"
-              onChange={e => {
+              onChange={(e) => {
                 setBirth(e.target.value);
               }}
             />
