@@ -8,7 +8,7 @@ module.exports = {
     node: true,
     jquery: true
   },
-  extends: 'airbnb-base',
+  extends: ['airbnb-base', 'prettier'],
   plugins: ['import', 'html'],
   rules: {
     // "off" or 0 - turn the rule off
@@ -21,8 +21,5 @@ module.exports = {
     'no-underscore-dangle': 'warn',
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'comma-dangle': ['error', 'never']
-  },
-  eslintConfig: {
-    parser: 'babel-eslint'
-  }  
+  }
 };

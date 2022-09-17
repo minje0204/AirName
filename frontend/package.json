@@ -32,7 +32,8 @@
       "react-app",
       "airbnb",
       "react-app/jest"
-    ]
+    ],
+    "parser": "babel-eslint"
   },
   "browserslist": {
     "production": [
