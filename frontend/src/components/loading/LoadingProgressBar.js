@@ -23,7 +23,7 @@ export default function ProgressBar() {
   }, []);
 
   return (
-    <Box sx={{ width: '400px' }}>
+    <Box>
       {isFull === 1 ? (
         <LoadBtn id="loadBtn" />
       ) : (
