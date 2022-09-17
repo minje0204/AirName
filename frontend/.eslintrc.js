@@ -8,7 +8,7 @@ module.exports = {
     node: true,
     jquery: true
   },
-  extends: 'airbnb-base',
+  extends: ['airbnb-base', 'prettier'],
   plugins: ['import', 'html'],
   rules: {
     // "off" or 0 - turn the rule off

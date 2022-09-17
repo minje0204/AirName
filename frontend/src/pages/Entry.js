@@ -1,7 +1,12 @@
 import React from 'react';
+import InputAlert from '../components/entry/EntryCardWarning';
+import EntryCard from '../components/entry/EntryCard';
 
-function Entry() {
-  return <div>Entry</div>;
+export default function Entry() {
+  return (
+    <div>
+      <InputAlert />
+      <EntryCard />
+    </div>
+  );
 }
-
-export default Entry;
