@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
 import SubmitBtn from './EntryCardBtn';
 
-export default function EntryCard() {
+function EntryCardEn() {
   const [name, setName] = useState('');
   const [birth, setBirth] = useState('');
   return (
@@ -50,6 +50,8 @@ export default function EntryCard() {
     </StyledWrapper>
   );
 }
+
+export default EntryCardEn;
 
 const StyledWrapper = styled.div`
   #card {
