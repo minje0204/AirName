@@ -1,11 +1,16 @@
 import styled from 'styled-components';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import Button from '@mui/material/Button';
 import TicketHeadAirplane from '../../asset/img/rcmnd/TicketHeadAirplane.png';
 import TicketTTSBtn from './TicketTTSBtn';
 import './Rcmnd.css';
 
-function TicketFront(props) {
+function TicketFront({ name }) {
+  const selectName = (e) => {
+    e.stopPropagation();
+    console.log(name);
+  };
+
   return (
     <div>
       <TicketContainer>
@@ -15,13 +20,22 @@ function TicketFront(props) {
         </TicketHead>
         <TicketBody>
           <div>
-            <TickeNameContainer>{props.name}</TickeNameContainer>
+            <TickeNameContainer>{name}</TickeNameContainer>
             <TicketTTSBtnContainer>
-              <TicketTTSBtn username={props.name} />
+              <TicketTTSBtn username={name} />
             </TicketTTSBtnContainer>
           </div>
           <SelectBtnContainer>
-            <button className="btn-15 custom-btn">내 이름은 {props.name}로 결정 !</button>
+            <Link to={'/finreport'}>
+              <button
+                className="btn-15 custom-btn"
+                onClick={(e) => {
+                  selectName(e);
+                }}
+              >
+                내 이름은 {name}로 결정 !
+              </button>
+            </Link>
           </SelectBtnContainer>
         </TicketBody>
       </TicketContainer>
