@@ -15,12 +15,15 @@ function TicketFront({ name }) {
     <div>
       <TicketContainer>
         <TicketHead>
-          <img className='airplan-img' src={TicketHeadAirplane} />
+          <img className="airplan-img" src={TicketHeadAirplane} />
           AIR TICKET
         </TicketHead>
         <TicketBody>
           <div>
-            <TickeNameContainer>{name}<TicketTTSBtn username={name} /></TickeNameContainer>
+            <TickeNameContainer>
+              {name}
+              <TicketTTSBtn username={name} />
+            </TickeNameContainer>
           </div>
           <SelectBtnContainer>
             <Link to={`/finreport/${name}`}>
@@ -57,8 +60,7 @@ const TicketHead = styled.div`
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   height: 20%;
-  font-size: clamp(10px, calc(0.5vw  + 11.08px), 40px); 
-
+  font-size: clamp(10px, calc(0.5vw + 11.08px), 40px);
 `;
 const TicketBody = styled.div`
   display: flex;
@@ -69,13 +71,12 @@ const TicketBody = styled.div`
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   height: 80%;
-
 `;
 const TickeNameContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: clamp(20px, min(calc(3vh + 20px), calc(3vw + 20px)), 80px); 
+  font-size: clamp(20px, min(calc(3vh + 20px), calc(3vw + 20px)), 80px);
   font-weight: 600;
   display: inline;
 `;
