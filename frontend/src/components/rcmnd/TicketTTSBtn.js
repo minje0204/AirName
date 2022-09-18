@@ -13,7 +13,8 @@ function TTSBtn(props) {
     synth.cancel();
   }
 
-  function startSpeak() {
+  function startSpeak(e) {
+    e.stopPropagation();
     // 이전에 말하고 있는 단어 취소
     stopSpeak();
     // 이름 변수 넣기
@@ -22,7 +23,12 @@ function TTSBtn(props) {
   }
 
   return (
-    <Button id="TTSbtn" onClick={startSpeak}>
+    <Button
+      id="TTSbtn"
+      onClick={(e) => {
+        startSpeak(e);
+      }}
+    >
       <SpeakerImgTag src={SpeakerImg} alt="TTSspeaker" />
     </Button>
   );
