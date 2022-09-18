@@ -4,17 +4,31 @@ import os
 import jellyfish
 from pymongo import MongoClient
 
-def Directory(dir):
-    filename = dir + ".pkl"
-    DATA_DIR = "../DataName"
-    DUMP_FILE = os.path.join(DATA_DIR, filename)
-    return DUMP_FILE
+# [기존 코드] 디렉토리에 pickle 저장해서 이용하는 방법
+# def Directory(dir):
+#     filename = dir + ".pkl"
+#     DATA_DIR = "../DataName"
+#     DUMP_FILE = os.path.join(DATA_DIR, filename)
+#     return DUMP_FILE
+# 
+# def DumpDataframes(dataframes, filename):
+#     pd.to_pickle(dataframes, Directory(filename))
+# 
+# def LoadDataframes(filename):
+#     return pd.read_pickle(Directory(filename))
 
-def DumpDataframes(dataframes, filename):
-    pd.to_pickle(dataframes, Directory(filename))
+def ConnectMongoDB():
+    #mongoDB 연결객체 생성
+    client = MongoClient(host='localhost', port=27017)
+    db = client['airname']
+    return db
 
-def LoadDataframes(filename):
-    return pd.read_pickle(Directory(filename))
+def LoadDataframes(db, collection_name):
+    cursor = db[collection_name].find()
+    df = pd.DataFrame(list(cursor))
+    # _id 컬럼 삭제
+    del df['_id']
+    return df
 
 def NysiisCode(name):
     name = jellyfish.nysiis(name)
@@ -22,20 +36,11 @@ def NysiisCode(name):
 
 
 def main():
-    #mongoDB 연결객체 생성
-    client = MongoClient(host='localhost', port=27017)
-    db = client['airname']
-    cursor = db['airname'].find()
-    df = pd.DataFrame(list(cursor))
-    
-    # _id 컬럼 삭제
-    del df['_id']
+    db = ConnectMongoDB()
+    df = LoadDataframes(db, 'airname')
 
-    #기존에 json 읽어서 dataframe 생성했던 코드
+    #[기존 코드] json 읽어서 dataframe 생성했던 코드
     #df = pd.read_json('../DataName/mvpNameSet_Behind_Fin_with_count_state.json')
-
-    #json파일에서 name column만 가져오는 새로운 DataFrame 생성
-    #df_name = df.filter(['name'], axis=1)
 
     #data의 이름 컬럼을 numpy배열로 가져옴
     names = df['name'].to_numpy()
@@ -47,7 +52,7 @@ def main():
         "gender", #성별
     )
     year_columns = ( #연도 데이터프레임 생성을 위한 컬럼
-        1941+i for i in range(82) #연도
+        str(1941+i) for i in range(82) #연도, key가 string이어야 mongoDB에 저장됨
     )
 
     #발음코드 데이터프레임 생성
@@ -94,11 +99,20 @@ def main():
     df_code['nysiis'] = df_code['name'].apply(NysiisCode)
     df_year.insert(0,'name',names)
 
-    #DataFrame을 pickle 파일로 저장해 다른 py파일에서 사용가능하도록 함
-    DumpDataframes(df_code,"code_dump")
-    DumpDataframes(df_year,"year_dump")
+    #[기존 코드] DataFrame을 pickle 파일로 저장해 다른 py파일에서 사용가능하도록 함
+    # DumpDataframes(df_code,"code_dump")
+    # DumpDataframes(df_year,"year_dump")
 
-    print(df_year)
+    #생성한 DataFrame을 mongoDB에 저장
+    code_collection = db['codename']
+    df_code.reset_index(inplace=True)
+    df_code_dict = df_code.to_dict("records")
+    code_collection.insert_many(df_code_dict)
+
+    year_collection = db['yearname']
+    df_year.reset_index(inplace=True)
+    df_year_dict = df_year.to_dict("records")
+    year_collection.insert_many(df_year_dict)
 
 if __name__ == '__main__':
     main()
