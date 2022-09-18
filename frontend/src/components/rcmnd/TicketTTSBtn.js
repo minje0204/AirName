@@ -28,7 +28,7 @@ function TTSBtn(props) {
         startSpeak(e);
       }}
     >
-      <SpeakerImgTag src={SpeakerImg} alt="TTSspeaker" />
+      <SpeakerImgTag className="ttsbtn-img"src={SpeakerImg} alt="TTSspeaker" />
     </Button>
   );
 }
@@ -45,6 +45,5 @@ const Button = styled.button`
 `;
 
 const SpeakerImgTag = styled.img`
-  width: 50px;
-  padding-top: 25px;
+
 `;

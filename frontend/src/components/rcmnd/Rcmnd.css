@@ -1,9 +1,9 @@
 .custom-btn {
-  width: 340px;
-  height: 50px;
-  padding: 10px 25px;
+  width: 30vw;
+  min-width: 250px;
+  max-width: 400px;
   font-weight: 700;
-  font-size: 20px;
+  font-size: clamp(8px, calc(0.3vw + 0.2vh + 10px), 18px); 
   border: none;
   background: transparent;
   cursor: pointer;
@@ -39,4 +39,17 @@
 }
 .btn-15:active {
   top: 2px;
+}
+
+.airplan-img {
+  width: 10%;
+}
+
+.barcode-img { 
+  width: cal(10vh +  10vw);
+
+}
+
+.ttsbtn-img {
+  width: cal(5vh +  5vw);
 }

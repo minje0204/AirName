@@ -18,6 +18,9 @@ function RcmndCard() {
 export default RcmndCard;
 
 const RcmdnCardContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
 `;
