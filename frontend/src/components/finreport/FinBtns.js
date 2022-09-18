@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Button from '@mui/material/Button';
 import styled from 'styled-components';
 
 // 카카오톡 공유하기 버튼
@@ -27,16 +26,16 @@ function FinBtns() {
         }
       ]
     });
-  });
+  }, []);
   return (
     <StyledWrapper>
       <FinBtnsWrapper>
-        <Button variant="contained">티켓 이미지로 저장</Button>
+        <button variant="contained" id="img-save-btn">티켓 이미지로 저장</button>
       </FinBtnsWrapper>
       <FinBtnsWrapper>
-        <Button variant="contained" className="Kakao" id="kakao-link-btn">
+        <button variant="contained" className="Kakao" id="kakao-link-btn">
           리포트 카카오톡 공유하기
-        </Button>
+        </button>
       </FinBtnsWrapper>
     </StyledWrapper>
   );
@@ -48,8 +47,34 @@ const StyledWrapper = styled.div`
   justify-content: center;
   color: blue;
   margin: 20px;
+  @media (max-width: 650px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const FinBtnsWrapper = styled.div`
   margin: 20px;
+  #img-save-btn {
+    background-color: var(--primaryLight);
+    border: 0;
+    padding: 10px;
+    border-radius: 10px;
+    &:hover{
+      background-color: var(--primaryMain);
+    }
+  }
+  #kakao-link-btn{
+    background-color: var(--primaryLight);
+    border: 0;
+    padding: 10px;
+    border-radius: 10px;
+    &:hover{
+      background-color: var(--primaryMain);
+    }
+  }
+  @media (max-width: 650px) {
+    margin: 2px;
+    #kakao-link-btn{
+    }
+  }
 `;
