@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
+
 import LoadBtn from './LoadingCompleteBtn';
 
 export default function ProgressBar() {
@@ -23,7 +24,7 @@ export default function ProgressBar() {
   }, []);
 
   return (
-    <Box>
+    <Box id="wait" sx={{ margin: '10px' }}>
       {isFull === 1 ? (
         <LoadBtn id="loadBtn" />
       ) : (
