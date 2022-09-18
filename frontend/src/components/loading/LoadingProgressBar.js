@@ -9,7 +9,7 @@ export default function ProgressBar() {
 
   React.useEffect(() => {
     const timer = setInterval(() => {
-      setProgress(oldProgress => {
+      setProgress((oldProgress) => {
         if (oldProgress === 100) {
           setIsFull(1);
         }

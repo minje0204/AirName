@@ -9,7 +9,7 @@ export default function SubmitBtn() {
       color="warning"
       size="large"
       component={Link}
-      to="/loading"
+      to="/survey"
       style={{ width: '50px ' }}
       sx={{ m: 2 }}
     >

@@ -9,7 +9,7 @@ export default function LoadBtn() {
       color="warning"
       size="large"
       component={Link}
-      to="/namecard"
+      to="/rcmnd"
       style={{ width: '50px ' }}
     >
       <span>▶</span>
