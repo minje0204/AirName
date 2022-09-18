@@ -26,7 +26,7 @@ function App() {
           <Route path="/loading" element={<Loading />} />
           <Route path="/rcmnd" element={<Rcmnd />} />
           <Route path="/namecard" element={<NameCard />} />
-          <Route path="/finreport/:selectedName" element={<FinReport />} />
+          <Route path="/finreport/:username" element={<FinReport />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

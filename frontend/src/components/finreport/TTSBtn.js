@@ -42,4 +42,8 @@ const Button = styled.button`
 const SpeakerImgTag = styled.img`
   width: 50px;
   padding-top: 25px;
+  @media (max-width: 650px) {
+    padding-top: 5px;
+    width: 20px;
+  }
 `;
