@@ -22,7 +22,7 @@ from .rec import *
 class NameList(APIView):
     def get(self, request):
         #Json 파일로 받아야 하지만 테스트를 위해 현재 한글이름 string값 받아서 처리하도록 함
-        arr = Recommend(request.data['name'], request.data['gender'], request.data['age'])
+        arr = Recommend(request.data['name'], request.data['birth'][:3])
 
         data = json.dumps(arr)
 

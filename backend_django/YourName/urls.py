@@ -4,5 +4,5 @@ from RecName.views import NameList
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('rec/', NameList.as_view())
+    path('rec/sound/', NameList.as_view())
 ]
