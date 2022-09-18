@@ -1,8 +1,7 @@
 import pandas as pd
 import os
 import jellyfish
-from parse import *
-from rec import *
+from .rec import *
 
 def main():
     Recommend("김상협")

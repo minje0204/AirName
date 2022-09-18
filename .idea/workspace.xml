@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8d031b73-f762-475b-9200-1d15ae4c106b" name="Default Changelist" comment="" />
+    <list default="true" id="8d031b73-f762-475b-9200-1d15ae4c106b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_django/DataName/mvpNameSet_Behind_Fin_with_count_state.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_django/DataName/year_dump.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/backend_django/DataName/year_dump.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_django/RecName/parse.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend_django/RecName/parse.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_django/RecName/rec.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend_django/RecName/rec.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_django/RecName/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend_django/RecName/test.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,5 +37,8 @@
       <updated>1663214305529</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

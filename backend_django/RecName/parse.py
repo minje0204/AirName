@@ -2,6 +2,7 @@
 import pandas as pd
 import os
 import jellyfish
+from pymongo import MongoClient
 
 def Directory(dir):
     filename = dir + ".pkl"
@@ -21,7 +22,17 @@ def NysiisCode(name):
 
 
 def main():
-    df = pd.read_json('../DataName/mvpNameSet_Behind_Fin_with_count_state.json')
+    #mongoDB 연결객체 생성
+    client = MongoClient(host='localhost', port=27017)
+    db = client['airname']
+    cursor = db['airname'].find()
+    df = pd.DataFrame(list(cursor))
+    
+    # _id 컬럼 삭제
+    del df['_id']
+
+    #기존에 json 읽어서 dataframe 생성했던 코드
+    #df = pd.read_json('../DataName/mvpNameSet_Behind_Fin_with_count_state.json')
 
     #json파일에서 name column만 가져오는 새로운 DataFrame 생성
     #df_name = df.filter(['name'], axis=1)
@@ -41,7 +52,7 @@ def main():
 
     #발음코드 데이터프레임 생성
     for data in df.itertuples():
-        
+
         #성별 컬럼 추가를 위한 작업
         if len(data.female) == 0:
             gender = 'M'
@@ -57,7 +68,7 @@ def main():
                 gender,
             ]
         )
-        
+
     #연도 데이터프레임 생성
     for data in df.itertuples():
         year = [0 for i in range(82)]
@@ -86,6 +97,8 @@ def main():
     #DataFrame을 pickle 파일로 저장해 다른 py파일에서 사용가능하도록 함
     DumpDataframes(df_code,"code_dump")
     DumpDataframes(df_year,"year_dump")
+
+    print(df_year)
 
 if __name__ == '__main__':
     main()
