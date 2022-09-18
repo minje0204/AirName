@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
-// 카카오톡 공유하기 버튼
 function FinBtns() {
-  useEffect(() => {
+  const kakaoShare = () => {
     window.Kakao.Link.createDefaultButton({
       container: '#kakao-link-btn',
       objectType: 'feed',
@@ -12,28 +10,26 @@ function FinBtns() {
         description: '#영어이름 #알잘딱깔센',
         imageUrl: 'https://ifh.cc/g/PBX9v2.png',
         link: {
-          mobileWebUrl: 'https://blog.naver.com/2riing/',
-          webUrl: 'https://blog.naver.com/2riing/'
+          mobileWebUrl: 'https://air-name.vercel.app',
+          webUrl: 'https://air-name.vercel.app'
         }
-      },
-      buttons: [
-        {
-          title: '웹으로 보기',
-          link: {
-            mobileWebUrl: 'https://blog.naver.com/2riing/',
-            webUrl: 'https://blog.naver.com/2riing/'
-          }
-        }
-      ]
+      }
     });
-  }, []);
+  };
   return (
     <StyledWrapper>
       <FinBtnsWrapper>
-        <button variant="contained" id="img-save-btn">티켓 이미지로 저장</button>
+        <button variant="contained" id="img-save-btn">
+          티켓 이미지로 저장
+        </button>
       </FinBtnsWrapper>
       <FinBtnsWrapper>
-        <button variant="contained" className="Kakao" id="kakao-link-btn">
+        <button
+          variant="contained"
+          className="Kakao"
+          id="kakao-link-btn"
+          onClick={kakaoShare}
+        >
           리포트 카카오톡 공유하기
         </button>
       </FinBtnsWrapper>
@@ -59,22 +55,22 @@ const FinBtnsWrapper = styled.div`
     border: 0;
     padding: 10px;
     border-radius: 10px;
-    &:hover{
+    &:hover {
       background-color: var(--primaryMain);
     }
   }
-  #kakao-link-btn{
+  #kakao-link-btn {
     background-color: var(--primaryLight);
     border: 0;
     padding: 10px;
     border-radius: 10px;
-    &:hover{
+    &:hover {
       background-color: var(--primaryMain);
     }
   }
   @media (max-width: 650px) {
     margin: 2px;
-    #kakao-link-btn{
+    #kakao-link-btn {
     }
   }
 `;
