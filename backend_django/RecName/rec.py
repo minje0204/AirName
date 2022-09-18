@@ -5,7 +5,7 @@ import jellyfish
 import urllib.request
 import pandas as pd
 from bs4 import BeautifulSoup
-
+from .parse import *
 
 def Romanization(input):
     kor_name = urllib.parse.quote(input)
@@ -30,8 +30,57 @@ def Romanization(input):
     else:
         print("Error Code:" + rescode)
 
+def NameSimilarity(name):
+    sim = jellyfish.jaro_distance(name,nys_name)
+    return sim
 
 def JaroDistance(data, name):
     NysCode = jellyfish.nysiis(name)
     sim = jellyfish.jaro_distance(data,NysCode)
     return sim
+
+def Filter(dataframes, gender, year):
+    #성별 필터
+    #설문조사에서 응답한 값에 따라 데이터셋 자체에서 필터링
+    if gender == 'M':
+        dataframes = dataframes[dataframes['gender']=='M']
+    elif gender == 'F':
+        dataframes = dataframes[dataframes['gender']=='F']
+    elif gender == 'U':
+        dataframes = dataframes[dataframes['gender']=='U']
+
+    #연령대 필터
+    #같은 년도에서 사용빈도가 적으면 가중치 떨어지도록 설정
+
+    #연도 데이터프레임 불러옴
+    year_data = LoadDataframes("year_dump")
+    # data = data.sort_values(year,ascending=False)
+    # print(data)
+
+    return dataframes
+
+def Recommend(kor_name, gender, year):
+    #발음코드 데이터프레임 불러옴
+    data = LoadDataframes("code_dump")
+
+    #로마화
+    rom_name = Romanization(kor_name)
+
+    #nysiis 코드값 부여
+    global nys_name
+    nys_name = jellyfish.nysiis(rom_name)
+
+    #nysiis similarity 컬럼 추가한 DataFrame 생성
+    df_sim = data.copy()
+    df_sim['nysiis_sim'] = df_sim['nysiis'].apply(NameSimilarity)
+    #유사도 기준 정렬
+    df_sim = df_sim.sort_values('nysiis_sim',ascending=False)
+
+    #필터링(gender~rarity 부분을 설문조사 배열 형태로 넘길지 생각중)
+    #df_sim = Filter(df_sim, gender, year)
+
+    name_array = df_sim['name'].head(4).to_numpy()
+    #list를 dict로 바꿔야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
+    name_array = dict(enumerate(name_array))
+
+    return name_array
