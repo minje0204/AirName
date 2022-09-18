@@ -60,7 +60,7 @@ def Filter(dataframes, gender, year):
 
     return dataframes
 
-def Recommend(kor_name):
+def Recommend(kor_name, gender, age):
     #발음코드 데이터프레임 불러옴
     data = LoadDataframes("code_dump")
 
@@ -78,7 +78,7 @@ def Recommend(kor_name):
     df_sim = df_sim.sort_values('nysiis_sim',ascending=False)
 
     #필터링(gender~rarity 부분을 설문조사 배열 형태로 넘길지 생각중)
-    df_sim = Filter(df_sim, 'M', '1996')
+    df_sim = Filter(df_sim, gender, age)
 
     name_array = df_sim['name'].head(4).to_numpy()
     #list를 dict로 바꿔야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
