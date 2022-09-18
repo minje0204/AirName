@@ -57,6 +57,7 @@ const FinBtnsWrapper = styled.div`
     border-radius: 10px;
     &:hover {
       background-color: var(--primaryMain);
+      cursor: pointer;
     }
   }
   #kakao-link-btn {
@@ -66,6 +67,7 @@ const FinBtnsWrapper = styled.div`
     border-radius: 10px;
     &:hover {
       background-color: var(--primaryMain);
+      cursor: pointer;
     }
   }
   @media (max-width: 650px) {
