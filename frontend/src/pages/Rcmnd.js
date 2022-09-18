@@ -24,17 +24,14 @@ const RcmndContainer = styled.div`
   flex-direction: column;  
   justify-content: center;
   align-items: center;
-
+  min-height: 830px;
 `
 const RcmndHead = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 20;
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const RcmndBody = styled.div`
-  
+
 `;

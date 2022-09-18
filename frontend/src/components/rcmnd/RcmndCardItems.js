@@ -41,7 +41,6 @@ class RcmndCardItems extends React.Component {
 export default RcmndCardItems;
 
 const EachTicketContainer = styled.div`
-  margin: 20px;
 `;
 
 const BACK_COMPONENT = styled.div``;
