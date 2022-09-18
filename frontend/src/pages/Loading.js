@@ -18,4 +18,6 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 90vw;
+  max-width: 700px;
 `;

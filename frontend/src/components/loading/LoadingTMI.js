@@ -1,4 +1,4 @@
-import { Container, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import styled from 'styled-components';
 
 export default function LoadingTMI() {
@@ -8,18 +8,16 @@ export default function LoadingTMI() {
   ];
   const num = Math.floor(Math.random() * infos.length);
   return (
-    <Container fixed>
-      <StyledWrapper>
-        <Box sx={{ bgcolor: '#F9F7F4' }}>
-          <Box m={3}>
-            <Box id="title">TMI #{num + 1}</Box>
-            <Box id="content" m={1}>
-              {infos[num]}
-            </Box>
-          </Box>
+    <StyledWrapper>
+      <Box sx={{ bgcolor: '#F9F7F4', marginBottom: '10px', padding: '10px' }}>
+        <Box id="title" sx={{ margin: '10px' }}>
+          TMI #{num + 1}
         </Box>
-      </StyledWrapper>
-    </Container>
+        <Box id="content" sx={{ margin: '10px' }}>
+          {infos[num]}
+        </Box>
+      </Box>
+    </StyledWrapper>
   );
 }
 

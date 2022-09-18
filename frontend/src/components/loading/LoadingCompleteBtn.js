@@ -10,9 +10,8 @@ export default function LoadBtn() {
       size="large"
       component={Link}
       to="/rcmnd"
-      style={{ width: '50px ' }}
     >
-      <span>▶</span>
+      <span>요정이 추천해준 이름 보러가기</span>
     </Button>
   );
 }
