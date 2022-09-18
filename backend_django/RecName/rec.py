@@ -6,6 +6,7 @@ import urllib.request
 import pandas as pd
 from bs4 import BeautifulSoup
 from .parse import *
+from pymongo import MongoClient
 
 def Romanization(input):
     kor_name = urllib.parse.quote(input)
@@ -53,15 +54,20 @@ def Filter(dataframes, gender, year):
     #같은 년도에서 사용빈도가 적으면 가중치 떨어지도록 설정
 
     #연도 데이터프레임 불러옴
-    year_data = LoadDataframes("year_dump")
+    db = ConnectMongoDB()
+    year_data = LoadDataframes(db, 'yearname')
     # data = data.sort_values(year,ascending=False)
     # print(data)
 
     return dataframes
 
-def Recommend(kor_name, gender, year):
-    #발음코드 데이터프레임 불러옴
-    data = LoadDataframes("code_dump")
+def Recommend(kor_name, year):
+    #[기존 코드] 발음코드 데이터프레임 불러옴
+    #data = LoadDataframes("code_dump")
+
+    db = ConnectMongoDB()
+    #codename collection에서 가져옴
+    data = LoadDataframes(db, 'codename')
 
     #로마화
     rom_name = Romanization(kor_name)
