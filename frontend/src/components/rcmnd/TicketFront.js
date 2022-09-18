@@ -54,4 +54,6 @@ const TickeNameContainer = styled.div`
   font-size: 80px;
 `;
 
-const TicketBarcode = styled.div``;
+const TicketBarcode = styled.div`
+  margin-top: 20px;
+`;

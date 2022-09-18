@@ -4,7 +4,7 @@ import styled from 'styled-components';
 function RcmndGuide() {
   return (
     <RcmndGuideWrapper>
-      이름에 대한 자세한 정보를 확인 한 후, 한가지 이름을 선택해주세요 !
+      가장 마음에드는 이름을 선택해주세요 !
     </RcmndGuideWrapper>
   );
 }
@@ -17,6 +17,8 @@ const RcmndGuideWrapper = styled.div`
   align-items: center;
   color: black;
   background-color: #F9F7F4;
+  font-size: 25px;
+  font-weight: 600;
   width: 100vw;
-  height: 50px;
+  height: 80px;
 `;
