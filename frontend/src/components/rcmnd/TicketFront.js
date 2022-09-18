@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import TicketHeadAirplane from '../../asset/img/rcmnd/TicketHeadAirplane.png';
 import Barcode from '../../asset/img/rcmnd/Barcode.png';
