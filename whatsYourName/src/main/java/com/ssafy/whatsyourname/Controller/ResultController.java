@@ -2,6 +2,9 @@ package com.ssafy.whatsyourname.Controller;
 
 import com.ssafy.whatsyourname.Dto.ResponseResultDto;
 import com.ssafy.whatsyourname.Service.ServiceImpl.ResultServiceImpl;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,11 @@ public class ResultController {
     private final ResultServiceImpl resultService;
     private final String FAIL = "FAIL";
 
+    @ApiOperation(value="Name에 대한 전체 결과 반환")
+    @ApiResponses({
+            @ApiResponse(code=200,message="API 정상 작동"),
+            @ApiResponse(code=404,message="해당 이름 없음")
+    })
     @GetMapping("/report/{name}")
     public ResponseEntity<?> getFinalName(@PathVariable("name") String name) {
         ResponseResultDto result = resultService.findFinalName(name);
