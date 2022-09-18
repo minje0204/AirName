@@ -26,7 +26,7 @@ function TicketFront({ name }) {
             </TicketTTSBtnContainer>
           </div>
           <SelectBtnContainer>
-            <Link to={'/finreport'}>
+            <Link to={`/finreport/${name}`}>
               <button
                 className="btn-15 custom-btn"
                 onClick={(e) => {

@@ -24,7 +24,7 @@ function App() {
           <Route path="/loading" element={<Loading />} />
           <Route path="/rcmnd" element={<Rcmnd />} />
           <Route path="/namecard" element={<NameCard />} />
-          <Route path="/finreport" element={<FinReport />} />
+          <Route path="/finreport/:selectedName" element={<FinReport />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
