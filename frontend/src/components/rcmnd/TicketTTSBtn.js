@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import SpeakerImg from '../../asset/img/finreport/Speaker.svg';
 
