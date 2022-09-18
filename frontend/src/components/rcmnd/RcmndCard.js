@@ -19,9 +19,8 @@ export default RcmndCard;
 
 const RcmdnCardContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;  
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  max-width: 1300px;
+  flex-wrap: wrap;
+  max-width: 1200px;
 `;

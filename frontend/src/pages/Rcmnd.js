@@ -6,20 +6,32 @@ import RcmndCard from '../components/rcmnd/RcmndCard';
 function Rcmnd() {
   const names = ['Tommy', 'Lisa', 'Sally', 'Jimmy'];
   return (
-    <div>
-      <RcmndGuide names={names} />
+    <RcmndContainer>
+      <RcmndHead>
+        <RcmndGuide names={names} />
+      </RcmndHead>
       <RcmndBody>
         <RcmndCard />
       </RcmndBody>
-    </div>
+    </RcmndContainer>
   );
 }
 
 export default Rcmnd;
 
-const RcmndBody = styled.div`
+const RcmndContainer = styled.div`
+  display: flex;
+  flex-direction: column;  
+  justify-content: center;
+  align-items: center;
+  min-height: 830px;
+`
+const RcmndHead = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 30px;
+`
+
+const RcmndBody = styled.div`
+
 `;

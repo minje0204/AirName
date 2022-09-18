@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 function RcmndGuide() {
@@ -16,9 +15,6 @@ const RcmndGuideWrapper = styled.div`
   justify-content: center;
   align-items: center;
   color: black;
-  background-color: #F9F7F4;
-  font-size: 25px;
+  font-size: clamp(15px, calc(1vh + 1vw), 28px);
   font-weight: 600;
-  width: 100vw;
-  height: 80px;
 `;

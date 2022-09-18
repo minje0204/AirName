@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import SpeakerImg from '../../asset/img/finreport/Speaker.svg';
 
@@ -29,7 +28,7 @@ function TTSBtn(props) {
         startSpeak(e);
       }}
     >
-      <SpeakerImgTag src={SpeakerImg} alt="TTSspeaker" />
+      <SpeakerImgTag className="ttsbtn-img"src={SpeakerImg} alt="TTSspeaker" />
     </Button>
   );
 }
@@ -46,6 +45,5 @@ const Button = styled.button`
 `;
 
 const SpeakerImgTag = styled.img`
-  width: 50px;
-  padding-top: 25px;
+
 `;
