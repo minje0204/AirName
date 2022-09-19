@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+
 import {
   Container,
   TextField,
@@ -8,12 +10,11 @@ import {
   FormControlLabel,
   FormControl
 } from '@mui/material';
-// import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
 
-import postAxios from '../../lib/postAxios';
+// import postAxios from '../../lib/postAxios';
 import API from '../../config';
 
 function EntryCardKo() {
@@ -25,15 +26,22 @@ function EntryCardKo() {
   const birthCheck = /^(19|20)\d{2}/;
   const [birthError, setBirthError] = useState(false);
   const navigate = useNavigate();
-
-  const sendData = async () => {
-    const data = {'name': nameKo, 'birth': birth, 'gender': gender};
-    console.log(data);
-    postAxios(`${API.ENTRY}`, data);
-  };
-
+  
   const linkToSurvey = () => {
     navigate('/loading');
+  };
+
+  const saveToStorage = (localdata) => {
+    localStorage.setItem('user-info', localdata)
+  }
+
+  const sendData = async () => {
+    const data = {'name': nameKo, 'birth': birth};
+    console.log(data);
+    axios
+      .post(`${API.ENTRY}`, data)
+      .then((res)  => {saveToStorage(JSON.stringify(res))})
+    linkToSurvey();
   };
 
   return (
@@ -115,8 +123,8 @@ function EntryCardKo() {
       </div>
       <div id="btn">
         {nameKo && gender && birth ? (
-          <button id="send-btn" onClick={(sendData, linkToSurvey)}>
-            내 영어 이름 리포트 보러가기
+          <button id="send-btn" onClick={(sendData)}>
+            영어 이름이 없는데 어떡하지?
           </button>
         ) : null}
       </div>
