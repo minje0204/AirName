@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 // import Button from '@mui/material/Button';
 import TicketHeadAirplane from '../../asset/img/rcmnd/TicketHeadAirplane.png';
-import TicketTTSBtn from './TicketTTSBtn';
+// import TicketTTSBtn from './TicketTTSBtn';
 import './Rcmnd.css';
 
 function TicketFront({ name }) {
@@ -22,7 +22,7 @@ function TicketFront({ name }) {
           <div>
             <TickeNameContainer>
               {name}
-              <TicketTTSBtn username={name} />
+              {/* <TicketTTSBtn username={name} /> */}
             </TickeNameContainer>
           </div>
           <SelectBtnContainer>
