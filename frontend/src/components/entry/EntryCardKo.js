@@ -1,16 +1,29 @@
 import React, { useState } from 'react';
-import { Container, TextField } from '@mui/material';
+import {
+  Container,
+  TextField,
+  Button,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl
+} from '@mui/material';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
-import SubmitBtn from './EntryCardBtn';
 
 function EntryCardKo() {
   const [name, setName] = useState('');
   const [birth, setBirth] = useState('');
+  const [gender, setGender] = useState('');
+  // const numCheck = /[0-9]/;
+  // const enCheck = /[a-zA-Z]/;
+  // const koCheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+
   return (
     <StyledWrapper>
       <div id="card">
-        <Container sx={{ bgcolor: '#F9AD33', height: '100px' }}>
+        <Container sx={{ bgcolor: 'var(--secondaryMain)', height: '100px' }}>
           <div id="title">
             <div>THE UNITED STATES OF AMERICA</div>
             <div id="title_b">ARRIVAL CARD</div>
@@ -21,27 +34,53 @@ function EntryCardKo() {
             <div className="question">Name</div>
             <TextField
               variant="outlined"
-              color="warning"
-              placeholder="한국어로 이름을 입력해주세요"
-              id="answer"
+              className="answer"
+              inputProps={{
+                maxLength: 5
+              }}
               onChange={(e) => {
                 setName(e.target.value);
               }}
             />
           </div>
           <div className="qAndA">
+            <div className="question">Gender</div>
+            <FormControl className="answer">
+              <RadioGroup
+                aria-labelledby="demo-controlled-radio-buttons-group"
+                name="controlled-radio-buttons-group"
+                value={gender}
+                onChange={(event) => {
+                  setGender(event.target.value);
+                }}
+              >
+                <FormControlLabel
+                  value="male"
+                  control={<Radio />}
+                  label="Male"
+                />
+                <FormControlLabel
+                  value="female"
+                  control={<Radio />}
+                  label="Female"
+                />
+              </RadioGroup>
+            </FormControl>
+          </div>
+          <div className="qAndA">
             <div className="question">Birth</div>
             <TextField
               variant="outlined"
-              color="warning"
-              placeholder="생년월일 8자리를 입력해주세요"
-              id="answer"
+              inputProps={{
+                maxLength: 8
+              }}
+              className="answer"
               onChange={(e) => {
                 setBirth(e.target.value);
               }}
             />
           </div>
-          <ReadOnlyInput q="English Name" a="" />
+          <ReadOnlyInput q="English Name" a=" " />
           <ReadOnlyInput q="Airline No." a="AIR NAME A108" />
           <ReadOnlyInput q="Nationality" a="Korea" />
         </Container>
@@ -53,9 +92,24 @@ function EntryCardKo() {
 
 export default EntryCardKo;
 
+function SubmitBtn() {
+  return (
+    <Button
+      variant="contained"
+      color="warning"
+      size="large"
+      component={Link}
+      to="/survey"
+      sx={{ margin: '10px' }}
+    >
+      <span style={{ fontSize: '20px' }}>영어 이름이 없는데 어떡하지?</span>
+    </Button>
+  );
+}
+
 const StyledWrapper = styled.div`
   #card {
-    width: 500px;
+    width: 100%;
   }
   #title {
     display: flex;
@@ -81,11 +135,13 @@ const StyledWrapper = styled.div`
     width: 150px;
     margin: auto 0;
   }
-  #answer {
+  .answer {
     font-family: 'Daheng';
+    font-size: 20px;
     width: 200px;
   }
   #btn {
-    float: right;
+    display: flex;
+    justify-content: center;
   }
 `;
