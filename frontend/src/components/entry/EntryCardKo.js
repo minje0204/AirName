@@ -13,12 +13,13 @@ import styled from 'styled-components';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
 
 function EntryCardKo() {
-  const [name, setName] = useState('');
-  const [birth, setBirth] = useState('');
+  const [nameKo, setNameKo] = useState('');
+  const nameKoCheck = /[^가-힣]/;
+  const [nameKoError, setNameKoError] = useState(false);
   const [gender, setGender] = useState('');
-  // const numCheck = /[0-9]/;
-  // const enCheck = /[a-zA-Z]/;
-  // const koCheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+  const [birth, setBirth] = useState('');
+  const birthCheck = /^(19|20)\d{2}/;
+  const [birthError, setBirthError] = useState(false);
 
   return (
     <StyledWrapper>
@@ -38,8 +39,16 @@ function EntryCardKo() {
               inputProps={{
                 maxLength: 5
               }}
-              onChange={(e) => {
-                setName(e.target.value);
+              error={nameKoError}
+              helperText={nameKoError ? '다시 입력해주세요' : null}
+              onBlur={(e) => {
+                const nameKoTmp = e.target.value;
+                if (nameKoCheck.test(nameKoTmp) || nameKoTmp.length === 1) {
+                  setNameKoError(true);
+                } else {
+                  setNameKo(nameKoTmp);
+                  setNameKoError(false);
+                }
               }}
             />
           </div>
@@ -68,15 +77,23 @@ function EntryCardKo() {
             </FormControl>
           </div>
           <div className="qAndA">
-            <div className="question">Birth</div>
+            <div className="question">Birth Year</div>
             <TextField
               variant="outlined"
               inputProps={{
-                maxLength: 8
+                maxLength: 4
               }}
               className="answer"
-              onChange={(e) => {
-                setBirth(e.target.value);
+              error={birthError}
+              helperText={birthError ? '다시 입력해주세요' : null}
+              onBlur={(e) => {
+                const birthTmp = e.target.value;
+                if (!birthCheck.test(birthTmp) || birthTmp.length < 4) {
+                  setBirthError(true);
+                } else {
+                  setBirth(birthTmp);
+                  setBirthError(false);
+                }
               }}
             />
           </div>
@@ -85,7 +102,7 @@ function EntryCardKo() {
           <ReadOnlyInput q="Nationality" a="Korea" />
         </Container>
       </div>
-      <div id="btn">{name && birth.length === 8 ? <SubmitBtn /> : null}</div>
+      <div id="btn">{nameKo && gender && birth ? <SubmitBtn /> : null}</div>
     </StyledWrapper>
   );
 }
