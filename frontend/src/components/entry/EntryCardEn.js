@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 import {
   Container,
@@ -9,11 +10,11 @@ import {
   FormControlLabel,
   FormControl
 } from '@mui/material';
-// import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
 
-import postAxios from '../../lib/postAxios';
+// import postAxios from '../../lib/postAxios';
 import API from '../../config';
 
 function EntryCardEn() {
@@ -27,11 +28,23 @@ function EntryCardEn() {
   const [nameEn, setNameEn] = useState('');
   const nameEnCheck = /[^a-zA-Z]/;
   const [nameEnError, setNameEnError] = useState(false);
+  const navigate = useNavigate();
+  
+  const linkToSurvey = () => {
+    navigate('/loading');
+  };
+
+  const saveToStorage = (localdata) => {
+    localStorage.setItem('user-info', localdata)
+  }
 
   const sendData = async () => {
     const data = {'name': nameKo, 'birth': birth, 'gender': gender}
     console.log(data)
-    postAxios(`${API.ENTRY}`, data);
+    axios
+      .post(`${API.ENTRY}`, data)
+      .then((res)  => {saveToStorage(JSON.stringify(res))})
+    linkToSurvey();
   };
 
   return (
@@ -136,7 +149,9 @@ function EntryCardEn() {
       
       <div id="btn">
         {nameKo && gender && birth && nameEn ? 
-          <button id="send-btn" onClick={sendData}>내 영어 이름 리포트 보러가기</button> : null}
+          <button id="send-btn" onClick={(sendData)}>
+            내 영어 이름 리포트 보러가기
+          </button> : null}
       </div>
     </StyledWrapper>
   );
