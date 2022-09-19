@@ -20,7 +20,7 @@ from pymongo import MongoClient
 def ConnectMongoDB():
     #mongoDB 연결객체 생성
     client = MongoClient(host='localhost', port=27017)
-    db = client['airname']
+    db = client['airnameDB']
     return db
 
 def LoadDataframes(db, collection_name):
@@ -37,7 +37,7 @@ def NysiisCode(name):
 
 def main():
     db = ConnectMongoDB()
-    df = LoadDataframes(db, 'airname')
+    df = LoadDataframes(db, 'rawdata')
 
     #[기존 코드] json 읽어서 dataframe 생성했던 코드
     #df = pd.read_json('../DataName/mvpNameSet_Behind_Fin_with_count_state.json')
@@ -52,7 +52,7 @@ def main():
         "gender", #성별
     )
     year_columns = ( #연도 데이터프레임 생성을 위한 컬럼
-        str(1941+i) for i in range(82) #연도, key가 string이어야 mongoDB에 저장됨
+        str(1940+i) for i in range(82) #연도, key가 string이어야 mongoDB에 저장됨
     )
 
     #발음코드 데이터프레임 생성
