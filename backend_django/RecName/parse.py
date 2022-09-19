@@ -89,7 +89,7 @@ def CreateYearname(db, dataframes):
     # 생성한 DataFrame을 mongoDB에 저장
     SaveDataframes(db, df_year, 'yearname')
 
-def addAttribute(df):
+def CreateAtmName(db,df):
     d={'name':[],'gender':[]}
     firstValidSex = 'female'
 
@@ -119,7 +119,8 @@ def addAttribute(df):
                 else:
                     d[list(name.male['attribute'].keys())[i]].append(0)
                     d[list(name.male['attribute'].keys())[i+1]].append(1)
-    return pd.DataFrame(data=d)
+    
+    SaveDataframes(db, pd.DataFrame(data=d), 'atm')
 
 def main():
     db = ConnectMongoDB()
@@ -127,6 +128,7 @@ def main():
 
     CreateCodename(db, df)
     CreateYearname(db, df)
+    CreateAtmName(db,df)
 
     #[기존 코드] json 읽어서 dataframe 생성했던 코드
     #df = pd.read_json('../DataName/mvpNameSet_Behind_Fin_with_count_state.json')
@@ -135,9 +137,6 @@ def main():
     # DumpDataframes(df_code,"code_dump")
     # DumpDataframes(df_year,"year_dump")
 
-
-    atm_collection = db['atm']
-    atm_collection.insert_many(addAttribute(df).to_dict('records'))
-
+    
 if __name__ == '__main__':
     main()
