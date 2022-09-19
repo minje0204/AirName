@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import AirplaneWindow from '../components/home/AirplaneWindow';
 import StartBtn from '../components/home/StartBtn';
