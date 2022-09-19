@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
-
+import styled from 'styled-components';
 import LoadBtn from './LoadingCompleteBtn';
 
 export default function ProgressBar() {
@@ -24,12 +24,22 @@ export default function ProgressBar() {
   }, []);
 
   return (
-    <Box id="wait" sx={{ margin: '10px' }}>
-      {isFull === 1 ? (
-        <LoadBtn id="loadBtn" />
-      ) : (
+    <div>
+      <Box id="wait" sx={{ margin: '10px' }}>
         <LinearProgress variant="determinate" value={progress} />
-      )}
-    </Box>
+        <StyledWrapper>
+          {isFull === 1 ? (
+            <LoadBtn btnVisiblity="visible" />
+          ) : (
+            <LoadBtn btnVisiblity="hidden" />
+          )}
+        </StyledWrapper>
+      </Box>
+    </div>
   );
 }
+
+const StyledWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
