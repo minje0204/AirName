@@ -44,11 +44,9 @@ def Filter(dataframes, gender, year):
     #성별 필터
     #설문조사에서 응답한 값에 따라 데이터셋 자체에서 필터링
     if gender == 'M':
-        dataframes = dataframes[dataframes['gender']=='M']
+        dataframes = dataframes[(dataframes['gender']=='M') | (dataframes['gender']=='U')]
     elif gender == 'F':
-        dataframes = dataframes[dataframes['gender']=='F']
-    elif gender == 'U':
-        dataframes = dataframes[dataframes['gender']=='U']
+        dataframes = dataframes[(dataframes['gender']=='F') | (dataframes['gender']=='U')]
 
     #연령대 필터
     #같은 년도에서 사용빈도가 적으면 가중치 떨어지도록 설정
@@ -61,7 +59,7 @@ def Filter(dataframes, gender, year):
 
     return dataframes
 
-def Recommend(kor_name, year):
+def Recommend(kor_name, gender, year):
     #[기존 코드] 발음코드 데이터프레임 불러옴
     #data = LoadDataframes("code_dump")
 
@@ -83,7 +81,7 @@ def Recommend(kor_name, year):
     df_sim = df_sim.sort_values('nysiis_sim',ascending=False)
 
     #필터링(gender~rarity 부분을 설문조사 배열 형태로 넘길지 생각중)
-    #df_sim = Filter(df_sim, gender, year)
+    df_sim = Filter(df_sim, gender, year)
 
     name_array = df_sim['name'].head(4).to_numpy()
     #list를 dict로 바꿔야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
