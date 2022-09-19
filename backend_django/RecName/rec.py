@@ -5,7 +5,7 @@ import jellyfish
 import urllib.request
 import pandas as pd
 from bs4 import BeautifulSoup
-from .parse import *
+from .connection import *
 from pymongo import MongoClient
 
 def Romanization(input):

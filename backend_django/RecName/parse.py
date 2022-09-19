@@ -3,6 +3,7 @@ import pandas as pd
 import os
 import jellyfish
 from pymongo import MongoClient
+from .connection import *
 
 # [기존 코드] 디렉토리에 pickle 저장해서 이용하는 방법
 # def Directory(dir):
@@ -17,23 +18,9 @@ from pymongo import MongoClient
 # def LoadDataframes(filename):
 #     return pd.read_pickle(Directory(filename))
 
-def ConnectMongoDB():
-    #mongoDB 연결객체 생성
-    client = MongoClient(host='localhost', port=27017)
-    db = client['airnameDB']
-    return db
-
-def LoadDataframes(db, collection_name):
-    cursor = db[collection_name].find()
-    df = pd.DataFrame(list(cursor))
-    # _id 컬럼 삭제
-    del df['_id']
-    return df
-
 def NysiisCode(name):
     name = jellyfish.nysiis(name)
     return name
-
 
 def main():
     db = ConnectMongoDB()
