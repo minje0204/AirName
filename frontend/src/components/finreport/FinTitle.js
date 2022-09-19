@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import TTSBtn from './TTSBtn';
+// import TTSBtn from './TTSBtn';
 
 function FinTitle({ hometown, username }) {
   return (
@@ -10,7 +10,7 @@ function FinTitle({ hometown, username }) {
         </WelcomeWrapper>
         <NameWrapper>
           {username}!
-          <TTSBtn id="fin-tts" username={username} hometown={hometown} />
+          {/* <TTSBtn id="fin-tts" username={username} hometown={hometown} /> */}
         </NameWrapper>
       </div>
     </StyledWrapper>
