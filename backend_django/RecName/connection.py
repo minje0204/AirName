@@ -1,6 +1,5 @@
 import pandas as pd
 from pymongo import MongoClient
-from .connection import *
 
 def ConnectMongoDB():
     #mongoDB 연결객체 생성
@@ -14,3 +13,9 @@ def LoadDataframes(db, collection_name):
     # _id 컬럼 삭제
     del df['_id']
     return df
+
+def SaveDataframes(db, dataframes, collection_name):
+    collection = db[collection_name]
+    dataframes.reset_index(inplace=True)
+    dataframes_dict = dataframes.to_dict("records")
+    collection.insert_many(dataframes_dict)
