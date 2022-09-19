@@ -9,6 +9,7 @@ import {
   FormControl
 } from '@mui/material';
 // import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
 
@@ -23,11 +24,16 @@ function EntryCardKo() {
   const [birth, setBirth] = useState('');
   const birthCheck = /^(19|20)\d{2}/;
   const [birthError, setBirthError] = useState(false);
+  const navigate = useNavigate();
 
   const sendData = async () => {
-    const data = {'name': nameKo, 'birth': birth, 'gender': gender}
-    console.log(data)
+    const data = {'name': nameKo, 'birth': birth, 'gender': gender};
+    console.log(data);
     postAxios(`${API.ENTRY}`, data);
+  };
+
+  const linkToSurvey = () => {
+    navigate('/loading');
   };
 
   return (
@@ -72,11 +78,7 @@ function EntryCardKo() {
                   setGender(event.target.value);
                 }}
               >
-                <FormControlLabel
-                  value="m"
-                  control={<Radio />}
-                  label="Male"
-                />
+                <FormControlLabel value="m" control={<Radio />} label="Male" />
                 <FormControlLabel
                   value="f"
                   control={<Radio />}
@@ -111,7 +113,13 @@ function EntryCardKo() {
           <ReadOnlyInput q="Nationality" a="Korea" />
         </Container>
       </div>
-      <div id="btn">{nameKo && gender && birth ? <button id="send-btn" onClick={sendData}>내 영어 이름 리포트 보러가기</button> : null}</div>
+      <div id="btn">
+        {nameKo && gender && birth ? (
+          <button id="send-btn" onClick={(sendData, linkToSurvey)}>
+            내 영어 이름 리포트 보러가기
+          </button>
+        ) : null}
+      </div>
     </StyledWrapper>
   );
 }
@@ -170,7 +178,7 @@ const StyledWrapper = styled.div`
     display: flex;
     justify-content: center;
   }
-  #send-btn{
+  #send-btn {
     font-size: 20px;
     background-color: var(--secondaryMain);
     margin: 20px;
