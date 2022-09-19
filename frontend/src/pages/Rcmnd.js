@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-// import API from '../config';
-// import postAxios from '../lib/postAxios';
+import API from '../config';
+import postAxios from '../lib/postAxios';
 import RcmndGuide from '../components/rcmnd/RcmndGuide';
 import RcmndCard from '../components/rcmnd/RcmndCard';
 
 function Rcmnd() {
-  // const data = { title: '제목', body: 'bar', userId: 1 }
-  
-  // const requestName = async () => {
-  //   postAxios(`${API.POST}`, data);
-  // };
+  const data = { name: '정지은', birth: '1995' };
+
+  const requestName = async () => {
+    postAxios(`${API.ENTRY}`, data);
+  };
 
   const names = ['Tommy', 'Lisa', 'Sally', 'Jimmy'];
   return (
@@ -21,6 +21,7 @@ function Rcmnd() {
       <RcmndBody>
         <RcmndCard />
       </RcmndBody>
+      <button onClick={requestName}></button>
     </RcmndContainer>
   );
 }
