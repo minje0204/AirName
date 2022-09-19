@@ -1,12 +1,21 @@
 import React from 'react';
+import styled from 'styled-components';
 import EntryCardKo from '../components/entry/EntryCardKo';
 
 function EntryKo() {
   return (
-    <div>
-      <EntryCardKo />
-    </div>
+    <StyledWrapper>
+      <div>
+        <EntryCardKo />
+      </div>
+    </StyledWrapper>
   );
 }
 
 export default EntryKo;
+
+const StyledWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
