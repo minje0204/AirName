@@ -34,10 +34,41 @@ def NysiisCode(name):
     name = jellyfish.nysiis(name)
     return name
 
+def addAttribute(df):
+    d={'name':[],'gender':[]}
+    firstValidSex = 'female'
+
+    if len(df.at[0,'female']) ==0:
+        firstValidSex='male'
+
+    for attr in df.at[0,firstValidSex]['attribute']:
+        d[attr] = []
+
+    for name in df.itertuples(index=True):
+        d['name'].append(name.name)
+        if(len(name.female) != 0 ):
+            d['gender'].append('F')
+            for i in range(0, len(name.female['attribute'].keys()), 2) :    
+                if(list(name.female['attribute'].values())[i] > list(name.female['attribute'].values())[i+1]):
+                    d[list(name.female['attribute'].keys())[i]].append(1)
+                    d[list(name.female['attribute'].keys())[i+1]].append(0)
+                else:
+                    d[list(name.female['attribute'].keys())[i]].append(0)
+                    d[list(name.female['attribute'].keys())[i+1]].append(1)
+        elif(len(name.male) != 0 ):
+            d['gender'].append('M')
+            for i in range(0, len(name.male['attribute'].keys()), 2) :    
+                if(list(name.male['attribute'].values())[i] > list(name.male['attribute'].values())[i+1]):
+                    d[list(name.male['attribute'].keys())[i]].append(1)
+                    d[list(name.male['attribute'].keys())[i+1]].append(0)
+                else:
+                    d[list(name.male['attribute'].keys())[i]].append(0)
+                    d[list(name.male['attribute'].keys())[i+1]].append(1)
+    return pd.DataFrame(data=d)
 
 def main():
     db = ConnectMongoDB()
-    df = LoadDataframes(db, 'rawdata')
+    df = LoadDataframes(db, 'rawData')
 
     #[기존 코드] json 읽어서 dataframe 생성했던 코드
     #df = pd.read_json('../DataName/mvpNameSet_Behind_Fin_with_count_state.json')
@@ -54,7 +85,7 @@ def main():
     year_columns = ( #연도 데이터프레임 생성을 위한 컬럼
         str(1940+i) for i in range(82) #연도, key가 string이어야 mongoDB에 저장됨
     )
-
+    
     #발음코드 데이터프레임 생성
     for data in df.itertuples():
 
@@ -113,6 +144,10 @@ def main():
     df_year.reset_index(inplace=True)
     df_year_dict = df_year.to_dict("records")
     year_collection.insert_many(df_year_dict)
+
+    atm_collection = db['atm']
+    atm_collection.insert_many(addAttribute(df).to_dict('records'))
+   
 
 if __name__ == '__main__':
     main()
