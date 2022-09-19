@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import {
   Container,
   TextField,
-  Button,
+  // Button,
   Radio,
   RadioGroup,
   FormControlLabel,
   FormControl
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
+
+import postAxios from '../../lib/postAxios';
+import API from '../../config';
 
 function EntryCardKo() {
   const [nameKo, setNameKo] = useState('');
@@ -20,6 +23,12 @@ function EntryCardKo() {
   const [birth, setBirth] = useState('');
   const birthCheck = /^(19|20)\d{2}/;
   const [birthError, setBirthError] = useState(false);
+
+  const sendData = async () => {
+    const data = {'name': nameKo, 'birth': birth, 'gender': gender}
+    console.log(data)
+    postAxios(`${API.ENTRY}`, data);
+  };
 
   return (
     <StyledWrapper>
@@ -64,12 +73,12 @@ function EntryCardKo() {
                 }}
               >
                 <FormControlLabel
-                  value="male"
+                  value="m"
                   control={<Radio />}
                   label="Male"
                 />
                 <FormControlLabel
-                  value="female"
+                  value="f"
                   control={<Radio />}
                   label="Female"
                 />
@@ -102,27 +111,27 @@ function EntryCardKo() {
           <ReadOnlyInput q="Nationality" a="Korea" />
         </Container>
       </div>
-      <div id="btn">{nameKo && gender && birth ? <SubmitBtn /> : null}</div>
+      <div id="btn">{nameKo && gender && birth ? <button id="send-btn" onClick={sendData}>내 영어 이름 리포트 보러가기</button> : null}</div>
     </StyledWrapper>
   );
 }
 
 export default EntryCardKo;
 
-function SubmitBtn() {
-  return (
-    <Button
-      variant="contained"
-      color="warning"
-      size="large"
-      component={Link}
-      to="/survey"
-      sx={{ margin: '10px' }}
-    >
-      <span style={{ fontSize: '20px' }}>영어 이름이 없는데 어떡하지?</span>
-    </Button>
-  );
-}
+// function SubmitBtn() {
+//   return (
+//     <Button
+//       variant="contained"
+//       color="warning"
+//       size="large"
+//       component={Link}
+//       to="/survey"
+//       sx={{ margin: '10px' }}
+//     >
+//       <span style={{ fontSize: '20px' }}>영어 이름이 없는데 어떡하지?</span>
+//     </Button>
+//   );
+// }
 
 const StyledWrapper = styled.div`
   #card {
@@ -160,5 +169,12 @@ const StyledWrapper = styled.div`
   #btn {
     display: flex;
     justify-content: center;
+  }
+  #send-btn{
+    font-size: 20px;
+    background-color: var(--secondaryMain);
+    margin: 20px;
+    padding: 15px;
+    border: 0;
   }
 `;
