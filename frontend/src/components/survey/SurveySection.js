@@ -1,32 +1,66 @@
-import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Fairly from '../../asset/img/survey/Fairy.svg';
 import './Survey.css';
+import question from './Question';
+import answer from './Answer';
+// import answerKey from './AnswerKey';
 
 function SurveySection() {
-  const Question = ['당신은 어떤 성별의 이름을 받고 싶으신가요?', '나는 누구'];
-  const Answer = [
-    ['남성적', '여성적', '중성적'],
-    ['A', 'B', 'C']
-  ];
-  const handleClick = () => {
-    console.log('click');
+
+  
+  // 설문 개수 11개
+  // const N = 11;
+
+  const [cur, setCur] = useState(0);
+  const [surveyRes, setSurveyRes] = useState([]);
+  const navigate = useNavigate();
+  // 마지막인지 검사하는함수
+  // True면
+  const IsLast = (num) => {
+    if (num === 11) {
+      console.log('설문 끝!')
+      navigate('/loading');
+    }
+  }
+
+  const handleClick0 = () => {
+    setSurveyRes(() => [...surveyRes, 0]);
+    setCur(cur + 1);
+    console.log(surveyRes);
+    IsLast(cur);
+  };
+
+  const handleClick1 = () => {
+    setSurveyRes(() => [...surveyRes, 1]);
+    setCur(cur + 1);
+    console.log(surveyRes);
+    IsLast(cur);
+  };
+
+  const handleClick2 = () => {
+    setSurveyRes(() => [...surveyRes, 2]);
+    setCur(cur + 1);
+    console.log(surveyRes);
+    console.log(cur);
+    IsLast(cur);
   };
   return (
     <SveySectionContainer>
       <SveyHead>
+        {/* {answerKey} */}
         <SveyImg>
           <img src={Fairly} />
         </SveyImg>
-        <SveyQuestion className="speech-bubble">{Question[0]}</SveyQuestion>
+        <SveyQuestion className="speech-bubble">{question[cur]}</SveyQuestion>
       </SveyHead>
       <SveyBody>
-        <Link to="/loading">
-          <SvyBtbn onClick={handleClick}>{Answer[0][0]}</SvyBtbn>
-          <SvyBtbn>{Answer[0][1]}</SvyBtbn>
-          <SvyBtbn>{Answer[0][2]}</SvyBtbn>
-        </Link>
+
+        <SvyBtbn onClick={handleClick0}>{answer[cur][0]}</SvyBtbn>
+        <SvyBtbn onClick={handleClick1}>{answer[cur][1]}</SvyBtbn>
+        <SvyBtbn onClick={handleClick2}>{answer[cur][2]}</SvyBtbn>
+
       </SveyBody>
     </SveySectionContainer>
   );
