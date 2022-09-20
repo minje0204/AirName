@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import QRImg from '../../asset/img/finreport/QRImg.png';
 import Barcode from '../../asset/img/finreport/Barcode.png';
 import Airplane from '../../asset/img/finreport/Airplane.png';
+import TicketHeadAirplane from '../../asset/img/finreport/TicketHeadAirplane.png';
 
 function MyCard() {
   return (
     <TicketWrapper>
       <TicketHead>
-        <TicketLeftHead>AIR NAME</TicketLeftHead>
+        <TicketLeftHead><img id="head-img" src={TicketHeadAirplane}/>AIR NAME Ticket</TicketLeftHead>
         <TicketRightHead>Right</TicketRightHead>
       </TicketHead>
       <TicketBody>
@@ -82,6 +83,11 @@ const TicketLeftHead = styled.div`
   border-top-left-radius: 15px;
   width: 70%;
   height: 100%;
+  font-size: 25px;
+  font-family: 'SCDream7';
+  #head-img{
+    width: 50px;
+  }
 `;
 
 const TicketRightHead = styled.div`
