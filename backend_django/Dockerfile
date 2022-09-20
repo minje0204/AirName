@@ -20,5 +20,4 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 EXPOSE 8000
---access-logfile access.log --error-logfile error.log
 CMD ["gunicorn", "--bind", "0.0.0.0:8000","--access-logfile","access.log","--error-logfile","error.log","YourName.wsgi:application"]
