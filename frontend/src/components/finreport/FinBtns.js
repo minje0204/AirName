@@ -5,6 +5,7 @@ function FinBtns({ username }) {
   // 카카오톡 공유 함수
   const kakaoShare = () => {
     window.Kakao.Link.createDefaultButton({
+      container: '#kakao-link-btn',
       objectType: 'feed',
       content: {
         title: 'Hi! My name is ' + `${username}😎`,

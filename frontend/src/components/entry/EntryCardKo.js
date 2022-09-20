@@ -62,6 +62,7 @@ function EntryCardKo() {
             <TextField
               variant="outlined"
               className="answer"
+              placeholder="한글 이름 입력"
               inputProps={{
                 maxLength: 5
               }}
@@ -106,6 +107,7 @@ function EntryCardKo() {
                 maxLength: 4
               }}
               className="answer"
+              placeholder="태어난 해 ex)1995"
               error={birthError}
               helperText={birthError ? '다시 입력해주세요' : null}
               onBlur={(e) => {
@@ -195,5 +197,6 @@ const StyledWrapper = styled.div`
     margin: 20px;
     padding: 15px;
     border: 0;
+    color: black;
   }
 `;

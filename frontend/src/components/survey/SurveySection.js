@@ -45,7 +45,7 @@ function SurveySection() {
       <SveyHead>
         {/* {answerKey} */}
         <SveyImg>
-          <img src={Fairly} />
+          <img id="survey-img" src={Fairly} />
         </SveyImg>
         <SveyQuestion className="speech-bubble">{question[cur]}</SveyQuestion>
       </SveyHead>
@@ -79,36 +79,24 @@ const SveyHead = styled.div`
 `;
 
 const SveyImg = styled.div`
-  height: 80%;
-  width: 20%;
   padding-left: 30px;
   z-index: 1;
-  // &:hover {
-  //   animation: shake 10s;
-  // }
-  // @keyframes shake {
-  //   0% {
-  //     transform: translate(1px, 1px) rotate(0deg);
-  //   }
-  //   30% {
-  //     transform: translate(40px, 2px) rotate(0deg);
-  //   }
-  //   60% {
-  //     transform: translate(-1px, -1px) rotate(1deg);
-  //   }
-  //   100% {
-  //     transform: translate(1px, -2px) rotate(-1deg);
-  //   }
-  // };
+  @media (max-width: 650px) {
+    padding-left: 20px;
+    #survey-img {
+      width: 50px;
+    }
+  }
 `;
 const SveyQuestion = styled.div`
-  height: 80%;
-  width: 80%;
   margin-left: 3%;
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 25px;
+  @media (max-width: 650px) {
+    font-size: 12px;
+  }
 `;
 
 const SveyBody = styled.div`

@@ -9,9 +9,11 @@ function FeedbackBtn() {
     <StyledWrapper>
       {sbOn ? (
         <div className="speechBubble">
-          AIR Name에 대한 의견은
+          [📢 클릭시 구글폼으로 이동]
           <br />
-          저에게 말씀해주세요
+          AIR NAME에 대한 의견은
+          <br />
+          저에게 말씀해주세요!
         </div>
       ) : null}
 

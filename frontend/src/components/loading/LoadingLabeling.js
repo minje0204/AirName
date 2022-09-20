@@ -87,6 +87,7 @@ const StyledWrapper = styled.div`
   #choices {
     display: flex;
     justify-content: space-around;
+    flex-direction: row;
   }
   .choice {
     radius: 10px;
