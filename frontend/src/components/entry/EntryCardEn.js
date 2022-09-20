@@ -35,14 +35,16 @@ function EntryCardEn() {
   };
 
   const saveToStorage = (localdata) => {
-    localStorage.setItem('user-info', localdata);
+    localStorage.setItem('PNname', localdata);
+    localStorage.setItem('birth', birth);
+    localStorage.setItem('gender', gender);
   };
 
   const sendData = async () => {
     const data = { name: nameKo, birth: birth, gender: gender };
     console.log(data);
     axios.post(`${API.ENTRY}`, data).then((res) => {
-      saveToStorage(JSON.stringify(res));
+      saveToStorage(JSON.stringify(res.data));
     });
     linkToSurvey();
   };

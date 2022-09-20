@@ -1,4 +1,4 @@
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = 'http://3.35.169.128:8000';
 
 const API = {
   POST: `${BASE_URL}/posts`,
