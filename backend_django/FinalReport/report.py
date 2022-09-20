@@ -15,36 +15,41 @@ def LoadDataframes(db, collection_name):
     del df['_id']
     return df
 
-def GetReportData(name, gender, qyear):
+def GetReportData(name, gender, year):
     db = ConnectMongoDB()
     df = LoadDataframes(db, 'rawdata')
 
     result = df.copy()
     result = result[result['name']==name]
-    emptyData = pd.DataFrame()
 
-    name=[]
-    newYear = []
+    yearIdx = 0
+    newState= {}
+    maxState = ""
     for data in result.itertuples():
-        if len(data.female) != 0:
+        if gender=='F':
             for state in data.female['state']:
                 state_year = data.female['state'][state]
-                newYear.
-
+                yearIdx = year-1940
+                newState[state] = state_year[yearIdx]
+                maxState = max(newState, key = newState.get)
         #         내가 태어난 년도 안에서 state -> max값을 반환
-
-
-
-
-
-        if len(data.male) != 0:
+        elif gender=='M':
             for state in data.male['state']:
                 state_year = data.male['state'][state]
+                yearIdx = year-1940
+                newState[state] = state_year[yearIdx]
+                maxState = max(newState, key = newState.get)
 
+    maxCount = newState[maxState]
+    resultMeaning = ''
+    if gender == 'F':
+        resultMeaning = data.female['meaning']
+    elif gender == 'M':
+        resultMeaning = data.male['meaning']
 
-    del result["state"]
+    report = {}
+    report['meaning'] = resultMeaning
+    report['state'] = maxState
 
-    dict(enmurate(result))
-
-
-    return
+    return report
+    
