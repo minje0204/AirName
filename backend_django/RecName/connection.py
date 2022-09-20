@@ -3,7 +3,7 @@ from pymongo import MongoClient
 
 def ConnectMongoDB():
     #mongoDB 연결객체 생성
-    client = MongoClient(host='localhost', port=27017)
+    client = MongoClient( host='localhost', port=27018 )
     db = client['airnameDB']
     return db
 
