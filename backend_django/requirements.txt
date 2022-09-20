@@ -9,3 +9,5 @@ tzdata==2022.2
 beautifulsoup4==4.11.1
 pandas==1.4.4
 django-cors-headers==3.13.0
+django-environ==0.9.0
+numpy==1.23.3
