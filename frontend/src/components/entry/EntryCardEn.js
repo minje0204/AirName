@@ -31,7 +31,7 @@ function EntryCardEn() {
   const navigate = useNavigate();
   
   const linkToSurvey = () => {
-    navigate('/loading');
+    navigate('/survey');
   };
 
   const saveToStorage = (localdata) => {

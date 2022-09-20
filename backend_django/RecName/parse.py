@@ -89,12 +89,46 @@ def CreateYearname(db, dataframes):
     # 생성한 DataFrame을 mongoDB에 저장
     SaveDataframes(db, df_year, 'yearname')
 
+def CreateAtmName(db,df):
+    d={'name':[],'gender':[]}
+    firstValidSex = 'female'
+
+    if len(df.at[0,'female']) ==0:
+        firstValidSex='male'
+
+    for attr in df.at[0,firstValidSex]['attribute']:
+        d[attr] = []
+
+    for name in df.itertuples(index=True):
+        d['name'].append(name.name)
+        if(len(name.female) != 0 ):
+            d['gender'].append('F')
+            for i in range(0, len(name.female['attribute'].keys()), 2) :    
+                if(list(name.female['attribute'].values())[i] > list(name.female['attribute'].values())[i+1]):
+                    d[list(name.female['attribute'].keys())[i]].append(1)
+                    d[list(name.female['attribute'].keys())[i+1]].append(0)
+                else:
+                    d[list(name.female['attribute'].keys())[i]].append(0)
+                    d[list(name.female['attribute'].keys())[i+1]].append(1)
+        elif(len(name.male) != 0 ):
+            d['gender'].append('M')
+            for i in range(0, len(name.male['attribute'].keys()), 2) :    
+                if(list(name.male['attribute'].values())[i] > list(name.male['attribute'].values())[i+1]):
+                    d[list(name.male['attribute'].keys())[i]].append(1)
+                    d[list(name.male['attribute'].keys())[i+1]].append(0)
+                else:
+                    d[list(name.male['attribute'].keys())[i]].append(0)
+                    d[list(name.male['attribute'].keys())[i+1]].append(1)
+    
+    SaveDataframes(db, pd.DataFrame(data=d), 'atm')
+
 def main():
     db = ConnectMongoDB()
     df = LoadDataframes(db, 'rawdata')
 
     CreateCodename(db, df)
     CreateYearname(db, df)
+    CreateAtmName(db,df)
 
     #[기존 코드] json 읽어서 dataframe 생성했던 코드
     #df = pd.read_json('../DataName/mvpNameSet_Behind_Fin_with_count_state.json')
@@ -103,5 +137,6 @@ def main():
     # DumpDataframes(df_code,"code_dump")
     # DumpDataframes(df_year,"year_dump")
 
+    
 if __name__ == '__main__':
     main()

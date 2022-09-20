@@ -8,8 +8,8 @@ from rest_framework.parsers import JSONParser
 from .report import *
 
 class GetReport(APIView):
-    def get(self, request,**kwargs):
-        result = GetReportData(kwargs["name"],kwargs["gender"],kwargs["year"])
+    def get(self,request, **kwargs):
+        result = GetReportData(kwargs["name"],kwargs["gender"],kwargs["birth"])
 
         data = json.dumps(result)
 
