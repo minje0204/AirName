@@ -15,33 +15,37 @@ function FinReport() {
   const birth = localStorage.getItem('birth');
   const gender = localStorage.getItem('gender');
   // const [reportData, setReportData] = useState({})
-  const [femaleMeaning, setFemaleMeaning] = useState('')
-  const [femaleState, setFemaleState] = useState('')
-  const [maleMeaning, setMaleMeaning] = useState('')
-  const [maleState, setMaleState] = useState('')
-  
-  const [mainState, setMainState] = useState('')
+  const [femaleMeaning, setFemaleMeaning] = useState('');
+  const [femaleState, setFemaleState] = useState('');
+  const [maleMeaning, setMaleMeaning] = useState('');
+  const [maleState, setMaleState] = useState('');
+  const [mainState, setMainState] = useState('');
 
-  // const calcMainState = {
-  //   if (maleState && femaleState) {
-
-  //   }
-  // }
+  const calcMainState = () => {
+    if (maleState && femaleState) {
+      if (gender == 'F') {
+        setMainState(femaleState);
+      } else {
+        setMainState(maleState);
+      }
+    }
+  };
 
   const getReportData = async () => {
-  await axios
-    .get(`${API.FINREPORT}/${username}/${gender}/${birth}`)
-    .then((res) => {
-      setFemaleMeaning(res.data.female.meaning);
-      setFemaleState(res.data.female.state);
-      setMaleMeaning(res.data.male.meaning);
-      setMaleState(res.data.male.state);
-    });
+    await axios
+      .get(`${API.FINREPORT}/${username}/${gender}/${birth}`)
+      .then((res) => {
+        setFemaleMeaning(res.data.female.meaning);
+        setFemaleState(res.data.female.state);
+        setMaleMeaning(res.data.male.meaning);
+        setMaleState(res.data.male.state);
+        calcMainState();
+      });
   };
   useEffect(() => {
-    getReportData()
-  }, [])
-    
+    getReportData();
+  }, []);
+
   return (
     <StyledWrapper>
       <FinTitle username={username} hometown={hometown} />
