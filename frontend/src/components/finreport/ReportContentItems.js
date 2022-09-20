@@ -21,4 +21,10 @@ const ContentBox = styled.div`
   background-color: #f9f7f4;
   color: black;
   border-radius: 10px;
+  width: 650px;
+}
+@media (max-width: 650px) {
+  width: 250px;
+  font-size: 12px;
+  padding-top: 15px;
 `;
