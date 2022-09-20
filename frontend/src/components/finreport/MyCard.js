@@ -59,6 +59,10 @@ const TicketWrapper = styled.div`
   flex-direction: column;
   width: 700px;
   height: 300px;
+  @media (max-width: 650px) {
+    width: 300px;
+    height: 129px;
+  }
 `;
 
 const TicketHead = styled.div`
@@ -91,6 +95,12 @@ const TicketLeftHead = styled.div`
   #head-img {
     width: 50px;
   }
+  @media (max-width: 650px) {
+    font-size: 10px;
+    #head-img {
+      width: 20px;
+    }
+  }
 `;
 
 const TicketRightHead = styled.div`
@@ -106,6 +116,10 @@ const TicketRightHead = styled.div`
   font-size: 20px;
   font-family: 'SCDream7';
   font-style: italic;
+  @media (max-width: 650px) {
+    font-size: 5px;
+    border-left: 0.3px dashed black;
+  }
 
 `;
 
@@ -128,6 +142,9 @@ const TicketRight = styled.div`
   border-left: 1px dashed black;
   width: 30%;
   height: 100%;
+  @media (max-width: 650px) {
+    border-left: 0.3px dashed black;
+  }
 `;
 const PassangerInfo = styled.div`
   display: flex;
@@ -144,25 +161,36 @@ const Passanger = styled.div`
 const PassangerTitle = styled.div`
   font-size: 20px;
   font-family: 'SCDream3';
+  @media (max-width: 650px) {
+    font-size: 10px;
+  }
 `;
 const PassangerBody = styled.div`
   font-size: 40px;
   font-family: 'SCDream7';
+  @media (max-width: 650px) {
+    font-size: 20px;
+  }
 `;
 const Seat = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 10px;
 `;
 const SeatTitle = styled.div`
   font-size: 20px;
   font-family: 'SCDream3';
+  @media (max-width: 650px) {
+    font-size: 10px;
+  }
 `;
 const SeatBody = styled.div`
   font-size: 40px;
   font-family: 'SCDream7';
+  @media (max-width: 650px) {
+    font-size: 20px;
+  }
 `;
 const Gate = styled.div`
   display: flex;
@@ -174,13 +202,25 @@ const Gate = styled.div`
 const GateTitle = styled.div`
   font-size: 20px;
   font-family: 'SCDream3';
+  @media (max-width: 650px) {
+    font-size: 10px;
+  }
 `;
 const GateBody = styled.div`
   font-size: 40px;
   font-family: 'SCDream7';
+  @media (max-width: 650px) {
+    font-size: 20px;
+  }
 `;
 const BarcodeContainer = styled.div`
   margin-top: 20px;
+  @media (max-width: 650px) {
+    margin-top: 0px;
+    #barcode-img{
+      width: 80px;
+    }
+  }
 `;
 
 const TicketJourney = styled.div`
@@ -191,18 +231,36 @@ const TicketJourney = styled.div`
 `;
 const Depart = styled.div`
   font-size: 20px;
+  @media (max-width: 650px) {
+    font-size: 10px;
+  }
 `;
 const AirplaneImg = styled.div`
   #airplane-img {
     width: 30px;
   }
+  @media (max-width: 650px) {
+    #airplane-img {
+      width: 15px;
+    }
+  }
 `;
 const Arrive = styled.div`
   font-size: 20px;
+  @media (max-width: 650px) {
+    font-size: 10px;
+  }
 `;
 const QR = styled.div`
   margin-top: 10px;
   #qr-img {
     width: 90px;
   }
+  @media (max-width: 650px) {
+    margin-top: 0px;
+    #qr-img {
+      width: 30px;
+    }
+  }
+
 `;
