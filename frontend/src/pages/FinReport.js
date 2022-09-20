@@ -21,6 +21,7 @@ function FinReport() {
   const [maleState, setMaleState] = useState('');
   const [mainState, setMainState] = useState('');
 
+  // maleState, femaleState 존재에 따라 mainState 저장
   const calcMainState = () => {
     if (maleState && femaleState) {
       if (gender === 'F') {
@@ -35,6 +36,7 @@ function FinReport() {
       }
   };
 
+  // 리포트 데이터 요청하고 저장하는 함수
   const getReportData = async () => {
     await axios
       .get(`${API.FINREPORT}/${username}/${gender}/${birth}`)
@@ -47,6 +49,7 @@ function FinReport() {
       });
   };
 
+  // 렌더링 될 때, 리포트 데이터 요청 
   useEffect(() => {
     getReportData();
   }, []);
