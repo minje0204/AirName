@@ -22,31 +22,7 @@ def GetRandomName():
     db = ConnectMongoDB()
     df = LoadDataframes(db, 'rawdata')
 
-    korean_attribute={
-'Masculine':'남성적인',
-'Feminine':'여성적인',
-'Classic':'고전적인',
-'Modern':'현대적인',
-'Mature':'성숙한',
-'Youthful':'앳된',
-'Formal':'격식 있는',
-'Informal':'자유로운',
-'Upper Class':'상류층의',
-'Common':'대중적인',
-'Urban':'도시적인',
-'Natural':'자연친화적인',
-'Wholesome':'신중한',
-'Devious':'충동적인',
-'Strong':'강한',
-'Delicate':'섬세한',
-'Refined':'세련된',
-'Rough':'거친',
-'Strange':'특이한',
-'Boring':'평범한',
-'Simple':'단순한',
-'Complex':'복잡한',
-'Serious':'진지한',
-'Comedic':'웃긴'}
+    
     report = {}
     random_data = df.sample(n=1)
     
@@ -83,7 +59,7 @@ def GetRandomName():
     right_percent = round(random_attribute[attribute_right]/(random_attribute[attribute_left]+random_attribute[attribute_right])*100)
     report['name'] =random_name
     report['gender'] = random_gender
-    report['attribute_name'] = [korean_attribute[attribute_left],korean_attribute[attribute_right]]
+    report['attribute_name'] = [attribute_left,attribute_right]
     report['attribute_percentage'] = [left_percent,right_percent]
 
     return report

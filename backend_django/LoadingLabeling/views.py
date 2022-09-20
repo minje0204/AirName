@@ -10,8 +10,8 @@ class Labeling(APIView):
     def get(self, request):
         result = GetRandomName()
 
-        data = json.dumps(result,ensure_ascii=False).encode('utf-8')
+        data = json.dumps(result)
 
-        return JsonResponse(data.decode(), safe=False)
+        return JsonResponse(data, safe=False)
 
 
