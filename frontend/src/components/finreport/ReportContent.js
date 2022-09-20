@@ -1,12 +1,23 @@
 import React from 'react';
 import ReportContentItems from './ReportContentItems';
 
-function ReportContent(props) {
+function ReportContent({
+  username,
+  hometown,
+  maleState,
+  femaleState,
+  maleMeaning,
+  femaleMeaning
+}) {
   return (
     <div>
       <ReportContentItems
-        username={props.username}
-        hometown={props.hometown}
+        username={username}
+        hometown={hometown}
+        maleState={maleState}
+        femaleState={femaleState}
+        maleMeaning={maleMeaning}
+        femaleMeaning={femaleMeaning}
       ></ReportContentItems>
     </div>
   );
