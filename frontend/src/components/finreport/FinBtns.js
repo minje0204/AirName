@@ -1,17 +1,18 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-function FinBtns() {
+function FinBtns({username}) {
+  // 카카오톡 공유 함수 
   const kakaoShare = () => {
-    window.Kakao.Link.createDefaultButton({
-      container: '#kakao-link-btn',
+    Kakao.Link.sendDefault({
       objectType: 'feed',
       content: {
-        title: 'AIR NAME',
-        description: '#영어이름 #알잘딱깔센',
+        title: 'Hi! My name is ' + `${username}😎`,
+        description: '' + `${username}의 🔽리포트 보러가기🔽` ,
         imageUrl: 'https://ifh.cc/g/PBX9v2.png',
         link: {
-          mobileWebUrl: 'https://air-name.vercel.app',
-          webUrl: 'https://air-name.vercel.app'
+          mobileWebUrl: 'https://airname.shop' + `/finreport/${username}`,
+          webUrl: 'https://airname.shop' + `/finreport/${username}`
         }
       }
     });
@@ -19,13 +20,14 @@ function FinBtns() {
   return (
     <StyledWrapper>
       <FinBtnsWrapper>
+        <Link to={'/'}>
         <button variant="contained" id="img-save-btn">
-          티켓 이미지로 저장
+          홈으로 돌아가기
         </button>
+        </Link>
       </FinBtnsWrapper>
       <FinBtnsWrapper>
         <button
-          variant="contained"
           className="Kakao"
           id="kakao-link-btn"
           onClick={kakaoShare}

@@ -1,4 +1,4 @@
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = 'https://airname.shop';
 
 const API = {
   POST: `${BASE_URL}/posts`,
@@ -8,4 +8,4 @@ const API = {
   FINREPORT: `${BASE_URL}/report`
 };
 
-export default API;
+export default {API, BASE_URL};

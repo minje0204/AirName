@@ -11,7 +11,7 @@ function FinReport() {
   return (
     <StyledWrapper>
       <FinTitle username={username} hometown={hometown} />
-      <FinBtns />
+      <FinBtns username={username}/>
       <MyCard username={username} hometown={hometown}/>
       <ReportContent username={username} hometown={hometown} />
     </StyledWrapper>
