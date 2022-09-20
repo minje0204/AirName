@@ -91,9 +91,9 @@ function EntryCardEn() {
                   setGender(event.target.value);
                 }}
               >
-                <FormControlLabel value="m" control={<Radio />} label="Male" />
+                <FormControlLabel value="M" control={<Radio />} label="Male" />
                 <FormControlLabel
-                  value="f"
+                  value="F"
                   control={<Radio />}
                   label="Female"
                 />
