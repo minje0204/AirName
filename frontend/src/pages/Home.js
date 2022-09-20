@@ -11,7 +11,7 @@ function Home() {
       </div>
       <div id="right-container">
         <div>
-          <img src="/logo.png" alt="logo" width="300px" />
+          <img src="/logo.png" alt="logo" id="logo" />
         </div>
         <div id="button-container">
           <div>
@@ -47,7 +47,12 @@ const StyledWrapper = styled.div`
       display: none;
     }
   }
-
+  #logo {
+    width: min(80vw, 280px);
+  }
+  StartBtn {
+    width: min(80vw, 280px);
+  }
   display: flex;
   height: 100vh;
   justify-content: space-between;

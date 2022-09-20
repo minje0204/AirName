@@ -5,17 +5,15 @@ import { Link } from 'react-router-dom';
 function StartBtn({ title, subtitle, to }) {
   return (
     <div>
-      {subtitle}
-      <br />
+      <div style={{ marginBottom: '5px' }}>{subtitle}</div>
       <Button
         variant="contained"
         color="primary"
         size="large"
         component={Link}
         to={to}
-        style={{ width: '300px ' }}
       >
-        <span style={{ fontSize: '20px' }}>{title}</span>
+        <span style={{ fontSize: '20px', color: 'white' }}>{title}</span>
       </Button>
     </div>
   );
