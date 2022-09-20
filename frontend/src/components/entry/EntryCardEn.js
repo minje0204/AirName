@@ -29,21 +29,21 @@ function EntryCardEn() {
   const nameEnCheck = /[^a-zA-Z]/;
   const [nameEnError, setNameEnError] = useState(false);
   const navigate = useNavigate();
-  
+
   const linkToSurvey = () => {
-    navigate('/loading');
+    navigate('/survey');
   };
 
   const saveToStorage = (localdata) => {
-    localStorage.setItem('user-info', localdata)
-  }
+    localStorage.setItem('user-info', localdata);
+  };
 
   const sendData = async () => {
-    const data = {'name': nameKo, 'birth': birth, 'gender': gender}
-    console.log(data)
-    axios
-      .post(`${API.ENTRY}`, data)
-      .then((res)  => {saveToStorage(JSON.stringify(res))})
+    const data = { name: nameKo, birth: birth, gender: gender };
+    console.log(data);
+    axios.post(`${API.ENTRY}`, data).then((res) => {
+      saveToStorage(JSON.stringify(res));
+    });
     linkToSurvey();
   };
 
@@ -89,11 +89,7 @@ function EntryCardEn() {
                   setGender(event.target.value);
                 }}
               >
-                <FormControlLabel
-                  value="m"
-                  control={<Radio />}
-                  label="Male"
-                />
+                <FormControlLabel value="m" control={<Radio />} label="Male" />
                 <FormControlLabel
                   value="f"
                   control={<Radio />}
@@ -143,15 +139,15 @@ function EntryCardEn() {
           </div>
           <ReadOnlyInput q="Airline No." a="AIR NAME A108" />
           <ReadOnlyInput q="Nationality" a="Korea" />
-          
         </Container>
       </div>
-      
+
       <div id="btn">
-        {nameKo && gender && birth && nameEn ? 
-          <button id="send-btn" onClick={(sendData)}>
+        {nameKo && gender && birth && nameEn ? (
+          <button id="send-btn" onClick={sendData}>
             내 영어 이름 리포트 보러가기
-          </button> : null}
+          </button>
+        ) : null}
       </div>
     </StyledWrapper>
   );
@@ -211,7 +207,7 @@ const StyledWrapper = styled.div`
     display: flex;
     justify-content: center;
   }
-  #send-btn{
+  #send-btn {
     font-size: 20px;
     background-color: var(--secondaryMain);
     margin: 20px;

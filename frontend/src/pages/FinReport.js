@@ -6,16 +6,14 @@ import MyCard from '../components/finreport/MyCard';
 import ReportContent from '../components/finreport/ReportContent';
 
 function FinReport() {
-  const hometown = 'America';
+  const hometown = 'Korea';
   const { username } = useParams();
   return (
     <StyledWrapper>
-      <div>
-        <FinTitle username={username} hometown={hometown} />
-        <FinBtns />
-        <MyCard />
-        <ReportContent username={username} hometown={hometown} />
-      </div>
+      <FinTitle username={username} hometown={hometown} />
+      <FinBtns />
+      <MyCard username={username} hometown={hometown} />
+      <ReportContent username={username} hometown={hometown} />
     </StyledWrapper>
   );
 }
@@ -26,5 +24,5 @@ const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 90vw;
+  flex-direction: column;
 `;
