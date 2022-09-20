@@ -23,6 +23,7 @@ function SurveySection() {
     const newElement = {
       [answerKey[cur]]: input
     };
+    // eslint-disable-next-line
     console.log({ newElement });
     setSurveyRes({ ...surveyRes, ...newElement });
     if (cur < 11) setCur(cur + 1);
@@ -59,23 +60,26 @@ function SurveySection() {
 
 export default SurveySection;
 
-const SveySectionContainer = styled.div`display: flex;
+const SveySectionContainer = styled.div`
+  display: flex;
   jstify-content: center;
   align-items: center;
   flex-direction: column;
   width: 90vw;
-  max-width: 750px;;
-  `
+  max-width: 750px; ;
+`;
 
-const SveyHead = styled.div`display: flex;
+const SveyHead = styled.div`
+  display: flex;
   jstify-content: center;
   align-items: center;
   width: 100%;
   height: 10vh;
-  max-height: 150px;;
-  `
+  max-height: 150px; ;
+`;
 
-const SveyImg = styled.div`height: 80%;
+const SveyImg = styled.div`
+  height: 80%;
   width: 20%;
   padding-left: 30px;
   z-index: 1;
@@ -96,17 +100,19 @@ const SveyImg = styled.div`height: 80%;
   //     transform: translate(1px, -2px) rotate(-1deg);
   //   }
   // };
-  `
-const SveyQuestion = styled.div`height: 80%;
+`;
+const SveyQuestion = styled.div`
+  height: 80%;
   width: 80%;
   margin-left: 3%;
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 25px;
-  `
+`;
 
-const SveyBody = styled.div`display: flex;
+const SveyBody = styled.div`
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -117,11 +123,11 @@ const SveyBody = styled.div`display: flex;
   margin-top: 20px;
   &:hover {
     background-color: #f0ede9;
-  };
-  `
+  }
+`;
 
 const SvyBtbn = styled.button`
-margin: 10px 20px;
+  margin: 10px 20px;
   width: 80vw;
   max-width: 700px;
   height: 20vw;
@@ -134,5 +140,5 @@ margin: 10px 20px;
   &:hover {
     background-color: #ed6c02;
     cursor: pointer;
-  };
-  `
+  }
+`;

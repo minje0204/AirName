@@ -26,24 +26,24 @@ function EntryCardKo() {
   const birthCheck = /^(19|20)\d{2}/;
   const [birthError, setBirthError] = useState(false);
   const navigate = useNavigate();
-  
+
   const linkToSurvey = () => {
     navigate('/survey');
   };
 
   const saveToStorage = (localdata) => {
-    console.log(localdata)
-    localStorage.setItem('PNname', localdata)
-    localStorage.setItem('birth', birth)
-    localStorage.setItem('gender', gender)
-  }
+    console.log(localdata);
+    localStorage.setItem('PNname', localdata);
+    localStorage.setItem('birth', birth);
+    localStorage.setItem('gender', gender);
+  };
 
-  const sendData = async () => { 
-    const data = {'name': nameKo, 'gender': gender, 'birth': birth};
+  const sendData = async () => {
+    const data = { name: nameKo, gender: gender, birth: birth };
     console.log(data);
-    axios
-      .post(`${API.ENTRY}`, data)
-      .then((res)  => {saveToStorage(JSON.stringify(res.data))})
+    axios.post(`${API.ENTRY}`, data).then((res) => {
+      saveToStorage(JSON.stringify(res.data));
+    });
     linkToSurvey();
   };
 
@@ -126,7 +126,7 @@ function EntryCardKo() {
       </div>
       <div id="btn">
         {nameKo && gender && birth ? (
-          <button id="send-btn" onClick={(sendData)}>
+          <button id="send-btn" onClick={sendData}>
             영어 이름이 없는데 어떡하지?
           </button>
         ) : null}

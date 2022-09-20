@@ -34,10 +34,10 @@ function FinReport() {
         setMainState(maleState);
       }
     } else if (femaleState) {
-        setMainState(femaleState);
-      } else {
-        setMainState(maleState);
-      }
+      setMainState(femaleState);
+    } else {
+      setMainState(maleState);
+    }
   };
 
   // 리포트 데이터 요청하고 저장하는 함수
@@ -53,7 +53,7 @@ function FinReport() {
       });
   };
 
-  // 렌더링 될 때, 리포트 데이터 요청 
+  // 렌더링 될 때, 리포트 데이터 요청
   useEffect(() => {
     getReportData();
   }, []);
