@@ -24,6 +24,5 @@ const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 90vw;
   flex-direction: column;
 `;

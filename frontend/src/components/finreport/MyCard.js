@@ -69,15 +69,21 @@ const TicketHead = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 20%;
+  height: 50px;
   width: 100%;
+  @media (max-width: 650px) {
+    height: 21.5px;
+  }
 `;
 const TicketBody = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80%;
+  height: 250px;
   width: 100%;
+  @media (max-width: 650px) {
+    height: 107.5px;
+  }
 `;
 
 const TicketLeftHead = styled.div`
