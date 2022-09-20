@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-function FinBtns({username}) {
-  // 카카오톡 공유 함수 
+function FinBtns({ username }) {
+  // 카카오톡 공유 함수
   const kakaoShare = () => {
-    Kakao.Link.sendDefault({
+    window.Kakao.Link.createDefaultButton({
       objectType: 'feed',
       content: {
         title: 'Hi! My name is ' + `${username}😎`,
-        description: '' + `${username}의 🔽리포트 보러가기🔽` ,
+        description: '' + `${username}의 🔽리포트 보러가기🔽`,
         imageUrl: 'https://ifh.cc/g/PBX9v2.png',
         link: {
           mobileWebUrl: 'https://airname.shop' + `/finreport/${username}`,
@@ -21,17 +21,13 @@ function FinBtns({username}) {
     <StyledWrapper>
       <FinBtnsWrapper>
         <Link to={'/'}>
-        <button variant="contained" id="img-save-btn">
-          홈으로 돌아가기
-        </button>
+          <button variant="contained" id="img-save-btn">
+            홈으로 돌아가기
+          </button>
         </Link>
       </FinBtnsWrapper>
       <FinBtnsWrapper>
-        <button
-          className="Kakao"
-          id="kakao-link-btn"
-          onClick={kakaoShare}
-        >
+        <button className="Kakao" id="kakao-link-btn" onClick={kakaoShare}>
           리포트 카카오톡 공유하기
         </button>
       </FinBtnsWrapper>
