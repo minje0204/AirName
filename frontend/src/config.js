@@ -1,4 +1,4 @@
-const BASE_URL = 'https://airname.shop';
+const BASE_URL = 'https://airname.shop/api';
 
 const API = {
   POST: `${BASE_URL}/posts`,
@@ -8,4 +8,4 @@ const API = {
   FINREPORT: `${BASE_URL}/report`
 };
 
-export default {API, BASE_URL};
+export default API;

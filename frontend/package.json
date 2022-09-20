@@ -24,19 +24,17 @@
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "airbnb",
-      "react-app/jest"
-    ],
-    "parser": "babel-eslint"
   },
   "browserslist": {
     "production": [
