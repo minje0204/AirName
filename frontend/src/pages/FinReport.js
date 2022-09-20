@@ -10,16 +10,20 @@ import ReportContent from '../components/finreport/ReportContent';
 import API from '../config';
 
 function FinReport() {
-  const hometown = 'Korea';
   const { username } = useParams();
   const birth = localStorage.getItem('birth');
   const gender = localStorage.getItem('gender');
-  // const [reportData, setReportData] = useState({})
+  // const [reportData, setReportData] = useState({});
   const [femaleMeaning, setFemaleMeaning] = useState('');
   const [femaleState, setFemaleState] = useState('');
   const [maleMeaning, setMaleMeaning] = useState('');
   const [maleState, setMaleState] = useState('');
   const [mainState, setMainState] = useState('');
+
+  // const maleState = ''
+  // const femaleState = 'Ajou'
+  // const maleMeaning = ''
+  // const femaleMeaning = 'cherry'
 
   // maleState, femaleState 존재에 따라 mainState 저장
   const calcMainState = () => {
@@ -61,7 +65,7 @@ function FinReport() {
       <MyCard username={username} hometown={mainState} />
       <ReportContent
         username={username}
-        hometown={hometown}
+        hometown={mainState}
         maleState={maleState}
         femaleState={femaleState}
         maleMeaning={maleMeaning}
@@ -78,4 +82,5 @@ const StyledWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 100%;
 `;
