@@ -1,49 +1,64 @@
 import { useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Fairly from '../../asset/img/survey/Fairy.svg';
 import './Survey.css';
 import question from './Question';
 import answer from './Answer';
-// import answerKey from './AnswerKey';
+import answerKey from './AnswerKey';
+import API from '../../config';
 
 function SurveySection() {
-
-  
   // 설문 개수 11개
-  // const N = 11;
+  const N = 12;
 
   const [cur, setCur] = useState(0);
   const [surveyRes, setSurveyRes] = useState([]);
   const navigate = useNavigate();
   // 마지막인지 검사하는함수
   // True면
+
+  const getName = () => {
+    axios.post(`${API.SURVEY}`)
+  }
+
   const IsLast = (num) => {
-    if (num === 11) {
+    if (num === N) {
       console.log('설문 끝!')
+      console.log(surveyRes)
+      getName()
       navigate('/loading');
     }
   }
 
   const handleClick0 = () => {
-    setSurveyRes(() => [...surveyRes, 0]);
+    const newElement = { 
+      [answerKey[cur]] : 0
+    }
+    setSurveyRes(() => [...surveyRes, newElement]);
     setCur(cur + 1);
     console.log(surveyRes);
     IsLast(cur);
   };
 
   const handleClick1 = () => {
-    setSurveyRes(() => [...surveyRes, 1]);
+    const newElement = { 
+      [answerKey[cur]] : 1
+    }
+    setSurveyRes(() => [...surveyRes, newElement]);
     setCur(cur + 1);
     console.log(surveyRes);
     IsLast(cur);
   };
 
   const handleClick2 = () => {
-    setSurveyRes(() => [...surveyRes, 2]);
+    const newElement = { 
+      [answerKey[cur]] : 2
+    }
+    setSurveyRes(() => [...surveyRes, newElement]);
     setCur(cur + 1);
     console.log(surveyRes);
-    console.log(cur);
     IsLast(cur);
   };
   return (
@@ -56,11 +71,9 @@ function SurveySection() {
         <SveyQuestion className="speech-bubble">{question[cur]}</SveyQuestion>
       </SveyHead>
       <SveyBody>
-
         <SvyBtbn onClick={handleClick0}>{answer[cur][0]}</SvyBtbn>
         <SvyBtbn onClick={handleClick1}>{answer[cur][1]}</SvyBtbn>
         <SvyBtbn onClick={handleClick2}>{answer[cur][2]}</SvyBtbn>
-
       </SveyBody>
     </SveySectionContainer>
   );
