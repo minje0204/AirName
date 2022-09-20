@@ -1,3 +1,4 @@
+from http.client import HTTPResponse
 import json
 
 from django.shortcuts import render
@@ -16,5 +17,5 @@ class Labeling(APIView):
 
     def put(self, request):
         SetNameAttribute(request.data['name'], request.data['gender'], request.data['attribute'])
-
+        return JsonResponse("true", safe=False)
 
