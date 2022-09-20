@@ -8,4 +8,4 @@ const API = {
   FINREPORT: `${BASE_URL}/report`
 };
 
-export default API;
+export default {API, BASE_URL};
