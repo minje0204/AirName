@@ -1,23 +1,25 @@
-import React from 'react';
 import styled from 'styled-components';
 import QRImg from '../../asset/img/finreport/QRImg.png';
 import Barcode from '../../asset/img/finreport/Barcode.png';
 import Airplane from '../../asset/img/finreport/Airplane.png';
 import TicketHeadAirplane from '../../asset/img/finreport/TicketHeadAirplane.png';
 
-function MyCard() {
+function MyCard({ username, hometown }) {
   return (
     <TicketWrapper>
       <TicketHead>
-        <TicketLeftHead><img id="head-img" src={TicketHeadAirplane}/>AIR NAME Ticket</TicketLeftHead>
-        <TicketRightHead>Right</TicketRightHead>
+        <TicketLeftHead>
+          <img id="head-img" src={TicketHeadAirplane} />
+          AIR NAME TICKET
+        </TicketLeftHead>
+        <TicketRightHead>BOARDING PASS</TicketRightHead>
       </TicketHead>
       <TicketBody>
         <TicketLeft>
           <PassangerInfo>
             <Passanger>
               <PassangerTitle>Name of Passenger</PassangerTitle>
-              <PassangerBody>Tommy</PassangerBody>
+              <PassangerBody>{username}</PassangerBody>
             </Passanger>
             <Seat>
               <SeatTitle>SEAT</SeatTitle>
@@ -29,18 +31,18 @@ function MyCard() {
             </Gate>
           </PassangerInfo>
           <BarcodeContainer>
-            <img id='barcode-img' src={Barcode} />
+            <img id="barcode-img" src={Barcode} />
           </BarcodeContainer>
         </TicketLeft>
         <TicketRight>
           <TicketJourney>
             <Depart>KOR</Depart>
             <AirplaneImg>
-              <img id='airplane-img' src={Airplane} />
+              <img id="airplane-img" src={Airplane} />
             </AirplaneImg>
-            <Arrive>ATL</Arrive>
+            <Arrive>{hometown}</Arrive>
             <QR>
-              <img id='qr-img' src={QRImg} />
+              <img id="qr-img" src={QRImg} />
             </QR>
           </TicketJourney>
         </TicketRight>
@@ -85,7 +87,8 @@ const TicketLeftHead = styled.div`
   height: 100%;
   font-size: 25px;
   font-family: 'SCDream7';
-  #head-img{
+  font-style: italic;
+  #head-img {
     width: 50px;
   }
 `;
@@ -100,6 +103,10 @@ const TicketRightHead = styled.div`
   border-left: 1px dashed black;
   width: 30%;
   height: 100%;
+  font-size: 20px;
+  font-family: 'SCDream7';
+  font-style: italic;
+
 `;
 
 const TicketLeft = styled.div`
@@ -163,7 +170,6 @@ const Gate = styled.div`
   align-items: center;
   flex-direction: column;
   margin: 10px;
-
 `;
 const GateTitle = styled.div`
   font-size: 20px;
@@ -184,19 +190,19 @@ const TicketJourney = styled.div`
   flex-direction: column;
 `;
 const Depart = styled.div`
-font-size: 20px;
+  font-size: 20px;
 `;
 const AirplaneImg = styled.div`
-
-#airplane-img{
-  width: 30px;
-}
+  #airplane-img {
+    width: 30px;
+  }
 `;
 const Arrive = styled.div`
-font-size: 20px;`;
+  font-size: 20px;
+`;
 const QR = styled.div`
-margin-top: 10px;
-#qr-img{
-  width: 90px;  
-}
+  margin-top: 10px;
+  #qr-img {
+    width: 90px;
+  }
 `;

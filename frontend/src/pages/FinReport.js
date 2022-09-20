@@ -6,14 +6,14 @@ import MyCard from '../components/finreport/MyCard';
 import ReportContent from '../components/finreport/ReportContent';
 
 function FinReport() {
-  const hometown = 'America';
+  const hometown = '역삼';
   const { username } = useParams();
   return (
     <StyledWrapper>
       <div>
         <FinTitle username={username} hometown={hometown} />
         <FinBtns />
-        <MyCard />
+        <MyCard username={username} hometown={hometown}/>
         <ReportContent username={username} hometown={hometown} />
       </div>
     </StyledWrapper>
