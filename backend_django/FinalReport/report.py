@@ -15,7 +15,7 @@ def LoadDataframes(db, collection_name):
     del df['_id']
     return df
 
-def GetReportData(name, gender, year):
+def GetReportData(name, gender, birth):
     db = ConnectMongoDB()
     df = LoadDataframes(db, 'rawdata')
 
@@ -32,14 +32,14 @@ def GetReportData(name, gender, year):
         if gender=='F' or gender=='U':
             for state in data.female['state']:
                 state_year = data.female['state'][state]
-                yearIdx = year-1940
+                yearIdx = birth-1940
                 newFemaleState[state] = state_year[yearIdx]
             maxFemaleStateName = max(newFemaleState, key = newFemaleState.get)
 
         if gender=='M' or gender=='U':
             for state in data.male['state']:
                 state_year = data.male['state'][state]
-                yearIdx = year-1940
+                yearIdx = birth-1940
                 newMaleState[state] = state_year[yearIdx]
             maxMaleStateName = max(newMaleState, key = newMaleState.get)
         

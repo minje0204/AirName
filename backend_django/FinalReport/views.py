@@ -9,7 +9,7 @@ from .report import *
 
 class GetReport(APIView):
     def get(self,request, **kwargs):
-        result = GetReportData(kwargs["name"],kwargs["gender"],kwargs["year"])
+        result = GetReportData(kwargs["name"],kwargs["gender"],kwargs["birth"])
 
         data = json.dumps(result)
 

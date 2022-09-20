@@ -7,5 +7,5 @@ from FinalReport.views import GetReport
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('rec/sound/', NameList.as_view()),
-    path('report/<str:name>/<str:gender>/<int:year>', GetReport.as_view())
+    path('report/<str:name>/<str:gender>/<int:birth>', GetReport.as_view())
 ]
