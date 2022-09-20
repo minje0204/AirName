@@ -64,3 +64,26 @@ def GetRandomName():
 
     return report
 
+def SetNameAttribute(name, gender, attr):
+    db = ConnectMongoDB()
+    col = db['rawdata']
+    doc = col.find_one({"name":name})
+
+    if gender == 'M' :
+        gender = 'male'
+    elif gender == 'F' :
+        gender = 'female'
+
+    doc_attr = doc[gender]['attribute'][attr]
+    doc[gender]['attribute'][attr] = doc_attr+1
+
+    col.update_one(
+        {
+            "_id": doc['_id']
+        },
+        {
+            "$set": {
+                gender : doc[gender]
+            }
+        }
+    )
