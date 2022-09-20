@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+
 import Fairly from '../../asset/img/survey/Fairy.svg';
 import './Survey.css';
 import question from './Question';
@@ -16,14 +17,16 @@ function SurveySection() {
   const navigate = useNavigate();
 
   const getName = () => {
-    axios.post(`${API.SURVEY}`);
+    axios.post(`${API.SURVEY}`, surveyRes).then((res) => {
+      // 중복 데이터 검사
+      console.log(res)
+    });
   };
 
   const handleClick = (input) => {
     const newElement = {
       [answerKey[cur]]: input
     };
-    // eslint-disable-next-line
     console.log({ newElement });
     setSurveyRes({ ...surveyRes, ...newElement });
     if (cur < 11) setCur(cur + 1);
@@ -43,7 +46,6 @@ function SurveySection() {
   return (
     <SveySectionContainer>
       <SveyHead>
-        {/* {answerKey} */}
         <SveyImg>
           <img src={Fairly} />
         </SveyImg>
