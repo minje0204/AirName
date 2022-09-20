@@ -23,12 +23,16 @@ function FinReport() {
 
   const calcMainState = () => {
     if (maleState && femaleState) {
-      if (gender == 'F') {
+      if (gender === 'F') {
         setMainState(femaleState);
       } else {
         setMainState(maleState);
       }
-    }
+    } else if (femaleState) {
+        setMainState(femaleState);
+      } else {
+        setMainState(maleState);
+      }
   };
 
   const getReportData = async () => {
@@ -42,16 +46,24 @@ function FinReport() {
         calcMainState();
       });
   };
+
   useEffect(() => {
     getReportData();
   }, []);
 
   return (
     <StyledWrapper>
-      <FinTitle username={username} hometown={hometown} />
+      <FinTitle username={username} hometown={mainState} />
       <FinBtns />
-      <MyCard username={username} hometown={hometown} />
-      <ReportContent username={username} report={hometown} />
+      <MyCard username={username} hometown={mainState} />
+      <ReportContent
+        username={username}
+        hometown={hometown}
+        maleState={maleState}
+        femaleState={femaleState}
+        maleMeaning={maleMeaning}
+        femaleMeaning={femaleMeaning}
+      />
     </StyledWrapper>
   );
 }
