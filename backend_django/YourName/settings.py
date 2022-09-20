@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -127,28 +127,25 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
-    'formatters': {
-        'verbose': {
-            'format': '%(asctime)s %(levelname)s [%(name)s:%(lineno)s] %(module)s %(process)d %(thread)d %(message)s'
-        }
-    },
+    'disable_existing_loggers': False,
     'handlers': {
-        'gunicorn': {
+        'console': {
             'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'formatter': 'verbose',
-            'filename': '/opt/djangoprojects/reports/bin/gunicorn.errors',
-            'maxBytes': 1024 * 1024 * 100,  # 100 mb
-        }
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
     },
     'loggers': {
-        'gunicorn.errors': {
-            'level': 'DEBUG',
-            'handlers': ['gunicorn'],
-            'propagate': True,
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+            'propagate': False,
         },
-    }
+    },
 }
