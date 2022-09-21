@@ -17,7 +17,8 @@ function TTSBtn(props) {
     // 이전에 말하고 있는 단어 취소
     stopSpeak();
     // 이름 변수 넣기
-    msg.text = `Welcome to ${props.hometown} ${props.username}`;
+    // msg.text = `Welcome to ${props.hometown} ${props.username}`;
+    msg.text = `hello ${props.username}`;
     synth.speak(msg);
   }
 
