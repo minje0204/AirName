@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+
 import {
   Container,
   TextField,
-  Button,
+  // Button,
   Radio,
   RadioGroup,
   FormControlLabel,
   FormControl
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
+
+// import postAxios from '../../lib/postAxios';
+import API from '../../config';
 
 function EntryCardEn() {
   const [nameKo, setNameKo] = useState('');
@@ -23,6 +28,26 @@ function EntryCardEn() {
   const [nameEn, setNameEn] = useState('');
   const nameEnCheck = /[^a-zA-Z]/;
   const [nameEnError, setNameEnError] = useState(false);
+  const navigate = useNavigate();
+
+  const linkToSurvey = () => {
+    navigate('/survey');
+  };
+
+  const saveToStorage = (localdata) => {
+    localStorage.setItem('PNname', localdata);
+    localStorage.setItem('birth', birth);
+    localStorage.setItem('gender', gender);
+  };
+
+  const sendData = async () => {
+    const data = { name: nameKo, birth: birth, gender: gender };
+    console.log(data);
+    axios.post(`${API.ENTRY}`, data).then((res) => {
+      saveToStorage(JSON.stringify(res.data));
+    });
+    linkToSurvey();
+  };
 
   return (
     <StyledWrapper>
@@ -66,13 +91,9 @@ function EntryCardEn() {
                   setGender(event.target.value);
                 }}
               >
+                <FormControlLabel value="M" control={<Radio />} label="Male" />
                 <FormControlLabel
-                  value="male"
-                  control={<Radio />}
-                  label="Male"
-                />
-                <FormControlLabel
-                  value="female"
+                  value="F"
                   control={<Radio />}
                   label="Female"
                 />
@@ -122,8 +143,13 @@ function EntryCardEn() {
           <ReadOnlyInput q="Nationality" a="Korea" />
         </Container>
       </div>
+
       <div id="btn">
-        {nameKo && gender && birth && nameEn ? <SubmitBtn /> : null}
+        {nameKo && gender && birth && nameEn ? (
+          <button id="send-btn" onClick={sendData}>
+            내 영어 이름 리포트 보러가기
+          </button>
+        ) : null}
       </div>
     </StyledWrapper>
   );
@@ -131,20 +157,20 @@ function EntryCardEn() {
 
 export default EntryCardEn;
 
-function SubmitBtn() {
-  return (
-    <Button
-      variant="contained"
-      color="warning"
-      size="large"
-      component={Link}
-      to="/finreport/:selectedName"
-      sx={{ margin: '10px' }}
-    >
-      <span style={{ fontSize: '20px' }}>내 영어 이름 리포트 보러가기</span>
-    </Button>
-  );
-}
+// function SubmitBtn() {
+//   return (
+//     <button
+//       variant="contained"
+//       color="warning"
+//       size="large"
+//       component={Link}
+//       to="/finreport/:selectedName"
+//       sx={{ margin: '10px' }}
+//     >
+//       <span style={{ fontSize: '20px' }}>내 영어 이름 리포트 보러가기</span>
+//     </button>
+//   );
+// }
 
 const StyledWrapper = styled.div`
   #card {
@@ -182,5 +208,12 @@ const StyledWrapper = styled.div`
   #btn {
     display: flex;
     justify-content: center;
+  }
+  #send-btn {
+    font-size: 20px;
+    background-color: var(--secondaryMain);
+    margin: 20px;
+    padding: 15px;
+    border: 0;
   }
 `;

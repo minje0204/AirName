@@ -19,7 +19,7 @@ export default function Labeling() {
           </Box>
           <Box className="question">아래 카드를 누르면 결과가 나와요.</Box>
         </Box>
-        <Box id="name" m={2}>
+        <Box id="name" sx={{ margin: '10px' }}>
           {name}
         </Box>
         <Box>
@@ -60,34 +60,41 @@ export default function Labeling() {
 }
 
 const StyledWrapper = styled.div`
+  @media (max-width: 410px) {
+    font-size: 3vw;
+    #choices {
+      flex-direction: column;
+    }
+  }
   .explain {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
-
   #title {
     font-family: SCDream7;
     font-size: 36px;
   }
   #name {
-    background-color: #f9f7f4;
-    width: 100px;
+    background-color: var(--infoMain);
     padding: 20px 40px;
     font-family: SCDream7;
-    font-size: 36px;
+    font-size: clamp(1rem, 4vw, 2rem);
+    display: flex;
+    justify-content: center;
   }
   #choices {
     display: flex;
     justify-content: space-around;
+    flex-direction: row;
   }
   .choice {
     radius: 10px;
     padding: 15px 30px;
-    background-color: #f9f7f4;
+    background-color: var(--infoMain);
     font-family: SCDream7;
-    font-size: 36px;
+    font-size: clamp(1rem, 4vw, 2rem);
     margin: 10px;
   }
 `;
