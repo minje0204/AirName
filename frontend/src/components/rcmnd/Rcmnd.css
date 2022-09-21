@@ -16,6 +16,9 @@
 .btn-15 {
   background: white;
   border-radius: 10px;
+  border-width: 3px;
+  border-style: solid;
+  border-color: #1565C0;;
   color: black;
   z-index: 1;
 }
@@ -30,6 +33,7 @@
   background: #1565C0;
   transition: all 0.3s ease;
 }
+@media (hover: hover) {
 .btn-15:hover {
   color: #fff;
 }
@@ -37,6 +41,8 @@
   left: 0;
   width: 100%;
 }
+}
+
 .btn-15:active {
   top: 2px;
 }

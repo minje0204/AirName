@@ -71,9 +71,9 @@ function SurveySection() {
         <SveyQuestion className="speech-bubble">{question[cur]}</SveyQuestion>
       </SveyHead>
       <SveyBody>
-        <SvyBtbn onClick={() => handleClick(0)}>{answer[cur][0]}</SvyBtbn>
-        <SvyBtbn onClick={() => handleClick(1)}>{answer[cur][1]}</SvyBtbn>
-        <SvyBtbn onClick={() => handleClick(2)}>{answer[cur][2]}</SvyBtbn>
+        <SvyBtbn id="svy-btn" onClick={() => handleClick(0)}>{answer[cur][0]}</SvyBtbn>
+        <SvyBtbn id="svy-btn" onClick={() => handleClick(1)}>{answer[cur][1]}</SvyBtbn>
+        <SvyBtbn id="svy-btn" onClick={() => handleClick(2)}>{answer[cur][2]}</SvyBtbn>
       </SveyBody>
     </SveySectionContainer>
   );
@@ -115,8 +115,11 @@ const SveyQuestion = styled.div`
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 25px;
+  font-size: 20px;
   @media (max-width: 650px) {
-    font-size: 12px;
+    font-size: 11px;
+    padding: 14px;
+    border-radius: 15px;
   }
 `;
 
@@ -125,14 +128,15 @@ const SveyBody = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #f9f7f4;
+  padding: 13px 0px;
+  
+  background-color: rgb(249, 253, 254);
   border-radius: 20px;
   width: 100%;
   max-height: 400px;
   margin-top: 20px;
-  &:hover {
-    background-color: #f0ede9;
-  }
+
+
 `;
 
 const SvyBtbn = styled.button`
@@ -142,12 +146,15 @@ const SvyBtbn = styled.button`
   height: 20vw;
   max-height: 100px;
   border-radius: 20px;
-  border: 0;
-  background-color: #ff9800;
-  color: white;
+  border: 5px solid;
+  background-color: transparent;
+  border-color:  var(--primaryLight);
+  color: black;
   font-size: 24px;
-  &:hover {
-    background-color: #ed6c02;
-    cursor: pointer;
+  font-weight: 600;
+  @media (max-width: 650px) {
+    font-size: 16px;
+    border: 3px solid;
+    border-color:  var(--primaryLight);
   }
 `;
