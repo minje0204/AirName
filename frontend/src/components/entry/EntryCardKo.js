@@ -57,8 +57,8 @@ function EntryCardKo() {
           </div>
         </Container>
         <Container id="content" sx={{ bgcolor: '#F9F7F4', height: '60vh' }}>
-          <div className="qAndA">
-            <div className="question">Name</div>
+          <div className="qAndA custom-input">
+            <div className="question to-move">Name</div>
             <TextField
               variant="outlined"
               className="answer"
@@ -99,8 +99,8 @@ function EntryCardKo() {
               </RadioGroup>
             </FormControl>
           </div>
-          <div className="qAndA">
-            <div className="question">Birth Year</div>
+          <div className="qAndA custom-input">
+            <div className="question to-move">Birth Year</div>
             <TextField
               variant="outlined"
               inputProps={{
@@ -177,6 +177,14 @@ const StyledWrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+  }
+  .qAndA.custom-input {
+    height: 79px !important;
+  }
+
+  .qAndA .to-move {
+    top: -12px;
+    position: relative;
   }
   .question {
     width: 150px;
