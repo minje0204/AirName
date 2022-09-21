@@ -65,7 +65,7 @@ function EntryCardEn() {
               variant="outlined"
               className="answer"
               inputProps={{
-                maxLength: 5
+                maxLength: 7
               }}
               error={nameKoError}
               helperText={nameKoError ? '다시 입력해주세요' : null}

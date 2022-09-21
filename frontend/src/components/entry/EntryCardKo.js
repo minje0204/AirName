@@ -64,7 +64,7 @@ function EntryCardKo() {
               className="answer"
               placeholder="한글 이름 입력"
               inputProps={{
-                maxLength: 5
+                maxLength: 7
               }}
               error={nameKoError}
               helperText={nameKoError ? '다시 입력해주세요' : null}
