@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import TTSBtn from './TTSBtn';
-import {isAndroid} from 'react-device-detect';
+import {isDesktop} from 'react-device-detect';
 
 function FinTitle({ hometown, username }) {
   return (
@@ -12,10 +12,9 @@ function FinTitle({ hometown, username }) {
         </WelcomeWrapper>
         <NameWrapper>
           {username}!
-          { isAndroid ?
+          { isDesktop ?
             null : <TTSBtn id="fin-tts" username={username} hometown={hometown}/> 
           }
-          
         </NameWrapper>
       </div>
     </StyledWrapper>
