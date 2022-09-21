@@ -93,3 +93,33 @@ def Recommend(kor_name, gender, year):
         name_array = dict(enumerate(name_array))
 
         return name_array
+
+def AtmRecommend(AtmInput):
+    db = ConnectMongoDB()
+    df = LoadDataframes(db, 'atm')
+    processedInput = preProcessAtmInput(AtmInput)
+    df['score'] = df.apply(lambda row : add(list(map(lambda x: row[x],processedInput))), axis = 1)
+    
+    print(df.sort_values(by=['score'],ascending=False).head(2))
+    name_array=df.sort_values(by=['score'],ascending=False).head(2)
+    
+    rt = {}
+    rt[name_array.iloc[0]['name']] = "분위기"
+    rt[name_array.iloc[1]['name']] = "분위기"
+    return rt
+
+def add(attrV):
+  sum=0
+  for i in attrV:
+    sum+=i
+  return sum
+
+def preProcessAtmInput(AtmInput):
+  rt = []
+  for item in AtmInput.items():
+    if(item[1] != 2):
+      rt.append(keyMap[item[0]][item[1]])
+  return rt
+
+keyMap = {'Gender': ['Masculine','Feminine'],"OldFashionedness":['Classic','Modern'],"Oldness":['Mature','Youthful'],"Formality":['Formal','Informal'],"Class":['Upper Class','Common'],"Urban-rural":['Urban','Natural'],"Truthfulness":['Wholesome','Devious'],
+ "Extremly":['Strong','Delicate'],"Roughness":['Refined','Rough'],"Strangeness":['Strange','Boring'],"Complexness":['Simple','Complex'],"Seriousness":['Serious','Comedic']}

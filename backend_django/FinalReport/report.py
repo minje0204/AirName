@@ -2,7 +2,7 @@ import pandas as pd
 from pymongo import MongoClient
 from RecName.connection import *
 
-def GetReportData(name, gender, birth):
+def GetReportData(name, birth):
     db = ConnectMongoDB()
     # df = LoadDataframes(db, 'rawdata')
 
@@ -19,44 +19,57 @@ def GetReportData(name, gender, birth):
     maxMaleStateName = ""
     unisex = {}
 
-    if gender=='F' or gender=='U':
-        for state in result.female['state']:
+    print("Result")
+    print(result.male)
+    print("여성 길이")
+    print(len(result.female))
+
+    
+    print("남성 길이")
+    print(len(result.male))
+    print("컨테인스")
+    print(result.male.hasnans)
+    print("여자컨테인스")
+    print(result.female.hasnans)
+
+    if not result.female.hasnans:
+        for state in dict(result.female['state']).keys():
             state_year = result.female['state'][state]
             yearIdx = birth-1940
             newFemaleState[state] = state_year[yearIdx]
         maxFemaleStateName = max(newFemaleState, key = newFemaleState.get)
 
-    if gender=='M' or gender=='U':
-        for state in result.male['state']:
+    if not result.male.hasnans:
+        for state in dict(result.male['state']).keys():
             state_year = result.male['state'][state]
             yearIdx = birth-1940
             newMaleState[state] = state_year[yearIdx]
         maxMaleStateName = max(newMaleState, key = newMaleState.get)
-
-    report = {}
     female = {}
     male = {}
-    resultFemaleMeaning = ""
-    resultMaleMeaning = ""
 
-    if gender == 'F':
-        resultFemaleMeaning = result.female['meaning']
-        report['meaning'] = resultFemaleMeaning
-        report['state'] = maxFemaleStateName
-        return report
-
-    elif gender == 'M':
-        resultMaleMeaning = result.male['meaning']
-        report['meaning'] = resultMaleMeaning
-        report['state'] = maxMaleStateName
-        return report
-        
-    elif gender == 'U':
+    if (not result.female.hasnans) & (not result.male.hasnans) :
         female['meaning'] = result.female['meaning']
         female['state'] = maxFemaleStateName
         male['meaning'] = result.male['meaning']
         male['state'] = maxMaleStateName
-    
+
+        unisex['female'] = female
+        unisex['male'] = male
+        return unisex
+    elif result.female.hasnans | (not result.male.hasnans):
+        female['meaning'] = ""
+        female['state'] = ""
+        male['meaning'] = result.male['meaning']
+        male['state'] = maxMaleStateName
+        unisex['female'] = female
+        unisex['male'] = male
+        return unisex
+    elif result.male.hasnans & (not result.female.hasnans):
+        female['meaning'] = result.female['meaning']
+        female['state'] = maxFemaleStateName
+        male['meaning'] = ""
+        male['state'] = ""
         unisex['female'] = female
         unisex['male'] = male
         return unisex

@@ -13,24 +13,49 @@ function SurveySection() {
   const [cur, setCur] = useState(0);
   const [isLast, setIsLast] = useState(false);
   const [surveyRes, setSurveyRes] = useState({});
+  const [totalData, setTotalData] = useState([]);
+  const [nameKo, setNameKo] = useState('');
+  const [birth, setBirth] = useState(0);
+  const [gender, setGender] = useState('');
   const navigate = useNavigate();
 
+  // Local에서 데이터 가져오기
+  const getUserInfo = () => {
+    setNameKo(localStorage.getItem('nameKo'));
+    setBirth(localStorage.getItem('birth'));
+    setGender(localStorage.getItem('gender'));
+  }
+
+  // 데이터 합쳐서 TotalData에 저장
+  const gatherData = async () => {
+    setTotalData([nameKo, gender, birth, surveyRes])
+    console.log('gatherdata')
+  }
+
+  // 이름 가져와서 Local에 저장
   const getName = () => {
-    axios.post(`${API.SURVEY}`);
+    axios.post(`${API.SURVEY}`, totalData).then((res) => {
+      console.log(res);
+      // 이름 추천 데이터 저장
+      localStorage.setItem('rcmndNames', JSON.stringify(res.data));
+    })
   };
 
   const handleClick = (input) => {
     const newElement = {
       [answerKey[cur]]: input
     };
-    // eslint-disable-next-line
-    console.log({ newElement });
     setSurveyRes({ ...surveyRes, ...newElement });
     if (cur < 11) setCur(cur + 1);
   };
 
   useEffect(() => {
-    if (Object.entries(surveyRes).length === 12) setIsLast(true);
+    if (Object.entries(surveyRes).length === 12) {
+      gatherData().then(() => {
+        setIsLast(true)
+        console.log('isLasttrue')
+      })
+    };
   }, [surveyRes]);
 
   useEffect(() => {
@@ -40,10 +65,13 @@ function SurveySection() {
     }
   }, [isLast]);
 
+  useEffect(() => {
+    getUserInfo(); 
+  }, []);
+
   return (
     <SveySectionContainer>
       <SveyHead>
-        {/* {answerKey} */}
         <SveyImg>
           <img id="survey-img" src={Fairly} />
         </SveyImg>

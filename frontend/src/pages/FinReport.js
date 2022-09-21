@@ -20,11 +20,6 @@ function FinReport() {
   const [maleState, setMaleState] = useState('');
   const [mainState, setMainState] = useState('');
 
-  // const maleState = ''
-  // const femaleState = 'Ajou'
-  // const maleMeaning = ''
-  // const femaleMeaning = 'cherry'
-
   // maleState, femaleState 존재에 따라 mainState 저장
   const calcMainState = () => {
     if (maleState && femaleState) {
@@ -40,16 +35,19 @@ function FinReport() {
     }
   };
 
+  const saveData = async (res) => {
+    setFemaleMeaning(res.data.female.meaning);
+    setFemaleState(res.data.female.state);
+    setMaleMeaning(res.data.male.meaning);
+    setMaleState(res.data.male.state);
+  }
+
   // 리포트 데이터 요청하고 저장하는 함수
   const getReportData = async () => {
     await axios
-      .get(`${API.FINREPORT}/${username}/${gender}/${birth}`)
+      .get(`${API.FINREPORT}/${username}/${birth}`)
       .then((res) => {
-        setFemaleMeaning(res.data.female.meaning);
-        setFemaleState(res.data.female.state);
-        setMaleMeaning(res.data.male.meaning);
-        setMaleState(res.data.male.state);
-        calcMainState();
+          saveData(res).then(calcMainState())
       });
   };
 

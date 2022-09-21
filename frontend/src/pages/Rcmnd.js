@@ -4,11 +4,10 @@ import RcmndGuide from '../components/rcmnd/RcmndGuide';
 import RcmndCard from '../components/rcmnd/RcmndCard';
 
 function Rcmnd() {
-  const names = ['Tommy', 'Lisa', 'Sally', 'Jimmy'];
   return (
     <RcmndContainer>
       <RcmndHead>
-        <RcmndGuide names={names} />
+        <RcmndGuide />
       </RcmndHead>
       <RcmndBody>
         <RcmndCard />
