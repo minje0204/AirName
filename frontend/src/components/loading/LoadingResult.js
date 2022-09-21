@@ -3,41 +3,36 @@ import { Container, Box } from '@mui/material';
 import styled from 'styled-components';
 import LinearProgress from '@mui/material/LinearProgress';
 
-export default function LabelingResult({
+function LabelingResult({
+  result,
   personalityZero,
   personalityOne,
-  result
+  attributePercentage
 }) {
-  const percent = 60;
   return (
     <StyledWrapper>
-      <Container id="resultBox">
-        <Box>'{result}'을 선택했어요</Box>
-        <Container id="ans">
-          <Box sx={{ color: 'primary.main' }} className="cho">
-            <Box>{personalityZero}</Box>
-            <Box>{percent}%</Box>
-          </Box>
-          <LinearProgress id="bar" variant="determinate" value={percent} />
-          <Box sx={{ color: 'warning.main' }} className="cho">
-            <Box>{personalityOne}</Box>
-            <Box>{100 - percent}%</Box>
-          </Box>
-        </Container>
+      <Container id="ans">
+        <Box sx={{ color: 'primary.main' }} className="cho">
+          <Box>{personalityZero}</Box>
+          <Box>{attributePercentage[0]}%</Box>
+        </Box>
+        <LinearProgress
+          id="bar"
+          variant="determinate"
+          value={attributePercentage[0]}
+        />
+        <Box sx={{ color: 'warning.main' }} className="cho">
+          <Box>{personalityOne}</Box>
+          <Box>{attributePercentage[1]}%</Box>
+        </Box>
       </Container>
     </StyledWrapper>
   );
 }
 
+export default LabelingResult;
+
 const StyledWrapper = styled.div`
-  #resultBox {
-    background-color: #f9f7f4;
-    padding: 20px 40px;
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
   #ans {
     display: flex;
     justify-content: space-between;
@@ -48,7 +43,7 @@ const StyledWrapper = styled.div`
     width: 80%;
   }
   .cho {
-    width: 100px;
+    width: 180px;
     display: flex;
     flex-direction: column;
     align-items: center;
