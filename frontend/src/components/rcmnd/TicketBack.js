@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 // import Button from '@mui/material/Button';
 import TicketHeadAirplane from '../../asset/img/rcmnd/TicketHeadAirplane.png';
-import TicketTTSBtn from './TicketTTSBtn';
-import {isAndroid} from 'react-device-detect';
+// import TicketTTSBtn from './TicketTTSBtn';
+// import {isAndroid} from 'react-device-detect';
 import './Rcmnd.css';
 
 function TicketFront({ name, type }) {
@@ -23,9 +23,9 @@ function TicketFront({ name, type }) {
           <div>
             <TickeNameContainer>
               {name}
-              { isAndroid ?
+              {/* { isAndroid ?
               null : <TicketTTSBtn username={name} /> 
-              }
+              } */}
             </TickeNameContainer>
           </div>
           <SelectBtnContainer>
