@@ -28,7 +28,7 @@ function SurveySection() {
 
   // 데이터 합쳐서 TotalData에 저장
   const gatherData = async () => {
-    setTotalData([nameKo, gender, birth, surveyRes])
+    setTotalData({"name": nameKo, "gender" :gender, "birth" :birth, "attr":surveyRes})
     console.log('gatherdata')
   }
 
