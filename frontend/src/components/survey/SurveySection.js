@@ -50,6 +50,7 @@ function SurveySection() {
 
   useEffect(() => {
     if (isLast) {
+      console.log(surveyRes)
       const data = {"name": nameKo, "gender" :gender, "birth" :birth, "attr": surveyRes}
       console.log(data)
       getName(data);
