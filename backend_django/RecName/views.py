@@ -28,3 +28,12 @@ class NameList(APIView):
 
         return JsonResponse(data, safe=False)
 
+class AtmList(APIView):
+    def post(self, request):
+        #Json 파일로 받아야 하지만 테스트를 위해 현재 한글이름 string값 받아서 처리하도록 함
+        arr = AtmRecommend(request.data)
+
+        data = json.dumps(arr)
+
+        return JsonResponse(data, safe=False)
+
