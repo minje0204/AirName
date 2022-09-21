@@ -36,7 +36,8 @@ function SurveySection() {
   const getName = () => {
     axios.post(`${API.SURVEY}`, totalData).then((res) => {
       console.log(res);
-      localStorage.setItem('rcmndNames', res);
+      // 이름 추천 데이터 저장
+      localStorage.setItem('rcmndNames', JSON.stringify(res.data));
     })
   };
 

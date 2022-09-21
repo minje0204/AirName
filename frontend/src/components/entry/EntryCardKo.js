@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import {
@@ -26,6 +26,7 @@ function EntryCardKo() {
   const birthCheck = /^(19|20)\d{2}/;
   const [birthError, setBirthError] = useState(false);
   const navigate = useNavigate();
+  // const [isSoundError, setisSoundError] = useState(false);
 
   const linkToSurvey = () => {
     navigate('/survey');
@@ -41,11 +42,22 @@ function EntryCardKo() {
   const sendData = async () => {
     const data = { name: nameKo, gender: gender, birth: birth };
     console.log(data);
-    axios.post(`${API.ENTRY}`, data).then((res) => {
-      saveToStorage(JSON.stringify(res.data));
-    });
+    axios
+      .post(`${API.ENTRY}`, data)
+      .then((res) => {
+        saveToStorage(JSON.stringify(res.data));
+      })
+      .catch((err) => {
+        if (err.message = "Request failed with status code 500"){
+          console.log('500번 에러 ! ')
+        }
+      });
     linkToSurvey();
   };
+
+  // useEffect(() => {
+  //   if(isError)
+  // }, [isSoundError]);
 
   return (
     <StyledWrapper>
@@ -90,9 +102,9 @@ function EntryCardKo() {
                   setGender(event.target.value);
                 }}
               >
-                <FormControlLabel value="m" control={<Radio />} label="Male" />
+                <FormControlLabel value="M" control={<Radio />} label="Male" />
                 <FormControlLabel
-                  value="f"
+                  value="F"
                   control={<Radio />}
                   label="Female"
                 />
