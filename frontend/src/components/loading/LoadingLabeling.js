@@ -1,13 +1,49 @@
 import { Container, Box, Button } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import LabelingResult from './LoadingResult';
+import API from '../../config';
+import { enToKoAttribute, koToEnAttribute } from './attributeDictionary';
 
 export default function Labeling() {
-  const name = 'Jane';
-  const personalityZero = '세심한';
-  const personalityOne = '강인한';
+  const [name, setName] = useState('');
+  const [gender, setGender] = useState('');
+  const [attributeName, setAttributeName] = useState([]);
+  const [attributePercentage, setAttributePercentage] = useState([]);
   const [result, setResult] = useState('');
+  const [refresh, setRefresh] = useState(false);
+
+  const getNameGame = async () => {
+    await axios.get(`${API.LOADING}`).then((res) => {
+      console.log(res);
+      const data = JSON.parse(res.data);
+      setName(data.name);
+      setGender(data.gender);
+      setAttributeName([
+        enToKoAttribute[data.attribute_name[0]],
+        enToKoAttribute[data.attribute_name[1]]
+      ]);
+      setAttributePercentage(data.attribute_percentage);
+    });
+  };
+
+  // 렌더링 될 때, 데이터 요청
+  useEffect(() => {
+    getNameGame();
+  }, [refresh]);
+
+  const sendChoosedAttr = async (attr) => {
+    const data = {
+      name: name,
+      gender: gender,
+      attribute: attr
+    };
+    console.log(data, 'data');
+    axios.put(`${API.LOADING}`, data).then((res) => {
+      console.log(res);
+    });
+  };
 
   return (
     <StyledWrapper>
@@ -24,11 +60,29 @@ export default function Labeling() {
         </Box>
         <Box>
           {result ? (
-            <LabelingResult
-              result={result}
-              personalityZero={personalityZero}
-              personalityOne={personalityOne}
-            />
+            <Container id="resultBox">
+              <Box>'{result}'을 선택했어요</Box>
+              <LabelingResult
+                result={result}
+                personalityZero={attributeName[0]}
+                personalityOne={attributeName[1]}
+                attributePercentage={attributePercentage}
+              />
+              <Button
+                variant="contained"
+                onClick={() => {
+                  setRefresh(!refresh);
+                  setResult('');
+                }}
+                color="secondary"
+                style={{
+                  marginTop: '10px',
+                  color: 'white'
+                }}
+              >
+                <span>다른 이름</span>
+              </Button>
+            </Container>
           ) : (
             <Box id="choices">
               <Button
@@ -36,20 +90,22 @@ export default function Labeling() {
                 className="choice"
                 color="primary"
                 onClick={() => {
-                  setResult(personalityZero);
+                  setResult(attributeName[0]);
+                  sendChoosedAttr(koToEnAttribute[attributeName[0]]);
                 }}
               >
-                {personalityZero}
+                {attributeName[0]}
               </Button>
               <Button
                 variant="outlined"
                 className="choice"
                 color="warning"
                 onClick={() => {
-                  setResult(personalityOne);
+                  setResult(attributeName[1]);
+                  sendChoosedAttr(koToEnAttribute[attributeName[1]]);
                 }}
               >
-                {personalityOne}
+                {attributeName[1]}
               </Button>
             </Box>
           )}
@@ -94,7 +150,15 @@ const StyledWrapper = styled.div`
     padding: 15px 30px;
     background-color: var(--infoMain);
     font-family: SCDream7;
-    font-size: clamp(1rem, 4vw, 2rem);
+    font-size: clamp(0.7rem, 3vw, 1.5rem);
     margin: 10px;
+  }
+  #resultBox {
+    background-color: #f9f7f4;
+    padding: 20px 40px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
