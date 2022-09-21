@@ -4,13 +4,13 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 import {
   EntryKo,
-  EntryEn,
   FinReport,
   Home,
   Loading,
   NameCard,
   Rcmnd,
-  Survey
+  Survey,
+  Error404
 } from './pages';
 import FeedbackBtn from './components/feedback';
 import theme from './theme';
@@ -22,12 +22,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/entry-ko" element={<EntryKo />} />
-          <Route path="/entry-en" element={<EntryEn />} />
+          {/* <Route path="/entry-en" element={<EntryEn />} /> */}
           <Route path="/survey" element={<Survey />} />
           <Route path="/loading" element={<Loading />} />
           <Route path="/rcmnd" element={<Rcmnd />} />
           <Route path="/namecard" element={<NameCard />} />
           <Route path="/finreport/:username" element={<FinReport />} />
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
       <FeedbackBtn />
