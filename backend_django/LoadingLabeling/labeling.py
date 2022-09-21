@@ -1,31 +1,18 @@
 import pandas as pd
 from pymongo import MongoClient
 import random
-import math
-
-def ConnectMongoDB():
-    # mongoDB 연결객체 생성
-    client = MongoClient(host='localhost', port=27017)
-    db = client['airnameDB']
-    return db
-
-
-def LoadDataframes(db, collection_name):
-    cursor = db[collection_name].find()
-    df = pd.DataFrame(list(cursor))
-    # _id 컬럼 삭제
-    del df['_id']
-    return df
+import environ
+import time
+from RecName.connection import *
 
 
 def GetRandomName():
     db = ConnectMongoDB()
-    df = LoadDataframes(db, 'rawdata')
+    col = db['rawdata']
 
-    
     report = {}
-    random_data = df.sample(n=1)
-    
+    random_data = pd.DataFrame(col.aggregate([{'$sample': { 'size': 1 } } ]))
+
     for data in random_data.itertuples():
         random_name = data.name
 
@@ -57,6 +44,9 @@ def GetRandomName():
     
     left_percent = round(random_attribute[attribute_left]/(random_attribute[attribute_left]+random_attribute[attribute_right])*100)
     right_percent = round(random_attribute[attribute_right]/(random_attribute[attribute_left]+random_attribute[attribute_right])*100)
+    
+    end = time.time()
+
     report['name'] =random_name
     report['gender'] = random_gender
     report['attribute_name'] = [attribute_left,attribute_right]
@@ -64,3 +54,27 @@ def GetRandomName():
 
     return report
 
+
+def SetNameAttribute(name, gender, attr):
+    db = ConnectMongoDB()
+    col = db['rawdata']
+    doc = col.find_one({"name":name})
+
+    if gender == 'M' :
+        gender = 'male'
+    elif gender == 'F' :
+        gender = 'female'
+
+    doc_attr = doc[gender]['attribute'][attr]
+    doc[gender]['attribute'][attr] = doc_attr+1
+
+    col.update_one(
+        {
+            "_id": doc['_id']
+        },
+        {
+            "$set": {
+                gender : doc[gender]
+            }
+        }
+    )
