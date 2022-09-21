@@ -15,10 +15,3 @@ six==1.16.0
 soupsieve==2.3.2.post1
 sqlparse==0.4.2
 tzdata==2022.2
-<<<<<<< HEAD
-beautifulsoup4==4.11.1
-pandas==1.4.4
-django-cors-headers==3.13.0
-gunicorn==20.0.4
-=======
->>>>>>> f0a855a5b09466d3e2fee9084db91cb3fd28bd18
