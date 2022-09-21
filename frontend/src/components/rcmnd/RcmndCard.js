@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import RcmndCardItems from './RcmndCardItems';
 
 function RcmndCard() {
-  const names = ['Mo', 'Tommy', 'Lisa', 'Philadelphia'];
+  const [rcmndNames, setRcmndNames] = useState({}); 
+
+  useEffect(() => {
+    // 로컬에서 rcmndNames에 저장함
+    setRcmndNames(localStorage.getItem(JSON.parse('rcmndNames')))
+  }, []);
+
   return (
     <>
       <RcmdnCardContainer>
-        {names.map((name) => (
-          <RcmndCardItems key={name} name={name} />
+        {Object.entries(rcmndNames).map(([k, v]) => (
+          <RcmndCardItems key={k} name={k} type={v} />
         ))}
       </RcmdnCardContainer>
     </>
