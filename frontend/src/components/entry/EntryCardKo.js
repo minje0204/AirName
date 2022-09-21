@@ -68,7 +68,7 @@ function EntryCardKo() {
               }}
               error={nameKoError}
               helperText={nameKoError ? '다시 입력해주세요' : null}
-              onBlur={(e) => {
+              onChange={(e) => {
                 const nameKoTmp = e.target.value;
                 if (nameKoCheck.test(nameKoTmp) || nameKoTmp.length === 1) {
                   setNameKoError(true);
@@ -110,7 +110,7 @@ function EntryCardKo() {
               placeholder="태어난 해 ex)1995"
               error={birthError}
               helperText={birthError ? '다시 입력해주세요' : null}
-              onBlur={(e) => {
+              onChange={(e) => {
                 const birthTmp = e.target.value;
                 if (!birthCheck.test(birthTmp) || birthTmp.length < 4) {
                   setBirthError(true);
