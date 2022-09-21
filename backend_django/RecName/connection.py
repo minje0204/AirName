@@ -1,9 +1,12 @@
 import pandas as pd
+import environ
 from pymongo import MongoClient
 
 def ConnectMongoDB():
     #mongoDB 연결객체 생성
-    client = MongoClient(host='localhost', port=27017)
+    env = environ.Env()
+    environ.Env.read_env()
+    client = MongoClient('mongodb://%s:%s@airname.shop:27017' % (env('DATABASE_USER'), env('DATABASE_PASS')))
     db = client['airnameDB']
     return db
 

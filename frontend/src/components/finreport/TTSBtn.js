@@ -17,7 +17,8 @@ function TTSBtn(props) {
     // 이전에 말하고 있는 단어 취소
     stopSpeak();
     // 이름 변수 넣기
-    msg.text = `Welcome to ${props.hometown} ${props.username}`;
+    // msg.text = `Welcome to ${props.hometown} ${props.username}`;
+    msg.text = `hello ${props.username}`;
     synth.speak(msg);
   }
 
@@ -42,4 +43,8 @@ const Button = styled.button`
 const SpeakerImgTag = styled.img`
   width: 50px;
   padding-top: 25px;
+  @media (max-width: 650px) {
+    padding-top: 5px;
+    width: 20px;
+  }
 `;
