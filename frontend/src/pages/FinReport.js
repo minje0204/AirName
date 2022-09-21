@@ -36,10 +36,14 @@ function FinReport() {
   };
 
   const saveData = async (res) => {
-    setFemaleMeaning(res.data.female.meaning);
-    setFemaleState(res.data.female.state);
-    setMaleMeaning(res.data.male.meaning);
-    setMaleState(res.data.male.state);
+    const data = JSON.parse(res.data)
+    console.log(data)
+      setFemaleMeaning(data.female.meaning);
+      setFemaleState(data.female.state);
+      setMaleMeaning(data.male.meaning);
+      setMaleState(data.male.state);
+
+
   }
 
   // 리포트 데이터 요청하고 저장하는 함수
