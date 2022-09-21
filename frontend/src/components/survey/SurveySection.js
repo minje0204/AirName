@@ -13,7 +13,7 @@ function SurveySection() {
   const [cur, setCur] = useState(0);
   const [isLast, setIsLast] = useState(false);
   const [surveyRes, setSurveyRes] = useState({});
-  const [totalData, setTotalData] = useState([]);
+  // const [totalData, setTotalData] = useState({});
   const [nameKo, setNameKo] = useState('');
   const [birth, setBirth] = useState(0);
   const [gender, setGender] = useState('');
@@ -26,15 +26,9 @@ function SurveySection() {
     setGender(localStorage.getItem('gender'));
   }
 
-  // 데이터 합쳐서 TotalData에 저장
-  const gatherData = async () => {
-    setTotalData({"name": nameKo, "gender" :gender, "birth" :birth, "attr":surveyRes})
-    console.log('gatherdata')
-  }
-
   // 이름 가져와서 Local에 저장
-  const getName = () => {
-    axios.post(`${API.SURVEY}`, totalData).then((res) => {
+  const getName = async (data) => {
+    axios.post(`${API.ENTRY}`, data).then((res) => {
       console.log(res);
       // 이름 추천 데이터 저장
       localStorage.setItem('rcmndNames', JSON.stringify(res.data));
@@ -50,17 +44,16 @@ function SurveySection() {
   };
 
   useEffect(() => {
-    if (Object.entries(surveyRes).length === 12) {
-      gatherData().then(() => {
+    if (Object.entries(surveyRes).length === 12) 
         setIsLast(true)
-        console.log('isLasttrue')
-      })
-    };
   }, [surveyRes]);
 
   useEffect(() => {
     if (isLast) {
-      getName();
+      console.log(surveyRes)
+      const data = {"name": nameKo, "gender" :gender, "birth" :birth, "attr": surveyRes}
+      console.log(data)
+      getName(data);
       navigate('/loading');
     }
   }, [isLast]);

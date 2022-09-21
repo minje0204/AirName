@@ -42,16 +42,18 @@ function EntryCardKo() {
   const sendData = async () => {
     const data = { name: nameKo, gender: gender, birth: birth };
     console.log(data);
-    axios
-      .post(`${API.ENTRY}`, data)
-      .then((res) => {
-        saveToStorage(JSON.stringify(res.data));
-      })
-      .catch((err) => {
-        if (err.message = "Request failed with status code 500"){
-          console.log('500번 에러 ! ')
-        }
-      });
+    saveToStorage(data);
+    // axios
+    //   .post(`${API.ENTRY}`, data)
+    //   .then((res) => {
+    //     console.log(res)
+    //     saveToStorage(JSON.stringify(res.data));
+    //   })
+    //   .catch((err) => {
+    //     if (err.message = "Request failed with status code 500"){
+    //       console.log('500번 에러 ! ')
+    //     }
+    //   });
     linkToSurvey();
   };
 

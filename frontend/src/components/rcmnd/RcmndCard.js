@@ -7,7 +7,9 @@ function RcmndCard() {
 
   useEffect(() => {
     // 로컬에서 rcmndNames에 저장함
-    setRcmndNames(localStorage.getItem(JSON.parse('rcmndNames')))
+    setRcmndNames(JSON.parse(JSON.parse(localStorage.getItem('rcmndNames'))))
+
+
   }, []);
 
   return (
@@ -16,6 +18,8 @@ function RcmndCard() {
         {Object.entries(rcmndNames).map(([k, v]) => (
           <RcmndCardItems key={k} name={k} type={v} />
         ))}
+
+
       </RcmdnCardContainer>
     </>
   );
