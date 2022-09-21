@@ -25,11 +25,7 @@ SECRET_KEY = 'trl*efvpfmoc9e1x*5dii$g1n($+qd-ig9%!hd$(^!y5%@z1q*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-<<<<<<< HEAD
-ALLOWED_HOSTS = ['0.0.0.0']
-=======
 ALLOWED_HOSTS = ['3.35.169.128','localhost','apidjango', '127.0.0.1']
->>>>>>> f0a855a5b09466d3e2fee9084db91cb3fd28bd18
 
 
 # Application definition
