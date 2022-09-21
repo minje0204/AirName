@@ -41,8 +41,6 @@ class NameList(APIView):
         #발음 추천
         sound_arr = Recommend(request.data['name'], request.data['gender'], request.data['birth'])
 
-        print(sound_arr)
-        print(atm_arr)
         result_arr = NameFormating(atm_arr,sound_arr)
         data = json.dumps(result_arr)
 
