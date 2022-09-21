@@ -12,6 +12,7 @@ import {
   Rcmnd,
   Survey
 } from './pages';
+import FeedbackBtn from './components/feedback';
 import theme from './theme';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/finreport/:username" element={<FinReport />} />
         </Routes>
       </BrowserRouter>
+      <FeedbackBtn />
     </ThemeProvider>
   );
 }

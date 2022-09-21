@@ -26,21 +26,24 @@ function EntryCardKo() {
   const birthCheck = /^(19|20)\d{2}/;
   const [birthError, setBirthError] = useState(false);
   const navigate = useNavigate();
-  
+
   const linkToSurvey = () => {
-    navigate('/loading');
+    navigate('/survey');
   };
 
   const saveToStorage = (localdata) => {
-    localStorage.setItem('user-info', localdata)
-  }
+    console.log(localdata);
+    localStorage.setItem('PNname', localdata);
+    localStorage.setItem('birth', birth);
+    localStorage.setItem('gender', gender);
+  };
 
   const sendData = async () => {
-    const data = {'name': nameKo, 'birth': birth};
+    const data = { name: nameKo, gender: gender, birth: birth };
     console.log(data);
-    axios
-      .post(`${API.ENTRY}`, data)
-      .then((res)  => {saveToStorage(JSON.stringify(res))})
+    axios.post(`${API.ENTRY}`, data).then((res) => {
+      saveToStorage(JSON.stringify(res.data));
+    });
     linkToSurvey();
   };
 
@@ -59,6 +62,7 @@ function EntryCardKo() {
             <TextField
               variant="outlined"
               className="answer"
+              placeholder="한글 이름 입력"
               inputProps={{
                 maxLength: 5
               }}
@@ -103,6 +107,7 @@ function EntryCardKo() {
                 maxLength: 4
               }}
               className="answer"
+              placeholder="태어난 해 ex)1995"
               error={birthError}
               helperText={birthError ? '다시 입력해주세요' : null}
               onBlur={(e) => {
@@ -123,7 +128,7 @@ function EntryCardKo() {
       </div>
       <div id="btn">
         {nameKo && gender && birth ? (
-          <button id="send-btn" onClick={(sendData)}>
+          <button id="send-btn" onClick={sendData}>
             영어 이름이 없는데 어떡하지?
           </button>
         ) : null}
@@ -192,5 +197,6 @@ const StyledWrapper = styled.div`
     margin: 20px;
     padding: 15px;
     border: 0;
+    color: black;
   }
 `;

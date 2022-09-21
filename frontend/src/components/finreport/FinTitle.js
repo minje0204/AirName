@@ -1,16 +1,21 @@
 import styled from 'styled-components';
-// import TTSBtn from './TTSBtn';
+import TTSBtn from './TTSBtn';
+import {isAndroid} from 'react-device-detect';
 
 function FinTitle({ hometown, username }) {
   return (
     <StyledWrapper>
       <div id="fintitle-container">
         <WelcomeWrapper>
-          Welcome to<HomeTownWrapper>{hometown}</HomeTownWrapper>,
+          HELLO,
+          {/* <HomeTownWrapper>{hometown}</HomeTownWrapper> */}
         </WelcomeWrapper>
         <NameWrapper>
           {username}!
-          {/* <TTSBtn id="fin-tts" username={username} hometown={hometown} /> */}
+          { isAndroid ?
+            null : <TTSBtn id="fin-tts" username={username} hometown={hometown}/> 
+          }
+          
         </NameWrapper>
       </div>
     </StyledWrapper>

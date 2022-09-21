@@ -24,7 +24,11 @@ class NameList(APIView):
         #Json 파일로 받아야 하지만 테스트를 위해 현재 한글이름 string값 받아서 처리하도록 함
         arr = Recommend(request.data['name'], request.data['gender'], request.data['birth'])
 
-        data = json.dumps(arr)
+        if arr == 'name error':
+            return JsonResponse({"error": "이름 형식에 오류가 있습니다."}, status=500)
 
-        return JsonResponse(data, safe=False)
+        else :
+            data = json.dumps(arr)
+
+            return JsonResponse(data, safe=False)
 
