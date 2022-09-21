@@ -6,7 +6,7 @@ import TicketTTSBtn from './TicketTTSBtn';
 import {isAndroid} from 'react-device-detect';
 import './Rcmnd.css';
 
-function TicketFront({ name }) {
+function TicketFront({ name, type }) {
   const selectName = (e) => {
     e.stopPropagation();
     console.log(name);
@@ -31,7 +31,8 @@ function TicketFront({ name }) {
           <SelectBtnContainer>
             <Link to={`/finreport/${name}`}>
               <button
-                className="btn-15 custom-btn"
+                className="btn-15 custom-btn "
+                id={type}
                 onClick={(e) => {
                   selectName(e);
                 }}
