@@ -131,7 +131,15 @@ function EntryCardKo() {
           <button id="send-btn" onClick={sendData}>
             영어 이름이 없는데 어떡하지?
           </button>
-        ) : null}
+        ) : (
+          <button
+            id="send-btn"
+            onClick={sendData}
+            style={{ visibility: 'hidden' }}
+          >
+            영어 이름이 없는데 어떡하지?
+          </button>
+        )}
       </div>
     </StyledWrapper>
   );
