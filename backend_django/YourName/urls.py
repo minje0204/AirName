@@ -7,6 +7,6 @@ from LoadingLabeling.views import Labeling
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('rec/sound/', NameList.as_view()),
-    path('report/<str:name>/<str:gender>/<int:birth>', GetReport.as_view()),
+    path('report/<str:name>/<int:birth>', GetReport.as_view()),
     path('loading/',Labeling.as_view())
 ]
