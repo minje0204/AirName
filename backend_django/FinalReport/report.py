@@ -19,19 +19,6 @@ def GetReportData(name, birth):
     maxMaleStateName = ""
     unisex = {}
 
-    print("Result")
-    print(result.male)
-    print("여성 길이")
-    print(len(result.female))
-
-    
-    print("남성 길이")
-    print(len(result.male))
-    print("컨테인스")
-    print(result.male.hasnans)
-    print("여자컨테인스")
-    print(result.female.hasnans)
-
     if not result.female.hasnans:
         for state in dict(result.female['state']).keys():
             state_year = result.female['state'][state]
