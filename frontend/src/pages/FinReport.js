@@ -3,10 +3,13 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
+//컴포넌트
 import FinBtns from '../components/finreport/FinBtns';
 import FinTitle from '../components/finreport/FinTitle';
 import MyCard from '../components/finreport/MyCard';
 import ReportContent from '../components/finreport/ReportContent';
+import ReportFooter from 'components/finreport/ReportFooter';
+
 import API from '../config';
 
 function FinReport() {
@@ -73,6 +76,7 @@ function FinReport() {
         maleMeaning={maleMeaning}
         femaleMeaning={femaleMeaning}
       />
+      <ReportFooter></ReportFooter>
     </StyledWrapper>
   );
 }
@@ -85,4 +89,7 @@ const StyledWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   height: 100%;
+  margin-top: 50px;
+  margin-bottom: 300px;
+  overflow: scroll;
 `;
