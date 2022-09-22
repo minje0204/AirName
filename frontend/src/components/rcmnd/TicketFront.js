@@ -40,7 +40,7 @@ const TicketHead = styled.div`
   border-top-right-radius: 15px;
   height: 20%;
   font-size: clamp(10px, calc(0.5vw  + 11.08px), 40px); 
-
+  font-family: 'SCDream7';
 `;
 const TicketBody = styled.div`
   display: flex;
