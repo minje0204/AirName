@@ -39,23 +39,19 @@ function FinReport() {
   };
 
   const saveData = async (res) => {
-    const data = JSON.parse(res.data)
-    console.log(data)
-      setFemaleMeaning(data.female.meaning);
-      setFemaleState(data.female.state);
-      setMaleMeaning(data.male.meaning);
-      setMaleState(data.male.state);
-
-
-  }
+    const data = JSON.parse(res.data);
+    console.log(data);
+    setFemaleMeaning(data.female.meaning);
+    setFemaleState(data.female.state);
+    setMaleMeaning(data.male.meaning);
+    setMaleState(data.male.state);
+  };
 
   // 리포트 데이터 요청하고 저장하는 함수
   const getReportData = async () => {
-    await axios
-      .get(`${API.FINREPORT}/${username}/${birth}`)
-      .then((res) => {
-          saveData(res).then(calcMainState())
-      });
+    await axios.get(`${API.FINREPORT}/${username}/${birth}`).then((res) => {
+      saveData(res).then(calcMainState());
+    });
   };
 
   // 렌더링 될 때, 리포트 데이터 요청
@@ -65,26 +61,28 @@ function FinReport() {
 
   return (
     <StyledWrapper>
-      <FintitleContainer>
-        <FinTitle username={username} hometown={mainState} />
-      </FintitleContainer>
-      <FinBodyContainer>
-        <FinBtns username={username} />
-        <MyCardContainer>
-        <MyCard username={username} hometown={mainState} />
-        
-        </MyCardContainer>
-        <ReportContent
-          username={username}
-          hometown={mainState}
-          maleState={maleState}
-          femaleState={femaleState}
-          maleMeaning={maleMeaning}
-          femaleMeaning={femaleMeaning}
-        />
-        {/* <ReportFooter></ReportFooter> */}
-      </FinBodyContainer>
-
+      <div id="content-container">
+        <FintitleContainer>
+          <FinTitle username={username} hometown={mainState} />
+        </FintitleContainer>
+        <FinBodyContainer>
+          <FinBtns username={username} />
+          <MyCardContainer>
+            <MyCard username={username} hometown={mainState} />
+          </MyCardContainer>
+          <ReportContent
+            username={username}
+            hometown={mainState}
+            maleState={maleState}
+            femaleState={femaleState}
+            maleMeaning={maleMeaning}
+            femaleMeaning={femaleMeaning}
+          />
+        </FinBodyContainer>
+      </div>
+      <div id="footer-container">
+        <ReportFooter />
+      </div>
     </StyledWrapper>
   );
 }
@@ -92,31 +90,30 @@ function FinReport() {
 export default FinReport;
 
 const StyledWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100%;
-  margin-top: 50px;
-  @media (max-width: 650px){
-    margin-top: 20px;
+  #content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 30px;
+  }
+  #footer-container {
+    width: 100%;
+    background: var(--primaryLight);
+    margin-top: 30px;
   }
 `;
 
 const FintitleContainer = styled.div`
   min-height: 150px;
-  @media (max-width: 650px){
+  @media (max-width: 650px) {
     min-height: 50px;
   }
-`
-const FinBodyContainer = styled.div`
-  height: 90%;
-
-`
+`;
+const FinBodyContainer = styled.div``;
 
 const MyCardContainer = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
