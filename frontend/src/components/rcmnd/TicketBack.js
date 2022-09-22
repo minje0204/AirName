@@ -37,7 +37,7 @@ function TicketFront({ name, type }) {
                   selectName(e);
                 }}
               >
-                내 이름은 {name}로 결정 !
+                {name} 결과 리포트 보러가기
               </button>
             </Link>
           </SelectBtnContainer>
@@ -65,6 +65,7 @@ const TicketHead = styled.div`
   border-top-right-radius: 15px;
   height: 20%;
   font-size: clamp(10px, calc(0.5vw + 11.08px), 40px);
+  font-family: 'SCDream7';
 `;
 const TicketBody = styled.div`
   display: flex;
