@@ -26,7 +26,7 @@
 	background-color:  var(--primaryLight);
 }
 
-@media (hover: hover) {
+@media (min-width: 650px) {
 	#svy-btn:hover { 
 		cursor: pointer;
     background-color: rgb(239, 237, 237, 0.4);
