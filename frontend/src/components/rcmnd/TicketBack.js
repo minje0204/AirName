@@ -31,7 +31,7 @@ function TicketFront({ name, type }) {
           <SelectBtnContainer>
             <Link to={`/finreport/${name}`}>
               <button
-                className="btn-15 custom-btn "
+                className="btn-15 custom-btn"
                 id={type}
                 onClick={(e) => {
                   selectName(e);

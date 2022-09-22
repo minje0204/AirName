@@ -78,11 +78,11 @@ function EntryCardKo() {
               className="answer"
               placeholder="한글 이름 입력"
               inputProps={{
-                maxLength: 5
+                maxLength: 7
               }}
               error={nameKoError}
               helperText={nameKoError ? '다시 입력해주세요' : null}
-              onBlur={(e) => {
+              onChange={(e) => {
                 const nameKoTmp = e.target.value;
                 if (nameKoCheck.test(nameKoTmp) || nameKoTmp.length === 1) {
                   setNameKoError(true);
@@ -124,7 +124,7 @@ function EntryCardKo() {
               placeholder="태어난 해 ex)1995"
               error={birthError}
               helperText={birthError ? '다시 입력해주세요' : null}
-              onBlur={(e) => {
+              onChange={(e) => {
                 const birthTmp = e.target.value;
                 if (!birthCheck.test(birthTmp) || birthTmp.length < 4) {
                   setBirthError(true);
@@ -145,7 +145,15 @@ function EntryCardKo() {
           <button id="send-btn" onClick={sendData}>
             영어 이름이 없는데 어떡하지?
           </button>
-        ) : null}
+        ) : (
+          <button
+            id="send-btn"
+            onClick={sendData}
+            style={{ visibility: 'hidden' }}
+          >
+            영어 이름이 없는데 어떡하지?
+          </button>
+        )}
       </div>
     </StyledWrapper>
   );
