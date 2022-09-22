@@ -17,7 +17,7 @@ export default function ProgressBar() {
         const diff = Math.random() * 10;
         return Math.min(oldProgress + diff, 100);
       });
-    }, 500);
+    }, 300);
     return () => {
       clearInterval(timer);
     };
