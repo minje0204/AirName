@@ -3,9 +3,10 @@ import os
 import sys
 import jellyfish
 import urllib.request
+import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
-from .connection import *
+from connection import *
 from pymongo import MongoClient
 
 def Romanization(input):
@@ -25,7 +26,6 @@ def Romanization(input):
         raw_name = name_tags[0].text
         blank_index = raw_name.index(' ')
         refined_name = raw_name[blank_index+1:]
-
 
     else:
         refined_name = 'name not found error'
@@ -84,7 +84,15 @@ def Recommend(kor_name, gender, year):
     #필터링(gender~rarity 부분을 설문조사 배열 형태로 넘길지 생각중)
     df_sim = Filter(df_sim, gender, year)
 
-    name_array = df_sim['name'].head(4).to_numpy()
+    name_array = []
+    df_drop_dup = df_sim['nysiis'].drop_duplicates().head(4).to_numpy()
+
+    for data in df_drop_dup:
+        df_new = df_sim.copy()
+        df_new = df_new[df_new['nysiis']==data].head(1).to_numpy()
+        name_array.append(df_new[0][1])
+
+    name_array = np.array(name_array)
 
     return name_array
 
