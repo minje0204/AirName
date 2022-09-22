@@ -23,10 +23,7 @@ const RcmndContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 1000px;
 `;
-const RcmndHead = styled.div`
-
-`;
+const RcmndHead = styled.div``;
 
 const RcmndBody = styled.div``;
