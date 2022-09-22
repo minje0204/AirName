@@ -177,6 +177,10 @@ export default EntryCardKo;
 // }
 
 const StyledWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   #card {
     width: 100%;
   }
