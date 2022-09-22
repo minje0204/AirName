@@ -23,11 +23,12 @@ const RcmndContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: scroll;
+  min-height: 1000px;
+
 `;
 const RcmndHead = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
 `;
 
 const RcmndBody = styled.div``;

@@ -18,8 +18,6 @@ function RcmndCard() {
         {Object.entries(rcmndNames).map(([k, v]) => (
           <RcmndCardItems key={k} name={k} type={v} />
         ))}
-
-
       </RcmdnCardContainer>
     </>
   );
