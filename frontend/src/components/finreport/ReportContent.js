@@ -1,5 +1,7 @@
 import React from 'react';
 import ReportContentItems from './ReportContentItems';
+import styled from 'styled-components';
+
 
 function ReportContent({
   username,
@@ -10,7 +12,7 @@ function ReportContent({
   femaleMeaning
 }) {
   return (
-    <div>
+    <ReportContentItemsContainer>
       <ReportContentItems
         username={username}
         hometown={hometown}
@@ -19,8 +21,12 @@ function ReportContent({
         maleMeaning={maleMeaning}
         femaleMeaning={femaleMeaning}
       ></ReportContentItems>
-    </div>
+    </ReportContentItemsContainer>
   );
 }
 
 export default ReportContent;
+
+const ReportContentItemsContainer = styled.div`
+  overflow: scroll;
+`
