@@ -24,11 +24,7 @@ const RcmndContainer = styled.div`
   justify-content: center;
   align-items: center;
   overflow: scroll;
-  min-height: 1000px;
-
 `;
-const RcmndHead = styled.div`
-
-`;
+const RcmndHead = styled.div``;
 
 const RcmndBody = styled.div``;
