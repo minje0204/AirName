@@ -65,18 +65,26 @@ function FinReport() {
 
   return (
     <StyledWrapper>
-      <FinTitle username={username} hometown={mainState} />
-      <FinBtns username={username} />
-      <MyCard username={username} hometown={mainState} />
-      <ReportContent
-        username={username}
-        hometown={mainState}
-        maleState={maleState}
-        femaleState={femaleState}
-        maleMeaning={maleMeaning}
-        femaleMeaning={femaleMeaning}
-      />
-      <ReportFooter></ReportFooter>
+      <FintitleContainer>
+        <FinTitle username={username} hometown={mainState} />
+      </FintitleContainer>
+      <FinBodyContainer>
+        <FinBtns username={username} />
+        <MyCardContainer>
+        <MyCard username={username} hometown={mainState} />
+        
+        </MyCardContainer>
+        <ReportContent
+          username={username}
+          hometown={mainState}
+          maleState={maleState}
+          femaleState={femaleState}
+          maleMeaning={maleMeaning}
+          femaleMeaning={femaleMeaning}
+        />
+        {/* <ReportFooter></ReportFooter> */}
+      </FinBodyContainer>
+
     </StyledWrapper>
   );
 }
@@ -90,6 +98,25 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   height: 100%;
   margin-top: 50px;
-  margin-bottom: 300px;
-  overflow: scroll;
+  @media (max-width: 650px){
+    margin-top: 20px;
+  }
 `;
+
+const FintitleContainer = styled.div`
+  min-height: 150px;
+  @media (max-width: 650px){
+    min-height: 50px;
+  }
+`
+const FinBodyContainer = styled.div`
+  height: 90%;
+
+`
+
+const MyCardContainer = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+
+`
