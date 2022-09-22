@@ -29,5 +29,4 @@ export default ReportContent;
 
 const ReportContentItemsContainer = styled.div`
   margin-top: 30px;
-  overflow: scroll;
 `
