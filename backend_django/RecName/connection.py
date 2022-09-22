@@ -6,7 +6,7 @@ def ConnectMongoDB():
     #mongoDB 연결객체 생성
     env = environ.Env()
     environ.Env.read_env()
-    client = MongoClient('mongodb://%s:%s@airname.shop:27017' % (env('DATABASE_USER'), env('DATABASE_PASS')))
+    client = MongoClient('mongodb://%s:%s@mongodb:27017' % (env('DATABASE_USER'), env('DATABASE_PASS')))
     db = client['airnameDB']
     return db
 
