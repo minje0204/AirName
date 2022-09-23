@@ -126,7 +126,12 @@ function EntryCardKo() {
               helperText={birthError ? '다시 입력해주세요' : null}
               onChange={(e) => {
                 const birthTmp = e.target.value;
-                if (!birthCheck.test(birthTmp) || birthTmp.length < 4) {
+                if (
+                  !birthCheck.test(birthTmp) ||
+                  birthTmp.length < 4 ||
+                  Number(birthTmp) < 1940 ||
+                  Number(birthTmp) > 2021
+                ) {
                   setBirthError(true);
                 } else {
                   setBirth(birthTmp);
@@ -141,7 +146,7 @@ function EntryCardKo() {
         </Container>
       </div>
       <div id="btn">
-        {nameKo && gender && birth ? (
+        {nameKo && !nameKoError && gender && birth && !birthError ? (
           <button id="send-btn" onClick={sendData}>
             영어 이름이 없는데 어떡하지?
           </button>

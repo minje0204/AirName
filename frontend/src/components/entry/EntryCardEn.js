@@ -112,7 +112,12 @@ function EntryCardEn() {
               helperText={birthError ? '다시 입력해주세요' : null}
               onChange={(e) => {
                 const birthTmp = e.target.value;
-                if (!birthCheck.test(birthTmp) || birthTmp.length < 4) {
+                if (
+                  !birthCheck.test(birthTmp) ||
+                  birthTmp.length < 4 ||
+                  Number(birthTmp) < 1940 ||
+                  Number(birthTmp) > 2021
+                ) {
                   setBirthError(true);
                 } else {
                   setBirth(birthTmp);
@@ -145,7 +150,13 @@ function EntryCardEn() {
       </div>
 
       <div id="btn">
-        {nameKo && gender && birth && nameEn ? (
+        {nameKo &&
+        !nameKoError &&
+        gender &&
+        birth &&
+        !birthError &&
+        nameEn &&
+        !nameEnError ? (
           <button id="send-btn" onClick={sendData}>
             내 영어 이름 리포트 보러가기
           </button>
