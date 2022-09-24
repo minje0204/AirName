@@ -12,10 +12,22 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import styld from '@mui/material/styles/styled';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
 
 // import postAxios from '../../lib/postAxios';
 import API from '../../config';
+
+const ValidationTextField = styld(TextField)({
+  '& input:invalid + fieldset': {
+    borderColor: 'gray',
+    borderWidth: 1
+  },
+  '& input:valid + fieldset': {
+    borderColor: 'green',
+    borderWidth: 2
+  }
+});
 
 function EntryCardEn() {
   const [nameKo, setNameKo] = useState('');
@@ -61,7 +73,7 @@ function EntryCardEn() {
         <Container id="content" sx={{ bgcolor: '#F9F7F4', height: '60vh' }}>
           <div className="qAndA">
             <div className="question">Name</div>
-            <TextField
+            <ValidationTextField
               variant="outlined"
               className="answer"
               inputProps={{
@@ -69,6 +81,7 @@ function EntryCardEn() {
               }}
               error={nameKoError}
               helperText={nameKoError ? '다시 입력해주세요' : null}
+              required
               onChange={(e) => {
                 const nameKoTmp = e.target.value;
                 if (nameKoCheck.test(nameKoTmp) || nameKoTmp.length === 1) {
@@ -91,10 +104,22 @@ function EntryCardEn() {
                   setGender(event.target.value);
                 }}
               >
-                <FormControlLabel value="M" control={<Radio />} label="Male" />
+                <FormControlLabel
+                  value="M"
+                  control={
+                    <Radio
+                      sx={{ '&.Mui-checked': { '&': { color: 'green' } } }}
+                    />
+                  }
+                  label="Male"
+                />
                 <FormControlLabel
                   value="F"
-                  control={<Radio />}
+                  control={
+                    <Radio
+                      sx={{ '&.Mui-checked': { '&': { color: 'green' } } }}
+                    />
+                  }
                   label="Female"
                 />
               </RadioGroup>
@@ -102,7 +127,7 @@ function EntryCardEn() {
           </div>
           <div className="qAndA">
             <div className="question">Birth Year</div>
-            <TextField
+            <ValidationTextField
               variant="outlined"
               inputProps={{
                 maxLength: 4
@@ -110,6 +135,7 @@ function EntryCardEn() {
               className="answer"
               error={birthError}
               helperText={birthError ? '다시 입력해주세요' : null}
+              required
               onChange={(e) => {
                 const birthTmp = e.target.value;
                 if (
@@ -128,11 +154,12 @@ function EntryCardEn() {
           </div>
           <div className="qAndA">
             <div className="question">English Name</div>
-            <TextField
+            <ValidationTextField
               variant="outlined"
               className="answer"
               error={nameEnError}
               helperText={nameEnError ? '다시 입력해주세요' : null}
+              required
               onChange={(e) => {
                 const nameEnTmp = e.target.value;
                 if (nameEnCheck.test(nameEnTmp)) {

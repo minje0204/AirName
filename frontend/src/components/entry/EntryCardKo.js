@@ -12,10 +12,22 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import styld from '@mui/material/styles/styled';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
 
 // import postAxios from '../../lib/postAxios';
 import API from '../../config';
+
+const ValidationTextField = styld(TextField)({
+  '& input:invalid + fieldset': {
+    borderColor: 'gray',
+    borderWidth: 1
+  },
+  '& input:valid + fieldset': {
+    borderColor: 'green',
+    borderWidth: 2
+  }
+});
 
 function EntryCardKo() {
   const [nameKo, setNameKo] = useState('');
@@ -73,7 +85,7 @@ function EntryCardKo() {
         <Container id="content" sx={{ bgcolor: '#F9F7F4', height: '60vh' }}>
           <div className="qAndA custom-input">
             <div className="question to-move">Name</div>
-            <TextField
+            <ValidationTextField
               variant="outlined"
               className="answer"
               placeholder="한글 이름 입력"
@@ -82,6 +94,7 @@ function EntryCardKo() {
               }}
               error={nameKoError}
               helperText={nameKoError ? '다시 입력해주세요' : null}
+              required
               onChange={(e) => {
                 const nameKoTmp = e.target.value;
                 if (nameKoCheck.test(nameKoTmp) || nameKoTmp.length === 1) {
@@ -104,10 +117,22 @@ function EntryCardKo() {
                   setGender(event.target.value);
                 }}
               >
-                <FormControlLabel value="M" control={<Radio />} label="Male" />
+                <FormControlLabel
+                  value="M"
+                  control={
+                    <Radio
+                      sx={{ '&.Mui-checked': { '&': { color: 'green' } } }}
+                    />
+                  }
+                  label="Male"
+                />
                 <FormControlLabel
                   value="F"
-                  control={<Radio />}
+                  control={
+                    <Radio
+                      sx={{ '&.Mui-checked': { '&': { color: 'green' } } }}
+                    />
+                  }
                   label="Female"
                 />
               </RadioGroup>
@@ -115,7 +140,7 @@ function EntryCardKo() {
           </div>
           <div className="qAndA custom-input">
             <div className="question to-move">Birth Year</div>
-            <TextField
+            <ValidationTextField
               variant="outlined"
               inputProps={{
                 maxLength: 4
@@ -124,6 +149,7 @@ function EntryCardKo() {
               placeholder="태어난 해 ex)1995"
               error={birthError}
               helperText={birthError ? '다시 입력해주세요' : null}
+              required
               onChange={(e) => {
                 const birthTmp = e.target.value;
                 if (
