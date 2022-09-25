@@ -90,7 +90,8 @@ function EntryCardKo() {
               className="answer"
               placeholder="한글 이름 입력"
               inputProps={{
-                maxLength: 7
+                maxLength: 7,
+                style: { fontSize: 'clamp(12px,1.3vw,16px)' }
               }}
               error={nameKoError}
               helperText={nameKoError ? '다시 입력해주세요' : null}
@@ -124,7 +125,11 @@ function EntryCardKo() {
                       sx={{ '&.Mui-checked': { '&': { color: 'green' } } }}
                     />
                   }
-                  label="Male"
+                  label={
+                    <span style={{ fontSize: 'clamp(12px,1.5vw,16px)' }}>
+                      Male
+                    </span>
+                  }
                 />
                 <FormControlLabel
                   value="F"
@@ -133,7 +138,11 @@ function EntryCardKo() {
                       sx={{ '&.Mui-checked': { '&': { color: 'green' } } }}
                     />
                   }
-                  label="Female"
+                  label={
+                    <span style={{ fontSize: 'clamp(12px,1.5vw,16px)' }}>
+                      Female
+                    </span>
+                  }
                 />
               </RadioGroup>
             </FormControl>
@@ -143,7 +152,8 @@ function EntryCardKo() {
             <ValidationTextField
               variant="outlined"
               inputProps={{
-                maxLength: 4
+                maxLength: 4,
+                style: { fontSize: 'clamp(12px,1.5vw,16px)' }
               }}
               className="answer"
               placeholder="태어난 해 ex)1995"
@@ -208,6 +218,29 @@ export default EntryCardKo;
 // }
 
 const StyledWrapper = styled.div`
+  @media (max-width: 450px) {
+    font-size: 15px;
+    #title_b {
+      font-size: 17px;
+    }
+    .answer {
+      font-size: 17px;
+    }
+    #send-btn {
+      font-size: 12px;
+    }
+  }
+  @media (min-width: 450px) {
+    #title_b {
+      font-size: 25px;
+    }
+    .answer {
+      font-size: 20px;
+    }
+    #send-btn {
+      font-size: 20px;
+    }
+  }
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -223,12 +256,12 @@ const StyledWrapper = styled.div`
   }
   #title_b {
     font-family: 'SCDream7';
-    font-size: 25px;
   }
   #content {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    height: 450px;
   }
   .qAndA {
     display: flex;
@@ -238,7 +271,6 @@ const StyledWrapper = styled.div`
   .qAndA.custom-input {
     height: 79px !important;
   }
-
   .qAndA .to-move {
     top: -12px;
     position: relative;
@@ -249,7 +281,6 @@ const StyledWrapper = styled.div`
   }
   .answer {
     font-family: 'Daheng';
-    font-size: 20px;
     width: 200px;
   }
   #btn {
@@ -257,7 +288,6 @@ const StyledWrapper = styled.div`
     justify-content: center;
   }
   #send-btn {
-    font-size: 20px;
     background-color: var(--secondaryMain);
     margin: 20px;
     padding: 15px;
