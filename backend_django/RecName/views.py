@@ -36,13 +36,17 @@ from .rec import *
 
 class NameList(APIView):
     def post(self, request):
-        #분위기 추천
-        atm_arr = AtmRecommend(request.data['attr'])
         #발음 추천
         sound_arr = Recommend(request.data['name'], request.data['gender'], request.data['birth'])
 
-        result_arr = NameFormating(atm_arr,sound_arr)
-        data = json.dumps(result_arr)
+        if sound_arr == 404:
+            return JsonResponse({"error": "이름 형식에 오류가 있습니다."}, status=404)
+        else:
+            # 분위기 추천
+            atm_arr = AtmRecommend(request.data['attr'])
 
-        return JsonResponse(data, safe=False)
+            result_arr = NameFormating(atm_arr,sound_arr)
+            data = json.dumps(result_arr)
+
+            return JsonResponse(data, safe=False)
 
