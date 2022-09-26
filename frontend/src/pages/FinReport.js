@@ -8,7 +8,7 @@ import FinBtns from '../components/finreport/FinBtns';
 import FinTitle from '../components/finreport/FinTitle';
 import MyCard from '../components/finreport/MyCard';
 import ReportContent from '../components/finreport/ReportContent';
-import ReportFooter from 'components/finreport/ReportFooter';
+// import ReportFooter from 'components/finreport/ReportFooter';
 
 //데이터
 import HomeTownEn from '../components/finreport/HomeTownEn';
@@ -125,9 +125,9 @@ function FinReport() {
           />
         </FinBodyContainer>
       </div>
-      <div id="footer-container">
+      {/* <div id="footer-container">
         <ReportFooter />
-      </div>
+      </div> */}
     </StyledWrapper>
   );
 }
