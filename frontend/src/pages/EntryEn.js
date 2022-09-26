@@ -18,6 +18,7 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 80vw;
-  max-width: 700px;
+  @media (max-width: 650px) {
+    width: 95vw;
+  }
 `;
