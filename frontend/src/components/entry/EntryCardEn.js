@@ -12,13 +12,12 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import styld from '@mui/material/styles/styled';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
 
 // import postAxios from '../../lib/postAxios';
 import API from '../../config';
 
-const ValidationTextField = styld(TextField)({
+const ValidationTextField = styled(TextField)({
   '& input:invalid + fieldset': {
     borderColor: 'gray',
     borderWidth: 1
