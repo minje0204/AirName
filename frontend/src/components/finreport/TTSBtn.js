@@ -4,10 +4,8 @@ import SpeakerImg from '../../asset/img/finreport/Speaker.svg';
 
 function TTSBtn(props) {
   const synth = window.speechSynthesis;
+  // 새 객체 생성
   const msg = new SpeechSynthesisUtterance();
-  // 언어, 속도 설정
-  msg.lang = 'en-US';
-  msg.rate = 0.8;
 
   function stopSpeak() {
     synth.cancel();
@@ -16,9 +14,11 @@ function TTSBtn(props) {
   function startSpeak() {
     // 이전에 말하고 있는 단어 취소
     stopSpeak();
-    // 이름 변수 넣기
-    // msg.text = `Welcome to ${props.hometown} ${props.username}`;
-    msg.text = `hello ${props.username}`;
+    // msg 언어, 속도, text 설정
+    msg.text = `Welcome to ${props.hometown} ${props.username}`;
+    msg.lang = 'en-US';
+    msg.rate = 1;
+    // msg.text = `hello ${props.username}`;
     synth.speak(msg);
   }
 

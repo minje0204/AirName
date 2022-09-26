@@ -5,8 +5,7 @@ function TTSBtn(props) {
   const synth = window.speechSynthesis;
   const msg = new SpeechSynthesisUtterance();
   // 언어, 속도 설정
-  msg.lang = 'en-US';
-  msg.rate = 0.8;
+
 
   function stopSpeak() {
     synth.cancel();
@@ -17,6 +16,8 @@ function TTSBtn(props) {
     // 이전에 말하고 있는 단어 취소
     stopSpeak();
     // 이름 변수 넣기
+    msg.lang = 'en-US';
+    msg.rate = 0.8;
     msg.text = props.username;
     synth.speak(msg);
   }
