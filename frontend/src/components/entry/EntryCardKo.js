@@ -46,6 +46,7 @@ function EntryCardKo() {
   const saveToStorage = (localdata) => {
     console.log(localdata);
     localStorage.setItem('nameKo', nameKo);
+    localStorage.removeItem('username');
     localStorage.setItem('birth', birth);
     localStorage.setItem('gender', gender);
   };

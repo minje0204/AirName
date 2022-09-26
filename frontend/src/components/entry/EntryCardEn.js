@@ -41,12 +41,12 @@ function EntryCardEn() {
   const [nameEnError, setNameEnError] = useState(false);
   const navigate = useNavigate();
 
-  const linkToSurvey = () => {
-    navigate('/survey');
+  const linkToLoading = () => {
+    navigate('/loading');
   };
 
   const saveToStorage = (localdata) => {
-    localStorage.setItem('PNname', localdata);
+    localStorage.setItem('username', nameEn);
     localStorage.setItem('birth', birth);
     localStorage.setItem('gender', gender);
   };
@@ -57,7 +57,8 @@ function EntryCardEn() {
     // axios.post(`${API.ENTRY}`, data).then((res) => {
     //   saveToStorage(JSON.stringify(res.data));
     // });
-    linkToSurvey();
+    saveToStorage(data);
+    linkToLoading();
   };
 
   return (
