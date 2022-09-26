@@ -10,18 +10,55 @@ import MyCard from '../components/finreport/MyCard';
 import ReportContent from '../components/finreport/ReportContent';
 import ReportFooter from 'components/finreport/ReportFooter';
 
+//데이터
+import HomeTownEn from '../components/finreport/HomeTownEn';
+import HomeTownKo from '../components/finreport/HomeTownKo';
 import API from '../config';
 
 function FinReport() {
   const { username } = useParams();
   const birth = localStorage.getItem('birth');
   const gender = localStorage.getItem('gender');
-  // const [reportData, setReportData] = useState({});
   const [femaleMeaning, setFemaleMeaning] = useState('');
   const [femaleState, setFemaleState] = useState('');
   const [maleMeaning, setMaleMeaning] = useState('');
   const [maleState, setMaleState] = useState('');
   const [mainState, setMainState] = useState('');
+  const [parseEnHome, setParseEnHome] = useState('');
+  const [parseKoHome, setParseKoHome] = useState('');
+  const [parseFeEnHome, setParseFeEnHome] = useState('');
+  const [parseFeKoHome, setParseFeKoHome] = useState('');
+  const [parseEnMainState, setParseEnMainState] = useState('');
+
+  const setEnHomeTown = () => {
+    Object.entries(HomeTownEn).map(([k, v]) => {
+      if (k === maleState) {
+        setParseEnHome(v);
+      }
+      if (k === femaleState) {
+        setParseFeEnHome(v);
+      }
+    });
+  };
+
+  const setKoHomeTown = () => {
+    Object.entries(HomeTownKo).map(([k, v]) => {
+      if (k === maleState) {
+        setParseKoHome(v);
+      }
+      if (k === femaleState) {
+        setParseFeKoHome(v);
+      }
+    });
+  };
+
+  const setEnMainState = () => {
+    Object.entries(HomeTownEn).map(([k, v]) => {
+      if (k === mainState) {
+        setParseEnMainState(v);
+      }
+    });
+  };
 
   // maleState, femaleState 존재에 따라 mainState 저장
   const calcMainState = () => {
@@ -55,15 +92,19 @@ function FinReport() {
   };
 
   // 렌더링 될 때, 리포트 데이터 요청
+  // 인자 x 모든 컴포넌트 렌더링시마다 실행
   useEffect(() => {
     getReportData();
+    setEnHomeTown();
+    setKoHomeTown();
+    setEnMainState();
   });
 
   return (
     <StyledWrapper>
       <div id="content-container">
         <FintitleContainer>
-          <FinTitle username={username} hometown={mainState} />
+          <FinTitle username={username} hometown={parseEnMainState} />
         </FintitleContainer>
         <FinBodyContainer>
           <FinBtns username={username} />
@@ -77,6 +118,10 @@ function FinReport() {
             femaleState={femaleState}
             maleMeaning={maleMeaning}
             femaleMeaning={femaleMeaning}
+            parseKoHome={parseKoHome}
+            parseEnHome={parseEnHome}
+            parseFeKoHome={parseFeKoHome}
+            parseFeEnHome={parseFeEnHome}
           />
         </FinBodyContainer>
       </div>
