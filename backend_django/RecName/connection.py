@@ -4,9 +4,10 @@ from pymongo import MongoClient
 
 def ConnectMongoDB():
     #mongoDB 연결객체 생성
-    env = environ.Env()
-    environ.Env.read_env()
-    client = MongoClient('mongodb://%s:%s@mongodb:27017' % (env('DATABASE_USER'), env('DATABASE_PASS')))
+    # env = environ.Env()
+    # environ.Env.read_env()
+    # client = MongoClient('mongodb://%s:%s@mongodb:27017' % (env('DATABASE_USER'), env('DATABASE_PASS')))
+    client = MongoClient(host='localhost', port=27017)
     db = client['airnameDB']
     return db
 

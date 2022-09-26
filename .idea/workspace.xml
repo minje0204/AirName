@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="8d031b73-f762-475b-9200-1d15ae4c106b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_django/RecName/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend_django/RecName/connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_django/RecName/parse.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend_django/RecName/parse.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend_django/RecName/rec.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend_django/RecName/rec.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend_django/RecName/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend_django/RecName/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_django/YourName/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend_django/YourName/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,48 +18,37 @@
     <session id="-1321436432">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="451" />
+          <entry key="dummy" value="48" />
+          <entry key="py" value="1168" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="451" />
+          <entry key="PLAIN_TEXT" value="48" />
+          <entry key="Python" value="1168" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="env" value="2" />
-          <entry key="py" value="4" />
+          <entry key="py" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="4" />
+          <entry key="Python" value="8" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend_django/RecName/rec.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-867">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-                <marker date="1664157406150" expanded="true" signature="3989:3991" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend_django/RecName/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="42" column="73" selection-start-line="42" selection-start-column="73" selection-end-line="42" selection-end-column="73" />
+            <state relative-caret-position="364">
+              <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -65,10 +57,31 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend_django/RecName/parse.py">
+        <entry file="file://$PROJECT_DIR$/backend_django/RecName/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="140" selection-start-line="140" selection-end-line="141" selection-end-column="10" />
+            <state relative-caret-position="85">
+              <caret line="5" column="45" lean-forward="true" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend_django/YourName/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="94" column="4" lean-forward="true" selection-start-line="94" selection-start-column="6" selection-end-line="94" selection-end-column="83" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend_django/RecName/connection.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="194">
+              <caret line="15" column="35" lean-forward="true" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -88,22 +101,24 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/backend_django/RecName/connection.py" />
-        <option value="$PROJECT_DIR$/backend_django/RecName/parse.py" />
         <option value="$PROJECT_DIR$/backend_django/requirements.txt" />
         <option value="$PROJECT_DIR$/backend_django/RecName/urls.py" />
         <option value="$PROJECT_DIR$/backend_django/RecName/.env" />
-        <option value="$PROJECT_DIR$/backend_django/YourName/settings.py" />
         <option value="$PROJECT_DIR$/backend_django/RecName/rec.py" />
+        <option value="$PROJECT_DIR$/backend_django/RecName/connection.py" />
+        <option value="$PROJECT_DIR$/backend_django/RecName/parse.py" />
+        <option value="$PROJECT_DIR$/backend_django/RecName/exception.py" />
         <option value="$PROJECT_DIR$/backend_django/RecName/views.py" />
+        <option value="$PROJECT_DIR$/backend_django/YourName/settings.py" />
+        <option value="$PROJECT_DIR$/backend_django/RecName/utils.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="475" />
-    <option name="y" value="130" />
-    <option name="width" value="1375" />
-    <option name="height" value="840" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="951" />
+    <option name="y" value="-9" />
+    <option name="width" value="978" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectId" id="2EmwwCzjUS0eSCzKiWQQ8hFDdWc" />
   <component name="ProjectView">
@@ -178,12 +193,21 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13284865" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49788135" visible="true" weight="0.13284865" />
+      <window_info id="Structure" order="1" sideWeight="0.50211865" side_tool="true" weight="0.13284865" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -191,7 +215,7 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32954547" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.25142047" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
@@ -239,45 +263,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/backend_django/RecName/parse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="129" column="28" lean-forward="true" selection-start-line="128" selection-start-column="28" selection-end-line="129" selection-end-column="28" />
+          <folding>
+            <marker date="1664167182900" expanded="true" signature="4004:4009" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend_django/RecName/rec.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1802">
+          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+          <folding>
+            <marker date="1664166942517" expanded="true" signature="3990:3992" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend_django/RecName/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="45" lean-forward="true" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/backend_django/YourName/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="135" column="22" lean-forward="true" selection-start-line="135" selection-start-column="22" selection-end-line="135" selection-end-column="27" />
+        <state relative-caret-position="306">
+          <caret line="94" column="4" lean-forward="true" selection-start-line="94" selection-start-column="6" selection-end-line="94" selection-end-column="83" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend_django/RecName/connection.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="13" lean-forward="true" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        <state relative-caret-position="194">
+          <caret line="15" column="35" lean-forward="true" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend_django/RecName/parse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="140" selection-start-line="140" selection-end-line="141" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend_django/RecName/rec.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-867">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-            <marker date="1664157406150" expanded="true" signature="3989:3991" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend_django/RecName/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="42" column="73" selection-start-line="42" selection-start-column="73" selection-end-line="42" selection-end-column="73" />
+        <state relative-caret-position="364">
+          <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>

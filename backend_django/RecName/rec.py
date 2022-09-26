@@ -6,7 +6,7 @@ import urllib.request
 import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
-from connection import *
+from .connection import *
 from pymongo import MongoClient
 
 def Romanization(input):

@@ -88,6 +88,13 @@ DATABASES = {
     }
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES' : [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    # 'EXCEPTION_HANDLER' : 'backend_django.RecName.utils.custom_exception_handler'
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

@@ -126,8 +126,8 @@ def main():
     db = ConnectMongoDB()
     df = LoadDataframes(db, 'rawdata')
 
-    CreateCodename(db, df)
-    CreateYearname(db, df)
+    # CreateCodename(db, df)
+    # CreateYearname(db, df)
     CreateAtmName(db,df)
 
     #[기존 코드] json 읽어서 dataframe 생성했던 코드
