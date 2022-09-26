@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 import {
   Container,
@@ -15,7 +15,7 @@ import styled from 'styled-components';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
 
 // import postAxios from '../../lib/postAxios';
-import API from '../../config';
+// import API from '../../config';
 
 const ValidationTextField = styled(TextField)({
   '& input:invalid + fieldset': {
@@ -54,9 +54,9 @@ function EntryCardEn() {
   const sendData = async () => {
     const data = { name: nameKo, birth: birth, gender: gender };
     console.log(data);
-    axios.post(`${API.ENTRY}`, data).then((res) => {
-      saveToStorage(JSON.stringify(res.data));
-    });
+    // axios.post(`${API.ENTRY}`, data).then((res) => {
+    //   saveToStorage(JSON.stringify(res.data));
+    // });
     linkToSurvey();
   };
 
@@ -70,8 +70,8 @@ function EntryCardEn() {
           </div>
         </Container>
         <Container id="content" sx={{ bgcolor: '#F9F7F4', height: '60vh' }}>
-          <div className="qAndA">
-            <div className="question">Name</div>
+          <div className="qAndA custom-input">
+            <div className="question to-move">Name</div>
             <ValidationTextField
               variant="outlined"
               className="answer"
@@ -133,8 +133,8 @@ function EntryCardEn() {
               </RadioGroup>
             </FormControl>
           </div>
-          <div className="qAndA">
-            <div className="question">Birth Year</div>
+          <div className="qAndA custom-input">
+            <div className="question to-move">Birth Year</div>
             <ValidationTextField
               variant="outlined"
               inputProps={{
@@ -142,6 +142,7 @@ function EntryCardEn() {
                 style: { fontSize: 'clamp(12px,1.5vw,16px)' }
               }}
               className="answer"
+              placeholder="태어난 해 ex)1995"
               error={birthError}
               helperText={birthError ? '다시 입력해주세요' : null}
               required
@@ -161,11 +162,12 @@ function EntryCardEn() {
               }}
             />
           </div>
-          <div className="qAndA">
-            <div className="question">English Name</div>
+          <div className="qAndA custom-input">
+            <div className="question to-move">English Name</div>
             <ValidationTextField
               variant="outlined"
               className="answer"
+              placeholder="영어 이름 입력"
               inputProps={{
                 style: { fontSize: 'clamp(12px,1.3vw,16px)' }
               }}
@@ -199,7 +201,15 @@ function EntryCardEn() {
           <button id="send-btn" onClick={sendData}>
             내 영어 이름 리포트 보러가기
           </button>
-        ) : null}
+        ) : (
+          <button
+            id="send-btn"
+            onClick={sendData}
+            style={{ visibility: 'hidden' }}
+          >
+            내 영어 이름 리포트 보러가기
+          </button>
+        )}
       </div>
     </StyledWrapper>
   );
@@ -246,6 +256,10 @@ const StyledWrapper = styled.div`
       font-size: 20px;
     }
   }
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   #card {
     width: 100%;
   }
@@ -268,6 +282,13 @@ const StyledWrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+  }
+  .qAndA.custom-input {
+    height: 79px !important;
+  }
+  .qAndA .to-move {
+    top: -12px;
+    position: relative;
   }
   .question {
     width: 150px;
