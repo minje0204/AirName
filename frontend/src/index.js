@@ -1,4 +1,5 @@
-import { hydrate, render } from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 
@@ -6,7 +7,9 @@ import './index.css';
 const KAKAO_KEY = process.env.REACT_APP_KAKAO_API_KEY;
 window.Kakao.init(KAKAO_KEY);
 
-const $root = document.getElementById('root');
-const renderOrHydrate = $root.hasChildNodes() ? hydrate : render;
-
-renderOrHydrate(<App />, $root);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
