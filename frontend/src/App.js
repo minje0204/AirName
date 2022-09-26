@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 import {
   EntryKo,
+  EntryEn,
   FinReport,
   Home,
   Loading,
@@ -22,7 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/entry-ko" element={<EntryKo />} />
-          {/* <Route path="/entry-en" element={<EntryEn />} /> */}
+          <Route path="/entry-en" element={<EntryEn />} />
           <Route path="/survey" element={<Survey />} />
           <Route path="/loading" element={<Loading />} />
           <Route path="/rcmnd" element={<Rcmnd />} />
