@@ -33,29 +33,29 @@ function ReportContentItems({
       {
         maleState.length > 0 
         ? 
-        <ContentBox><h3>🏡 {username}의 명예 고향은 {parseEnHome}!</h3>
-        {username}이라는 이름은 {parseKoHome}에서 가장 많이 사용되고 있습니다 🏅  그중에서 남성들에게 인기가 있는 이름이에요!</ContentBox>
+        <ContentBox><h3>🏡🙍‍♂️ {username}의 명예 고향은 {parseEnHome}!</h3>
+        {username}은 남성의 이름일 때, {parseKoHome}에서 가장 많이 사용되고 있어요.</ContentBox>
         :null
       }
       {
         femaleState.length > 0 
         ? 
-        <ContentBox><h3>🌎 {username}의 명예 고향은 {parseFeEnHome}!</h3>
-        {username}이라는 이름은 {parseFeKoHome}에서 가장 많이 사용되고 있습니다 🏆  그중에서 여성들에게 인기가 있는 이름이에요!</ContentBox>
+        <ContentBox><h3>🏡🙍‍♀️ {username}의 명예 고향은 {parseFeEnHome}!</h3>
+        {username}은 여성의 이름일 때, {parseFeKoHome}에서 가장 많이 사용되고 있어요.</ContentBox>
         :null
       }
       {
         maleMeaning.length > 0 
         ? 
-        <ContentBox><h3>⚡ {username}의 이름 뜻은 {maleMeaning}😎!</h3>
-        {username}은 {maleMeaning}이라는 뜻을 가지고 있어요 !</ContentBox>
+        <ContentBox><h3>⚡🙍‍♂️ {username}의 이름 뜻은 {maleMeaning}😎!</h3>
+        {username}은 남성의 이름일 때, {maleMeaning}이라는 뜻을 가지고 있어요 !</ContentBox>
         :null
       }
       {
         femaleMeaning.length > 0 
         ? 
-        <ContentBox><h3>✨ {username}의 이름 뜻은 {femaleMeaning}🥰!</h3>
-        {username}은 {femaleMeaning}이라는 뜻을 가지고 있어요 !</ContentBox>
+        <ContentBox><h3>⚡🙍‍♀️ {username}의 이름 뜻은 {femaleMeaning}🥰!</h3>
+        {username}은 여성의 이름일 때, {femaleMeaning}이라는 뜻을 가지고 있어요 !</ContentBox>
         :null
       }
     </div>
