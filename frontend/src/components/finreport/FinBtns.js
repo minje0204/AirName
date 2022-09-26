@@ -24,7 +24,7 @@ function FinBtns({ username }) {
     <StyledWrapper>
       <FinBtnsWrapper>
         <Link to={'/'}>
-          <button variant="contained" id="img-save-btn">
+          <button id="img-save-btn">
             홈으로 돌아가기
           </button>
         </Link>
@@ -72,6 +72,7 @@ const FinBtnsWrapper = styled.div`
     padding: 10px;
     border-radius: 10px;
     height: 45px;
+    color: black;
     &:hover {
       background-color: var(--primaryMain);
       cursor: pointer;

@@ -2,6 +2,7 @@ const HomeTownEn = {
   'AK': 'Alaska',
   'AL': 'Alabama',
   'AR': 'Arkansas',
+  'AZ': 'Arizona',
   'CA': 'California',
   'CO': 'Colorado',
   'CT': 'Connecticut',
