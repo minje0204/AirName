@@ -26,7 +26,7 @@ SECRET_KEY = 'trl*efvpfmoc9e1x*5dii$g1n($+qd-ig9%!hd$(^!y5%@z1q*'
 DEBUG = True
 
 ALLOWED_HOSTS = ['3.35.169.128','localhost','apidjango', '127.0.0.1']
-
+INTERNAL_IPS = ['3.35.169.128','localhost','apidjango', '127.0.0.1']
 
 # Application definition
 
