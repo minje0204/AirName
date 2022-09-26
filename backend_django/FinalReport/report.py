@@ -4,10 +4,6 @@ from RecName.connection import *
 
 def GetReportData(name, birth):
     db = ConnectMongoDB()
-    # df = LoadDataframes(db, 'rawdata')
-
-    # result = df.copy()
-    # result = result[result['name']==name]
 
     col = db['rawdata']
     doc = col.find_one({"name":name})
@@ -18,19 +14,23 @@ def GetReportData(name, birth):
     maxFemaleStateName = ""
     maxMaleStateName = ""
     unisex = {}
-
+    totalPopularity = 0
     if not result.female.hasnans:
         for state in dict(result.female['state']).keys():
             state_year = result.female['state'][state]
+            totalPopularity = sum(state_year)
             yearIdx = birth-1940
-            newFemaleState[state] = state_year[yearIdx]
+            if(totalPopularity == 0): continue
+            newFemaleState[state] = state_year[yearIdx]/totalPopularity
         maxFemaleStateName = max(newFemaleState, key = newFemaleState.get)
 
     if not result.male.hasnans:
         for state in dict(result.male['state']).keys():
             state_year = result.male['state'][state]
+            totalPopularity = sum(state_year)
             yearIdx = birth-1940
-            newMaleState[state] = state_year[yearIdx]
+            if(totalPopularity == 0): continue
+            newMaleState[state] = state_year[yearIdx]/totalPopularity
         maxMaleStateName = max(newMaleState, key = newMaleState.get)
     female = {}
     male = {}
