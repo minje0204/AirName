@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import IconButton from '@mui/material/IconButton';
 
 function FinBtns({ username }) {
   // 카카오톡 공유 함수
@@ -29,12 +30,27 @@ function FinBtns({ username }) {
         </Link>
       </FinBtnsWrapper>
       <FinBtnsWrapper>
-        <button className="Kakao" id="kakao-link-btn" onClick={()=>kakaoShare(username)}>
-          리포트 카카오톡 공유하기
-        </button>
+        <IconButton
+          className="Kakao"
+          id="kakao-link-btn"
+          onClick={() => kakaoShare(username)}
+        >
+          <img
+            src="/kakao_logo.png"
+            alt="카카오 로고"
+            style={{
+              width: '20px',
+              height: '20px',
+              marginRight: '5px',
+              position: 'relative',
+              top: '1px'
+            }}
+          />
+          공유하기
+        </IconButton>
       </FinBtnsWrapper>
     </StyledWrapper>
-  );
+  ); //255,235,0
 }
 
 export default FinBtns;
@@ -42,7 +58,7 @@ const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
   color: blue;
-  margin: 20px;
+  margin: 0 20px;
   @media (max-width: 650px) {
     flex-wrap: wrap;
   }
@@ -55,20 +71,20 @@ const FinBtnsWrapper = styled.div`
     border: 0;
     padding: 10px;
     border-radius: 10px;
+    height: 45px;
     &:hover {
       background-color: var(--primaryMain);
       cursor: pointer;
     }
   }
   #kakao-link-btn {
-    background-color: var(--primaryLight);
+    background-color: rgba(255, 235, 0, 100);
     border: 0;
     padding: 10px;
     border-radius: 10px;
-    &:hover {
-      background-color: var(--primaryMain);
-      cursor: pointer;
-    }
+    color: rgba(60, 30, 30, 100);
+    font-size: 13px;
+    height: 45px;
   }
   @media (max-width: 650px) {
     margin: 2px;

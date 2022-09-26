@@ -1,4 +1,5 @@
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 export default function LoadingTMI() {
@@ -16,16 +17,35 @@ export default function LoadingTMI() {
     '최근 한국에서 가장 인기있는 여성의 이름은 서연이다.',
     '최근 한국에서 가장 인기있는 남성의 이름은 민준이다.'
   ];
-  const num = Math.floor(Math.random() * infos.length);
+  const randomNum = function () {
+    setNum(Math.floor(Math.random() * infos.length));
+  };
+  const [num, setNum] = useState(0);
   return (
     <StyledWrapper>
-      <Box sx={{ bgcolor: '#F9F7F4', marginBottom: '10px', padding: '10px' }}>
+      <Box
+        sx={{
+          bgcolor: '#F9F7F4',
+          marginBottom: '10px',
+          padding: '10px'
+        }}
+      >
         <Box id="title" sx={{ margin: '10px' }}>
           TMI #{num + 1}
         </Box>
         <Box id="content" sx={{ margin: '10px' }}>
           {infos[num]}
         </Box>
+        <Button
+          id="anotherTMI"
+          variant="contained"
+          onClick={() => {
+            randomNum();
+          }}
+          color="secondary"
+        >
+          <span style={{ color: 'white' }}>다른 TMI</span>
+        </Button>
       </Box>
     </StyledWrapper>
   );
@@ -38,5 +58,9 @@ const StyledWrapper = styled.div`
   #title {
     font-family: SCDream7;
     font-size: 36px;
+  }
+  #anotherTMI {
+    display: flex;
+    margin: 10px auto 0;
   }
 `;
