@@ -65,7 +65,7 @@ export default function Labeling() {
         </Box>
         {!isImgLoaded ? (
           <>
-            <Box sx={{ width: 300, height: 200 }} />
+            <Box sx={{ width: 300, height: 154 }} />
             <div id="progress-container">
               <CircularProgress />
             </div>
