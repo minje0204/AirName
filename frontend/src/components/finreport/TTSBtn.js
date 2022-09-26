@@ -6,6 +6,7 @@ function TTSBtn(props) {
   const synth = window.speechSynthesis;
   // 새 객체 생성
   const msg = new SpeechSynthesisUtterance();
+  const voicesList = window.speechSynthesis.getVoices()
 
   function stopSpeak() {
     synth.cancel();
@@ -17,7 +18,7 @@ function TTSBtn(props) {
     // msg 언어, 속도, text 설정
     msg.text = `Welcome to ${props.hometown} ${props.username}`;
     msg.lang = 'en-US';
-    msg.rate = 0.9;
+    msg.rate = 0.7;
     // voice 속성 설정
     msg.voice = voicesList.find((voice) => voice.lang === 'en-US')
     synth.speak(msg);
