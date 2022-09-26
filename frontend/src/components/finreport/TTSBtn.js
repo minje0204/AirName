@@ -17,8 +17,9 @@ function TTSBtn(props) {
     // msg 언어, 속도, text 설정
     msg.text = `Welcome to ${props.hometown} ${props.username}`;
     msg.lang = 'en-US';
-    msg.rate = 1;
-    // msg.text = `hello ${props.username}`;
+    msg.rate = 0.9;
+    // voice 속성 설정
+    msg.voice = voicesList.find((voice) => voice.lang === 'en-US')
     synth.speak(msg);
   }
 
