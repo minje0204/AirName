@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Fairly from '../../asset/img/survey/Fairy.svg';
 import './Survey.css';
+
 import question from './Question';
 import answer from './Answer';
 import answerKey from './AnswerKey';

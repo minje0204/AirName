@@ -40,13 +40,10 @@ function FinReport() {
 
   const saveData = async (res) => {
     const data = JSON.parse(res.data)
-    console.log(data)
-      setFemaleMeaning(data.female.meaning);
-      setFemaleState(data.female.state);
-      setMaleMeaning(data.male.meaning);
-      setMaleState(data.male.state);
-
-
+    setFemaleMeaning(data.female.meaning);
+    setFemaleState(data.female.state);
+    setMaleMeaning(data.male.meaning);
+    setMaleState(data.male.state);
   }
 
   // 리포트 데이터 요청하고 저장하는 함수
@@ -61,7 +58,7 @@ function FinReport() {
   // 렌더링 될 때, 리포트 데이터 요청
   useEffect(() => {
     getReportData();
-  }, []);
+  }, );
 
   return (
     <StyledWrapper>

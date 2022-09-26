@@ -19,8 +19,6 @@ function FinBtns({ username }) {
     });
   };
 
-
-  console.log(username)
   return (
     <StyledWrapper>
       <FinBtnsWrapper>
