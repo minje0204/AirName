@@ -1,13 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
 function ReportContentItems({
   username,
   maleState,
   femaleState,
   maleMeaning,
-  femaleMeaning
-}) {
+  femaleMeaning,
+  parseKoHome,
+  parseEnHome,
+  parseFeKoHome,
+  parseFeEnHome
+}) 
+
+{
   return (
     <div>
       {
@@ -26,15 +33,15 @@ function ReportContentItems({
       {
         maleState.length > 0 
         ? 
-        <ContentBox><h3>🏡 {username}의 명예 고향은 {maleState}!</h3>
-        {username}이라는 이름은 {maleState}에서 가장 많이 사용되고 있습니다 🏅  그중에서 남성들에게 인기가 있는 이름이에요!</ContentBox>
+        <ContentBox><h3>🏡 {username}의 명예 고향은 {parseEnHome}!</h3>
+        {username}이라는 이름은 {parseKoHome}에서 가장 많이 사용되고 있습니다 🏅  그중에서 남성들에게 인기가 있는 이름이에요!</ContentBox>
         :null
       }
       {
         femaleState.length > 0 
         ? 
-        <ContentBox><h3>🌎 {username}의 명예 고향은 {femaleState}!</h3>
-        {username}이라는 이름은 {femaleState}에서 가장 많이 사용되고 있습니다 🏆  그중에서 여성들에게 인기가 있는 이름이에요!</ContentBox>
+        <ContentBox><h3>🌎 {username}의 명예 고향은 {parseFeEnHome}!</h3>
+        {username}이라는 이름은 {parseFeKoHome}에서 가장 많이 사용되고 있습니다 🏆  그중에서 여성들에게 인기가 있는 이름이에요!</ContentBox>
         :null
       }
       {
