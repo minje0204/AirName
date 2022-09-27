@@ -2,11 +2,9 @@ import styled from 'styled-components';
 
 function RcmndGuide() {
   return (
-    <RcmndGuideWrapper>
-      <span>
-      카드를 뒤집어보고 <br/>
-      가장 마음에드는 이름을 선택해주세요 !<br/>
-      이름에 따른 리포트를 조회 할 수 있어요.📊
+    <RcmndGuideWrapper className="rcmnd-guide-font">
+      <span id="rcmnd-guide">
+      🔄 카드를 눌러서 뒤집어보세요 ! 
       </span>
     </RcmndGuideWrapper>
   );
@@ -22,4 +20,13 @@ const RcmndGuideWrapper = styled.div`
   color: black;
   font-weight: 700;  
   height: 100%;
+  #rcmnd-guide{
+    background-color: var(--infoMain);
+    padding: 5px;
+  }
+  
+  @media (max-width: 650px) {
+    margin-top: 10px;
+    margin-bottom: 40px;
+  }
 `;

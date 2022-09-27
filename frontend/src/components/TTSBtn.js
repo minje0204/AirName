@@ -50,13 +50,10 @@ const Button = styled.button`
   :not(:disabled) {
     cursor: pointer;
   }
+  width: 100%;
+  height: 100%;
 `;
 
 const SpeakerImgTag = styled.img`
-  width: 50px;
-  padding-top: 25px;
-  @media (max-width: 650px) {
-    padding-top: 5px;
-    width: 20px;
-  }
+  height: 100%;
 `;

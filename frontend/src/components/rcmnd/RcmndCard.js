@@ -30,5 +30,4 @@ const RcmdnCardContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  max-width: 1200px;
 `;
