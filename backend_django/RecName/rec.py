@@ -93,15 +93,15 @@ def Recommend(kor_name, gender, year):
         #필터링(gender~rarity 부분을 설문조사 배열 형태로 넘길지 생각중)
         df_sim = Filter(df_sim, gender, year)
 
-        name_array = []
+        #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
+        name_array = {}
         df_drop_dup = df_sim['nysiis'].drop_duplicates().head(4).to_numpy()
 
         for data in df_drop_dup:
             df_new = df_sim.copy()
-            df_new = df_new[df_new['nysiis']==data].head(1).to_numpy()
-            name_array.append(df_new[0][1])
 
-        name_array = np.array(name_array)
+            df_random = df_new[df_new['nysiis']==data].sample(n=1).to_numpy()
+            name_array[df_random[0][1]] = {'type':'sound','sim':round(df_random[0][4]*100)}
 
         return name_array
 
@@ -111,28 +111,30 @@ def AtmRecommend(AtmInput):
     processedInput = preProcessAtmInput(AtmInput)
     df['score'] = df.apply(lambda row : add(list(map(lambda x: row[x],processedInput))), axis = 1)
 
-    name_array=df.sort_values(by=['score'],ascending=False).head(2)
-    name_array=name_array['name'].to_numpy()
+    new_df=df.sort_values(by=['score'],ascending=False).head(2).to_numpy()
+
+    #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
+    name_array = {}
+
+    for data in new_df:
+        name_array[data[1]] = {'type':'atm','sim':round(data[31]/12*100)}
 
     return name_array
 
 def NameFormating(atm,sound):
-    selected_arr = []
+    selected_arr = {}
+
+    for data in atm:
+        selected_arr[data] = atm[data]
 
     for data in sound:
-        if len(selected_arr) == 2:
+        if len(selected_arr) == 4:
             break
 
-        if data not in atm:
-            selected_arr.append(data)
+        if type(data) != int and data not in selected_arr:
+            selected_arr[data] = sound[data]
 
-    # list를 dict로 바꿔야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
-    rt = {}
-    rt[atm[0]] = "atm"
-    rt[atm[1]] = "atm"
-    rt[selected_arr[0]] = "sound"
-    rt[selected_arr[1]] = "sound"
-    return rt
+    return selected_arr
 
 def add(attrV):
     sum=0
