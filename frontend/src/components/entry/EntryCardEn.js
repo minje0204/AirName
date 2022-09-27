@@ -180,7 +180,9 @@ function EntryCardEn() {
                 if (nameEnCheck.test(nameEnTmp)) {
                   setNameEnError(true);
                 } else {
-                  setNameEn(nameEnTmp);
+                  setNameEn(
+                    nameEnTmp.charAt(0).toUpperCase() + nameEnTmp.slice(1)
+                  );
                   setNameEnError(false);
                 }
               }}
