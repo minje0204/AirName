@@ -41,3 +41,11 @@ class NameList(APIView):
 
         return JsonResponse(data, safe=False)
 
+class CheckName(APIView):
+    def get(self, request, **kwargs):
+        #이름이 검색할 때 유효한 이름인지 판단
+        result = Checking(kwargs['name'])
+
+        data = json.dumps(result)
+
+        return JsonResponse(data, safe=False)
