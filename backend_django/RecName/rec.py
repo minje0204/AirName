@@ -93,6 +93,7 @@ def Recommend(kor_name, gender, year):
         #필터링(gender~rarity 부분을 설문조사 배열 형태로 넘길지 생각중)
         df_sim = Filter(df_sim, gender, year)
 
+        #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
         name_array = {}
         df_drop_dup = df_sim['nysiis'].drop_duplicates().head(4).to_numpy()
 
@@ -115,23 +116,22 @@ def AtmRecommend(AtmInput):
 
     return name_array
 
-def NameFormating(atm,sound):
-    selected_arr = []
+# def NameFormating(atm,sound):
+def NameFormating(sound):
+    selected_arr = {}
+
+    ###########
+    #atm을 selected_arr에 먼저 추가하는 코드 필요
+    ###########
 
     for data in sound:
-        if len(selected_arr) == 2:
+        if len(selected_arr) == 4:
             break
 
-        if type(data) != int and data not in atm:
-            selected_arr.append(data)
+        if type(data) != int and data not in selected_arr:
+            selected_arr[data] = sound[data]
 
-    # list를 dict로 바꿔야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
-    rt = {}
-    rt[atm[0]] = "atm"
-    rt[atm[1]] = "atm"
-    rt[selected_arr[0]] = "sound"
-    rt[selected_arr[1]] = "sound"
-    return rt
+    return selected_arr
 
 def add(attrV):
     sum=0
