@@ -10,8 +10,7 @@ function TicketFront({ name, type }) {
     e.stopPropagation();
     console.log(name);
   };
-  //대문자 이름
-  let uppername = name.toUpperCase();
+
   return (
     <div>
       <TicketContainer>
@@ -29,10 +28,6 @@ function TicketFront({ name, type }) {
             </TicketTTSBtnContainer>
           </NameTTSContainer>
         </TicketBody>
-        {/* < className="shadow ticket-bottom-font">
-          AIR NAME {uppername} AIR NAME {uppername}
-        </> */}
-
         <TicketBottom>
           <div>
             <Link to={`/finreport/${name}`}>
@@ -90,14 +85,6 @@ const NameTTSContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-const SelectBtnContainer = styled.div`
-  width: 100%;
-  margin-top: 20px;
-  margin-bottom: 0px;
-  @media (max-width: 650px) {
-    margin-top: 5px;
-  }
 `;
 
 const TicketTTSBtnContainer = styled.div`

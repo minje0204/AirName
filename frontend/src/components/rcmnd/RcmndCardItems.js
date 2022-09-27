@@ -19,7 +19,7 @@ class RcmndCardItems extends React.Component {
   }
 
   render() {
-    const { name, type } = this.props;
+    const { name, info } = this.props;
     return (
       <EachTicketContainer>
         <ReactCardFlip
@@ -30,7 +30,7 @@ class RcmndCardItems extends React.Component {
             <RcmndTicketFront name={name} />
           </FRONT_COMPONENT>
           <BACK_COMPONENT onClick={this.handleClick}>
-            <RcmndTicketBack name={name} type={type} />
+            <RcmndTicketBack name={name} type={info.type} sim={info.sim} />
           </BACK_COMPONENT>
         </ReactCardFlip>
       </EachTicketContainer>

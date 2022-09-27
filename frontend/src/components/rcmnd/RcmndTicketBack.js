@@ -3,11 +3,8 @@ import TicketHeadAirplane from '../../asset/img/rcmnd/TicketHeadAirplane.png';
 // import {isAndroid} from 'react-device-detect';
 import './Rcmnd.css';
 
-function TicketFront({ name, type }) {
-  const selectName = (e) => {
-    e.stopPropagation();
-    console.log(name);
-  };
+function TicketFront({ name, type, sim }) {
+
   // 대문자이름
   let uppername = name.toUpperCase();
 
@@ -21,7 +18,11 @@ function TicketFront({ name, type }) {
         <TicketBody className="shadow pattern">
           <NameTTSContainer>
             <TickeNameContainer className="ticket-info-font">
-              당신의 이름과 n% 유사한 발음을 가지고 있어요!
+              { type === "sound" ? 
+              <span>당신의 이름과 {sim}% 유사한 발음을 가지고 있어요!</span> 
+              : <span>이름이 가지고 있는 분위기 {sim}</span> 
+              }
+              
             </TickeNameContainer>
           </NameTTSContainer>
         </TicketBody>
