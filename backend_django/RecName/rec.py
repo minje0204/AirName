@@ -93,15 +93,14 @@ def Recommend(kor_name, gender, year):
         #필터링(gender~rarity 부분을 설문조사 배열 형태로 넘길지 생각중)
         df_sim = Filter(df_sim, gender, year)
 
-        name_array = []
+        name_array = {}
         df_drop_dup = df_sim['nysiis'].drop_duplicates().head(4).to_numpy()
 
         for data in df_drop_dup:
             df_new = df_sim.copy()
-            df_new = df_new[df_new['nysiis']==data].head(1).to_numpy()
-            name_array.append(df_new[0][1])
 
-        name_array = np.array(name_array)
+            df_random = df_new[df_new['nysiis']==data].sample(n=1).to_numpy()
+            name_array[df_random[0][1]] = {'type':'sound','sim':round(df_random[0][4]*100)}
 
         return name_array
 
@@ -123,7 +122,7 @@ def NameFormating(atm,sound):
         if len(selected_arr) == 2:
             break
 
-        if data not in atm:
+        if type(data) != int and data not in atm:
             selected_arr.append(data)
 
     # list를 dict로 바꿔야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)

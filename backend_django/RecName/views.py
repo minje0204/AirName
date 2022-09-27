@@ -31,13 +31,14 @@ class NameList(APIView):
             raise NameUnavailable()
 
         #분위기 추천
-        atm_arr = AtmRecommend(request.data['attr'])
-
-        #리스트의 dict화
-        result_arr = NameFormating(atm_arr,sound_arr)
+        # atm_arr = AtmRecommend(request.data['attr'])
+        #
+        # #리스트의 dict화
+        # result_arr = NameFormating(atm_arr,sound_arr)
 
         #dict를 json으로 변환
-        data = json.dumps(result_arr)
+        # data = json.dumps(result_arr)
+        data = json.dumps(sound_arr)
 
         return JsonResponse(data, safe=False)
 
