@@ -111,18 +111,21 @@ def AtmRecommend(AtmInput):
     processedInput = preProcessAtmInput(AtmInput)
     df['score'] = df.apply(lambda row : add(list(map(lambda x: row[x],processedInput))), axis = 1)
 
-    name_array=df.sort_values(by=['score'],ascending=False).head(2)
-    name_array=name_array['name'].to_numpy()
+    new_df=df.sort_values(by=['score'],ascending=False).head(2).to_numpy()
+
+    #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
+    name_array = {}
+
+    for data in new_df:
+        name_array[data[1]] = {'type':'atm','sim':round(data[31]/12*100)}
 
     return name_array
 
-# def NameFormating(atm,sound):
-def NameFormating(sound):
+def NameFormating(atm,sound):
     selected_arr = {}
 
-    ###########
-    #atm을 selected_arr에 먼저 추가하는 코드 필요
-    ###########
+    for data in atm:
+        selected_arr[data] = atm[data]
 
     for data in sound:
         if len(selected_arr) == 4:
