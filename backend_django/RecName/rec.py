@@ -6,7 +6,7 @@ import urllib.request
 import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
-from connection import *
+from .connection import *
 from pymongo import MongoClient
 
 def Romanization(input):
@@ -18,17 +18,22 @@ def Romanization(input):
     response = urllib.request.urlopen(request)
     rescode = response.getcode()
 
-    if(rescode==200):
+    if rescode == 200:
         response_body = response.read().decode('utf-8')
         bs = BeautifulSoup(response_body, 'html.parser')
         name_tags = bs.select('#container > div > table > tbody > tr > td > a')
 
-        raw_name = name_tags[0].text
-        blank_index = raw_name.index(' ')
-        refined_name = raw_name[blank_index+1:]
+        #name_tags가 공란이면 입력한 한글이름에 맞는 변환값이 없다는 뜻. 404에러를 반환
+        if len(name_tags) == 0:
+            refined_name = 404
+        else :
+            raw_name = name_tags[0].text
+            blank_index = raw_name.index(' ')
+            refined_name = raw_name[blank_index+1:]
 
+    #200 이외의 status code를 받았을 때 코드값 오류를 반환
     else:
-        refined_name = 'name not found error'
+        refined_name = rescode
 
     return refined_name
 
@@ -71,30 +76,34 @@ def Recommend(kor_name, gender, year):
     #로마화
     rom_name = Romanization(kor_name)
 
-    #nysiis 코드값 부여
-    global nys_name
-    nys_name = jellyfish.nysiis(rom_name)
+    #404에러면 404코드값을 반환
+    if rom_name == 404:
+        return rom_name
+    else:
+        #nysiis 코드값 부여
+        global nys_name
+        nys_name = jellyfish.nysiis(rom_name)
 
-    #nysiis similarity 컬럼 추가한 DataFrame 생성
-    df_sim = data.copy()
-    df_sim['nysiis_sim'] = df_sim['nysiis'].apply(NameSimilarity)
-    #유사도 기준 정렬
-    df_sim = df_sim.sort_values('nysiis_sim',ascending=False)
+        #nysiis similarity 컬럼 추가한 DataFrame 생성
+        df_sim = data.copy()
+        df_sim['nysiis_sim'] = df_sim['nysiis'].apply(NameSimilarity)
+        #유사도 기준 정렬
+        df_sim = df_sim.sort_values('nysiis_sim',ascending=False)
 
-    #필터링(gender~rarity 부분을 설문조사 배열 형태로 넘길지 생각중)
-    df_sim = Filter(df_sim, gender, year)
+        #필터링(gender~rarity 부분을 설문조사 배열 형태로 넘길지 생각중)
+        df_sim = Filter(df_sim, gender, year)
 
-    name_array = []
-    df_drop_dup = df_sim['nysiis'].drop_duplicates().head(4).to_numpy()
+        name_array = []
+        df_drop_dup = df_sim['nysiis'].drop_duplicates().head(4).to_numpy()
 
-    for data in df_drop_dup:
-        df_new = df_sim.copy()
-        df_new = df_new[df_new['nysiis']==data].head(1).to_numpy()
-        name_array.append(df_new[0][1])
+        for data in df_drop_dup:
+            df_new = df_sim.copy()
+            df_new = df_new[df_new['nysiis']==data].head(1).to_numpy()
+            name_array.append(df_new[0][1])
 
-    name_array = np.array(name_array)
+        name_array = np.array(name_array)
 
-    return name_array
+        return name_array
 
 def AtmRecommend(AtmInput):
     db = ConnectMongoDB()
