@@ -19,9 +19,8 @@ function FinReport() {
   const { username } = useParams();
   const birth = localStorage.getItem('birth');
   const gender = localStorage.getItem('gender');
-  const [femaleMeaning, setFemaleMeaning] = useState('');
   const [femaleState, setFemaleState] = useState('');
-  const [maleMeaning, setMaleMeaning] = useState('');
+  const [meaning, setMeaning] = useState('');
   const [maleState, setMaleState] = useState('');
   const [mainState, setMainState] = useState('');
   const [parseEnHome, setParseEnHome] = useState('');
@@ -77,10 +76,9 @@ function FinReport() {
 
   const saveData = async (res) => {
     const data = JSON.parse(res.data);
-
-    setFemaleMeaning(data.female.meaning);
+    console.log(data)
     setFemaleState(data.female.state);
-    setMaleMeaning(data.male.meaning);
+    setMeaning(data.meaning);
     setMaleState(data.male.state);
   };
 
@@ -98,7 +96,7 @@ function FinReport() {
     setEnHomeTown();
     setKoHomeTown();
     setEnMainState();
-  });
+  },[femaleState, maleState, mainState]);
 
   return (
     <StyledWrapper>
@@ -116,8 +114,8 @@ function FinReport() {
             hometown={mainState}
             maleState={maleState}
             femaleState={femaleState}
-            maleMeaning={maleMeaning}
-            femaleMeaning={femaleMeaning}
+            meaning={meaning}
+
             parseKoHome={parseKoHome}
             parseEnHome={parseEnHome}
             parseFeKoHome={parseFeKoHome}
