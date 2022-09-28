@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-// import Button from '@mui/material/Button';
 import TicketHeadAirplane from '../../asset/img/rcmnd/TicketHeadAirplane.png';
-import TicketTTSBtn from './TicketTTSBtn';
-import {isAndroid} from 'react-device-detect';
+import TicketTTSBtn from '../TTSBtn';
+// import {isAndroid} from 'react-device-detect';
 import './Rcmnd.css';
 
 function TicketFront({ name, type }) {
@@ -23,21 +22,19 @@ function TicketFront({ name, type }) {
           <div>
             <TickeNameContainer>
               {name}
-              { isAndroid ?
-              null : <TicketTTSBtn username={name} /> 
-              }
+              <TicketTTSBtn username={name} type='rcmnd'/> 
             </TickeNameContainer>
           </div>
           <SelectBtnContainer>
             <Link to={`/finreport/${name}`}>
               <button
-                className="btn-15 custom-btn "
+                className="btn-15 custom-btn"
                 id={type}
                 onClick={(e) => {
                   selectName(e);
                 }}
               >
-                내 이름은 {name}로 결정 !
+                {name} 결과 리포트 보러가기
               </button>
             </Link>
           </SelectBtnContainer>
@@ -65,6 +62,7 @@ const TicketHead = styled.div`
   border-top-right-radius: 15px;
   height: 20%;
   font-size: clamp(10px, calc(0.5vw + 11.08px), 40px);
+  font-family: 'SCDream7';
 `;
 const TicketBody = styled.div`
   display: flex;

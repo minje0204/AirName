@@ -5,6 +5,7 @@ from RecName.views import NameList
 from FinalReport.views import GetReport
 from LoadingLabeling.views import Labeling
 from ValidateName.views import ValidateName
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,3 +14,10 @@ urlpatterns = [
     path('validate/<str:name>/<int:birth>',ValidateName.as_view()),
     path('loading/',Labeling.as_view())
 ]
+
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]

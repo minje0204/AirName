@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Fairly from '../../asset/img/survey/Fairy.svg';
 import './Survey.css';
+
 import question from './Question';
 import answer from './Answer';
 import answerKey from './AnswerKey';
@@ -13,7 +14,7 @@ function SurveySection() {
   const [cur, setCur] = useState(0);
   const [isLast, setIsLast] = useState(false);
   const [surveyRes, setSurveyRes] = useState({});
-  const [totalData, setTotalData] = useState([]);
+  // const [totalData, setTotalData] = useState({});
   const [nameKo, setNameKo] = useState('');
   const [birth, setBirth] = useState(0);
   const [gender, setGender] = useState('');
@@ -26,15 +27,9 @@ function SurveySection() {
     setGender(localStorage.getItem('gender'));
   }
 
-  // 데이터 합쳐서 TotalData에 저장
-  const gatherData = async () => {
-    setTotalData([nameKo, gender, birth, surveyRes])
-    console.log('gatherdata')
-  }
-
   // 이름 가져와서 Local에 저장
-  const getName = () => {
-    axios.post(`${API.SURVEY}`, totalData).then((res) => {
+  const getName = async (data) => {
+    axios.post(`${API.ENTRY}`, data).then((res) => {
       console.log(res);
       // 이름 추천 데이터 저장
       localStorage.setItem('rcmndNames', JSON.stringify(res.data));
@@ -50,17 +45,16 @@ function SurveySection() {
   };
 
   useEffect(() => {
-    if (Object.entries(surveyRes).length === 12) {
-      gatherData().then(() => {
+    if (Object.entries(surveyRes).length === 12) 
         setIsLast(true)
-        console.log('isLasttrue')
-      })
-    };
   }, [surveyRes]);
 
   useEffect(() => {
     if (isLast) {
-      getName();
+      console.log(surveyRes)
+      const data = {"name": nameKo, "gender" :gender, "birth" :birth, "attr": surveyRes}
+      console.log(data)
+      getName(data);
       navigate('/loading');
     }
   }, [isLast]);
@@ -78,9 +72,9 @@ function SurveySection() {
         <SveyQuestion className="speech-bubble">{question[cur]}</SveyQuestion>
       </SveyHead>
       <SveyBody>
-        <SvyBtbn onClick={() => handleClick(0)}>{answer[cur][0]}</SvyBtbn>
-        <SvyBtbn onClick={() => handleClick(1)}>{answer[cur][1]}</SvyBtbn>
-        <SvyBtbn onClick={() => handleClick(2)}>{answer[cur][2]}</SvyBtbn>
+        <SvyBtbn id="svy-btn" onClick={() => handleClick(0)}>{answer[cur][0]}</SvyBtbn>
+        <SvyBtbn id="svy-btn" onClick={() => handleClick(1)}>{answer[cur][1]}</SvyBtbn>
+        <SvyBtbn id="svy-btn" onClick={() => handleClick(2)}>{answer[cur][2]}</SvyBtbn>
       </SveyBody>
     </SveySectionContainer>
   );
@@ -122,8 +116,11 @@ const SveyQuestion = styled.div`
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 25px;
+  font-size: 20px;
   @media (max-width: 650px) {
-    font-size: 12px;
+    font-size: 11px;
+    padding: 14px;
+    border-radius: 15px;
   }
 `;
 
@@ -132,14 +129,15 @@ const SveyBody = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #f9f7f4;
+  padding: 13px 0px;
+  
+  background-color: rgb(249, 253, 254);
   border-radius: 20px;
   width: 100%;
   max-height: 400px;
   margin-top: 20px;
-  &:hover {
-    background-color: #f0ede9;
-  }
+
+
 `;
 
 const SvyBtbn = styled.button`
@@ -149,12 +147,15 @@ const SvyBtbn = styled.button`
   height: 20vw;
   max-height: 100px;
   border-radius: 20px;
-  border: 0;
-  background-color: #ff9800;
-  color: white;
+  border: 5px solid;
+  background-color: transparent;
+  border-color:  var(--primaryLight);
+  color: black;
   font-size: 24px;
-  &:hover {
-    background-color: #ed6c02;
-    cursor: pointer;
+  font-weight: 600;
+  @media (max-width: 650px) {
+    font-size: 16px;
+    border: 3px solid;
+    border-color:  var(--primaryLight);
   }
 `;

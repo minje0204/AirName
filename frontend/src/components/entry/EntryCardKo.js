@@ -17,6 +17,17 @@ import ReadOnlyInput from './EntryCardReadOnlyInput';
 // import postAxios from '../../lib/postAxios';
 import API from '../../config';
 
+const ValidationTextField = styled(TextField)({
+  '& input:invalid + fieldset': {
+    borderColor: 'gray',
+    borderWidth: 1
+  },
+  '& input:valid + fieldset': {
+    borderColor: 'green',
+    borderWidth: 2
+  }
+});
+
 function EntryCardKo() {
   const [nameKo, setNameKo] = useState('');
   const nameKoCheck = /[^가-힣]/;
@@ -35,6 +46,7 @@ function EntryCardKo() {
   const saveToStorage = (localdata) => {
     console.log(localdata);
     localStorage.setItem('nameKo', nameKo);
+    localStorage.removeItem('username');
     localStorage.setItem('birth', birth);
     localStorage.setItem('gender', gender);
   };
@@ -42,16 +54,18 @@ function EntryCardKo() {
   const sendData = async () => {
     const data = { name: nameKo, gender: gender, birth: birth };
     console.log(data);
-    axios
-      .post(`${API.ENTRY}`, data)
-      .then((res) => {
-        saveToStorage(JSON.stringify(res.data));
-      })
-      .catch((err) => {
-        if (err.message = "Request failed with status code 500"){
-          console.log('500번 에러 ! ')
-        }
-      });
+    saveToStorage(data);
+    // axios
+    //   .post(`${API.ENTRY}`, data)
+    //   .then((res) => {
+    //     console.log(res)
+    //     saveToStorage(JSON.stringify(res.data));
+    //   })
+    //   .catch((err) => {
+    //     if (err.message = "Request failed with status code 500"){
+    //       console.log('500번 에러 ! ')
+    //     }
+    //   });
     linkToSurvey();
   };
 
@@ -69,18 +83,20 @@ function EntryCardKo() {
           </div>
         </Container>
         <Container id="content" sx={{ bgcolor: '#F9F7F4', height: '60vh' }}>
-          <div className="qAndA">
-            <div className="question">Name</div>
-            <TextField
+          <div className="qAndA custom-input">
+            <div className="question to-move">Name</div>
+            <ValidationTextField
               variant="outlined"
               className="answer"
               placeholder="한글 이름 입력"
               inputProps={{
-                maxLength: 5
+                maxLength: 7,
+                style: { fontSize: 'clamp(12px,1.3vw,16px)' }
               }}
               error={nameKoError}
               helperText={nameKoError ? '다시 입력해주세요' : null}
-              onBlur={(e) => {
+              required
+              onChange={(e) => {
                 const nameKoTmp = e.target.value;
                 if (nameKoCheck.test(nameKoTmp) || nameKoTmp.length === 1) {
                   setNameKoError(true);
@@ -102,29 +118,56 @@ function EntryCardKo() {
                   setGender(event.target.value);
                 }}
               >
-                <FormControlLabel value="M" control={<Radio />} label="Male" />
+                <FormControlLabel
+                  value="M"
+                  control={
+                    <Radio
+                      sx={{ '&.Mui-checked': { '&': { color: 'green' } } }}
+                    />
+                  }
+                  label={
+                    <span style={{ fontSize: 'clamp(12px,1.5vw,16px)' }}>
+                      Male
+                    </span>
+                  }
+                />
                 <FormControlLabel
                   value="F"
-                  control={<Radio />}
-                  label="Female"
+                  control={
+                    <Radio
+                      sx={{ '&.Mui-checked': { '&': { color: 'green' } } }}
+                    />
+                  }
+                  label={
+                    <span style={{ fontSize: 'clamp(12px,1.5vw,16px)' }}>
+                      Female
+                    </span>
+                  }
                 />
               </RadioGroup>
             </FormControl>
           </div>
-          <div className="qAndA">
-            <div className="question">Birth Year</div>
-            <TextField
+          <div className="qAndA custom-input">
+            <div className="question to-move">Birth Year</div>
+            <ValidationTextField
               variant="outlined"
               inputProps={{
-                maxLength: 4
+                maxLength: 4,
+                style: { fontSize: 'clamp(12px,1.5vw,16px)' }
               }}
               className="answer"
               placeholder="태어난 해 ex)1995"
               error={birthError}
               helperText={birthError ? '다시 입력해주세요' : null}
-              onBlur={(e) => {
+              required
+              onChange={(e) => {
                 const birthTmp = e.target.value;
-                if (!birthCheck.test(birthTmp) || birthTmp.length < 4) {
+                if (
+                  !birthCheck.test(birthTmp) ||
+                  birthTmp.length < 4 ||
+                  Number(birthTmp) < 1940 ||
+                  Number(birthTmp) > 2021
+                ) {
                   setBirthError(true);
                 } else {
                   setBirth(birthTmp);
@@ -139,11 +182,19 @@ function EntryCardKo() {
         </Container>
       </div>
       <div id="btn">
-        {nameKo && gender && birth ? (
+        {nameKo && !nameKoError && gender && birth && !birthError ? (
           <button id="send-btn" onClick={sendData}>
             영어 이름이 없는데 어떡하지?
           </button>
-        ) : null}
+        ) : (
+          <button
+            id="send-btn"
+            onClick={sendData}
+            style={{ visibility: 'hidden' }}
+          >
+            영어 이름이 없는데 어떡하지?
+          </button>
+        )}
       </div>
     </StyledWrapper>
   );
@@ -167,6 +218,33 @@ export default EntryCardKo;
 // }
 
 const StyledWrapper = styled.div`
+  @media (max-width: 450px) {
+    font-size: 15px;
+    #title_b {
+      font-size: 17px;
+    }
+    .answer {
+      font-size: 17px;
+    }
+    #send-btn {
+      font-size: 12px;
+    }
+  }
+  @media (min-width: 450px) {
+    #title_b {
+      font-size: 25px;
+    }
+    .answer {
+      font-size: 20px;
+    }
+    #send-btn {
+      font-size: 20px;
+    }
+  }
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   #card {
     width: 100%;
   }
@@ -178,17 +256,24 @@ const StyledWrapper = styled.div`
   }
   #title_b {
     font-family: 'SCDream7';
-    font-size: 25px;
   }
   #content {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    height: 450px;
   }
   .qAndA {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+  }
+  .qAndA.custom-input {
+    height: 79px !important;
+  }
+  .qAndA .to-move {
+    top: -12px;
+    position: relative;
   }
   .question {
     width: 150px;
@@ -196,7 +281,6 @@ const StyledWrapper = styled.div`
   }
   .answer {
     font-family: 'Daheng';
-    font-size: 20px;
     width: 200px;
   }
   #btn {
@@ -204,7 +288,6 @@ const StyledWrapper = styled.div`
     justify-content: center;
   }
   #send-btn {
-    font-size: 20px;
     background-color: var(--secondaryMain);
     margin: 20px;
     padding: 15px;

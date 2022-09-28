@@ -26,7 +26,7 @@ SECRET_KEY = 'trl*efvpfmoc9e1x*5dii$g1n($+qd-ig9%!hd$(^!y5%@z1q*'
 DEBUG = True
 
 ALLOWED_HOSTS = ['3.35.169.128','localhost','apidjango', '127.0.0.1']
-
+INTERNAL_IPS = ['3.35.169.128','localhost','apidjango', '127.0.0.1']
 
 # Application definition
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'RecName',
     'rest_framework',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     # CORS
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -86,6 +88,13 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES' : [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    # 'EXCEPTION_HANDLER' : 'backend_django.RecName.utils.custom_exception_handler'
 }
 
 

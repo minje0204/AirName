@@ -1,6 +1,9 @@
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
+  typography: {
+    fontFamily: ['SCDream4']
+  },
   palette: {
     primary: {
       light: '#8DC7F7',

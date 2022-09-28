@@ -3,22 +3,62 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
+//컴포넌트
 import FinBtns from '../components/finreport/FinBtns';
 import FinTitle from '../components/finreport/FinTitle';
 import MyCard from '../components/finreport/MyCard';
 import ReportContent from '../components/finreport/ReportContent';
+// import ReportFooter from 'components/finreport/ReportFooter';
+
+//데이터
+import HomeTownEn from '../components/finreport/HomeTownEn';
+import HomeTownKo from '../components/finreport/HomeTownKo';
 import API from '../config';
 
 function FinReport() {
   const { username } = useParams();
   const birth = localStorage.getItem('birth');
   const gender = localStorage.getItem('gender');
-  // const [reportData, setReportData] = useState({});
   const [femaleMeaning, setFemaleMeaning] = useState('');
   const [femaleState, setFemaleState] = useState('');
   const [maleMeaning, setMaleMeaning] = useState('');
   const [maleState, setMaleState] = useState('');
   const [mainState, setMainState] = useState('');
+  const [parseEnHome, setParseEnHome] = useState('');
+  const [parseKoHome, setParseKoHome] = useState('');
+  const [parseFeEnHome, setParseFeEnHome] = useState('');
+  const [parseFeKoHome, setParseFeKoHome] = useState('');
+  const [parseEnMainState, setParseEnMainState] = useState('');
+
+  const setEnHomeTown = () => {
+    Object.entries(HomeTownEn).map(([k, v]) => {
+      if (k === maleState) {
+        setParseEnHome(v);
+      }
+      if (k === femaleState) {
+        setParseFeEnHome(v);
+      }
+    });
+  };
+
+  const setKoHomeTown = () => {
+    Object.entries(HomeTownKo).map(([k, v]) => {
+      if (k === maleState) {
+        setParseKoHome(v);
+      }
+      if (k === femaleState) {
+        setParseFeKoHome(v);
+      }
+    });
+  };
+
+  const setEnMainState = () => {
+    Object.entries(HomeTownEn).map(([k, v]) => {
+      if (k === mainState) {
+        setParseEnMainState(v);
+      }
+    });
+  };
 
   // maleState, femaleState 존재에 따라 mainState 저장
   const calcMainState = () => {
@@ -36,39 +76,58 @@ function FinReport() {
   };
 
   const saveData = async (res) => {
-    setFemaleMeaning(res.data.female.meaning);
-    setFemaleState(res.data.female.state);
-    setMaleMeaning(res.data.male.meaning);
-    setMaleState(res.data.male.state);
-  }
+    const data = JSON.parse(res.data);
+
+    setFemaleMeaning(data.female.meaning);
+    setFemaleState(data.female.state);
+    setMaleMeaning(data.male.meaning);
+    setMaleState(data.male.state);
+  };
 
   // 리포트 데이터 요청하고 저장하는 함수
   const getReportData = async () => {
-    await axios
-      .get(`${API.FINREPORT}/${username}/${birth}`)
-      .then((res) => {
-          saveData(res).then(calcMainState())
-      });
+    await axios.get(`${API.FINREPORT}/${username}/${birth}`).then((res) => {
+      saveData(res).then(calcMainState());
+    });
   };
 
   // 렌더링 될 때, 리포트 데이터 요청
+  // 인자 x 모든 컴포넌트 렌더링시마다 실행
   useEffect(() => {
     getReportData();
-  }, []);
+    setEnHomeTown();
+    setKoHomeTown();
+    setEnMainState();
+  });
 
   return (
     <StyledWrapper>
-      <FinTitle username={username} hometown={mainState} />
-      <FinBtns />
-      <MyCard username={username} hometown={mainState} />
-      <ReportContent
-        username={username}
-        hometown={mainState}
-        maleState={maleState}
-        femaleState={femaleState}
-        maleMeaning={maleMeaning}
-        femaleMeaning={femaleMeaning}
-      />
+      <div id="content-container">
+        <FintitleContainer>
+          <FinTitle username={username} hometown={parseEnMainState} />
+        </FintitleContainer>
+        <FinBodyContainer>
+          <FinBtns username={username} />
+          <MyCardContainer>
+            <MyCard username={username} hometown={mainState} />
+          </MyCardContainer>
+          <ReportContent
+            username={username}
+            hometown={mainState}
+            maleState={maleState}
+            femaleState={femaleState}
+            maleMeaning={maleMeaning}
+            femaleMeaning={femaleMeaning}
+            parseKoHome={parseKoHome}
+            parseEnHome={parseEnHome}
+            parseFeKoHome={parseFeKoHome}
+            parseFeEnHome={parseFeEnHome}
+          />
+        </FinBodyContainer>
+      </div>
+      {/* <div id="footer-container">
+        <ReportFooter />
+      </div> */}
     </StyledWrapper>
   );
 }
@@ -76,9 +135,30 @@ function FinReport() {
 export default FinReport;
 
 const StyledWrapper = styled.div`
+  #content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 30px;
+  }
+  #footer-container {
+    width: 100%;
+    background: var(--primaryLight);
+    margin-top: 30px;
+  }
+`;
+
+const FintitleContainer = styled.div`
+  min-height: 150px;
+  @media (max-width: 650px) {
+    min-height: 50px;
+  }
+`;
+const FinBodyContainer = styled.div``;
+
+const MyCardContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  height: 100%;
 `;

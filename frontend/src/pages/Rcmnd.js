@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import RcmndGuide from '../components/rcmnd/RcmndGuide';
 import RcmndCard from '../components/rcmnd/RcmndCard';
 
+
 function Rcmnd() {
   return (
     <RcmndContainer>
@@ -23,12 +24,7 @@ const RcmndContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 830px;
 `;
-const RcmndHead = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+const RcmndHead = styled.div``;
 
 const RcmndBody = styled.div``;
