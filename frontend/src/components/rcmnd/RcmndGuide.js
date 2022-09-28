@@ -2,8 +2,10 @@ import styled from 'styled-components';
 
 function RcmndGuide() {
   return (
-    <RcmndGuideWrapper>
-      가장 마음에드는 이름을 선택해주세요 !
+    <RcmndGuideWrapper className="rcmnd-guide-font">
+      <span id="rcmnd-guide" className="pattern">
+      🔄 카드를 눌러서 뒤집어보세요 ! 
+      </span>
     </RcmndGuideWrapper>
   );
 }
@@ -14,7 +16,17 @@ const RcmndGuideWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   color: black;
-  font-size: clamp(15px, calc(1vh + 1vw), 28px);
-  font-weight: 600;
+  font-weight: 700;  
+  height: 100%;
+  #rcmnd-guide{
+
+    padding: 5px;
+  }
+  
+  @media (max-width: 650px) {
+    margin-top: 10px;
+    margin-bottom: 40px;
+  }
 `;

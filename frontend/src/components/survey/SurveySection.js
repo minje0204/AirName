@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Fairly from '../../asset/img/survey/Fairy.svg';
 import './Survey.css';
+
 import question from './Question';
 import answer from './Answer';
 import answerKey from './AnswerKey';
@@ -14,47 +15,67 @@ function SurveySection() {
   const [cur, setCur] = useState(0);
   const [isLast, setIsLast] = useState(false);
   const [surveyRes, setSurveyRes] = useState({});
+  // const [totalData, setTotalData] = useState({});
+  const [nameKo, setNameKo] = useState('');
+  const [birth, setBirth] = useState(0);
+  const [gender, setGender] = useState('');
   const navigate = useNavigate();
 
-  const getName = () => {
-    axios.post(`${API.SURVEY}`, surveyRes).then((res) => {
-      // 중복 데이터 검사
-      console.log(res)
-    });
+  // Local에서 데이터 가져오기
+  const getUserInfo = () => {
+    setNameKo(localStorage.getItem('nameKo'));
+    setBirth(localStorage.getItem('birth'));
+    setGender(localStorage.getItem('gender'));
+  }
+
+  // 이름 가져와서 Local에 저장
+  const getName = async (data) => {
+    axios.post(`${API.ENTRY}`, data).then((res) => {
+      console.log(res);
+      // 이름 추천 데이터 저장
+      localStorage.setItem('rcmndNames', JSON.stringify(res.data));
+    })
   };
 
   const handleClick = (input) => {
     const newElement = {
       [answerKey[cur]]: input
     };
-    console.log({ newElement });
     setSurveyRes({ ...surveyRes, ...newElement });
     if (cur < 11) setCur(cur + 1);
   };
 
   useEffect(() => {
-    if (Object.entries(surveyRes).length === 12) setIsLast(true);
+    if (Object.entries(surveyRes).length === 12) 
+        setIsLast(true)
   }, [surveyRes]);
 
   useEffect(() => {
     if (isLast) {
-      getName();
+      console.log(surveyRes)
+      const data = {"name": nameKo, "gender" :gender, "birth" :birth, "attr": surveyRes}
+      console.log(data)
+      getName(data);
       navigate('/loading');
     }
   }, [isLast]);
+
+  useEffect(() => {
+    getUserInfo(); 
+  }, []);
 
   return (
     <SveySectionContainer>
       <SveyHead>
         <SveyImg>
-          <img src={Fairly} />
+          <img id="survey-img" src={Fairly} />
         </SveyImg>
         <SveyQuestion className="speech-bubble">{question[cur]}</SveyQuestion>
       </SveyHead>
       <SveyBody>
-        <SvyBtbn onClick={() => handleClick(0)}>{answer[cur][0]}</SvyBtbn>
-        <SvyBtbn onClick={() => handleClick(1)}>{answer[cur][1]}</SvyBtbn>
-        <SvyBtbn onClick={() => handleClick(2)}>{answer[cur][2]}</SvyBtbn>
+        <SvyBtbn id="svy-btn" onClick={() => handleClick(0)}>{answer[cur][0]}</SvyBtbn>
+        <SvyBtbn id="svy-btn" onClick={() => handleClick(1)}>{answer[cur][1]}</SvyBtbn>
+        <SvyBtbn id="svy-btn" onClick={() => handleClick(2)}>{answer[cur][2]}</SvyBtbn>
       </SveyBody>
     </SveySectionContainer>
   );
@@ -81,36 +102,27 @@ const SveyHead = styled.div`
 `;
 
 const SveyImg = styled.div`
-  height: 80%;
-  width: 20%;
   padding-left: 30px;
   z-index: 1;
-  // &:hover {
-  //   animation: shake 10s;
-  // }
-  // @keyframes shake {
-  //   0% {
-  //     transform: translate(1px, 1px) rotate(0deg);
-  //   }
-  //   30% {
-  //     transform: translate(40px, 2px) rotate(0deg);
-  //   }
-  //   60% {
-  //     transform: translate(-1px, -1px) rotate(1deg);
-  //   }
-  //   100% {
-  //     transform: translate(1px, -2px) rotate(-1deg);
-  //   }
-  // };
+  @media (max-width: 650px) {
+    padding-left: 20px;
+    #survey-img {
+      width: 50px;
+    }
+  }
 `;
 const SveyQuestion = styled.div`
-  height: 80%;
-  width: 80%;
   margin-left: 3%;
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 25px;
+  font-size: 20px;
+  @media (max-width: 650px) {
+    font-size: 11px;
+    padding: 14px;
+    border-radius: 15px;
+  }
 `;
 
 const SveyBody = styled.div`
@@ -118,14 +130,15 @@ const SveyBody = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #f9f7f4;
+  padding: 13px 0px;
+  
+  background-color: rgb(249, 253, 254);
   border-radius: 20px;
   width: 100%;
   max-height: 400px;
   margin-top: 20px;
-  &:hover {
-    background-color: #f0ede9;
-  }
+
+
 `;
 
 const SvyBtbn = styled.button`
@@ -135,12 +148,15 @@ const SvyBtbn = styled.button`
   height: 20vw;
   max-height: 100px;
   border-radius: 20px;
-  border: 0;
-  background-color: #ff9800;
-  color: white;
+  border: 5px solid;
+  background-color: transparent;
+  border-color:  var(--primaryLight);
+  color: black;
   font-size: 24px;
-  &:hover {
-    background-color: #ed6c02;
-    cursor: pointer;
+  font-weight: 600;
+  @media (max-width: 650px) {
+    font-size: 16px;
+    border: 3px solid;
+    border-color:  var(--primaryLight);
   }
 `;

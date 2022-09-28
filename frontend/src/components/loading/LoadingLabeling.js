@@ -1,13 +1,57 @@
-import { Container, Box, Button } from '@mui/material';
-import { useState } from 'react';
+import { Container, Box, Button, CircularProgress } from '@mui/material';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import LabelingResult from './LoadingResult';
+import API from '../../config';
+import { enToKoAttribute, koToEnAttribute } from './attributeDictionary';
 
 export default function Labeling() {
-  const name = 'Jane';
-  const personalityZero = '세심한';
-  const personalityOne = '강인한';
+  const [name, setName] = useState('');
+  const [gender, setGender] = useState('');
+  const [attributeName, setAttributeName] = useState([]);
+  const [attributePercentage, setAttributePercentage] = useState([]);
   const [result, setResult] = useState('');
+  const [refresh, setRefresh] = useState(false);
+  const [isImgLoaded, setIsImgLoaded] = useState(false);
+
+  const getNameGame = async () => {
+    setIsImgLoaded(false);
+    await axios.get(`${API.LOADING}`).then((res) => {
+      console.log(res);
+      const data = JSON.parse(res.data);
+      setName(data.name);
+      setGender(data.gender);
+      setAttributeName([
+        enToKoAttribute[data.attribute_name[0]],
+        enToKoAttribute[data.attribute_name[1]]
+      ]);
+      setAttributePercentage(data.attribute_percentage);
+    });
+  };
+
+  useEffect(() => {
+    if (name) {
+      setIsImgLoaded(true);
+    }
+  }, [name]);
+
+  // 렌더링 될 때, 데이터 요청
+  useEffect(() => {
+    getNameGame();
+  }, [refresh]);
+
+  const sendChoosedAttr = async (attr) => {
+    const data = {
+      name: name,
+      gender: gender,
+      attribute: attr
+    };
+    console.log(data, 'data');
+    axios.put(`${API.LOADING}`, data).then((res) => {
+      console.log(res);
+    });
+  };
 
   return (
     <StyledWrapper>
@@ -19,41 +63,72 @@ export default function Labeling() {
           </Box>
           <Box className="question">아래 카드를 누르면 결과가 나와요.</Box>
         </Box>
-        <Box id="name" sx={{ margin: '10px' }}>
-          {name}
-        </Box>
-        <Box>
-          {result ? (
-            <LabelingResult
-              result={result}
-              personalityZero={personalityZero}
-              personalityOne={personalityOne}
-            />
-          ) : (
-            <Box id="choices">
-              <Button
-                variant="outlined"
-                className="choice"
-                color="primary"
-                onClick={() => {
-                  setResult(personalityZero);
-                }}
-              >
-                {personalityZero}
-              </Button>
-              <Button
-                variant="outlined"
-                className="choice"
-                color="warning"
-                onClick={() => {
-                  setResult(personalityOne);
-                }}
-              >
-                {personalityOne}
-              </Button>
+        {!isImgLoaded ? (
+          <>
+            <Box sx={{ width: 300, height: 154 }} />
+            <div id="progress-container">
+              <CircularProgress />
+            </div>
+          </>
+        ) : (
+          <>
+            <Box id="name" sx={{ margin: '10px' }}>
+              {name}
             </Box>
-          )}
-        </Box>
+            <Box>
+              {result ? (
+                <Container id="resultBox">
+                  <Box>'{result}'을 선택했어요</Box>
+                  <LabelingResult
+                    result={result}
+                    personalityZero={attributeName[0]}
+                    personalityOne={attributeName[1]}
+                    attributePercentage={attributePercentage}
+                  />
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      setRefresh(!refresh);
+                      setResult('');
+                    }}
+                    color="secondary"
+                    style={{
+                      marginTop: '10px',
+                      color: 'white'
+                    }}
+                  >
+                    <span>다른 이름</span>
+                  </Button>
+                </Container>
+              ) : (
+                <Box id="choices">
+                  <Button
+                    variant="outlined"
+                    className="choice"
+                    color="primary"
+                    onClick={() => {
+                      setResult(attributeName[0]);
+                      sendChoosedAttr(koToEnAttribute[attributeName[0]]);
+                    }}
+                  >
+                    {attributeName[0]}
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    className="choice"
+                    color="warning"
+                    onClick={() => {
+                      setResult(attributeName[1]);
+                      sendChoosedAttr(koToEnAttribute[attributeName[1]]);
+                    }}
+                  >
+                    {attributeName[1]}
+                  </Button>
+                </Box>
+              )}
+            </Box>
+          </>
+        )}
       </Container>
     </StyledWrapper>
   );
@@ -76,6 +151,10 @@ const StyledWrapper = styled.div`
     font-family: SCDream7;
     font-size: 36px;
   }
+  #progress-container {
+    position: relative;
+    top: -100px;
+  }
   #name {
     background-color: var(--infoMain);
     padding: 20px 40px;
@@ -87,13 +166,22 @@ const StyledWrapper = styled.div`
   #choices {
     display: flex;
     justify-content: space-around;
+    flex-direction: row;
   }
   .choice {
     radius: 10px;
     padding: 15px 30px;
     background-color: var(--infoMain);
     font-family: SCDream7;
-    font-size: clamp(1rem, 4vw, 2rem);
+    font-size: clamp(0.7rem, 3vw, 1.5rem);
     margin: 10px;
+  }
+  #resultBox {
+    background-color: #f9f7f4;
+    padding: 20px 40px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;

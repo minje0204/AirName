@@ -1,12 +1,23 @@
+from xml.etree.ElementInclude import include
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from RecName.views import NameList
 from FinalReport.views import GetReport
 from LoadingLabeling.views import Labeling
+from ValidateName.views import ValidateName
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('rec/sound/', NameList.as_view()),
-    path('report/<str:name>/<str:gender>/<int:birth>', GetReport.as_view()),
+    path('rec/', include('RecName.urls')),
+    path('report/<str:name>/<int:birth>', GetReport.as_view()),
+    path('validate/<str:name>/<int:birth>',ValidateName.as_view()),
     path('loading/',Labeling.as_view())
 ]
+
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]

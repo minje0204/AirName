@@ -3,10 +3,13 @@ import os
 import sys
 import jellyfish
 import urllib.request
+import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
 from .connection import *
 from pymongo import MongoClient
+import random
+import re
 
 def Romanization(input):
     kor_name = urllib.parse.quote(input)
@@ -17,19 +20,24 @@ def Romanization(input):
     response = urllib.request.urlopen(request)
     rescode = response.getcode()
 
-    if(rescode==200):
+    if rescode == 200:
         response_body = response.read().decode('utf-8')
         bs = BeautifulSoup(response_body, 'html.parser')
         name_tags = bs.select('#container > div > table > tbody > tr > td > a')
 
-        raw_name = name_tags[0].text
-        blank_index = raw_name.index(' ')
-        refined_name = raw_name[blank_index+1:]
+        #name_tags가 공란이면 입력한 한글이름에 맞는 변환값이 없다는 뜻. 404에러를 반환
+        if len(name_tags) == 0:
+            refined_name = 404
+        else :
+            raw_name = name_tags[0].text
+            blank_index = raw_name.index(' ')
+            refined_name = raw_name[blank_index+1:]
 
-        return refined_name
-
+    #200 이외의 status code를 받았을 때 코드값 오류를 반환
     else:
-        print("Error Code:" + rescode)
+        refined_name = rescode
+
+    return refined_name
 
 def NameSimilarity(name):
     sim = jellyfish.jaro_distance(name,nys_name)
@@ -70,6 +78,10 @@ def Recommend(kor_name, gender, year):
     #로마화
     rom_name = Romanization(kor_name)
 
+    # #404에러면 404코드값을 반환, 현재 이름 유효성검사로 체크해주고 있어서 주석처리
+    # if rom_name == 404:
+    #     return rom_name
+    # else:
     #nysiis 코드값 부여
     global nys_name
     nys_name = jellyfish.nysiis(rom_name)
@@ -83,8 +95,104 @@ def Recommend(kor_name, gender, year):
     #필터링(gender~rarity 부분을 설문조사 배열 형태로 넘길지 생각중)
     df_sim = Filter(df_sim, gender, year)
 
-    name_array = df_sim['name'].head(4).to_numpy()
-    #list를 dict로 바꿔야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
-    name_array = dict(enumerate(name_array))
+    #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
+    name_array = {}
+    df_drop_dup = df_sim['nysiis'].drop_duplicates().head(4).to_numpy()
+
+    for data in df_drop_dup:
+        df_new = df_sim.copy()
+
+        df_random = df_new[df_new['nysiis']==data].sample(n=1).to_numpy()
+        name_array[df_random[0][1]] = {'type':'sound','sim':round(df_random[0][4]*100)}
 
     return name_array
+
+def AtmRecommend(AtmInput):
+    db = ConnectMongoDB()
+    df = LoadDataframes(db, 'atm')
+    processedInput = preProcessAtmInput(AtmInput)
+    df[['score','tag']] = df.apply(lambda row : processATM(list(map(lambda x: row[x],processedInput)),processedInput), axis = 1,result_type='expand')
+    df_drop_dup=df.sort_values(by=['score'],ascending=False)['score'].drop_duplicates().head(2).to_numpy()
+
+    df_new = df[df['score']==df_drop_dup[0]]
+    if(df_new.shape[0] < 2):
+        df_random = df_new.sample(n=1)
+        df_new = df[df['score']==df_drop_dup[1]]
+        df_random = pd.concat([df_random,df_new.sample(n=1)])
+    else:
+        df_random = df_new[df_new['score']==df_drop_dup[0]].sample(n=2)
+
+    name_array = {}
+    
+    for row in range(df_random.shape[0]):
+        tagList = df_random.iloc[row]['tag']
+        if (len(tagList) >=3):
+            tagList = random.sample(tagList, 3)
+        name_array[df_random.iloc[row]['name']] = {'type':'atm','sim':tagList}
+    #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)    
+    return name_array
+
+def NameFormating(atm,sound):
+    selected_arr = {}
+
+    for data in atm:
+        selected_arr[data] = atm[data]
+
+    for data in sound:
+        if len(selected_arr) == 4:
+            break
+
+        if type(data) != int and data not in selected_arr:
+            selected_arr[data] = sound[data]
+
+    return selected_arr
+
+def processATM(attrVal,attr):
+    sum=0
+    tag=[]
+    for idx,val in enumerate(attrVal):
+        if(val==1):
+            tag.append(attr[idx])
+        sum+=val
+    return sum,tag
+
+def preProcessAtmInput(AtmInput):
+    rt = []
+    for item in AtmInput.items():
+        if(item[1] != 2):
+            rt.append(keyMap[item[0]][item[1]])
+    return rt
+
+def CheckingKorean(name):
+    pattern = re.compile(r'[가-힣]')
+    check = True
+
+    for str in name :
+        results = pattern.match(str)
+        if results == None :
+            check = False
+            break
+
+    return check
+
+def CheckingRoman(name, check):
+    check_array = {}
+
+    if check == False:
+        check_array['check'] = False
+        check_array['msg'] = '올바르지 않은 이름 형식입니다.'
+    else :
+        #로마화 유효성 판단
+        rom_name = Romanization(name)
+        #404에러면 404코드값을 반환
+        if rom_name == 404:
+            check_array['check'] = False
+            check_array['msg'] = '사용할 수 없는 이름입니다.'
+        else:
+            check_array['check'] = True
+            check_array['msg'] = '사용할 수 있는 이름입니다.'
+
+    return check_array
+
+keyMap = {'Gender': ['Masculine','Feminine'],"OldFashionedness":['Classic','Modern'],"Oldness":['Mature','Youthful'],"Formality":['Formal','Informal'],"Class":['Upper Class','Common'],"Urban-rural":['Urban','Natural'],"Truthfulness":['Wholesome','Devious'],
+ "Extremly":['Strong','Delicate'],"Roughness":['Refined','Rough'],"Strangeness":['Strange','Boring'],"Complexness":['Simple','Complex'],"Seriousness":['Serious','Comedic']}

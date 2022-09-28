@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import ReactCardFlip from 'react-card-flip';
-import TicketFront from './TicketFront';
-import TicketBack from './TicketBack';
+import RcmndTicketFront from './RcmndTicketFront';
+import RcmndTicketBack from './RcmndTicketBack';
 
 class RcmndCardItems extends React.Component {
   constructor() {
@@ -19,7 +19,7 @@ class RcmndCardItems extends React.Component {
   }
 
   render() {
-    const { name } = this.props;
+    const { name, info } = this.props;
     return (
       <EachTicketContainer>
         <ReactCardFlip
@@ -27,10 +27,10 @@ class RcmndCardItems extends React.Component {
           flipDirection="vertical"
         >
           <FRONT_COMPONENT onClick={this.handleClick}>
-            <TicketFront name={name} />
+            <RcmndTicketFront name={name} />
           </FRONT_COMPONENT>
           <BACK_COMPONENT onClick={this.handleClick}>
-            <TicketBack name={name} />
+            <RcmndTicketBack name={name} type={info.type} sim={info.sim} />
           </BACK_COMPONENT>
         </ReactCardFlip>
       </EachTicketContainer>
@@ -40,8 +40,7 @@ class RcmndCardItems extends React.Component {
 
 export default RcmndCardItems;
 
-const EachTicketContainer = styled.div`
-`;
+const EachTicketContainer = styled.div``;
 
 const BACK_COMPONENT = styled.div``;
 

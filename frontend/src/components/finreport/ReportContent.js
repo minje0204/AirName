@@ -1,5 +1,6 @@
 import React from 'react';
 import ReportContentItems from './ReportContentItems';
+import styled from 'styled-components';
 
 function ReportContent({
   username,
@@ -7,10 +8,14 @@ function ReportContent({
   maleState,
   femaleState,
   maleMeaning,
-  femaleMeaning
+  femaleMeaning,
+  parseKoHome,
+  parseEnHome,
+  parseFeKoHome,
+  parseFeEnHome
 }) {
   return (
-    <div>
+    <ReportContentItemsContainer>
       <ReportContentItems
         username={username}
         hometown={hometown}
@@ -18,9 +23,17 @@ function ReportContent({
         femaleState={femaleState}
         maleMeaning={maleMeaning}
         femaleMeaning={femaleMeaning}
+        parseKoHome={parseKoHome}
+        parseEnHome={parseEnHome}
+        parseFeKoHome={parseFeKoHome}
+        parseFeEnHome={parseFeEnHome}
       ></ReportContentItems>
-    </div>
+    </ReportContentItemsContainer>
   );
 }
 
 export default ReportContent;
+
+const ReportContentItemsContainer = styled.div`
+  margin-top: 30px;
+`;
