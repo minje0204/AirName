@@ -4,6 +4,7 @@ from django.urls import path, include
 from RecName.views import NameList
 from FinalReport.views import GetReport
 from LoadingLabeling.views import Labeling
+from SpeakName.views import SpeakName
 from django.conf import settings
 
 urlpatterns = [
@@ -11,7 +12,8 @@ urlpatterns = [
     path('rec/', include('RecName.urls')),
     path('report/<str:name>/<int:birth>', GetReport.as_view()),
 
-    path('loading/',Labeling.as_view())
+    path('loading/',Labeling.as_view()),
+    path('speaking/<str:name>',SpeakName.as_view())
 ]
 
 
