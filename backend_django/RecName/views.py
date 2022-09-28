@@ -44,7 +44,9 @@ class NameList(APIView):
 class CheckName(APIView):
     def get(self, request, **kwargs):
         #이름이 검색할 때 유효한 이름인지 판단
-        result = Checking(kwargs['name'])
+
+        name = kwargs['name']
+        result = CheckingRoman(name, CheckingKorean(name))
 
         data = json.dumps(result)
 
