@@ -115,7 +115,6 @@ function FinReport() {
             maleState={maleState}
             femaleState={femaleState}
             meaning={meaning}
-
             parseKoHome={parseKoHome}
             parseEnHome={parseEnHome}
             parseFeKoHome={parseFeKoHome}

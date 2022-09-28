@@ -25,7 +25,7 @@ function FinBtns({ username }) {
       <FinBtnsWrapper>
         <Link to={'/'}>
           <button id="img-save-btn">
-            홈으로 돌아가기
+            🏠홈으로 돌아가기
           </button>
         </Link>
       </FinBtnsWrapper>
