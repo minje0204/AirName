@@ -111,18 +111,23 @@ def AtmRecommend(AtmInput):
     df = LoadDataframes(db, 'atm')
     processedInput = preProcessAtmInput(AtmInput)
     df[['score','tag']] = df.apply(lambda row : processATM(list(map(lambda x: row[x],processedInput)),processedInput), axis = 1,result_type='expand')
-    maxScoreDf=df.sort_values(by=['score'],ascending=False).head(1)['score'].to_numpy()
-    df = df.loc[df['score'] == maxScoreDf.item(0)]
+    df_drop_dup=df.sort_values(by=['score'],ascending=False)['score'].drop_duplicates().head(2).to_numpy()
 
-    selectRow = []
-    while len(selectRow) < 2:
-        candRand = random.randrange(0,df.shape[0]+1) # 0 ~ 스코어가 제일 높은 데이터 row수
-        if(candRand not in selectRow):
-            selectRow.append(candRand)
-    
+    df_new = df[df['score']==df_drop_dup[0]]
+    if(df_new.shape[0] < 2):
+        df_random = df_new.sample(n=1)
+        df_new = df[df['score']==df_drop_dup[1]]
+        df_random = pd.concat([df_random,df_new.sample(n=1)])
+    else:
+        df_random = df_new[df_new['score']==df_drop_dup[0]].sample(n=2)
+
     name_array = {}
-    for row in selectRow:
-        name_array[df.iloc[row]['name']] = {'type':'atm','sim':df.iloc[row]['tag']}
+    
+    for row in range(df_random.shape[0]):
+        tagList = df_random.iloc[row]['tag']
+        if (len(tagList) >=3):
+            tagList = random.sample(tagList, 3)
+        name_array[df_random.iloc[row]['name']] = {'type':'atm','sim':tagList}
     #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)    
     return name_array
 
@@ -144,10 +149,10 @@ def NameFormating(atm,sound):
 def processATM(attrVal,attr):
     sum=0
     tag=[]
-    for idx,i in enumerate(attrVal):
-        if(i==1):
+    for idx,val in enumerate(attrVal):
+        if(val==1):
             tag.append(attr[idx])
-        sum+=i
+        sum+=val
     return sum,tag
 
 def preProcessAtmInput(AtmInput):
