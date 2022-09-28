@@ -17,10 +17,17 @@ function TicketFront({ name, type, sim }) {
         </TicketHead>
         <TicketBody className="shadow pattern">
           <NameTTSContainer>
-            <TickeNameContainer className="ticket-info-font">
+            <TickeNameContainer>
               { type === "sound" ? 
-              <span>당신의 이름과 {sim}% 유사한 발음을 가지고 있어요!</span> 
-              : <span>이름이 가지고 있는 분위기 {sim}</span> 
+              <div id="info-container">
+                <div id="info-head">{sim}22%</div>
+                <div id="info-body">당신의 이름과 {sim}% 유사한 발음을 가지고 있어요!</div> 
+              </div>
+              :    
+              <div id="info-container">
+                <div className="info-head-font">{sim}!</div>
+                <div className="info-body-font">당신을 표현할 수 있는 단어 기반의 추천이에요!</div>
+              </div>
               }
               
             </TickeNameContainer>
@@ -67,6 +74,12 @@ const TickeNameContainer = styled.div`
   align-items: center;
   display: inline;
   padding: 20px;
+  #info-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 `;
 
 const NameTTSContainer = styled.div`

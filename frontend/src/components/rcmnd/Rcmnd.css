@@ -76,17 +76,21 @@
   
 }
 
-.ticket-info-font {
-  font-size: 25px;
-  font-family: 'SCDream7';
-  
-}
-
 .ticket-bottom-font{
   font-size: 20px;
   font-family: 'SCDream7';
   color: #2e81e1;
   font-style: oblique;
+}
+
+.info-head-font{
+  font-size: 50px;
+  font-family: 'SCDream7';
+}
+
+.info-body-font{
+  font-size: 25px;
+
 }
 
 .vibration {
@@ -134,16 +138,22 @@
     font-size: 12px;
     padding: 5px;
   }
-  .ticket-info-font{
-    font-size: 15px;
-  }
   .ticket-bottom-font{
     font-size: 10px;
   }
   .custom-btn{
-    font-size: 12px;
+    font-size: 10px;
     padding: 1px;
-    margin-bottom: 10px;
+    margin-bottom: 7px;
+  }
+  .info-head-font{
+    font-size: 23px;
+    font-family: 'SCDream7';
+  }
+  
+  .info-body-font{
+    font-size: 13px;
+  
   }
 }
 
