@@ -19,7 +19,9 @@ function ReportContentItems({
       {
         username.length > 0 
         ? 
-        <ContentBox><h3>💕 AIR NAME에서 추천된 영어이름은 {username}입니다!</h3></ContentBox>
+        <ContentBox><h3>🛬 {username}</h3>
+        AIR NAME에서 추천된 영어이름은 {username}입니다!
+        </ContentBox>
         : null
       }
       {
@@ -32,19 +34,19 @@ function ReportContentItems({
       {
         maleState.length > 0 
         ? 
-        <ContentBox><h3>🏡🙍‍♂️ {username}의 명예 고향은 {parseEnHome}!</h3>
+        <ContentBox><h3>🏡🙍‍♂️ 남성 명예 고향은 {parseEnHome}!</h3>
         {username}은 남성의 이름일 때, {parseKoHome}에서 가장 많이 사용되고 있어요.</ContentBox>
         :null
       }
       {
         femaleState.length > 0 
         ? 
-        <ContentBox><h3>🏡🙍‍♀️ {username}의 명예 고향은 {parseFeEnHome}!</h3>
+        <ContentBox><h3>🏡🙍‍♀️ 여성 명예 고향은 {parseFeEnHome}!</h3>
         {username}은 여성의 이름일 때, {parseFeKoHome}에서 가장 많이 사용되고 있어요.</ContentBox>
         :null
       }
       {
-        meaning === true
+        meaning.length > 0 
         ? 
         <ContentBox><h3>⚡🙍‍♂️ {username}의 이름 뜻은 {meaning}😎!</h3>
         {username}은, {meaning}이라는 뜻을 가지고 있어요 !</ContentBox>
