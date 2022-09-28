@@ -8,6 +8,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from .connection import *
 from pymongo import MongoClient
+import re
 
 def Romanization(input):
     kor_name = urllib.parse.quote(input)
@@ -149,15 +150,34 @@ def preProcessAtmInput(AtmInput):
             rt.append(keyMap[item[0]][item[1]])
     return rt
 
-def Checking(name):
+def CheckingKorean(name):
+    pattern = re.compile(r'[가-힣]')
+    check = True
+
+    for str in name :
+        results = pattern.match(str)
+        if results == None :
+            check = False
+            break
+
+    return check
+
+def CheckingRoman(name, check):
     check_array = {}
-    #로마화 유효성 판단
-    rom_name = Romanization(name)
-    #404에러면 404코드값을 반환
-    if rom_name == 404:
+
+    if check == False:
         check_array['check'] = False
-    else:
-        check_array['check'] = True
+        check_array['msg'] = '올바르지 않은 이름 형식입니다.'
+    else :
+        #로마화 유효성 판단
+        rom_name = Romanization(name)
+        #404에러면 404코드값을 반환
+        if rom_name == 404:
+            check_array['check'] = False
+            check_array['msg'] = '사용할 수 없는 이름입니다.'
+        else:
+            check_array['check'] = True
+            check_array['msg'] = '사용할 수 있는 이름입니다.'
 
     return check_array
 
