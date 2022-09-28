@@ -30,15 +30,29 @@ function ReportContentItems({
       {maleState.length > 0 ? (
         <ContentBox>
           <h3>🏡🙍‍♂️ 남성 명예 고향은 {parseEnHome}!</h3>
-          {username}은 남성의 이름일 때, {parseKoHome}에서 가장 많이 사용되고
-          있어요.
+          {username}은 남성의 이름일 때, 
+          <a
+            href={`https://ko.wikipedia.org/wiki/${parseKoHome}주`}
+            target="_blank"
+            id="meaning-dict-link"
+          >
+            {parseKoHome}
+          </a>
+          에서 가장 많이 사용되고 있어요.
         </ContentBox>
       ) : null}
       {femaleState.length > 0 ? (
         <ContentBox>
           <h3>🏡🙍‍♀️ 여성 명예 고향은 {parseFeEnHome}!</h3>
-          {username}은 여성의 이름일 때, {parseFeKoHome}에서 가장 많이 사용되고
-          있어요.
+          {username}은 여성의 이름일 때,
+          <a
+            href={`https://ko.wikipedia.org/wiki/${parseFeKoHome}주`}
+            target="_blank"
+            id="meaning-dict-link"
+          >
+            {parseFeKoHome}
+          </a>
+          에서 가장 많이 사용되고 있어요.
         </ContentBox>
       ) : null}
       {meaning.length > 0 ? (
@@ -49,27 +63,25 @@ function ReportContentItems({
               {username}의 이름 뜻은
               {meaning.map((mean) => (
                 <a
-                  href= {`https://en.dict.naver.com/#/search?query=${mean}`}
+                  href={`https://en.dict.naver.com/#/search?query=${mean}`}
                   target="_blank"
                   id="meaning-dict-link"
                 >
                   {mean}
                 </a>
-                
               ))}
-😎!
+              😎!
             </h3>
             {username}은,{' '}
             {meaning.map((mean) => (
-                <a
-                  href= {`https://en.dict.naver.com/#/search?query=${mean}`}
-                  target="_blank"
-                  id="meaning-dict-link"
-                >
-                  <b>{mean}</b>
-                </a>
-                
-              ))}
+              <a
+                href={`https://en.dict.naver.com/#/search?query=${mean}`}
+                target="_blank"
+                id="meaning-dict-link"
+              >
+                <b>{mean}</b>
+              </a>
+            ))}
             이라는 {meaning.length}개의 뜻을 가지고 있어요 !
           </ContentBox>
         </>
