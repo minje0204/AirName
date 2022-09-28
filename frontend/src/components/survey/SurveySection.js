@@ -6,12 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import Fairly from '../../asset/img/survey/Fairy.svg';
 import './Survey.css';
 
-import question from './Question';
-import answer from './Answer';
-import answerKey from './AnswerKey';
+import datas from './Question';
 import API from '../../config';
 
 function SurveySection() {
+  
   const [cur, setCur] = useState(0);
   const [isLast, setIsLast] = useState(false);
   const [surveyRes, setSurveyRes] = useState({});
@@ -30,23 +29,25 @@ function SurveySection() {
 
   // 이름 가져와서 Local에 저장
   const getName = async (data) => {
-    axios.post(`${API.ENTRY}`, data).then((res) => {
+    axios.post(`${API.GETNAME}`, data).then((res) => {
       console.log(res);
       // 이름 추천 데이터 저장
       localStorage.setItem('rcmndNames', JSON.stringify(res.data));
     })
   };
 
+  // 클릭시 데이터 묶어서 계속 저장
   const handleClick = (input) => {
     const newElement = {
-      [answerKey[cur]]: input
+      [datas[cur].answerKey]: input
     };
     setSurveyRes({ ...surveyRes, ...newElement });
-    if (cur < 11) setCur(cur + 1);
+    if (cur < 5) setCur(cur + 1);
   };
 
+  // 서베이 데이터 보낼 항목이 모두 채워졌을 때, isLast true로 변환
   useEffect(() => {
-    if (Object.entries(surveyRes).length === 12) 
+    if (Object.entries(surveyRes).length === 6) 
         setIsLast(true)
   }, [surveyRes]);
 
@@ -64,18 +65,19 @@ function SurveySection() {
     getUserInfo(); 
   }, []);
 
+    
   return (
     <SveySectionContainer>
       <SveyHead>
         <SveyImg>
           <img id="survey-img" src={Fairly} />
         </SveyImg>
-        <SveyQuestion className="speech-bubble">{question[cur]}</SveyQuestion>
+        <SveyQuestion className="speech-bubble">{datas[cur].question}</SveyQuestion>
       </SveyHead>
       <SveyBody>
-        <SvyBtbn id="svy-btn" onClick={() => handleClick(0)}>{answer[cur][0]}</SvyBtbn>
-        <SvyBtbn id="svy-btn" onClick={() => handleClick(1)}>{answer[cur][1]}</SvyBtbn>
-        <SvyBtbn id="svy-btn" onClick={() => handleClick(2)}>{answer[cur][2]}</SvyBtbn>
+        <SvyBtbn id="svy-btn" onClick={() => handleClick(0)}>{datas[cur].answer[0]}</SvyBtbn>
+        <SvyBtbn id="svy-btn" onClick={() => handleClick(1)}>{datas[cur].answer[1]}</SvyBtbn>
+        <SvyBtbn id="svy-btn" onClick={() => handleClick(2)}>{datas[cur].answer[2]}</SvyBtbn>
       </SveyBody>
     </SveySectionContainer>
   );
