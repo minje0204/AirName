@@ -96,7 +96,7 @@ function FinReport() {
     setEnHomeTown();
     setKoHomeTown();
     setEnMainState();
-  },[]);
+  },[femaleState, maleState, mainState]);
 
   return (
     <StyledWrapper>
