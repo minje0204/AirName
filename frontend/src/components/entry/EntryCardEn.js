@@ -190,7 +190,8 @@ function EntryCardEn() {
                   setNameEnError(true);
                 } else {
                   setNameEn(
-                    nameEnTmp.charAt(0).toUpperCase() + nameEnTmp.slice(1)
+                    nameEnTmp.charAt(0).toUpperCase() +
+                      nameEnTmp.slice(1).toLowerCase()
                   );
                   setNameEnError(false);
                 }
