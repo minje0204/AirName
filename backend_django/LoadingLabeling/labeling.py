@@ -1,3 +1,4 @@
+from re import S
 import pandas as pd
 from pymongo import MongoClient
 import random
@@ -7,12 +8,18 @@ from RecName.connection import *
 
 
 def GetRandomName():
+    start = time.time()
     db = ConnectMongoDB()
+    connectionTime = time.time()-start
+    start = time.time()
     col = db['rawdata']
+    toDBTime = time.time()-start
+    start = time.time()
 
     report = {}
     random_data = pd.DataFrame(col.aggregate([{'$sample': { 'size': 1 } } ]))
-
+    randomTime = time.time()-start
+    start = time.time()
     for data in random_data.itertuples():
         random_name = data.name
 
@@ -44,13 +51,13 @@ def GetRandomName():
     
     left_percent = round(random_attribute[attribute_left]/(random_attribute[attribute_left]+random_attribute[attribute_right])*100)
     right_percent = round(random_attribute[attribute_right]/(random_attribute[attribute_left]+random_attribute[attribute_right])*100)
-    
-    end = time.time()
+    operationTime =time.time()-start
 
     report['name'] =random_name
     report['gender'] = random_gender
     report['attribute_name'] = [attribute_left,attribute_right]
     report['attribute_percentage'] = [left_percent,right_percent]
+    report['time']=[connectionTime,toDBTime,randomTime,operationTime]
 
     return report
 

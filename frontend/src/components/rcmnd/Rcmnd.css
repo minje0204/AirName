@@ -1,53 +1,45 @@
 .custom-btn {
-  width: 30vw;
-  min-width: 250px;
-  max-width: 400px;
   font-weight: 700;
-  font-size: clamp(8px, calc(0.3vw + 0.2vh + 10px), 18px);
+  font-size: 20px;
   border: none;
-  background: transparent;
+  background: #1565c0;
   cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-  padding: 1.5%;
+  color: white;
+  font-family: 'SCDream4';
+  padding: 5px;
+}
+
+.pattern {
+  background: rgb(251, 251, 251);
+  background-image: radial-gradient(#dbe8f7 10%, transparent 10%), radial-gradient(#f8fbff 10%, transparent 0);
+  background-position: 0 0, 10px 10px;
+  background-size: 20px 20px;
 }
 
 /* 15 */
-.btn-15 {
+/* .btn-15 {
   background: white;
   border-radius: 10px;
   border-width: 3px;
   border-style: solid;
   border-color: #1565c0;
-  color: black;
+  color: rgb(127, 127, 127);
   z-index: 1;
-}
-.btn-15:after {
+} */
+/* .btn-15:after {
   position: absolute;
   content: '';
-  width: 0;
   height: 100%;
   top: 0;
   right: 0;
   z-index: -1;
   background: #1565c0;
   transition: all 0.3s ease;
-}
+} */
 
-@media (min-width: 650px) {
-  .btn-15:hover {
-    color: #fff;
-  }
-  .btn-15:hover:after {
-    left: 0;
-    width: 100%;
-  }
-}
-
-.btn-15:active {
+/* .btn-15:active {
   top: 2px;
-}
+} */
 
 .airplan-img {
   width: 10%;
@@ -60,3 +52,109 @@
 .ttsbtn-img {
   width: cal(5vh + 5vw);
 }
+
+.shadow{
+  box-shadow: 0 5px 18px -7px rgba(0,0,0,1);
+}
+.rcmnd-guide-font{
+  font-size: 40px;
+  font-family: 'SCDream7';
+}
+
+.ticket-head-font{
+  font-size: 20px;
+  font-family: 'SCDream7';
+  color: white;
+  font-style: oblique;
+
+}
+
+.ticket-name-font {
+  font-size: 58px;
+  font-family: 'SCDream7';
+  text-decoration: underline;
+  
+}
+
+.ticket-bottom-font{
+  font-size: 20px;
+  font-family: 'SCDream7';
+  color: #2e81e1;
+  font-style: oblique;
+}
+
+.info-head-font{
+  font-size: 50px;
+  font-family: 'SCDream7';
+}
+
+.info-body-font{
+  font-size: 25px;
+
+}
+
+.vibration {
+  animation: vibration 0.5s infinite;
+}
+
+@keyframes vibration {
+  0% {
+    transform: rotate(0deg);
+  }
+  50%{
+    transform: rotate(0.5deg);
+  }
+  100% {
+    transform: rotate(-0.5deg);
+  }
+}
+
+
+/* pc일때만 */
+@media (min-width: 650px) {
+  .btn-15:hover {
+    color: #fff;
+  }
+  .btn-15:hover:after {
+    left: 0;
+    width: 100%;
+  }
+
+
+}
+/* 모바일 일 때만 */
+@media (max-width: 650px) {
+  .rcmnd-guide-font{
+    font-size: 20px;
+  }
+  .ticket-head-font{
+    font-size: 13px;
+  }
+  .ticket-name-font {
+    font-size: 35px;
+    font-family: 'SCDream7';
+  }
+  .custom-btn{
+    font-size: 12px;
+    padding: 5px;
+  }
+  .ticket-bottom-font{
+    font-size: 10px;
+  }
+  .custom-btn{
+    font-size: 10px;
+    padding: 1px;
+    margin-bottom: 7px;
+  }
+  .info-head-font{
+    font-size: 23px;
+    font-family: 'SCDream7';
+  }
+  
+  .info-body-font{
+    font-size: 13px;
+  
+  }
+}
+
+
