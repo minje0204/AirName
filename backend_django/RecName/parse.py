@@ -4,6 +4,7 @@ import os
 import jellyfish
 from pymongo import MongoClient
 from connection import *
+from rec import *
 
 # [기존 코드] 디렉토리에 pickle 저장해서 이용하는 방법
 # def Directory(dir):
@@ -123,12 +124,13 @@ def CreateAtmName(db,df):
     SaveDataframes(db, pd.DataFrame(data=d), 'atm')
 
 def main():
-    db = ConnectMongoDB()
-    df = LoadDataframes(db, 'rawdata')
-
+    # db = ConnectMongoDB()
+    # df = LoadDataframes(db, 'rawdata')
+    #
     # CreateCodename(db, df)
     # CreateYearname(db, df)
-    CreateAtmName(db,df)
+    # CreateAtmName(db,df)
+    print(CheckingKorean("김상협"))
 
     #[기존 코드] json 읽어서 dataframe 생성했던 코드
     #df = pd.read_json('../DataName/mvpNameSet_Behind_Fin_with_count_state.json')
