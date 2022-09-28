@@ -44,10 +44,10 @@ function ReportContentItems({
         :null
       }
       {
-        meaning.length > 0 
+        meaning === true
         ? 
         <ContentBox><h3>⚡🙍‍♂️ {username}의 이름 뜻은 {meaning}😎!</h3>
-        {username}은 남성의 이름일 때, {meaning}이라는 뜻을 가지고 있어요 !</ContentBox>
+        {username}은, {meaning}이라는 뜻을 가지고 있어요 !</ContentBox>
         :null
       }
     </div>

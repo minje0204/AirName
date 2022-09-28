@@ -77,8 +77,6 @@ function FinReport() {
   const saveData = async (res) => {
     const data = JSON.parse(res.data);
     console.log(data)
-
-
     setFemaleState(data.female.state);
     setMeaning(data.meaning);
     setMaleState(data.male.state);
@@ -98,7 +96,7 @@ function FinReport() {
     setEnHomeTown();
     setKoHomeTown();
     setEnMainState();
-  }, []);
+  },[]);
 
   return (
     <StyledWrapper>
