@@ -20,8 +20,13 @@ function TicketFront({ name, type, sim }) {
             <TickeNameContainer>
               { type === "sound" ? 
               <div id="info-container">
+<<<<<<< HEAD
+                <div id="info-head-font">{sim}22%</div>
+                <div id="info-body-font">당신의 이름과 {sim}% 유사한 발음을 가지고 있어요!</div> 
+=======
                 <div id="info-head">{sim}22%</div>
                 <div id="info-body">당신의 이름과 {sim}% 유사한 발음을 가지고 있어요!</div> 
+>>>>>>> aebdb3893937ef5027ced021734d7265cc4bfd64
               </div>
               :    
               <div id="info-container">
