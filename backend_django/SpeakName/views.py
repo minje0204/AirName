@@ -7,7 +7,7 @@ from gtts import gTTS
 class SpeakName(APIView):
     def get(self, request, **kwargs):
         name = kwargs['name']
-        filename = name + ".mp3"
+        filename = 'SpeakName/soundfile/' + name + '.mp3'
 
         tts = gTTS(
             text=name,
