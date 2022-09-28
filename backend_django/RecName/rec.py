@@ -8,6 +8,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from .connection import *
 from pymongo import MongoClient
+import random
 
 def Romanization(input):
     kor_name = urllib.parse.quote(input)
@@ -109,16 +110,20 @@ def AtmRecommend(AtmInput):
     db = ConnectMongoDB()
     df = LoadDataframes(db, 'atm')
     processedInput = preProcessAtmInput(AtmInput)
-    df['score'] = df.apply(lambda row : add(list(map(lambda x: row[x],processedInput))), axis = 1)
+    df[['score','tag']] = df.apply(lambda row : processATM(list(map(lambda x: row[x],processedInput)),processedInput), axis = 1,result_type='expand')
+    maxScoreDf=df.sort_values(by=['score'],ascending=False).head(1)['score'].to_numpy()
+    df = df.loc[df['score'] == maxScoreDf.item(0)]
 
-    new_df=df.sort_values(by=['score'],ascending=False).head(2).to_numpy()
-
-    #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
+    selectRow = []
+    while len(selectRow) < 2:
+        candRand = random.randrange(0,df.shape[0]+1) # 0 ~ 스코어가 제일 높은 데이터 row수
+        if(candRand not in selectRow):
+            selectRow.append(candRand)
+    
     name_array = {}
-
-    for data in new_df:
-        name_array[data[1]] = {'type':'atm','sim':round(data[31]/12*100)}
-
+    for row in selectRow:
+        name_array[df.iloc[row]['name']] = {'type':'atm','sim':df.iloc[row]['tag']}
+    #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)    
     return name_array
 
 def NameFormating(atm,sound):
@@ -136,11 +141,14 @@ def NameFormating(atm,sound):
 
     return selected_arr
 
-def add(attrV):
+def processATM(attrVal,attr):
     sum=0
-    for i in attrV:
+    tag=[]
+    for idx,i in enumerate(attrVal):
+        if(i==1):
+            tag.append(attr[idx])
         sum+=i
-    return sum
+    return sum,tag
 
 def preProcessAtmInput(AtmInput):
     rt = []
