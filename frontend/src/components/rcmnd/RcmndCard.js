@@ -8,15 +8,15 @@ function RcmndCard() {
   useEffect(() => {
     // 로컬에서 rcmndNames에 저장함
     setRcmndNames(JSON.parse(JSON.parse(localStorage.getItem('rcmndNames'))))
-
-
+    console.log(rcmndNames)
   }, []);
 
   return (
     <>
       <RcmdnCardContainer>
+        {console.log(rcmndNames)}
         {Object.entries(rcmndNames).map(([k, v]) => (
-          <RcmndCardItems key={k} name={k} type={v} />
+          <RcmndCardItems key={k} name={k} info={v} />
         ))}
       </RcmdnCardContainer>
     </>
@@ -30,5 +30,4 @@ const RcmdnCardContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  max-width: 1200px;
 `;
