@@ -14,7 +14,6 @@ function SurveySection() {
   const [cur, setCur] = useState(0);
   const [isLast, setIsLast] = useState(false);
   const [surveyRes, setSurveyRes] = useState({});
-  // const [totalData, setTotalData] = useState({});
   const [nameKo, setNameKo] = useState('');
   const [birth, setBirth] = useState(0);
   const [gender, setGender] = useState('');
@@ -75,9 +74,9 @@ function SurveySection() {
         <SveyQuestion className="speech-bubble">{datas[cur].question}</SveyQuestion>
       </SveyHead>
       <SveyBody>
-        <SvyBtbn id="svy-btn" onClick={() => handleClick(0)}>{datas[cur].answer[0]}</SvyBtbn>
-        <SvyBtbn id="svy-btn" onClick={() => handleClick(1)}>{datas[cur].answer[1]}</SvyBtbn>
-        <SvyBtbn id="svy-btn" onClick={() => handleClick(2)}>{datas[cur].answer[2]}</SvyBtbn>
+        <SvyBtbn id="svy-btn" className="shadow" onClick={() => handleClick(0)}>{datas[cur].answer[0]}</SvyBtbn>
+         <SvyBtbn id="svy-btn" className="shadow" onClick={() => handleClick(1)}>{datas[cur].answer[1]}</SvyBtbn>
+        <SvyBtbn id="svy-btn" className="shadow" onClick={() => handleClick(2)}>{datas[cur].answer[2]}</SvyBtbn>
       </SveyBody>
     </SveySectionContainer>
   );
@@ -134,7 +133,7 @@ const SveyBody = styled.div`
   flex-direction: column;
   padding: 13px 0px;
   
-  background-color: rgb(249, 253, 254);
+
   border-radius: 20px;
   width: 100%;
   max-height: 400px;
@@ -152,7 +151,7 @@ const SvyBtbn = styled.button`
   border-radius: 20px;
   border: 5px solid;
   background-color: transparent;
-  border-color:  var(--primaryLight);
+  border-color: rgb(191, 226, 240);
   color: black;
   font-size: 24px;
   font-weight: 600;
