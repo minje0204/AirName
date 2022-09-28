@@ -3,7 +3,7 @@ import styled from 'styled-components';
 function RcmndGuide() {
   return (
     <RcmndGuideWrapper className="rcmnd-guide-font">
-      <span id="rcmnd-guide">
+      <span id="rcmnd-guide" className="pattern">
       🔄 카드를 눌러서 뒤집어보세요 ! 
       </span>
     </RcmndGuideWrapper>
@@ -21,7 +21,7 @@ const RcmndGuideWrapper = styled.div`
   font-weight: 700;  
   height: 100%;
   #rcmnd-guide{
-    background-color: var(--infoMain);
+
     padding: 5px;
   }
   

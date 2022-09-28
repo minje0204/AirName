@@ -14,7 +14,7 @@ function TicketFront({ name, type }) {
   return (
     <div>
       <TicketContainer>
-        <TicketHead className="shadow ticket-head-font">
+        <TicketHead className="shadow ticket-head-font ">
           <img className="airplan-img" src={TicketHeadAirplane} />
           AIR TICKET
         </TicketHead>
