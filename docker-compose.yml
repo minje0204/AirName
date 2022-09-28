@@ -14,18 +14,25 @@ services:
     ports:
       - "27018:27017"
     # -e 옵션
-    environment:
-      # MongoDB 계정 및 패스워드 설정 옵션
-      MONGO_INITDB_ROOT_USERNAME: airname108
-      MONGO_INITDB_ROOT_PASSWORD: sally2596
     volumes:
       # -v 옵션 (다렉토리 마운트 설정)
       - /data/mongodb/data/db:/data/db
   web:
-    build: ./backend_django
-    command: python manage.py runserver 0.0.0.0:8000
+    build:
+      context: ./backend_django
+      dockerfile: Dockerfile
+    command: gunicorn YourName.wsgi:application --bind 0.0.0.0:8000
     container_name: django
     volumes:
-      - "/django"
+      - "/volume/django"
     ports:
       - "8000:8000"
+  # nginx:
+  #   image: nginx:latest
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - /volume/nginx:/etc/nginx/conf.d
+  #     - /volume/django/.static_root/:/static
+  #   depends_on:
+  #     - web
