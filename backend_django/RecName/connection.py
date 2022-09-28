@@ -7,6 +7,7 @@ def ConnectMongoDB():
     env = environ.Env()
     environ.Env.read_env()
     client = MongoClient('mongodb://%s:%s@mongodb:27017' % (env('DATABASE_USER'), env('DATABASE_PASS')))
+    # client = MongoClient(host='localhost', port=27017)
     db = client['airnameDB']
     return db
 
