@@ -3,15 +3,16 @@ import styled from 'styled-components';
 import RcmndGuide from '../components/rcmnd/RcmndGuide';
 import RcmndCard from '../components/rcmnd/RcmndCard';
 
+
 function Rcmnd() {
   return (
     <RcmndContainer>
-      <RcmndHead>
+      <RcmndGuideContainer>
         <RcmndGuide />
-      </RcmndHead>
-      <RcmndBody>
+      </RcmndGuideContainer>
+      <RcmndCardContainer>
         <RcmndCard />
-      </RcmndBody>
+      </RcmndCardContainer>
     </RcmndContainer>
   );
 }
@@ -23,12 +24,13 @@ const RcmndContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 830px;
-`;
-const RcmndHead = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+  width: 1300px;
 
-const RcmndBody = styled.div``;
+  @media (max-width: 650px) {
+    width: 700px;
+
+  }
+`;
+const RcmndGuideContainer = styled.div``;
+
+const RcmndCardContainer = styled.div``;
