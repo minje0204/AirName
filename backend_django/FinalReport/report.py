@@ -7,7 +7,8 @@ def GetReportData(name, birth):
 
     col = db['rawdata']
     doc = col.find_one({"name":name})
-    result= pd.DataFrame(doc)
+    # result = pd.json_normalize(doc)
+    # result= pd.DataFrame(doc)
     yearIdx = 0
     newFemaleState = {}
     newMaleState= {}
@@ -15,18 +16,18 @@ def GetReportData(name, birth):
     maxMaleStateName = ""
     unisex = {}
     totalPopularity = 0
-    if not result.female.hasnans:
-        for state in dict(result.female['state']).keys():
-            state_year = result.female['state'][state]
+    if len(doc['female'])!=0:
+        for state in doc['female']['state'].keys():
+            state_year = doc['female']['state'][state]
             totalPopularity = sum(state_year)
             yearIdx = birth-1940
             if(totalPopularity == 0): continue
             newFemaleState[state] = state_year[yearIdx]/totalPopularity
         maxFemaleStateName = max(newFemaleState, key = newFemaleState.get)
 
-    if not result.male.hasnans:
-        for state in dict(result.male['state']).keys():
-            state_year = result.male['state'][state]
+    if len(doc['male'])!=0:
+        for state in doc['male']['state'].keys():
+            state_year = doc['male']['state'][state]
             totalPopularity = sum(state_year)
             yearIdx = birth-1940
             if(totalPopularity == 0): continue
@@ -34,30 +35,28 @@ def GetReportData(name, birth):
         maxMaleStateName = max(newMaleState, key = newMaleState.get)
     female = {}
     male = {}
-
-    if (not result.female.hasnans) & (not result.male.hasnans) :
-        female['meaning'] = result.female['meaning']
+    if (len(doc['female'])!=0) & (len(doc['male'])!=0) :
         female['state'] = maxFemaleStateName
-        male['meaning'] = result.male['meaning']
         male['state'] = maxMaleStateName
 
         unisex['female'] = female
         unisex['male'] = male
+        unisex['meaning'] = doc['meaning']
+        print(unisex)
         return unisex
-    elif result.female.hasnans | (not result.male.hasnans):
-        female['meaning'] = ""
+    elif len(doc['female'])==0 & (len(doc['male'])!=0):
         female['state'] = ""
-        male['meaning'] = result.male['meaning']
         male['state'] = maxMaleStateName
         unisex['female'] = female
         unisex['male'] = male
+        unisex['meaning'] = doc['meaning']
+        print(unisex)
         return unisex
-    elif result.male.hasnans & (not result.female.hasnans):
-        female['meaning'] = result.female['meaning']
+    elif len(doc['male'])==0 & (len(doc['female'])!=0):
         female['state'] = maxFemaleStateName
-        male['meaning'] = ""
         male['state'] = ""
         unisex['female'] = female
         unisex['male'] = male
+        female['meaning'] = doc['meaning']
+        print(unisex)
         return unisex
-
