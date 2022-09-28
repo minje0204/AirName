@@ -6,7 +6,8 @@ const API = {
   SURVEY: `${BASE_URL}/rcmnd`,
   SELETED: `${BASE_URL}/selected`,
   FINREPORT: `${BASE_URL}/report`,
-  LOADING: `${BASE_URL}/loading/`
+  LOADING: `${BASE_URL}/loading/`,
+  SPEAKING: `${BASE_URL}/speaking`
 };
 
 export default API;
