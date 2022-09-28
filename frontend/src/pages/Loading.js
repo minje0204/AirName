@@ -3,12 +3,14 @@ import styled from 'styled-components';
 import LoadingTMI from '../components/loading/LoadingTMI';
 import Labeling from '../components/loading/LoadingLabeling';
 import ProgressBar from '../components/loading/LoadingProgressBar';
+import ReactionTimeTest from '../components/loading/LoadingGame';
 
 export default function Loading() {
-  const rand = Math.round(Math.random());
+  const rand_idx = Math.floor(Math.random() * 3);
+  const loadingContent = [<LoadingTMI />, <Labeling />, <ReactionTimeTest />];
   return (
     <StyledWrapper>
-      {rand ? <LoadingTMI /> : <Labeling />}
+      {loadingContent[rand_idx]}
       <ProgressBar />
     </StyledWrapper>
   );
