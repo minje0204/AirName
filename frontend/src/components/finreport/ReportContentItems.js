@@ -6,8 +6,7 @@ function ReportContentItems({
   username,
   maleState,
   femaleState,
-  maleMeaning,
-  femaleMeaning,
+  meaning,
   parseKoHome,
   parseEnHome,
   parseFeKoHome,
@@ -45,17 +44,10 @@ function ReportContentItems({
         :null
       }
       {
-        maleMeaning.length > 0 
+        meaning.length > 0 
         ? 
-        <ContentBox><h3>⚡🙍‍♂️ {username}의 이름 뜻은 {maleMeaning}😎!</h3>
-        {username}은 남성의 이름일 때, {maleMeaning}이라는 뜻을 가지고 있어요 !</ContentBox>
-        :null
-      }
-      {
-        femaleMeaning.length > 0 
-        ? 
-        <ContentBox><h3>⚡🙍‍♀️ {username}의 이름 뜻은 {femaleMeaning}🥰!</h3>
-        {username}은 여성의 이름일 때, {femaleMeaning}이라는 뜻을 가지고 있어요 !</ContentBox>
+        <ContentBox><h3>⚡🙍‍♂️ {username}의 이름 뜻은 {meaning}😎!</h3>
+        {username}은 남성의 이름일 때, {meaning}이라는 뜻을 가지고 있어요 !</ContentBox>
         :null
       }
     </div>

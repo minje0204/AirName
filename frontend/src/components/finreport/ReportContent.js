@@ -7,8 +7,7 @@ function ReportContent({
   hometown,
   maleState,
   femaleState,
-  maleMeaning,
-  femaleMeaning,
+  meaning,
   parseKoHome,
   parseEnHome,
   parseFeKoHome,
@@ -21,8 +20,7 @@ function ReportContent({
         hometown={hometown}
         maleState={maleState}
         femaleState={femaleState}
-        maleMeaning={maleMeaning}
-        femaleMeaning={femaleMeaning}
+        meaning={meaning}
         parseKoHome={parseKoHome}
         parseEnHome={parseEnHome}
         parseFeKoHome={parseFeKoHome}
