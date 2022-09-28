@@ -8,7 +8,7 @@ function MyCard({ username, hometown }) {
   return (
     <TicketWrapper>
       <TicketHead>
-        <TicketLeftHead>
+        <TicketLeftHead >
           <img id="head-img" src={TicketHeadAirplane} />
           AIR NAME TICKET
         </TicketLeftHead>

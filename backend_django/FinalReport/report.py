@@ -7,8 +7,6 @@ def GetReportData(name, birth):
 
     col = db['rawdata']
     doc = col.find_one({"name":name})
-    # result = pd.json_normalize(doc)
-    # result= pd.DataFrame(doc)
     yearIdx = 0
     newFemaleState = {}
     newMaleState= {}
@@ -23,7 +21,10 @@ def GetReportData(name, birth):
             yearIdx = birth-1940
             if(totalPopularity == 0): continue
             newFemaleState[state] = state_year[yearIdx]/totalPopularity
-        maxFemaleStateName = max(newFemaleState, key = newFemaleState.get)
+        if len(newFemaleState) != 0:
+            maxFemaleStateName = max(newFemaleState, key = newFemaleState.get)
+        else:
+            maxFemaleStateName = ""
 
     if len(doc['male'])!=0:
         for state in doc['male']['state'].keys():
@@ -32,7 +33,10 @@ def GetReportData(name, birth):
             yearIdx = birth-1940
             if(totalPopularity == 0): continue
             newMaleState[state] = state_year[yearIdx]/totalPopularity
-        maxMaleStateName = max(newMaleState, key = newMaleState.get)
+        if len(newMaleState) != 0: 
+            maxMaleStateName = max(newMaleState, key = newMaleState.get)
+        else:
+            maxMaleStateName = ""
     female = {}
     male = {}
     if (len(doc['female'])!=0) & (len(doc['male'])!=0) :
@@ -42,21 +46,19 @@ def GetReportData(name, birth):
         unisex['female'] = female
         unisex['male'] = male
         unisex['meaning'] = doc['meaning']
-        print(unisex)
         return unisex
-    elif len(doc['female'])==0 & (len(doc['male'])!=0):
+    elif (len(doc['female'])==0) & (len(doc['male'])!=0):
         female['state'] = ""
         male['state'] = maxMaleStateName
         unisex['female'] = female
         unisex['male'] = male
         unisex['meaning'] = doc['meaning']
-        print(unisex)
         return unisex
-    elif len(doc['male'])==0 & (len(doc['female'])!=0):
+    elif (len(doc['male'])==0) & (len(doc['female'])!=0):
         female['state'] = maxFemaleStateName
         male['state'] = ""
+
         unisex['female'] = female
         unisex['male'] = male
-        female['meaning'] = doc['meaning']
-        print(unisex)
+        unisex['meaning'] = doc['meaning']
         return unisex
