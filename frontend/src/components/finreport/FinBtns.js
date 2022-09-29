@@ -22,7 +22,7 @@ function FinBtns({ username }) {
   };
 
   useEffect(() => {
-    kakaoShare();
+    kakaoShare(username);
   }, [])
 
   return (
