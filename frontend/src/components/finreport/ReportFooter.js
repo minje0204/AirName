@@ -34,6 +34,9 @@ const ReportFooterContainer = styled.div`
   justify-content: spacebetween;
   align-items: center;
   font-size: 13px;
+  @media (max-width: 650px) {
+    font-size: 9px;
+  }
 `;
 
 const FooterLeft = styled.div``

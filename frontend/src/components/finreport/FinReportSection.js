@@ -187,7 +187,12 @@ const FintitleContainer = styled.div`
     min-height: 50px;
   }
 `;
-const FinBodyContainer = styled.div``;
+const FinBodyContainer = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+`;
 
 const MyCardContainer = styled.div`
   display: flex;
@@ -196,10 +201,10 @@ const MyCardContainer = styled.div`
 `;
 
 const FooterContainer = styled.div`
-
   background: var(--efeff7);
   margin: 10px;
   padding: 20px;
   border-radius: 10px;
   color: lightgray;
+  
 `;
