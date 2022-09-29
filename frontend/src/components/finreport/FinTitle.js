@@ -14,16 +14,15 @@ function FinTitle({ hometown, username }) {
         ) : null}
         <NameWrapper>
           <div id="fin-username">{username}!</div>
-          {hometown.length > 0 ? (
-            <div id="fin-tts">
-              <TTSBtn
-                id="fin-tts"
-                username={username}
-                hometown={hometown}
-                type="fintitle"
-              />
-            </div>
-          ) : null}
+
+          <div id="fin-tts">
+            <TTSBtn
+              id="fin-tts"
+              username={username}
+              hometown={hometown}
+              type="fintitle"
+            />
+          </div>
         </NameWrapper>
       </div>
     </StyledWrapper>
