@@ -10,15 +10,21 @@ import datas from './Question';
 import API from '../../config';
 
 function SurveySection() {
-  
+
+  const navigate = useNavigate();
+
+  // 설문 계산용
   const [cur, setCur] = useState(0);
   const [isLast, setIsLast] = useState(false);
+
+  // 최종적으로 보내줄 설문결과
   const [surveyRes, setSurveyRes] = useState({});
+
+  // localStorage에서 가져오는 state
   const [nameKo, setNameKo] = useState('');
   const [birth, setBirth] = useState(0);
   const [gender, setGender] = useState('');
-  const navigate = useNavigate();
-
+  
   // Local에서 데이터 가져오기
   const getUserInfo = () => {
     setNameKo(localStorage.getItem('nameKo'));
@@ -26,8 +32,10 @@ function SurveySection() {
     setGender(localStorage.getItem('gender'));
   }
 
+
+  
   // 이름 가져와서 Local에 저장
-  const getName = async (data) => {
+  const sendSurveyGetName = async (data) => {
     axios.post(`${API.GETNAME}`, data).then((res) => {
       console.log(res);
       // 이름 추천 데이터 저장
@@ -35,7 +43,7 @@ function SurveySection() {
     })
   };
 
-  // 클릭시 데이터 묶어서 계속 저장
+  // 클릭시, 데이터 묶어서 계속 저장
   const handleClick = (input) => {
     const newElement = {
       [datas[cur].answerKey]: input
@@ -44,27 +52,30 @@ function SurveySection() {
     if (cur < 5) setCur(cur + 1);
   };
 
+
+
   // 서베이 데이터 보낼 항목이 모두 채워졌을 때, isLast true로 변환
   useEffect(() => {
     if (Object.entries(surveyRes).length === 6) 
         setIsLast(true)
   }, [surveyRes]);
 
+  // isLast가 true가 되면, sendSurvey
   useEffect(() => {
     if (isLast) {
       console.log(surveyRes)
       const data = {"name": nameKo, "gender" :gender, "birth" :birth, "attr": surveyRes}
       console.log(data)
-      getName(data);
+      sendSurveyGetName(data);
       navigate('/loading');
     }
   }, [isLast]);
 
+  // 첫 렌더링시 데이터 가져오기
   useEffect(() => {
     getUserInfo(); 
   }, []);
 
-    
   return (
     <SveySectionContainer>
       <SveyHead>

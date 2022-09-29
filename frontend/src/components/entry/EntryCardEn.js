@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 
 import {
   Container,
@@ -15,7 +15,7 @@ import styled from 'styled-components';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
 
 // import postAxios from '../../lib/postAxios';
-// import API from '../../config';
+import API from '../../config';
 
 const ValidationTextField = styled(TextField)({
   '& input:invalid + fieldset': {
@@ -30,8 +30,8 @@ const ValidationTextField = styled(TextField)({
 
 function EntryCardEn() {
   const [nameKo, setNameKo] = useState('');
-  const nameKoCheck = /[^가-힣]/;
   const [nameKoError, setNameKoError] = useState(false);
+  const [nameKoErrorMsg, setNameKoErrorMsg] = useState('');
   const [gender, setGender] = useState('');
   const [birth, setBirth] = useState('');
   const birthCheck = /^(19|20)\d{2}/;
@@ -61,6 +61,26 @@ function EntryCardEn() {
     linkToLoading();
   };
 
+  const checkNameKo = async (nameKoTmp) => {
+    axios
+      .get(`${API.NAMECHECK}/${nameKoTmp}`)
+      .then((res) => {
+        const checkResult = JSON.parse(res.data);
+        if (checkResult.check === false || nameKoTmp.length < 2) {
+          setNameKoError(true);
+          setNameKoErrorMsg(checkResult.msg);
+        } else {
+          setNameKo(nameKoTmp);
+          setNameKoError(false);
+          setNameKoErrorMsg('');
+        }
+      })
+      .catch(() => {
+        setNameKoError(true);
+        setNameKoErrorMsg('다시 입력해주세요');
+      });
+  };
+
   return (
     <StyledWrapper>
       <div id="card">
@@ -72,7 +92,7 @@ function EntryCardEn() {
         </Container>
         <Container id="content" sx={{ bgcolor: '#F9F7F4', height: '60vh' }}>
           <div className="qAndA custom-input">
-            <div className="question to-move">Name</div>
+            <div className="question to-move">Korean Name</div>
             <ValidationTextField
               variant="outlined"
               className="answer"
@@ -81,16 +101,11 @@ function EntryCardEn() {
                 style: { fontSize: 'clamp(12px,1.3vw,16px)' }
               }}
               error={nameKoError}
-              helperText={nameKoError ? '다시 입력해주세요' : null}
+              helperText={nameKoError ? nameKoErrorMsg : null}
               required
               onChange={(e) => {
                 const nameKoTmp = e.target.value;
-                if (nameKoCheck.test(nameKoTmp) || nameKoTmp.length === 1) {
-                  setNameKoError(true);
-                } else {
-                  setNameKo(nameKoTmp);
-                  setNameKoError(false);
-                }
+                checkNameKo(nameKoTmp);
               }}
             />
           </div>
@@ -180,7 +195,10 @@ function EntryCardEn() {
                 if (nameEnCheck.test(nameEnTmp)) {
                   setNameEnError(true);
                 } else {
-                  setNameEn(nameEnTmp);
+                  setNameEn(
+                    nameEnTmp.charAt(0).toUpperCase() +
+                      nameEnTmp.slice(1).toLowerCase()
+                  );
                   setNameEnError(false);
                 }
               }}

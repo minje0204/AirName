@@ -27,7 +27,7 @@ class RcmndCardItems extends React.Component {
           flipDirection="vertical"
         >
           <FRONT_COMPONENT onClick={this.handleClick}>
-            <RcmndTicketFront name={name} />
+            <RcmndTicketFront name={name} type={info.type} />
           </FRONT_COMPONENT>
           <BACK_COMPONENT onClick={this.handleClick}>
             <RcmndTicketBack name={name} type={info.type} sim={info.sim} />

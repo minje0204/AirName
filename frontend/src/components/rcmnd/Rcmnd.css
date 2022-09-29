@@ -1,45 +1,25 @@
-.custom-btn {
+.custom-btn{
+  display:block;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 19px;
   border: none;
   background: #1565c0;
   cursor: pointer;
   color: white;
   font-family: 'SCDream4';
-  padding: 5px;
+  animation: ct 3s infinite;
+
+  text-decoration: none; 
+  
 }
 
 .pattern {
   background: rgb(251, 251, 251);
-  background-image: radial-gradient(#dbe8f7 10%, transparent 10%), radial-gradient(#f8fbff 10%, transparent 0);
+  background-image: radial-gradient(#dbe8f7 10%, transparent 10%),
+    radial-gradient(#f8fbff 10%, transparent 0);
   background-position: 0 0, 10px 10px;
   background-size: 20px 20px;
 }
-
-/* 15 */
-/* .btn-15 {
-  background: white;
-  border-radius: 10px;
-  border-width: 3px;
-  border-style: solid;
-  border-color: #1565c0;
-  color: rgb(127, 127, 127);
-  z-index: 1;
-} */
-/* .btn-15:after {
-  position: absolute;
-  content: '';
-  height: 100%;
-  top: 0;
-  right: 0;
-  z-index: -1;
-  background: #1565c0;
-  transition: all 0.3s ease;
-} */
-
-/* .btn-15:active {
-  top: 2px;
-} */
 
 .airplan-img {
   width: 10%;
@@ -53,44 +33,42 @@
   width: cal(5vh + 5vw);
 }
 
-.shadow{
-  box-shadow: 0 5px 18px -7px rgba(0,0,0,1);
+.shadow {
+  box-shadow: 0 5px 18px -7px rgba(0, 0, 0, 1);
 }
-.rcmnd-guide-font{
+.rcmnd-guide-font {
   font-size: 40px;
   font-family: 'SCDream7';
 }
 
-.ticket-head-font{
-  font-size: 20px;
-  font-family: 'SCDream7';
-  color: white;
-  font-style: oblique;
-
-}
-
-.ticket-name-font {
-  font-size: 58px;
-  font-family: 'SCDream7';
-  text-decoration: underline;
-  
-}
-
-.ticket-bottom-font{
+.ticket-head-font {
   font-size: 20px;
   font-family: 'SCDream7';
   color: #2e81e1;
   font-style: oblique;
 }
 
-.info-head-font{
-  font-size: 50px;
+.ticket-name-font {
+  font-size: 58px;
+  font-family: 'SCDream7';
+  text-decoration: underline;
+}
+
+.ticket-bottom-font {
+  font-size: 20px;
+  font-family: 'SCDream7';
+  color: #2e81e1;
+  font-style: oblique;
+}
+
+.info-head-font {
+  font-size: 36px;
   font-family: 'SCDream7';
 }
 
-.info-body-font{
-  font-size: 25px;
-
+.info-body-font {
+  font-size: 20px;
+  text-align: center;
 }
 
 .vibration {
@@ -101,7 +79,7 @@
   0% {
     transform: rotate(0deg);
   }
-  50%{
+  50% {
     transform: rotate(0.5deg);
   }
   100% {
@@ -109,6 +87,14 @@
   }
 }
 
+@keyframes ct {
+  50% {
+    color: #8dc7f7;
+  }
+  75% {
+    color: #fff;
+  }
+}
 
 /* pc일때만 */
 @media (min-width: 650px) {
@@ -119,42 +105,32 @@
     left: 0;
     width: 100%;
   }
-
-
 }
 /* 모바일 일 때만 */
 @media (max-width: 650px) {
-  .rcmnd-guide-font{
+  .rcmnd-guide-font {
     font-size: 20px;
   }
-  .ticket-head-font{
+  .ticket-head-font {
     font-size: 13px;
   }
   .ticket-name-font {
     font-size: 35px;
     font-family: 'SCDream7';
   }
-  .custom-btn{
-    font-size: 12px;
-    padding: 5px;
-  }
-  .ticket-bottom-font{
+  .custom-btn {
     font-size: 10px;
   }
-  .custom-btn{
+  .ticket-bottom-font {
     font-size: 10px;
-    padding: 1px;
-    margin-bottom: 7px;
   }
-  .info-head-font{
-    font-size: 23px;
+  .info-head-font {
+    font-size: 18px;
     font-family: 'SCDream7';
   }
-  
-  .info-body-font{
-    font-size: 13px;
-  
+
+  .info-body-font {
+    font-size: 12px;
+    
   }
 }
-
-

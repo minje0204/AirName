@@ -30,8 +30,8 @@ const ValidationTextField = styled(TextField)({
 
 function EntryCardKo() {
   const [nameKo, setNameKo] = useState('');
-  const nameKoCheck = /[^가-힣]/;
   const [nameKoError, setNameKoError] = useState(false);
+  const [nameKoErrorMsg, setNameKoErrorMsg] = useState('');
   const [gender, setGender] = useState('');
   const [birth, setBirth] = useState('');
   const birthCheck = /^(19|20)\d{2}/;
@@ -69,6 +69,26 @@ function EntryCardKo() {
     linkToSurvey();
   };
 
+  const checkNameKo = async (nameKoTmp) => {
+    axios
+      .get(`${API.NAMECHECK}/${nameKoTmp}`)
+      .then((res) => {
+        const checkResult = JSON.parse(res.data);
+        if (checkResult.check === false || nameKoTmp.length < 2) {
+          setNameKoError(true);
+          setNameKoErrorMsg(checkResult.msg);
+        } else {
+          setNameKo(nameKoTmp);
+          setNameKoError(false);
+          setNameKoErrorMsg('');
+        }
+      })
+      .catch(() => {
+        setNameKoError(true);
+        setNameKoErrorMsg('다시 입력해주세요');
+      });
+  };
+
   // useEffect(() => {
   //   if(isError)
   // }, [isSoundError]);
@@ -84,26 +104,20 @@ function EntryCardKo() {
         </Container>
         <Container id="content" sx={{ bgcolor: '#F9F7F4', height: '60vh' }}>
           <div className="qAndA custom-input">
-            <div className="question to-move">Name</div>
+            <div className="question to-move">Korean Name</div>
             <ValidationTextField
               variant="outlined"
               className="answer"
-              placeholder="한글 이름 입력"
               inputProps={{
                 maxLength: 7,
                 style: { fontSize: 'clamp(12px,1.3vw,16px)' }
               }}
               error={nameKoError}
-              helperText={nameKoError ? '다시 입력해주세요' : null}
+              helperText={nameKoError ? nameKoErrorMsg : null}
               required
               onChange={(e) => {
                 const nameKoTmp = e.target.value;
-                if (nameKoCheck.test(nameKoTmp) || nameKoTmp.length === 1) {
-                  setNameKoError(true);
-                } else {
-                  setNameKo(nameKoTmp);
-                  setNameKoError(false);
-                }
+                checkNameKo(nameKoTmp);
               }}
             />
           </div>

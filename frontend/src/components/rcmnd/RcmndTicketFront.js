@@ -1,23 +1,17 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import TicketHeadAirplane from '../../asset/img/rcmnd/TicketHeadAirplane.png';
 import TicketTTSBtn from '../TTSBtn';
-// import {isAndroid} from 'react-device-detect';
 import './Rcmnd.css';
 
 function TicketFront({ name, type }) {
   const selectName = (e) => {
     e.stopPropagation();
-    console.log(name);
   };
 
   return (
     <div>
       <TicketContainer>
-        <TicketHead className="shadow ticket-head-font ">
-          <img className="airplan-img" src={TicketHeadAirplane} />
-          AIR TICKET
-        </TicketHead>
+        <TicketHead className="shadow ticket-head-font ">AIR TICKET</TicketHead>
         <TicketBody className="shadow pattern">
           <NameTTSContainer>
             <TickeNameContainer className="ticket-name-font">
@@ -29,19 +23,17 @@ function TicketFront({ name, type }) {
           </NameTTSContainer>
         </TicketBody>
         <TicketBottom>
-          <div>
-            <Link to={`/finreport/${name}`}>
-              <button
-                className="btn-15 custom-btn"
-                id={type}
-                onClick={(e) => {
-                  selectName(e);
-                }}
-              >
-                {name} 이름 리포트 보러가기 ➡ ➡ ➡ ➡
-              </button>
-            </Link>
-          </div>
+          <Link to={`/finreport/${name}`} style={{ textDecoration: 'none' }}>
+            <button
+              className="custom-btn"
+              id={type}
+              onClick={(e) => {
+                selectName(e);
+              }}
+            >
+              {name} 이름 리포트 보러가기 ➡ ➡ ➡ ➡
+            </button>
+          </Link>
         </TicketBottom>
       </TicketContainer>
     </div>
@@ -105,4 +97,8 @@ const TicketBottom = styled.div`
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   height: 15%;
+
+  #underline {
+    text-decoration-line: blue;
+  }
 `;

@@ -19,9 +19,10 @@ function FinReport() {
   const { username } = useParams();
   const birth = localStorage.getItem('birth');
   const gender = localStorage.getItem('gender');
-  const [femaleMeaning, setFemaleMeaning] = useState('');
+  const [rcmndNames, setRcmndNames] = useState({});
+  const [nameInfo, setNameInfo] = useState({});
   const [femaleState, setFemaleState] = useState('');
-  const [maleMeaning, setMaleMeaning] = useState('');
+  const [meaning, setMeaning] = useState('');
   const [maleState, setMaleState] = useState('');
   const [mainState, setMainState] = useState('');
   const [parseEnHome, setParseEnHome] = useState('');
@@ -29,6 +30,7 @@ function FinReport() {
   const [parseFeEnHome, setParseFeEnHome] = useState('');
   const [parseFeKoHome, setParseFeKoHome] = useState('');
   const [parseEnMainState, setParseEnMainState] = useState('');
+  const [isNewName, setIsNewName] = useState(false);
 
   const setEnHomeTown = () => {
     Object.entries(HomeTownEn).map(([k, v]) => {
@@ -77,32 +79,42 @@ function FinReport() {
 
   const saveData = async (res) => {
     const data = JSON.parse(res.data);
-
-    setFemaleMeaning(data.female.meaning);
     setFemaleState(data.female.state);
-    setMaleMeaning(data.male.meaning);
+    setMeaning(data.meaning);
     setMaleState(data.male.state);
   };
 
   // 리포트 데이터 요청하고 저장하는 함수
   const getReportData = async () => {
-    await axios.get(`${API.FINREPORT}/${username}/${birth}`).then((res) => {
+    await axios.get(`${API.FINREPORT}/${username}/${birth}`)
+    .then((res) => {
       saveData(res).then(calcMainState());
-    });
+      setIsNewName(false)
+    })
+    .catch(setIsNewName(true))
   };
+  
+  useEffect(() => {
+    setRcmndNames(JSON.parse(JSON.parse(localStorage.getItem('rcmndNames'))))
+    setNameInfo(rcmndNames[username])
+  }, [])
+
+  useEffect(() => {
+    setNameInfo(rcmndNames[username])
+  }, [rcmndNames])
 
   // 렌더링 될 때, 리포트 데이터 요청
-  // 인자 x 모든 컴포넌트 렌더링시마다 실행
   useEffect(() => {
     getReportData();
     setEnHomeTown();
     setKoHomeTown();
     setEnMainState();
-  });
+  }, [femaleState, maleState, mainState]);
 
   return (
     <StyledWrapper>
       <div id="content-container">
+        
         <FintitleContainer>
           <FinTitle username={username} hometown={parseEnMainState} />
         </FintitleContainer>
@@ -116,12 +128,13 @@ function FinReport() {
             hometown={mainState}
             maleState={maleState}
             femaleState={femaleState}
-            maleMeaning={maleMeaning}
-            femaleMeaning={femaleMeaning}
+            meaning={meaning}
             parseKoHome={parseKoHome}
             parseEnHome={parseEnHome}
             parseFeKoHome={parseFeKoHome}
             parseFeEnHome={parseFeEnHome}
+            isNewName={isNewName}
+            nameInfo={nameInfo}
           />
         </FinBodyContainer>
       </div>
@@ -141,6 +154,7 @@ const StyledWrapper = styled.div`
     align-items: center;
     flex-direction: column;
     margin-top: 30px;
+    margin-bottom: 50px;
   }
   #footer-container {
     width: 100%;

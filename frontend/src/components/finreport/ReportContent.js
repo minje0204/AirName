@@ -7,26 +7,29 @@ function ReportContent({
   hometown,
   maleState,
   femaleState,
-  maleMeaning,
-  femaleMeaning,
+  meaning,
   parseKoHome,
   parseEnHome,
   parseFeKoHome,
-  parseFeEnHome
+  parseFeEnHome,
+  isNewName,
+  nameInfo
 }) {
   return (
     <ReportContentItemsContainer>
+      
       <ReportContentItems
         username={username}
         hometown={hometown}
         maleState={maleState}
         femaleState={femaleState}
-        maleMeaning={maleMeaning}
-        femaleMeaning={femaleMeaning}
+        meaning={meaning}
         parseKoHome={parseKoHome}
         parseEnHome={parseEnHome}
         parseFeKoHome={parseFeKoHome}
         parseFeEnHome={parseFeEnHome}
+        isNewName={isNewName}
+        nameInfo={nameInfo}
       ></ReportContentItems>
     </ReportContentItemsContainer>
   );

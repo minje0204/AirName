@@ -1,5 +1,5 @@
 import { Box, Button } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 export default function LoadingTMI() {
@@ -20,6 +20,9 @@ export default function LoadingTMI() {
   const randomNum = function () {
     setNum(Math.floor(Math.random() * infos.length));
   };
+  useEffect(() => {
+    randomNum();
+  }, []);
   const [num, setNum] = useState(0);
   return (
     <StyledWrapper>

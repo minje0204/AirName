@@ -8,7 +8,7 @@ function MyCard({ username, hometown }) {
   return (
     <TicketWrapper>
       <TicketHead>
-        <TicketLeftHead>
+        <TicketLeftHead >
           <img id="head-img" src={TicketHeadAirplane} />
           AIR NAME TICKET
         </TicketLeftHead>
@@ -102,6 +102,7 @@ const TicketLeftHead = styled.div`
     width: 50px;
   }
   @media (max-width: 650px) {
+    border-top-left-radius: 5px;
     font-size: 10px;
     #head-img {
       width: 20px;
@@ -123,6 +124,7 @@ const TicketRightHead = styled.div`
   font-family: 'SCDream7';
   font-style: italic;
   @media (max-width: 650px) {
+    border-top-right-radius: 5px;
     font-size: 5px;
     border-left: 0.3px dashed black;
   }
@@ -138,6 +140,9 @@ const TicketLeft = styled.div`
   border-bottom-left-radius: 15px;
   width: 70%;
   height: 100%;
+  @media (max-width: 650px) {
+    border-bottom-left-radius: 5px;
+  }
 `;
 const TicketRight = styled.div`
   display: flex;
@@ -150,6 +155,7 @@ const TicketRight = styled.div`
   height: 100%;
   @media (max-width: 650px) {
     border-left: 0.3px dashed black;
+    border-bottom-right-radius: 5px;
   }
 `;
 const PassangerInfo = styled.div`
