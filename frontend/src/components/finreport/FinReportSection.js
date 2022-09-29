@@ -16,10 +16,10 @@ import HomeTownKo from '../finreport/HomeTownKo';
 import API from '../../config';
 
 function FinReport() {
-  const { username } = useParams();
+  const { username, birth } = useParams();
+  
 
   // local Storage에서 가져오는 것들
-  const [birth, setBirth] = useState(0);
   const [gender, setGender] = useState('');
   const [rcmndNames, setRcmndNames] = useState({});
   const [nameInfo, setNameInfo] = useState({});
@@ -110,12 +110,13 @@ function FinReport() {
   useEffect(() => {
     setRcmndNames(JSON.parse(JSON.parse(localStorage.getItem('rcmndNames'))));
     setGender(localStorage.getItem('gender'));
-    setBirth(localStorage.getItem('birth'));
   }, []);
 
   // 분위기 발음 데이터 받아오면 저장
   useEffect(() => {
-    setNameInfo(rcmndNames[username]);
+    if(rcmndNames){
+      setNameInfo(rcmndNames[username]);
+    }
   }, [rcmndNames]);
 
   // 한영치환
@@ -139,7 +140,7 @@ function FinReport() {
           <FinTitle username={username} hometown={parseEnMainState} />
         </FintitleContainer>
         <FinBodyContainer>
-          <FinBtns username={username} />
+          <FinBtns username={username} birth={birth} />
           <MyCardContainer>
             <MyCard username={username} hometown={mainState} />
           </MyCardContainer>

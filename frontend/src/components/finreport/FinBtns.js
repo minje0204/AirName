@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 
 // 홈으로 돌아가기, 카카오톡 버튼 컴포넌트 
-function FinBtns({ username }) {
+function FinBtns({ username, birth }) {
 
   // 카카오톡 공유 함수
   const kakaoShare = (username) => {
@@ -17,8 +17,8 @@ function FinBtns({ username }) {
         description: `${username}의 🔽리포트 보러가기🔽`,
         imageUrl: `https://ifh.cc/g/PBX9v2.png`,
         link: {
-          mobileWebUrl: `https://airname.shop/finreport/${username}`,
-          webUrl: `https://airname.shop/finreport/${username}`
+          mobileWebUrl: `https://airname.shop/finreport/${username}/${birth}`,
+          webUrl: `https://airname.shop/finreport/${username}/${birth}`
         }
       }
     });

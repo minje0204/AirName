@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import TicketTTSBtn from '../TTSBtn';
 import './Rcmnd.css';
 
-function TicketFront({ name, type }) {
+function TicketFront({ name, type, birth }) {
   const selectName = (e) => {
     e.stopPropagation();
   };
@@ -23,7 +23,7 @@ function TicketFront({ name, type }) {
           </NameTTSContainer>
         </TicketBody>
         <TicketBottom>
-          <Link to={`/finreport/${name}`} style={{ textDecoration: 'none' }}>
+          <Link to={`/finreport/${name}/${birth}`} style={{ textDecoration: 'none' }}>
             <button
               className="custom-btn"
               id={type}
