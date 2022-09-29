@@ -70,17 +70,23 @@ function EntryCardKo() {
   };
 
   const checkNameKo = async (nameKoTmp) => {
-    axios.get(`${API.NAMECHECK}/${nameKoTmp}`).then((res) => {
-      const checkResult = JSON.parse(res.data);
-      if (checkResult.check === false) {
+    axios
+      .get(`${API.NAMECHECK}/${nameKoTmp}`)
+      .then((res) => {
+        const checkResult = JSON.parse(res.data);
+        if (checkResult.check === false || nameKoTmp.length < 2) {
+          setNameKoError(true);
+          setNameKoErrorMsg(checkResult.msg);
+        } else {
+          setNameKo(nameKoTmp);
+          setNameKoError(false);
+          setNameKoErrorMsg('');
+        }
+      })
+      .catch(() => {
         setNameKoError(true);
-        setNameKoErrorMsg(checkResult.msg);
-      } else {
-        setNameKo(nameKoTmp);
-        setNameKoError(false);
-        setNameKoErrorMsg('');
-      }
-    });
+        setNameKoErrorMsg('다시 입력해주세요');
+      });
   };
 
   // useEffect(() => {
