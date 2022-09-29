@@ -8,21 +8,23 @@ def GetNamePerYear(name):
     doc = col.find_one({"name":name})
     totalMaleCountPerYear = []
     totalFemaleCountPerYear =[]
-    if len(doc['female'])!=0:
-        for i in range(1940,2022):
-            yearTotal = 0
-            for state in doc['female']['state'].keys():
-                state_year = doc['female']['state'][state]
-                yearTotal += state_year[i-1940];
-            totalFemaleCountPerYear.append(yearTotal)
-    
-    if len(doc['male']) != 0:
-        for i in range(1940,2022):
-            yearTotal = 0
-            for state in doc['male']['state'].keys():
-                state_year = doc['male']['state'][state]
-                yearTotal += state_year[i-1940];
-            totalMaleCountPerYear.append(yearTotal)
+    if doc == None: return {}
+    else:
+        if len(doc['female'])!=0:
+            for i in range(1940,2022):
+                yearTotal = 0
+                for state in doc['female']['state'].keys():
+                    state_year = doc['female']['state'][state]
+                    yearTotal += state_year[i-1940];
+                totalFemaleCountPerYear.append(yearTotal)
+        
+        if len(doc['male']) != 0:
+            for i in range(1940,2022):
+                yearTotal = 0
+                for state in doc['male']['state'].keys():
+                    state_year = doc['male']['state'][state]
+                    yearTotal += state_year[i-1940];
+                totalMaleCountPerYear.append(yearTotal)
 
     result = {}
     # 남녀 둘 다 있는 경우
