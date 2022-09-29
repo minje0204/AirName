@@ -51,8 +51,22 @@ function ReportContentItems({
           {nameInfo.type === 'atm' ? (
             <ContentBox>
               <h3>✨ {nameInfo.sim.join(', ')} ✨</h3>
-              설문을 기반으로한 당신의 분위기는 {nameInfo.sim.join(', ')}! 
+              설문을 기반으로한 당신의 분위기는,
+              {nameInfo.sim.map((atm) => (
+              <a
+                href={`https://en.dict.naver.com/#/search?query=${atm}`}
+                target="_blank"
+                id="meaning-dict-link"
+                key={atm}
+              > 
+                <b>{atm}</b>
+              </a>
+            ))}!
               <br />
+
+            <br />
+            분위기의 뜻의 번역이 필요하다면, 파란색 글씨의 이름 뜻을
+            클릭해보세요. 네이버 영어 사전으로 이동합니다! 
             </ContentBox>
           ) : (
             <ContentBox>
@@ -120,7 +134,7 @@ function ReportContentItems({
             <br />
             <br />
             이름에 대한 뜻이 조금 생소하다면, 파란색 글씨로 변한 이름 뜻을
-            클릭해보세요! 네이버 파파고가 도와줄거에요!
+            클릭해보세요. 네이버 파파고가 도와줄거에요!
           </ContentBox>
         </>
       ) : null}
