@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 function ReportContentItems({
   username,
@@ -10,79 +9,118 @@ function ReportContentItems({
   parseKoHome,
   parseEnHome,
   parseFeKoHome,
-  parseFeEnHome
+  parseFeEnHome,
+  isNewName,
+  nameInfo
 }) {
   return (
     <div>
-      {username.length > 0 ? (
+      {username.length > 0 && isNewName === false ? (
         <ContentBox>
-          <h3>🛬 {username}</h3>
-          AIR NAME에서 추천된 영어이름은 {username}입니다!
+          <h3>🛬 AIRNAME에서 "{username}"에 대한 이름 리포트를 준비했어요!</h3>
         </ContentBox>
       ) : null}
+
+      {femaleState === "" && maleState==="" && meaning==="" ? (
+        <ContentBox>
+          <h3>🛬 AIR NAME에서 당신이 처음으로 사용하는 이름!</h3>
+          {username}! 안타깝게도 AIRNAME 서비스에서는 없는 이름입니다😥
+          <br />
+          새로운 이름을 추천받고 싶다면?{' '}
+          <a
+            href={`https://airname.shop/entry-ko`}
+            target="_blank"
+            id="meaning-dict-link"
+          >
+            [클릭] AIRNAME 추천 서비스 이용하기!
+          </a>
+        </ContentBox>
+      ) : null}
+
       {maleState.length > 0 && femaleState.length > 0 ? (
         <ContentBox>
           <h3>💌 중성적인 이름, {username}!</h3>이 이름은 남녀 성별 모두 자주
-          사용되는 이름으로, 중성적인 느낌을 가지고 있어요! 모든 성별에서 쓰일
-          때 이름의 정보를 모두 보여드릴게요 !{' '}
+          사용되는 이름으로, 중성적인 느낌을 가지고 있어요!
+          <br />
+          모든 성별에서의 이름의 정보를 모두 보여드릴게요 :D
         </ContentBox>
       ) : null}
+
+      {typeof nameInfo === 'object' && Object.keys(nameInfo).length > 0 ? (
+        <div>
+          {nameInfo.type === 'atm' ? (
+            <ContentBox>
+              <h3>✨ {nameInfo.sim.join(', ')} ✨</h3>
+              설문을 기반으로한 당신의 분위기는 {nameInfo.sim.join(', ')}! 
+              <br />
+            </ContentBox>
+          ) : (
+            <ContentBox>
+              <h3>📊 {nameInfo.sim}%의 발음 유사도 </h3>
+              AIRNAME의 발음 알고리즘에 따르면, {username}은 당신의 한국 이름과 {nameInfo.sim}%의 유사한 발음을 가지고 있어요! 어쩐지 친근한 느낌이 들지 않나요?
+            </ContentBox>
+          )}
+        </div>
+      ) : null}
+
       {maleState.length > 0 ? (
         <ContentBox>
           <h3>🏡🙍‍♂️ 남성 명예 고향은 {parseEnHome}!</h3>
-          {username}은 남성의 이름일 때, 
+          {username}은 남성의 이름일 때, 통계적으로 미국의
           <a
             href={`https://ko.wikipedia.org/wiki/${parseKoHome}주`}
             target="_blank"
             id="meaning-dict-link"
           >
-            {parseKoHome}
+            {parseKoHome}주
           </a>
-          에서 가장 많이 사용되고 있어요.
+          에서 가장 많이 사용되고 있어요!
+          <br />
+          <br />
+          {parseKoHome}에 대한 자세한 정보가 궁금하다면 파란색 글씨를
+          클릭해보세요! 클릭시, {parseKoHome}주의 위키피디아 링크로 연결됩니다!
         </ContentBox>
       ) : null}
+
       {femaleState.length > 0 ? (
         <ContentBox>
           <h3>🏡🙍‍♀️ 여성 명예 고향은 {parseFeEnHome}!</h3>
-          {username}은 여성의 이름일 때,
+          {username}은 여성의 이름일 때, 통계적으로 미국의
           <a
             href={`https://ko.wikipedia.org/wiki/${parseFeKoHome}주`}
             target="_blank"
             id="meaning-dict-link"
           >
-            {parseFeKoHome}
+            {parseFeKoHome}주
           </a>
-          에서 가장 많이 사용되고 있어요.
+          에서 가장 많이 사용되고 있어요!
+          <br />
+          <br />
+          {parseFeKoHome}에 대한 더 많은 정보가 궁금하다면 파란색 글씨를
+          클릭해보세요! 클릭시, {parseFeKoHome}주의 위키피디아 링크로
+          연결됩니다!
         </ContentBox>
       ) : null}
       {meaning.length > 0 ? (
         <>
           <ContentBox>
-            ⚡🙍‍♂️{' '}
-            <h3>
-              {username}의 이름 뜻은
-              {meaning.map((mean) => (
-                <a
-                  href={`https://en.dict.naver.com/#/search?query=${mean}`}
-                  target="_blank"
-                  id="meaning-dict-link"
-                >
-                  {mean}
-                </a>
-              ))}
-              😎!
-            </h3>
-            {username}은,{' '}
+            <h3>⚡ 이름의 뜻은 {meaning.join(', ')} 😎!</h3>
+            {username}, 당신이 선택한 이름은{' '}
             {meaning.map((mean) => (
               <a
-                href={`https://en.dict.naver.com/#/search?query=${mean}`}
+                href={`https://papago.naver.com/?sk=en&tk=ko&hn=0&st=${mean}`}
                 target="_blank"
                 id="meaning-dict-link"
+                key={mean}
               >
                 <b>{mean}</b>
               </a>
             ))}
-            이라는 {meaning.length}개의 뜻을 가지고 있어요 !
+            이라는 {meaning.length}개의 뜻을 가지고 있어요!
+            <br />
+            <br />
+            이름에 대한 뜻이 조금 생소하다면, 파란색 글씨로 변한 이름 뜻을
+            클릭해보세요! 네이버 파파고가 도와줄거에요!
           </ContentBox>
         </>
       ) : null}

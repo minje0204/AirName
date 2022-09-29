@@ -22,12 +22,12 @@ function TicketFront({ name, type, sim }) {
               <div id="info-container">
                 <div className="info-head-font">{sim}%</div>
                 <div className="info-body-font">당신의 이름과 {sim}% 유사한 발음을<br/> 
-                가지있는 이름 {name}을 선택해보세요!</div> 
+                가지고 있는 이름 {name}을 선택해보세요!</div> 
               </div>
               :    
               <div id="info-container">
-                <div className="info-head-font">{sim.map(s => <>{s} </>)}!</div>
-                <div className="info-body-font">당신을 표현할 수 있는 단어인<br/> "{sim.map(s => <span key={s}> {s} </span>)}"의<br/> 분위기를 가지고 있는 이름이에요!</div>
+                <div className="info-head-font">{sim.join(', ')}!</div>
+                <div className="info-body-font">당신을 표현할 수 있는 단어인<br/> "{sim.join(', ')}"의<br/> 분위기를 가지고 있는 이름이에요!</div>
               </div>
               }
               
