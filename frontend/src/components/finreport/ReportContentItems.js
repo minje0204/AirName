@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// FinReport 리포트 내용 렌더링하는 컴포넌트 
 function ReportContentItems({
   username,
   maleState,
@@ -14,13 +15,16 @@ function ReportContentItems({
   nameInfo
 }) {
   return (
-    <div>
+    <>
+      {/* 이름 리포트 시작 */}
       {username.length > 0 && isNewName === false ? (
         <ContentBox>
           <h3>🛬 AIRNAME에서 "{username}"에 대한 이름 리포트를 준비했어요!</h3>
         </ContentBox>
       ) : null}
 
+
+      {/* 없는 이름 */}
       {femaleState === "" && maleState==="" && meaning==="" ? (
         <ContentBox>
           <h3>🛬 AIR NAME에서 당신이 처음으로 사용하는 이름!</h3>
@@ -29,14 +33,16 @@ function ReportContentItems({
           새로운 이름을 추천받고 싶다면?{' '}
           <a
             href={`https://airname.shop/entry-ko`}
-            target="_blank"
-            id="meaning-dict-link"
+            target="_self"
+            className="meaning-dict-link"
           >
             [클릭] AIRNAME 추천 서비스 이용하기!
           </a>
         </ContentBox>
       ) : null}
 
+
+      {/* 중성적인 이름 */}
       {maleState.length > 0 && femaleState.length > 0 ? (
         <ContentBox>
           <h3>💌 중성적인 이름, {username}!</h3>이 이름은 남녀 성별 모두 자주
@@ -46,6 +52,8 @@ function ReportContentItems({
         </ContentBox>
       ) : null}
 
+
+      {/* 분위기 발음 유사도 */}
       {typeof nameInfo === 'object' && Object.keys(nameInfo).length > 0 ? (
         <div>
           {nameInfo.type === 'atm' ? (
@@ -55,15 +63,14 @@ function ReportContentItems({
               {nameInfo.sim.map((atm) => (
               <a
                 href={`https://en.dict.naver.com/#/search?query=${atm}`}
-                target="_blank"
-                id="meaning-dict-link"
+                target="_self"
+                className="meaning-dict-link"
                 key={atm}
               > 
                 <b>{atm}</b>
               </a>
             ))}!
               <br />
-
             <br />
             분위기의 뜻의 번역이 필요하다면, 파란색 글씨의 이름 뜻을
             클릭해보세요. 네이버 영어 사전으로 이동합니다! 
@@ -77,14 +84,16 @@ function ReportContentItems({
         </div>
       ) : null}
 
+
+      {/* 남성주 */}
       {maleState.length > 0 ? (
         <ContentBox>
           <h3>🏡🙍‍♂️ 남성 명예 고향은 {parseEnHome}!</h3>
           {username}은 남성의 이름일 때, 통계적으로 미국의
           <a
             href={`https://ko.wikipedia.org/wiki/${parseKoHome}주`}
-            target="_blank"
-            id="meaning-dict-link"
+            target="_self"
+            className="meaning-dict-link"
           >
             {parseKoHome}주
           </a>
@@ -96,14 +105,16 @@ function ReportContentItems({
         </ContentBox>
       ) : null}
 
+
+      {/* 여성 주 */}
       {femaleState.length > 0 ? (
         <ContentBox>
           <h3>🏡🙍‍♀️ 여성 명예 고향은 {parseFeEnHome}!</h3>
           {username}은 여성의 이름일 때, 통계적으로 미국의
           <a
             href={`https://ko.wikipedia.org/wiki/${parseFeKoHome}주`}
-            target="_blank"
-            id="meaning-dict-link"
+            target="_self"
+            className="meaning-dict-link"
           >
             {parseFeKoHome}주
           </a>
@@ -115,6 +126,9 @@ function ReportContentItems({
           연결됩니다!
         </ContentBox>
       ) : null}
+
+
+      {/* 이름뜻 */}
       {meaning.length > 0 ? (
         <>
           <ContentBox>
@@ -123,8 +137,8 @@ function ReportContentItems({
             {meaning.map((mean) => (
               <a
                 href={`https://papago.naver.com/?sk=en&tk=ko&hn=0&st=${mean}`}
-                target="_blank"
-                id="meaning-dict-link"
+                target="_self"
+                className="meaning-dict-link"
                 key={mean}
               >
                 <b>{mean}</b>
@@ -138,7 +152,7 @@ function ReportContentItems({
           </ContentBox>
         </>
       ) : null}
-    </div>
+    </>
   );
 }
 
@@ -152,7 +166,7 @@ const ContentBox = styled.div`
   border-radius: 10px;
   width: 650px;
 }
-#meaning-dict-link{
+.meaning-dict-link{
   margin: 5px;
   text-decoration-line: none;
   text-decoration-color: none;
