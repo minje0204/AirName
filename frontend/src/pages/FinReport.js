@@ -154,6 +154,7 @@ const StyledWrapper = styled.div`
     align-items: center;
     flex-direction: column;
     margin-top: 30px;
+    margin-bottom: 50px;
   }
   #footer-container {
     width: 100%;
