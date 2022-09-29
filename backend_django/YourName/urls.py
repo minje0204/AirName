@@ -1,7 +1,7 @@
 from xml.etree.ElementInclude import include
 from django.contrib import admin
 from django.urls import path, include
-from RecName.views import NameList
+from NameYear.views import GetNamePerYearList
 from FinalReport.views import GetReport
 from LoadingLabeling.views import Labeling
 from SpeakName.views import SpeakName
@@ -14,7 +14,8 @@ urlpatterns = [
     path('report/<str:name>/<int:birth>', GetReport.as_view()),
     path('validate/<str:name>/<int:birth>',ValidateName.as_view()),
     path('loading/',Labeling.as_view()),
-    path('speaking/<str:name>',SpeakName.as_view())
+    path('speaking/<str:name>',SpeakName.as_view()),
+    path('year/<str:name>', GetNamePerYearList.as_view())
 ]
 
 
