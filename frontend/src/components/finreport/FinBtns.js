@@ -1,29 +1,33 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
-import { useEffect } from 'react';
 
-function FinBtns({ username }) {
+// 홈으로 돌아가기, 카카오톡 버튼 컴포넌트 
+function FinBtns({ username, birth }) {
+
   // 카카오톡 공유 함수
   const kakaoShare = (username) => {
     window.Kakao.Link.createDefaultButton({
       container: '#kakao-link-btn',
       objectType: 'feed',
+
       content: {
         title: `Hi! My name is ${username}😎`,
         description: `${username}의 🔽리포트 보러가기🔽`,
         imageUrl: `https://ifh.cc/g/PBX9v2.png`,
         link: {
-          mobileWebUrl: `https://airname.shop/finreport/${username}`,
-          webUrl: `https://airname.shop/finreport/${username}`
+          mobileWebUrl: `https://airname.shop/finreport/${username}/${birth}`,
+          webUrl: `https://airname.shop/finreport/${username}/${birth}`
         }
       }
     });
   };
 
+  // 실행시에 share btn 붙이기
   useEffect(() => {
     kakaoShare(username);
-  }, [])
+  }, [username])
 
   return (
     <StyledWrapper>
@@ -38,7 +42,7 @@ function FinBtns({ username }) {
         <IconButton
           className="Kakao"
           id="kakao-link-btn"
-          onClick={() => kakaoShare(username)}
+          // onClick={() => kakaoShare(username)}
         >
           <img
             src="/kakao_logo.png"
@@ -55,7 +59,7 @@ function FinBtns({ username }) {
         </IconButton>
       </FinBtnsWrapper>
     </StyledWrapper>
-  ); //255,235,0
+  );
 }
 
 export default FinBtns;
