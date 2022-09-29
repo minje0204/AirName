@@ -1,15 +1,18 @@
 import styled from 'styled-components';
+
+// 이미지 import
 import QRImg from '../../asset/img/finreport/QRImg.png';
 import Barcode from '../../asset/img/finreport/Barcode.png';
 import Airplane from '../../asset/img/finreport/Airplane.png';
 import TicketHeadAirplane from '../../asset/img/finreport/TicketHeadAirplane.png';
 
+// 비행기 티켓 그린 컴포넌트 
 function MyCard({ username, hometown }) {
   return (
     <TicketWrapper>
       <TicketHead>
         <TicketLeftHead >
-          <img id="head-img" src={TicketHeadAirplane} />
+          <img id="head-img" src={TicketHeadAirplane} alt="airplane"/>
           AIR NAME TICKET
         </TicketLeftHead>
         <TicketRightHead>BOARDING PASS</TicketRightHead>
@@ -31,18 +34,18 @@ function MyCard({ username, hometown }) {
             </Gate>
           </PassangerInfo>
           <BarcodeContainer>
-            <img id="barcode-img" src={Barcode} />
+            <img id="barcode-img" src={Barcode} alt="barcode"/>
           </BarcodeContainer>
         </TicketLeft>
         <TicketRight>
           <TicketJourney>
             <Depart>KOR</Depart>
             <AirplaneImg>
-              <img id="airplane-img" src={Airplane} />
+              <img id="airplane-img" src={Airplane} alt="flight"/>
             </AirplaneImg>
             <Arrive>{hometown}</Arrive>
             <QR>
-              <img id="qr-img" src={QRImg} />
+              <img id="qr-img" src={QRImg} alt="qr"/>
             </QR>
           </TicketJourney>
         </TicketRight>

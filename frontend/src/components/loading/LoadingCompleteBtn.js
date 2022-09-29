@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function LoadBtn({ btnVisiblity }) {
   const nameEn = localStorage.getItem('username');
+  const birth = localStorage.getItem('birth');
   return (
     <>
       {nameEn ? (
@@ -12,7 +13,7 @@ export default function LoadBtn({ btnVisiblity }) {
           color="warning"
           size="large"
           component={Link}
-          to={`/finreport/${nameEn}`}
+          to={`/finreport/${nameEn}/${birth}`}
           style={{
             visibility: btnVisiblity,
             marginTop: '10px'

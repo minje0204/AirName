@@ -19,7 +19,7 @@ class RcmndCardItems extends React.Component {
   }
 
   render() {
-    const { name, info } = this.props;
+    const { name, info, birth } = this.props;
     return (
       <EachTicketContainer>
         <ReactCardFlip
@@ -27,7 +27,7 @@ class RcmndCardItems extends React.Component {
           flipDirection="vertical"
         >
           <FRONT_COMPONENT onClick={this.handleClick}>
-            <RcmndTicketFront name={name} type={info.type} />
+            <RcmndTicketFront name={name} type={info.type} birth={birth} />
           </FRONT_COMPONENT>
           <BACK_COMPONENT onClick={this.handleClick}>
             <RcmndTicketBack name={name} type={info.type} sim={info.sim} />
