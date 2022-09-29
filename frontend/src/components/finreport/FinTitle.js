@@ -6,13 +6,24 @@ function FinTitle({ hometown, username }) {
   return (
     <StyledWrapper>
       <div id="fintitle-container">
-        <WelcomeWrapper>
-          Welcome to
-          <HomeTownWrapper>{hometown},</HomeTownWrapper>
-        </WelcomeWrapper>
+        {hometown.length > 0 ? (
+          <WelcomeWrapper>
+            Welcome to
+            <HomeTownWrapper>{hometown},</HomeTownWrapper>
+          </WelcomeWrapper>
+        ) : null}
         <NameWrapper>
           <div id="fin-username">{username}!</div>
-          <div id="fin-tts"><TTSBtn id="fin-tts" username={username} hometown={hometown} type="fintitle"/></div>
+          {hometown.length > 0 ? (
+            <div id="fin-tts">
+              <TTSBtn
+                id="fin-tts"
+                username={username}
+                hometown={hometown}
+                type="fintitle"
+              />
+            </div>
+          ) : null}
         </NameWrapper>
       </div>
     </StyledWrapper>
@@ -41,12 +52,12 @@ const NameWrapper = styled.div`
   align-items: center;
   font-size: 80px;
   font-weight: bold;
-  #fin-username{
+  #fin-username {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  #fin-tts{
+  #fin-tts {
     display: flex;
     justify-content: center;
     align-items: center;
