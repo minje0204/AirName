@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
+import { useEffect } from 'react';
 
 function FinBtns({ username }) {
   // 카카오톡 공유 함수
@@ -19,6 +20,10 @@ function FinBtns({ username }) {
       }
     });
   };
+
+  useEffect(() => {
+    kakaoShare();
+  }, [])
 
   return (
     <StyledWrapper>
