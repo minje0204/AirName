@@ -6,6 +6,7 @@ import ProgressBar from '../components/loading/LoadingProgressBar';
 import ReactionTimeTest from '../components/loading/LoadingGame';
 
 export default function Loading() {
+  localStorage.removeItem('rcmndNames');
   const rand_idx = Math.floor(Math.random() * 3);
   const loadingContent = [<LoadingTMI />, <Labeling />, <ReactionTimeTest />];
   return (
