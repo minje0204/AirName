@@ -14,6 +14,13 @@ export default function ProgressBar() {
         if (oldProgress === 100) {
           setIsFull(1);
         }
+        if (
+          localStorage.getItem('rcmndNames') ||
+          localStorage.getItem('username')
+        ) {
+          setProgress(100);
+          setIsFull(1);
+        }
         const diff = Math.random() * 10;
         return Math.min(oldProgress + diff, 100);
       });
@@ -28,11 +35,7 @@ export default function ProgressBar() {
       <Box id="wait" sx={{ margin: '10px' }}>
         <LinearProgress variant="determinate" value={progress} />
         <StyledWrapper>
-          {isFull === 1 ? (
-            <LoadBtn btnVisiblity="visible" />
-          ) : (
-            <LoadBtn btnVisiblity="hidden" />
-          )}
+          {isFull === 1 ? <LoadBtn wait={false} /> : <LoadBtn wait={true} />}
         </StyledWrapper>
       </Box>
     </div>
