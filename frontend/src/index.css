@@ -27,6 +27,10 @@ code {
   src: url('./fonts/SCDream4.otf');
 }
 @font-face {
+  font-family: 'SCDream5';
+  src: url('./fonts/SCDream5.otf');
+}
+@font-face {
   font-family: 'SCDream7';
   src: url('./fonts/SCDream7.otf');
 }
@@ -42,6 +46,7 @@ code {
 /* 색상 값 변수로 지정 */
 :root {
   --background: #efeff7;
+  --buttonColor: #0071e3;
   --primaryLight: #8dc7f7;
   --primaryMain: #42a5f5;
   --primaryDark: #1565c0;
