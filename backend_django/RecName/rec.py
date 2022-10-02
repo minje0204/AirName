@@ -175,19 +175,29 @@ def CheckingKorean(name):
 
     return check
 
-def CheckingRoman(name, check):
+def CheckingLength(name):
+    check = False
+    if len(name) > 1:
+        check = True
+
+    return check
+
+def CheckingRoman(name, kor, len):
     check_array = {}
 
-    if check == False:
+    if kor == False:
         check_array['check'] = False
-        check_array['msg'] = '올바르지 않은 이름 형식입니다.'
+        check_array['msg'] = '한글 이름을 입력해주세요.'
+    elif len == False:
+        check_array['check'] = False
+        check_array['msg'] = '두 글자 이상 입력해주세요.'
     else :
         #로마화 유효성 판단
         rom_name = Romanization(name)
         #404에러면 404코드값을 반환
         if rom_name == 404:
             check_array['check'] = False
-            check_array['msg'] = '사용할 수 없는 이름입니다.'
+            check_array['msg'] = '성을 포함한 올바른 이름을 입력해주세요.'
         else:
             check_array['check'] = True
             check_array['msg'] = '사용할 수 있는 이름입니다.'
