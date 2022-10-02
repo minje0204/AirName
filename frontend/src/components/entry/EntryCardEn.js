@@ -11,6 +11,7 @@ import {
   FormControl
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import LinkButton from 'components/LinkButton';
 import styled from 'styled-components';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
 
@@ -208,27 +209,24 @@ function EntryCardEn() {
           <ReadOnlyInput q="Nationality" a="Korea" />
         </Container>
       </div>
-
       <div id="btn">
-        {nameKo &&
-        !nameKoError &&
-        gender &&
-        birth &&
-        !birthError &&
-        nameEn &&
-        !nameEnError ? (
-          <button id="send-btn" onClick={sendData}>
-            내 영어 이름 리포트 보러가기
-          </button>
-        ) : (
-          <button
-            id="send-btn"
-            onClick={sendData}
-            style={{ visibility: 'hidden' }}
-          >
-            내 영어 이름 리포트 보러가기
-          </button>
-        )}
+        <LinkButton
+          onClick={sendData}
+          content="내 영어 이름 리포트 보러 바로가기"
+          to="/Loading"
+          disabled={
+            !Boolean(
+              nameKo &&
+                !nameKoError &&
+                gender &&
+                birth &&
+                !birthError &&
+                nameEn &&
+                !nameEnError
+            )
+          }
+          style={{ marginTop: '20px' }}
+        />
       </div>
     </StyledWrapper>
   );
@@ -257,16 +255,10 @@ const StyledWrapper = styled.div`
     #title_b {
       font-size: 17px;
     }
-    #send-btn {
-      font-size: 12px;
-    }
   }
   @media (min-width: 450px) {
     #title_b {
       font-size: 25px;
-    }
-    #send-btn {
-      font-size: 20px;
     }
   }
   display: flex;
@@ -313,11 +305,5 @@ const StyledWrapper = styled.div`
   #btn {
     display: flex;
     justify-content: center;
-  }
-  #send-btn {
-    background-color: var(--secondaryMain);
-    margin: 20px;
-    padding: 15px;
-    border: 0;
   }
 `;

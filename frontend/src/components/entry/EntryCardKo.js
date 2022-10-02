@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
 import {
   Container,
   TextField,
@@ -11,6 +10,7 @@ import {
   FormControl
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import LinkButton from 'components/LinkButton';
 import styled from 'styled-components';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
 
@@ -36,6 +36,7 @@ function EntryCardKo() {
   const [birth, setBirth] = useState('');
   const birthCheck = /^(19|20)\d{2}/;
   const [birthError, setBirthError] = useState(false);
+  const [btnDisabled, setBtnDisabled] = useState(true);
   const navigate = useNavigate();
   // const [isSoundError, setisSoundError] = useState(false);
 
@@ -196,19 +197,15 @@ function EntryCardKo() {
         </Container>
       </div>
       <div id="btn">
-        {nameKo && !nameKoError && gender && birth && !birthError ? (
-          <button id="send-btn" onClick={sendData}>
-            영어 이름이 없는데 어떡하지?
-          </button>
-        ) : (
-          <button
-            id="send-btn"
-            onClick={sendData}
-            style={{ visibility: 'hidden' }}
-          >
-            영어 이름이 없는데 어떡하지?
-          </button>
-        )}
+        <LinkButton
+          onClick={sendData}
+          content="나와 맞는 영어 이름 찾으러 바로가기"
+          to="/survey"
+          disabled={
+            !Boolean(nameKo && !nameKoError && gender && birth && !birthError)
+          }
+          style={{ marginTop: '20px' }}
+        />
       </div>
     </StyledWrapper>
   );
@@ -237,16 +234,10 @@ const StyledWrapper = styled.div`
     #title_b {
       font-size: 17px;
     }
-    #send-btn {
-      font-size: 12px;
-    }
   }
   @media (min-width: 450px) {
     #title_b {
       font-size: 25px;
-    }
-    #send-btn {
-      font-size: 20px;
     }
   }
   display: flex;
@@ -293,12 +284,5 @@ const StyledWrapper = styled.div`
   #btn {
     display: flex;
     justify-content: center;
-  }
-  #send-btn {
-    background-color: var(--secondaryMain);
-    margin: 20px;
-    padding: 15px;
-    border: 0;
-    color: black;
   }
 `;
