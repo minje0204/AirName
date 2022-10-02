@@ -237,9 +237,6 @@ const StyledWrapper = styled.div`
     #title_b {
       font-size: 17px;
     }
-    .answer {
-      font-size: 17px;
-    }
     #send-btn {
       font-size: 12px;
     }
@@ -247,9 +244,6 @@ const StyledWrapper = styled.div`
   @media (min-width: 450px) {
     #title_b {
       font-size: 25px;
-    }
-    .answer {
-      font-size: 20px;
     }
     #send-btn {
       font-size: 20px;
@@ -294,7 +288,6 @@ const StyledWrapper = styled.div`
     margin: auto 0;
   }
   .answer {
-    font-family: 'Daheng';
     width: 200px;
   }
   #btn {
