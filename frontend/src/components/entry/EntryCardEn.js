@@ -97,6 +97,7 @@ function EntryCardEn() {
             <ValidationTextField
               variant="outlined"
               className="answer"
+              placeholder="한글성명 ex)홍길동"
               inputProps={{
                 maxLength: 7,
                 style: { fontSize: 'clamp(12px,1.3vw,16px)' }
@@ -161,7 +162,11 @@ function EntryCardEn() {
               className="answer"
               placeholder="태어난 해 ex)1995"
               error={birthError}
-              helperText={birthError ? '다시 입력해주세요' : null}
+              helperText={
+                birthError
+                  ? '1940 ~ 2021 사이의 년도를 숫자로 입력해주세요'
+                  : null
+              }
               required
               onChange={(e) => {
                 const birthTmp = e.target.value;
