@@ -131,7 +131,8 @@ function FinReport() {
     if (birth) {
       getReportData();
     }
-  }, [birth]);
+	}, [birth]);
+
 
   return (
     <StyledWrapper>

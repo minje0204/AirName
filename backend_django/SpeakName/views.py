@@ -9,12 +9,12 @@ class SpeakName(APIView):
         name = kwargs['name']
         filename = 'SpeakName/soundfile/' + name + '.mp3'
 
-        tts = gTTS(
-            text=name,
-            lang='en', slow=False
-        )
-
-        tts.save(filename)
+        # tts = gTTS(
+        #     text=name,
+        #     lang='en', slow=False
+        # )
+        #
+        # tts.save(filename)
 
         response = StreamingHttpResponse(self.iteration(filename,0), status=200)
 
@@ -34,4 +34,4 @@ class SpeakName(APIView):
                 break
 
         #파일 끝까지 읽으면 파일삭제
-        os.remove(path)
+        # os.remove(path)
