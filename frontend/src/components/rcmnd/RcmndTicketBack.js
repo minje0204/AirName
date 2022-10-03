@@ -4,7 +4,6 @@ import TicketHeadAirplane from '../../asset/img/rcmnd/TicketHeadAirplane.png';
 import './Rcmnd.css';
 
 function TicketFront({ name, type, sim }) {
-
   // 대문자이름
   let uppername = name.toUpperCase();
 
@@ -18,19 +17,35 @@ function TicketFront({ name, type, sim }) {
         <TicketBody className="shadow pattern">
           <NameTTSContainer>
             <TickeNameContainer>
-              { type === "sound" ? 
-              <div id="info-container">
-                <div className="info-head-font">{sim}%</div>
-                <div className="info-body-font">당신의 이름과 {sim}% 유사한 발음을<br/> 
-                가지고 있는 이름 {name}을 선택해보세요!</div> 
-              </div>
-              :    
-              <div id="info-container">
-                <div className="info-head-font">{sim.join(', ')}!</div>
-                <div className="info-body-font">당신을 표현할 수 있는 단어인<br/> "{sim.join(', ')}"의<br/> 분위기를 가지고 있는 이름이에요!</div>
-              </div>
-              }
-              
+              {type === 'sound' ? (
+                <div id="info-container">
+                  <div className="info-head-font">{sim}%</div>
+                  <div className="info-body-font">
+                    당신의 이름과 {sim}% 유사한 발음을
+                    <br />
+                    가지고 있는 이름 {name}을 선택해보세요!
+                  </div>
+                </div>
+              ) : (
+                <div id="info-container">
+                  <div className="info-head-font">
+                    
+                    {Object.entries(sim).map(([k, v]) => (
+                      <>
+                      {k} : {v*100}% {' '}
+                      </>
+                  ))}
+                  </div>
+                  <div className="info-body-font">
+                    당신을 표현할 수 있는 단어인
+                    <br /> "{Object.keys(sim).join(', ')}"의
+                    <br /> 분위기를 가지고 있는 이름이에요!
+                  </div>
+                  <div className="info-body-font">
+ 
+                  </div>
+                </div>
+              )}
             </TickeNameContainer>
           </NameTTSContainer>
         </TicketBody>
@@ -75,7 +90,7 @@ const TickeNameContainer = styled.div`
   align-items: center;
   display: inline;
   padding: 20px;
-  #info-container{
+  #info-container {
     display: flex;
     justify-content: center;
     align-items: center;

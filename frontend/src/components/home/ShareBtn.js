@@ -1,35 +1,25 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
-import LinkButton from 'components/LinkButton';
 
 // 홈으로 돌아가기, 카카오톡 버튼 컴포넌트
-function FinBtns({ username, birth }) {
+function ShareBtn({ username, birth }) {
   // 카카오톡 공유 함수
-  const kakaoShare = (username) => {
+  const kakaoShare = () => {
     window.Kakao.Link.createDefaultButton({
       container: '#kakao-link-btn',
       objectType: 'feed',
 
       content: {
-        title: `Hi! My name is ${username}😎`,
-        description: `${username}의 🔽리포트 보러가기🔽`,
+        title: `Hi! What's your name?`,
+        description: `🔽알잘딱깔센 영어이름 찾으러 AIR Name 바로가기🧚‍♀️🔽`,
         imageUrl: `https://ifh.cc/g/PBX9v2.png`,
         link: {
-          mobileWebUrl: `https://airname.shop/finreport/${username}/${birth}`,
-          webUrl: `https://airname.shop/finreport/${username}/${birth}`
+          mobileWebUrl: `https://airname.shop`,
+          webUrl: `https://airname.shop`
         }
       }
     });
-  };
-  const copyClipBoard = async (text) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      alert('복사 성공!');
-    } catch (error) {
-      alert('복사 실패!');
-    }
   };
 
   // 실행시에 share btn 붙이기
@@ -40,27 +30,7 @@ function FinBtns({ username, birth }) {
   return (
     <StyledWrapper>
       <FinBtnsWrapper>
-        <LinkButton
-          content="다시하기"
-          to="/"
-        ></LinkButton>
-      </FinBtnsWrapper>
-      <FinBtnsWrapper>
-        <LinkButton
-          content="링크 복사"
-          to=""
-          url="/Linkcopy.png"
-          onClick={() =>
-            copyClipBoard(`https://airname.shop/finreport/${username}/${birth}`)
-          }
-        ></LinkButton>
-      </FinBtnsWrapper>
-      <FinBtnsWrapper>
-        <IconButton
-          className="Kakao"
-          id="kakao-link-btn"
-          onClick={() => kakaoShare(username)}
-        >
+        <IconButton className="Kakao" id="kakao-link-btn">
           <img
             src="/kakao_logo.png"
             alt="카카오 로고"
@@ -75,24 +45,21 @@ function FinBtns({ username, birth }) {
           공유하기
         </IconButton>
       </FinBtnsWrapper>
-
     </StyledWrapper>
   );
 }
 
-export default FinBtns;
+export default ShareBtn;
 const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
   color: blue;
-  margin: 0 20px;
   @media (max-width: 650px) {
     flex-wrap: wrap;
   }
 `;
 
 const FinBtnsWrapper = styled.div`
-  margin: 20px;
   #img-save-btn {
     background-color: var(--primaryLight);
     border: 0;

@@ -1,22 +1,12 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import LinkButton from 'components/LinkButton';
+import { Box } from '@mui/material';
 
 function StartBtn({ title, subtitle, to }) {
   return (
     <div>
-      {subtitle}
-      <br />
-      <Button
-        variant="contained"
-        color="primary"
-        size="large"
-        component={Link}
-        to={to}
-        style={{ width: '300px ' }}
-      >
-        <span style={{ fontSize: '20px' }}>{title}</span>
-      </Button>
+      <Box sx={{ marginBottom: 0.5 }}>{subtitle}</Box>
+      <LinkButton content={title} to={to} h="50px" w="300px" fs="20px" />
     </div>
   );
 }
