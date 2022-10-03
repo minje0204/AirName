@@ -19,10 +19,10 @@ const UsaMap = ({ abState, userName }) => {
     const something = {};
     usa.forEach((state, i) => {
       const { abbreviation, name } = state.attributes;
-      let fill = '#8dc7f7';
+      let fill = '#CCE5F1';
       let alertString = `Hello ${userName}! this is ${name}`;
       if (abbreviation === abState) {
-        fill = 'red';
+        fill = '#0071e3';
         alertString = `Hello ${userName}! ${name} is your state`;
       }
 
@@ -37,7 +37,7 @@ const UsaMap = ({ abState, userName }) => {
 
   return (
     <StyledWrapper>
-      <USAMap customize={statesFilling()} onClick={mapHandler} />
+      <USAMap id="usa-map" customize={statesFilling()} width="100%" height="100%" onClick={mapHandler} />
     </StyledWrapper>
   );
 };
@@ -45,6 +45,7 @@ const UsaMap = ({ abState, userName }) => {
 export default UsaMap;
 
 const StyledWrapper = styled.div`
+  display
   path {
     pointer-events: all;
   }
@@ -52,6 +53,8 @@ const StyledWrapper = styled.div`
     opacity: 0.5;
     cursor: pointer;
   }
-  width: 100%;
-  opacity: 20%;
+  #usa-map{
+    width=600px;
+  }
+}
 `;

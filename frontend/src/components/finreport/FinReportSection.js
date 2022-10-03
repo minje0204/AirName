@@ -9,7 +9,6 @@ import FinTitle from '../finreport/FinTitle';
 import MyCard from '../finreport/MyCard';
 import ReportContent from '../finreport/ReportContent';
 import ReportFooter from 'components/finreport/ReportFooter';
-import UsaMap from './UsaMap';
 
 //데이터
 import HomeTownEn from '../finreport/HomeTownEn';
@@ -28,6 +27,9 @@ function FinReport() {
   const [femaleState, setFemaleState] = useState('');
   const [meaning, setMeaning] = useState('');
   const [maleState, setMaleState] = useState('');
+  const [femaleYear, setFemaleYear] = useState('');
+  const [maleYear, setMaleYear] = useState('');
+
   // 요청한 이름이 없을 때
   const [isNewName, setIsNewName] = useState(false);
 
@@ -38,7 +40,6 @@ function FinReport() {
   const [parseFeEnHome, setParseFeEnHome] = useState('');
   const [parseFeKoHome, setParseFeKoHome] = useState('');
   const [parseEnMainState, setParseEnMainState] = useState('');
-  const [abState, setAbState] = useState();
 
   // 영어 이름으로 치환
   const setEnHomeTown = () => {
@@ -97,6 +98,12 @@ function FinReport() {
     setMaleState(data.male.state);
   };
 
+  const saveYearData = async (res) => {
+    const data = JSON.parse(res.data);
+    setFemaleYear(data.female);
+    setMaleYear(data.male);
+  };
+
   // 리포트 데이터 요청하고 저장하는 함수
   const getReportData = () => {
     axios
@@ -106,6 +113,18 @@ function FinReport() {
         setIsNewName(false);
       })
       .catch(setIsNewName(true));
+  };
+
+  const getYearReportData = () => {
+    axios
+      .get(`${API.YEARREPORT}/${username}`)
+      .then((res) => {
+        saveYearData(res).then();
+        // setIsNewName(false);
+      })
+      .catch
+      // setIsNewName(true)
+      ();
   };
 
   // 한번만 실행되는, ComponentDidMount, gender, 추천된 이름 분위기,발음, 생일
@@ -127,17 +146,13 @@ function FinReport() {
     setKoHomeTown();
     setEnMainState();
     calcMainState();
-    if (femaleState !== '') {
-      setAbState(femaleState);
-    } else if (maleState !== '') {
-      setAbState(maleState);
-    }
   }, [femaleState, maleState, mainState]);
 
   // birth 들어오면 getRepordata get요청
   useEffect(() => {
     if (birth) {
       getReportData();
+      getYearReportData();
     }
   }, [birth]);
 
@@ -164,6 +179,8 @@ function FinReport() {
             parseFeEnHome={parseFeEnHome}
             isNewName={isNewName}
             nameInfo={nameInfo}
+            femaleYear={femaleYear}
+            maleYear={maleYear}
             mainState={mainState}
           />
 
