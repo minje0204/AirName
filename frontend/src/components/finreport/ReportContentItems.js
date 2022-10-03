@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import ReactApexChart from './Chart';
 
-// FinReport 리포트 내용 렌더링하는 컴포넌트 
+import UsaMap from './UsaMap';
+
+// FinReport 리포트 내용 렌더링하는 컴포넌트
 function ReportContentItems({
   username,
   maleState,
@@ -12,8 +15,20 @@ function ReportContentItems({
   parseFeKoHome,
   parseFeEnHome,
   isNewName,
-  nameInfo
+  mainState,
+  nameInfo,
+  femaleYear,
+  maleYear
 }) {
+  const isNotZero = (data) => {
+    for (var i = 0; i < data.length; i++) {
+      if (data[i] != 0) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
     <>
       {/* 이름 리포트 시작 */}
@@ -23,9 +38,8 @@ function ReportContentItems({
         </ContentBox>
       ) : null}
 
-
       {/* 없는 이름 */}
-      {femaleState === "" && maleState==="" && meaning==="" ? (
+      {femaleState === '' && maleState === '' && meaning === '' ? (
         <ContentBox>
           <h3>🛬 AIR NAME에서 당신이 처음으로 사용하는 이름!</h3>
           {username}! 안타깝게도 AIRNAME 서비스에서는 없는 이름입니다😥
@@ -41,7 +55,6 @@ function ReportContentItems({
         </ContentBox>
       ) : null}
 
-
       {/* 중성적인 이름 */}
       {maleState.length > 0 && femaleState.length > 0 ? (
         <ContentBox>
@@ -52,7 +65,6 @@ function ReportContentItems({
         </ContentBox>
       ) : null}
 
-
       {/* 분위기 발음 유사도 */}
       {/* {typeof nameInfo === 'object' && Object.keys(nameInfo).length > 0 ? (
         <div>
@@ -61,74 +73,47 @@ function ReportContentItems({
               <h3>✨ {nameInfo.sim.join(', ')} ✨</h3>
               설문을 기반으로한 당신의 분위기는,
               {nameInfo.sim.map((atm) => (
-              <a
-                href={`https://en.dict.naver.com/#/search?query=${atm}`}
-                target="_self"
-                className="meaning-dict-link"
-                key={atm}
-              > 
-                <b>{atm}</b>
-              </a>
-            ))}!
+                <a
+                  href={`https://en.dict.naver.com/#/search?query=${atm}`}
+                  target="_self"
+                  className="meaning-dict-link"
+                  key={atm}
+                >
+                  <b>{atm}</b>
+                </a>
+              ))}
+              !
               <br />
-            <br />
-            분위기의 뜻의 번역이 필요하다면, 파란색 글씨의 이름 뜻을
-            클릭해보세요. 네이버 영어 사전으로 이동합니다! 
+              <br />
+              분위기의 뜻의 번역이 필요하다면, 파란색 글씨의 이름 뜻을
+              클릭해보세요. 네이버 영어 사전으로 이동합니다!
             </ContentBox>
           ) : (
             <ContentBox>
               <h3>📊 {nameInfo.sim}%의 발음 유사도 </h3>
-              AIRNAME의 발음 알고리즘에 따르면, {username}은 당신의 한국 이름과 {nameInfo.sim}%의 유사한 발음을 가지고 있어요! 어쩐지 친근한 느낌이 들지 않나요?
+              AIRNAME의 발음 알고리즘에 따르면, {username}은 당신의 한국 이름과{' '}
+              {nameInfo.sim}%의 유사한 발음을 가지고 있어요! 어쩐지 친근한
+              느낌이 들지 않나요?
             </ContentBox>
           )}
         </div>
       ) : null} */}
 
-
-      {/* 남성주 */}
-      {maleState.length > 0 ? (
-        <ContentBox>
-          <h3>🏡🙍‍♂️ 남성 명예 고향은 {parseEnHome}!</h3>
-          {username}은 남성의 이름일 때, 통계적으로 미국의
-          <a
-            href={`https://ko.wikipedia.org/wiki/${parseKoHome}주`}
-            target="_self"
-            className="meaning-dict-link"
-          >
-            {parseKoHome}주
-          </a>
-          에서 가장 많이 사용되고 있어요!
-          <br />
-          <br />
-          {parseKoHome}에 대한 자세한 정보가 궁금하다면 파란색 글씨를
-          클릭해보세요! 클릭시, {parseKoHome}주의 위키피디아 링크로 연결됩니다!
-        </ContentBox>
+      {/* 연도별 추이 */}
+      {(femaleYear.length > 0 && isNotZero(femaleYear)) ||
+      (maleYear.length > 0 && isNotZero(maleYear)) ? (
+        <>
+          <ContentBox>
+            <h3>📈 같은 이름을 가진 사람들이 얼마나 있을까요?</h3>
+            <ReactApexChart
+              femaleYear={femaleYear}
+              maleYear={maleYear}
+            ></ReactApexChart>
+          </ContentBox>
+        </>
       ) : null}
 
-
-      {/* 여성 주 */}
-      {femaleState.length > 0 ? (
-        <ContentBox>
-          <h3>🏡🙍‍♀️ 여성 명예 고향은 {parseFeEnHome}!</h3>
-          {username}은 여성의 이름일 때, 통계적으로 미국의
-          <a
-            href={`https://ko.wikipedia.org/wiki/${parseFeKoHome}주`}
-            target="_self"
-            className="meaning-dict-link"
-          >
-            {parseFeKoHome}주
-          </a>
-          에서 가장 많이 사용되고 있어요!
-          <br />
-          <br />
-          {parseFeKoHome}에 대한 더 많은 정보가 궁금하다면 파란색 글씨를
-          클릭해보세요! 클릭시, {parseFeKoHome}주의 위키피디아 링크로
-          연결됩니다!
-        </ContentBox>
-      ) : null}
-
-
-      {/* 이름뜻 */}
+      {/* 이름 뜻 */}
       {meaning.length > 0 ? (
         <>
           <ContentBox>
@@ -151,6 +136,55 @@ function ReportContentItems({
             클릭해보세요. 네이버 파파고가 도와줄거에요!
           </ContentBox>
         </>
+      ) : null}
+
+      {/* 남성 주 */}
+      {maleState.length > 0 ? (
+        <ContentBox>
+          <h3>🏡🙍‍♂️ 남성 명예 고향은 {parseEnHome}!</h3>
+          {username}은 남성의 이름일 때, 통계적으로 미국의
+          <a
+            href={`https://ko.wikipedia.org/wiki/${parseKoHome}주`}
+            target="_self"
+            className="meaning-dict-link"
+          >
+            {parseKoHome}주
+          </a>
+          에서 가장 많이 사용되고 있어요!
+          <br />
+          <br />
+          {parseKoHome}에 대한 자세한 정보가 궁금하다면 파란색 글씨를
+          클릭해보세요! 클릭시, {parseKoHome}주의 위키피디아 링크로 연결됩니다!
+        </ContentBox>
+      ) : null}
+
+      {/* 여성 주 */}
+      {femaleState.length > 0 ? (
+        <ContentBox>
+          <h3>🏡🙍‍♀️ 여성 명예 고향은 {parseFeEnHome}!</h3>
+          {username}은 여성의 이름일 때, 통계적으로 미국의
+          <a
+            href={`https://ko.wikipedia.org/wiki/${parseFeKoHome}주`}
+            target="_self"
+            className="meaning-dict-link"
+          >
+            {parseFeKoHome}주
+          </a>
+          에서 가장 많이 사용되고 있어요!
+          <br />
+          <br />
+          {parseFeKoHome}에 대한 더 많은 정보가 궁금하다면 파란색 글씨를
+          클릭해보세요! 클릭시, {parseFeKoHome}주의 위키피디아 링크로
+          연결됩니다!
+        </ContentBox>
+      ) : null}
+
+      {/* 미국 지도 */}
+      {mainState.length > 0 ? (
+        <ContentBox>
+          <h3>🚩 {parseFeEnHome}의 위치</h3>
+          <UsaMap id="usa-map" abState={mainState} userName={username} />
+        </ContentBox>
       ) : null}
     </>
   );
