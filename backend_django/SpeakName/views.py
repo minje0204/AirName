@@ -34,4 +34,4 @@ class SpeakName(APIView):
                 break
 
         #파일 끝까지 읽으면 파일삭제
-        os.remove(path)
+        # os.remove(path)
