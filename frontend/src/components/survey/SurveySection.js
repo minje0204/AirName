@@ -42,9 +42,7 @@ function SurveySection() {
   const sendSurveyGetName = async (data) => {
     console.log(data);
     axios.post(`${API.GETNAME}`, data).then((res) => {
-      console.log(res);
       // 이름 추천 데이터 저장
-      console.log(data);
       localStorage.setItem('rcmndNames', JSON.stringify(res.data));
     });
   };
@@ -55,8 +53,6 @@ function SurveySection() {
       [questions[ramdomNums[cur]].answerKey]: input
     };
     setSurveyRes({ ...surveyRes, ...newElement });
-    console.log(cur);
-    console.log(surveyRes)
     if (cur === N - 1) {  
       getName();
     }
@@ -96,7 +92,6 @@ function SurveySection() {
       birth: birth,
       attr: surveyRes
     };
-    console.log(data);
     sendSurveyGetName(data);
     navigate('/loading');
   };
