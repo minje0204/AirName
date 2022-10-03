@@ -37,6 +37,7 @@ function SurveySection() {
 
   // 이름 가져와서 Local에 저장
   const sendSurveyGetName = async (data) => {
+    console.log(data)
     axios.post(`${API.GETNAME}`, data).then((res) => {
       console.log(res);
       // 이름 추천 데이터 저장
@@ -51,7 +52,7 @@ function SurveySection() {
     };
     setSurveyRes({ ...surveyRes, ...newElement });
     if (cur < 5) setCur(cur + 1);
-    if (isLast === true) {getName()}
+    if (isLast === true && cur === 5) {getName()}
   };
 
   // 이전으로 돌아가는 버튼
@@ -82,11 +83,6 @@ function SurveySection() {
   useEffect(() => {
     if (Object.entries(surveyRes).length === 6) setIsLast(true);
   }, [surveyRes]);
-
-  // isLast가 true가 되면, sendSurvey
-  useEffect(() => {
-  }, [isLast]);
-
   
   const getName = () => {
     if (isLast) {
@@ -96,6 +92,7 @@ function SurveySection() {
         birth: birth,
         attr: surveyRes
       };
+      console.log(data)
       sendSurveyGetName(data);
       navigate('/loading');
     }
