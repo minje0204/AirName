@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import SpeakerImg from '../asset/img/finreport/Speaker.svg';
+import API from '../config';
 
 function TTSBtn({ hometown, username, type }) {
   // const ttsSrc =
@@ -10,21 +11,15 @@ function TTSBtn({ hometown, username, type }) {
 	// 	'.mp3';
 
 	const [audioSource, setAudioSource] = useState('');
-
-	useEffect(() => {
-		requestAudioFile();
-	}, [])
 	
 	const requestAudioFile = async () => {
-		console.log("request Audio");
-		const response = await axios.get('http://127.0.0.1:8000/speaking/sean',{
+		const response = await axios.get(`${API.SPEAKING}/${username}`,{
 			responseType: 'arraybuffer',
 			headers: {
 				'Content-Type': 'audio/mp3'
 			}
 		})
 		const audioContext = getAudioContext();
-
 
 		// makeAudio(response)
 		const audioBuffer = await audioContext.decodeAudioData(response.data);
@@ -48,10 +43,10 @@ function TTSBtn({ hometown, username, type }) {
 
   const audioPlayer = useRef();
 
-	const play = (e) => {
-    e.stopPropagation();
-    audioPlayer.current.play();
-  };
+	// const play = (e) => {
+  //   e.stopPropagation();
+  //   audioPlayer.current.play();
+  // };
 
   return (
 		<>
@@ -62,7 +57,8 @@ function TTSBtn({ hometown, username, type }) {
       <div>
         <Button
           onClick={(e) => {
-						play(e);
+						// play(e);
+						requestAudioFile();
           }}
         >
           <SpeakerImgTag src={SpeakerImg} alt="TTSspeaker" />
@@ -71,50 +67,6 @@ function TTSBtn({ hometown, username, type }) {
     </>
   );
 }
-
-// function TTSBtn({ hometown, username, type }) {
-	
-//   const ttsSrc =
-//     'https://airname.s3.ap-northeast-2.amazonaws.com/sound/' +
-//     JSON.stringify(username).replaceAll('"', '') +
-// 		'.mp3';
-	
-// 	const audio = new Audio(ttsSrc);
-// 	console.log(typeof(audio))
-
-// 	const ttsSrc2 =
-//     'https://airname.s3.ap-northeast-2.amazonaws.com/state/' +
-//     'Washington DC'.replaceAll('"', '') +
-// 		'.mp3';
-	
-// 	const audio2 = new Audio(ttsSrc2);
-// 	console.log(audio2)
-
-//   const audioPlayer = useRef();
-
-//   const play = (e) => {
-//     e.stopPropagation();
-//     audioPlayer.current.play();
-//   };
-
-//   return (
-// 		<>
-//       <audio ref={audioPlayer}>
-// 				<source type = "audio/mp3" src={ttsSrc}/>
-//         <code>audio</code> element.
-//       </audio>
-//       <div>
-//         <Button
-//           onClick={(e) => {
-// 						play(e);
-//           }}
-//         >
-//           <SpeakerImgTag src={SpeakerImg} alt="TTSspeaker" />
-//         </Button>
-//       </div>
-//     </>
-//   );
-// }
 
 export default TTSBtn;
 
