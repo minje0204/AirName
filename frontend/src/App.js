@@ -28,7 +28,7 @@ function App() {
           <Route path="/loading" element={<Loading />} />
           <Route path="/rcmnd" element={<Rcmnd />} />
           <Route path="/namecard" element={<NameCard />} />
-          <Route path="/finreport/:username" element={<FinReport />} />
+          <Route path="/finreport/:username/:birth" element={<FinReport />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>

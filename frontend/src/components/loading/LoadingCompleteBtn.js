@@ -1,39 +1,28 @@
 import React from 'react';
-import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import LinkButton from 'components/LinkButton';
 
-export default function LoadBtn({ btnVisiblity }) {
+export default function LoadBtn({ wait }) {
   const nameEn = localStorage.getItem('username');
+  const birth = localStorage.getItem('birth');
   return (
     <>
       {nameEn ? (
-        <Button
-          variant="contained"
-          color="warning"
-          size="large"
-          component={Link}
-          to={`/finreport/${nameEn}`}
+        <LinkButton
+          content="내 영어 이름 리포트 보러가기"
+          to={`/finreport/${nameEn}/${birth}`}
           style={{
-            visibility: btnVisiblity,
             marginTop: '10px'
           }}
-        >
-          <span>내 영어 이름 리포트 보러가기</span>
-        </Button>
+        />
       ) : (
-        <Button
-          variant="contained"
-          color="warning"
-          size="large"
-          component={Link}
+        <LinkButton
+          content="추천된 영어이름 보러가기"
           to="/rcmnd"
+          disabled={wait}
           style={{
-            visibility: btnVisiblity,
             marginTop: '10px'
           }}
-        >
-          <span>요정이 추천해준 이름 보러가기</span>
-        </Button>
+        />
       )}
     </>
   );
