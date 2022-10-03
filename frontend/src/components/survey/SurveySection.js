@@ -21,7 +21,7 @@ function SurveySection() {
   // 설문 계산용
   const [cur, setCur] = useState(0);
   const [isLast, setIsLast] = useState(false);
-  const [ramdomNums, setRamdomNums] = useState([11, 12]);
+  const [ramdomNums, setRamdomNums] = useState([10, 11]);
 
   // 최종적으로 보내줄 설문결과
   const [surveyRes, setSurveyRes] = useState({});
@@ -56,11 +56,13 @@ function SurveySection() {
     };
     setSurveyRes({ ...surveyRes, ...newElement });
     console.log(cur);
-    if (cur === N -1) {
+    console.log(surveyRes)
+    if (cur === N - 1) {  
       getName();
     }
     else{
       setCur(cur + 1);
+      
     }
   };
 
@@ -102,7 +104,7 @@ function SurveySection() {
   // 첫 렌더링시 데이터 가져오기
   useEffect(() => {
     getUserInfo();
-    setRamdomNums([...ramdomNums, ...selectIndex(10, 4)]);
+    setRamdomNums([...ramdomNums, ...selectIndex(9, 4)]);
   }, []);
 
   return (
