@@ -6,25 +6,28 @@ function FinTitle({ hometown, username }) {
   return (
     <StyledWrapper>
       <div id="fintitle-container">
+
+        {/* mainstate가 있으면 렌더링 */}
         {hometown.length > 0 ? (
           <WelcomeWrapper>
             Welcome to
             <HomeTownWrapper>{hometown},</HomeTownWrapper>
           </WelcomeWrapper>
         ) : null}
+
         <NameWrapper>
           <div id="fin-username">{username}!</div>
-          {hometown.length > 0 ? (
-            <div id="fin-tts">
-              <TTSBtn
-                id="fin-tts"
-                username={username}
-                hometown={hometown}
-                type="fintitle"
-              />
-            </div>
-          ) : null}
+          {/* TTS */}
+          <div id="fin-tts">
+            <TTSBtn
+              id="fin-tts"
+              username={username}
+              hometown={hometown}
+              type="fintitle"
+            />
+          </div>
         </NameWrapper>
+        
       </div>
     </StyledWrapper>
   );

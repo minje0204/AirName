@@ -2,6 +2,7 @@ import React from 'react';
 import ReportContentItems from './ReportContentItems';
 import styled from 'styled-components';
 
+// FinReport 리포트 내용 순회하는 컴포넌트
 function ReportContent({
   username,
   hometown,
@@ -17,7 +18,6 @@ function ReportContent({
 }) {
   return (
     <ReportContentItemsContainer>
-      
       <ReportContentItems
         username={username}
         hometown={hometown}

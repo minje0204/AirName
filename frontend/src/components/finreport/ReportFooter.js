@@ -3,12 +3,12 @@ import styled from 'styled-components';
 function ReportFooter() {
   return (
     <ReportFooterContainer>
-      <div>
+      <FooterLeft>
         <b>
-          (주)역삼철학관
-          <br />
+        (주)역삼철학관
         </b>
-        <hr />
+        <br />
+        <br />
         김상협 염수홍 윤여빈 전선영 정지은 조민제
         <br />
         서울 강남구 테헤란로 212, 801호
@@ -19,7 +19,10 @@ function ReportFooter() {
         <br />
         사업 제휴 문의 2riing2@gmail.com
         <br />
-      </div>
+      </FooterLeft>
+      <FooterRight> 
+      
+      </FooterRight>
     </ReportFooterContainer>
   );
 }
@@ -27,5 +30,15 @@ function ReportFooter() {
 export default ReportFooter;
 
 const ReportFooterContainer = styled.div`
+  display: flex;
+  justify-content: spacebetween;
+  align-items: center;
   font-size: 13px;
+  @media (max-width: 650px) {
+    font-size: 9px;
+  }
 `;
+
+const FooterLeft = styled.div``
+
+const FooterRight = styled.div``
