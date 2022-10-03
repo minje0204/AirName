@@ -11,6 +11,7 @@ import {
   FormControl
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import LinkButton from 'components/LinkButton';
 import styled from 'styled-components';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
 
@@ -96,6 +97,7 @@ function EntryCardEn() {
             <ValidationTextField
               variant="outlined"
               className="answer"
+              placeholder="한글성명 ex)홍길동"
               inputProps={{
                 maxLength: 7,
                 style: { fontSize: 'clamp(12px,1.3vw,16px)' }
@@ -160,7 +162,11 @@ function EntryCardEn() {
               className="answer"
               placeholder="태어난 해 ex)1995"
               error={birthError}
-              helperText={birthError ? '다시 입력해주세요' : null}
+              helperText={
+                birthError
+                  ? '1940 ~ 2021 사이의 년도를 숫자로 입력해주세요'
+                  : null
+              }
               required
               onChange={(e) => {
                 const birthTmp = e.target.value;
@@ -208,27 +214,24 @@ function EntryCardEn() {
           <ReadOnlyInput q="Nationality" a="Korea" />
         </Container>
       </div>
-
       <div id="btn">
-        {nameKo &&
-        !nameKoError &&
-        gender &&
-        birth &&
-        !birthError &&
-        nameEn &&
-        !nameEnError ? (
-          <button id="send-btn" onClick={sendData}>
-            내 영어 이름 리포트 보러가기
-          </button>
-        ) : (
-          <button
-            id="send-btn"
-            onClick={sendData}
-            style={{ visibility: 'hidden' }}
-          >
-            내 영어 이름 리포트 보러가기
-          </button>
-        )}
+        <LinkButton
+          onClick={sendData}
+          content="내 영어 이름 리포트 보러 바로가기"
+          to="/Loading"
+          disabled={
+            !Boolean(
+              nameKo &&
+                !nameKoError &&
+                gender &&
+                birth &&
+                !birthError &&
+                nameEn &&
+                !nameEnError
+            )
+          }
+          style={{ marginTop: '20px' }}
+        />
       </div>
     </StyledWrapper>
   );
@@ -257,22 +260,10 @@ const StyledWrapper = styled.div`
     #title_b {
       font-size: 17px;
     }
-    .answer {
-      font-size: 17px;
-    }
-    #send-btn {
-      font-size: 12px;
-    }
   }
   @media (min-width: 450px) {
     #title_b {
       font-size: 25px;
-    }
-    .answer {
-      font-size: 20px;
-    }
-    #send-btn {
-      font-size: 20px;
     }
   }
   display: flex;
@@ -314,17 +305,10 @@ const StyledWrapper = styled.div`
     margin: auto 0;
   }
   .answer {
-    font-family: 'Daheng';
     width: 200px;
   }
   #btn {
     display: flex;
     justify-content: center;
-  }
-  #send-btn {
-    background-color: var(--secondaryMain);
-    margin: 20px;
-    padding: 15px;
-    border: 0;
   }
 `;

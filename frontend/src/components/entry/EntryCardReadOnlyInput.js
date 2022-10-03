@@ -23,8 +23,7 @@ const StyledWrapper = styled.div`
     margin: auto 0;
   }
   .answer {
-    font-family: 'Daheng';
-    font-size: 20px;
+    font-size: clamp(12px, 1.3vw, 16px);
     width: 200px;
   }
 `;

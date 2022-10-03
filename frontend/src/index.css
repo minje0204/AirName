@@ -34,10 +34,6 @@ code {
   font-family: 'SCDream7';
   src: url('./fonts/SCDream7.otf');
 }
-@font-face {
-  font-family: 'Daheng';
-  src: url('./fonts/나눔손글씨\ 다행체.ttf');
-}
 /* 기본 폰트 설정 */
 * {
   font-family: 'SCDream4';
