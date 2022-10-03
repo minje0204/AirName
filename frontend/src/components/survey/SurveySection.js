@@ -129,10 +129,10 @@ function SurveySection() {
         <SvyBtbn id="svy-btn" className="shadow" onClick={() => handleClick(2)}>
           {questions[ramdomNums[cur]].answer[2]}
         </SvyBtbn>
-        <LinkButton to="" content="이전" onClick={() => backToPre()}>
-          이전
-        </LinkButton>
+
       </SveyBody>
+      { cur === 0 ? <LinkButton to="" img="" content="이전" disabled={!Boolean(cur)} />: <LinkButton to="" content="이전" onClick={() => backToPre()} />  }
+        
     </SveySectionContainer>
   );
 }
@@ -232,7 +232,7 @@ const SveyBody = styled.div`
   border-radius: 20px;
   width: 100%;
   max-height: 400px;
-  margin-top: 20px;
+  margin: 20px 0px;
 `;
 
 const SvyBtbn = styled.button`
