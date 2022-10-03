@@ -17,6 +17,15 @@ function ReportContentItems({
   femaleYear,
   maleYear
 }) {
+  const isNotZero = (data) => {
+    for (var i = 0; i < data.length; i++) {
+      if (data[i] != 0) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
     <>
       {/* 이름 리포트 시작 */}
@@ -154,9 +163,11 @@ function ReportContentItems({
       ) : null}
 
       {/* 연도별추이 */}
-      {femaleYear.length > 0 || maleYear.length > 0 ? (
+      {(femaleYear.length > 0 && isNotZero(femaleYear)) ||
+      (maleYear.length > 0 && isNotZero(maleYear)) ? (
         <>
           <ContentBox>
+            <h3>📈 같은 이름을 가진 사람들이 얼마나 있을까요?</h3>
             <ReactApexChart
               femaleYear={femaleYear}
               maleYear={maleYear}

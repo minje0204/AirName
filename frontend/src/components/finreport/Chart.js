@@ -5,36 +5,60 @@ export default class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      series: [
-        {
-          name: '여성',
-          data: props.femaleYear
-        },
-        {
-          name: '남성',
-          data: props.maleYear
+    this.series = [];
+    function isNotZero(data) {
+      for (var i = 0; i < data.length; i++) {
+        if (data[i] != 0) {
+          return true;
         }
-      ],
+      }
+      return false;
+    }
 
+    if (props.femaleYear.length > 0 && isNotZero(props.femaleYear)) {
+      this.series.push({
+        name: '여성',
+        data: props.femaleYear
+      });
+    }
+    if (props.maleYear.length > 0 && isNotZero(props.maleYear)) {
+      this.series.push({
+        name: '남성',
+        data: props.maleYear
+      });
+    }
+    this.state = {
       options: {
         chart: {
           zoom: {}
         },
-        dataLabels: {
-          enabled: false
-        },
         stroke: {
           curve: 'straight'
         },
-        colors: ['var(--primaryMain)', 'var(--secondaryMain)']
-
-        // grid: {
-        //   row: {
-        //     colors: ['#f3f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-        //     opacity: 0.5
-        //   }
-        // }
+        tooltip: {
+          x: {
+            show: true,
+            formatter: function (val, opts) {
+              return 1939 + val + '년';
+            }
+          },
+          y: {
+            show: true,
+            formatter: function (val, opts) {
+              return val + '명';
+            }
+          }
+        },
+        colors: ['var(--secondaryMain)', 'var(--primaryMain)'],
+        xaxis: {
+          type: 'category',
+          labels: {
+            formatter: function (value) {
+              return value + 1939;
+            }
+          },
+          tickAmount: 10
+        }
       }
     };
   }
@@ -42,7 +66,7 @@ export default class App extends Component {
     return (
       <ApexCharts
         options={this.state.options}
-        series={this.state.series}
+        series={this.series}
         typs="line"
         height={300}
       />
