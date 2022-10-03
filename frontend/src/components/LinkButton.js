@@ -17,16 +17,18 @@ const LinkButton = ({ content, to, h, w, fs, url, ...props }) => {
         to={to}
         {...props}
       >
-        <img
-          src={url}
-          style={{
-            width: '20px',
-            height: '20px',
-            marginRight: '5px',
-            position: 'relative',
-            top: '1px'
-          }}
-        ></img>
+        {url === true && url.length > 0 ? (
+          <img
+            src={url}
+            style={{
+              width: '20px',
+              height: '20px',
+              marginRight: '5px',
+              position: 'relative',
+              top: '1px'
+            }}
+          ></img>
+        ) : null}
         <span id="content" style={{ fontSize: `${fs ? fs : '14px'}` }}>
           {content}
         </span>
