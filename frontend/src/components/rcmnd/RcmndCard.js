@@ -18,6 +18,7 @@ function RcmndCard() {
         {Object.entries(rcmndNames).map(([k, v]) => (
           <RcmndCardItems key={k} name={k} info={v} birth={birth} />
         ))}
+        {console.log(rcmndNames)}
       </RcmdnCardContainer>
     </>
   );

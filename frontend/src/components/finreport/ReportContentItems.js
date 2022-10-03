@@ -54,7 +54,7 @@ function ReportContentItems({
 
 
       {/* 분위기 발음 유사도 */}
-      {typeof nameInfo === 'object' && Object.keys(nameInfo).length > 0 ? (
+      {/* {typeof nameInfo === 'object' && Object.keys(nameInfo).length > 0 ? (
         <div>
           {nameInfo.type === 'atm' ? (
             <ContentBox>
@@ -82,7 +82,7 @@ function ReportContentItems({
             </ContentBox>
           )}
         </div>
-      ) : null}
+      ) : null} */}
 
 
       {/* 남성주 */}
