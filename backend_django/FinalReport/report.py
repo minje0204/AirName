@@ -41,7 +41,11 @@ def GetReportData(name, birth):
     male = {}
     if (len(doc['female'])!=0) & (len(doc['male'])!=0) :
         female['state'] = maxFemaleStateName
+        female['celebrity'] = doc['female']['celebrity']
+        female['character'] = doc['female']['character']
         male['state'] = maxMaleStateName
+        male['celebrity'] = doc['male']['celebrity']
+        male['character'] = doc['male']['character']
 
         unisex['female'] = female
         unisex['male'] = male
@@ -49,14 +53,23 @@ def GetReportData(name, birth):
         return unisex
     elif (len(doc['female'])==0) & (len(doc['male'])!=0):
         female['state'] = ""
+        female['celebrity'] = ""
+        female['character'] = ""
         male['state'] = maxMaleStateName
+        male['celebrity'] = doc['male']['celebrity']
+        male['character'] = doc['male']['character']
+
         unisex['female'] = female
         unisex['male'] = male
         unisex['meaning'] = doc['meaning']
         return unisex
     elif (len(doc['male'])==0) & (len(doc['female'])!=0):
         female['state'] = maxFemaleStateName
+        female['celebrity'] = doc['female']['celebrity']
+        female['character'] = doc['female']['character']
         male['state'] = ""
+        male['celebrity'] = ""
+        male['character'] = ""
 
         unisex['female'] = female
         unisex['male'] = male
