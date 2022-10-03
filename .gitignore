@@ -1,6 +1,7 @@
 
 
 .idea/
+backend_django/sound
 backend_django/SpeakName/soundfile
 backend_django/SpeakName/statefile
 /DataSet/Processing Data/name_state.csv
