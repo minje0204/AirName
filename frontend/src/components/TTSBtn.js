@@ -5,12 +5,7 @@ import SpeakerImg from '../asset/img/finreport/Speaker.svg';
 import API from '../config';
 
 function TTSBtn({ hometown, username, type }) {
-  const ttsSrc =
-    'https://airname.s3.ap-northeast-2.amazonaws.com/sound/' +
-    JSON.stringify(username).replaceAll('"', '') +
-		'.mp3';
-
-	// const [audioSource, setAudioSource] = useState('');
+	const [audioSource, setAudioSource] = useState('');
 	
 	// const requestAudioFile = async () => {
 
@@ -49,13 +44,7 @@ function TTSBtn({ hometown, username, type }) {
 	// 	return audioContent;
 	// }
 
-
   const audioPlayer = useRef();
-
-	const play = (e) => {
-    e.stopPropagation();
-    audioPlayer.current.play();
-  };
 
   return (
 		<>
@@ -66,8 +55,7 @@ function TTSBtn({ hometown, username, type }) {
       <div>
         <Button
           onClick={(e) => {
-						play(e);
-						// requestAudioFile();
+						requestAudioFile();
           }}
         >
           <SpeakerImgTag src={SpeakerImg} alt="TTSspeaker" />
@@ -76,6 +64,40 @@ function TTSBtn({ hometown, username, type }) {
     </>
   );
 }
+
+//tts file 직접 사용
+// function TTSBtn({ hometown, username, type }) {
+//   const ttsSrc =
+//     'https://airname.s3.ap-northeast-2.amazonaws.com/sound/' +
+//     JSON.stringify(username).replaceAll('"', '') +
+// 		'.mp3';
+
+//   const audioPlayer = useRef();
+
+// 	const play = (e) => {
+//     e.stopPropagation();
+//     audioPlayer.current.play();
+//   };
+
+//   return (
+// 		<>
+//       <audio ref={audioPlayer}>
+// 				<source type="audio/mp3" src={ttsSrc} />
+//         <code>audio</code> element.
+//       </audio>
+//       <div>
+//         <Button
+//           onClick={(e) => {
+// 						play(e);
+// 						// requestAudioFile();
+//           }}
+//         >
+//           <SpeakerImgTag src={SpeakerImg} alt="TTSspeaker" />
+//         </Button>
+//       </div>
+//     </>
+//   );
+// }
 
 export default TTSBtn;
 
