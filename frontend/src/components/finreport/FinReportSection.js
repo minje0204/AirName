@@ -164,8 +164,9 @@ function FinReport() {
             parseFeEnHome={parseFeEnHome}
             isNewName={isNewName}
             nameInfo={nameInfo}
+            mainState={mainState}
           />
-          <UsaMap abState={abState} userName={username} />
+
           <FooterContainer>
             <ReportFooter />
           </FooterContainer>

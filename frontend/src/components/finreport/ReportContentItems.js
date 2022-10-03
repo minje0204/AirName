@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import UsaMap from './UsaMap';
 
 // FinReport 리포트 내용 렌더링하는 컴포넌트 
 function ReportContentItems({
@@ -12,7 +13,8 @@ function ReportContentItems({
   parseFeKoHome,
   parseFeEnHome,
   isNewName,
-  nameInfo
+  nameInfom,
+  mainState
 }) {
   return (
     <>
@@ -152,6 +154,7 @@ function ReportContentItems({
           </ContentBox>
         </>
       ) : null}
+      <UsaMap id="usa-map"abState={mainState} userName={username} />
     </>
   );
 }

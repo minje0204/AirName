@@ -19,10 +19,10 @@ const UsaMap = ({ abState, userName }) => {
     const something = {};
     usa.forEach((state, i) => {
       const { abbreviation, name } = state.attributes;
-      let fill = '#ffffff';
+      let fill = '#8dc7f7';
       let alertString = `Hello ${userName}! this is ${name}`;
       if (abbreviation === abState) {
-        fill = '#21B205';
+        fill = 'red';
         alertString = `Hello ${userName}! ${name} is your state`;
       }
 
@@ -52,4 +52,6 @@ const StyledWrapper = styled.div`
     opacity: 0.5;
     cursor: pointer;
   }
+  width: 100%;
+  opacity: 20%;
 `;
