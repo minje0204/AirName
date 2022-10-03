@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
+import LinkButton from 'components/LinkButton';
 
 // 홈으로 돌아가기, 카카오톡 버튼 컴포넌트
 function FinBtns({ username, birth }) {
@@ -64,25 +65,14 @@ function FinBtns({ username, birth }) {
         </IconButton>
       </FinBtnsWrapper>
       <FinBtnsWrapper>
-        <IconButton
+        <LinkButton
+          content="링크 복사"
+          to=""
+          url="/Linkcopy.png"
           onClick={() =>
-            copyClipBoard(`https://airname.shop/finreport/${username}`)
+            copyClipBoard(`https://airname.shop/finreport/${username}/${birth}`)
           }
-        >
-          <img
-            src="/Linkcopy.png"
-            id="img-save-btn"
-            style={{
-              width: '20px',
-              height: '20px',
-              marginRight: '5px',
-              marginBottom: '5px',
-              position: 'relative',
-              top: '1px'
-            }}
-          />
-          링크복사
-        </IconButton>
+        ></LinkButton>
       </FinBtnsWrapper>
     </StyledWrapper>
   );
