@@ -3,12 +3,21 @@ import QRImg from '../../asset/img/finreport/QRImg.png';
 import Barcode from '../../asset/img/finreport/Barcode.png';
 import Airplane from '../../asset/img/finreport/Airplane.png';
 import TicketHeadAirplane from '../../asset/img/finreport/TicketHeadAirplane.png';
+import React from 'react';
+import domtoimage from 'dom-to-image';
+import { saveAs } from 'file-saver';
 
 function MyCard({ username, hometown }) {
+  const onDownloadBtn = () => {
+    domtoimage.toBlob(document.querySelector('.card')).then((blob) => {
+      saveAs(blob, 'card.png');
+    });
+  };
+
   return (
-    <TicketWrapper>
+    <TicketWrapper className="card" onClick={onDownloadBtn}>
       <TicketHead>
-        <TicketLeftHead >
+        <TicketLeftHead>
           <img id="head-img" src={TicketHeadAirplane} />
           AIR NAME TICKET
         </TicketLeftHead>
@@ -128,7 +137,6 @@ const TicketRightHead = styled.div`
     font-size: 5px;
     border-left: 0.3px dashed black;
   }
-
 `;
 
 const TicketLeft = styled.div`
@@ -229,7 +237,7 @@ const BarcodeContainer = styled.div`
   margin-top: 20px;
   @media (max-width: 650px) {
     margin-top: 0px;
-    #barcode-img{
+    #barcode-img {
       width: 80px;
     }
   }
@@ -274,5 +282,4 @@ const QR = styled.div`
       width: 30px;
     }
   }
-
 `;

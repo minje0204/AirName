@@ -19,14 +19,21 @@ function FinBtns({ username }) {
       }
     });
   };
+  const copyClipBoard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+
+      alert('복사 성공!');
+    } catch (error) {
+      alert('복사 실패!');
+    }
+  };
 
   return (
     <StyledWrapper>
       <FinBtnsWrapper>
         <Link to={'/'}>
-          <button id="img-save-btn">
-            🏠홈으로 돌아가기
-          </button>
+          <button id="img-save-btn">🏠홈으로 돌아가기</button>
         </Link>
       </FinBtnsWrapper>
       <FinBtnsWrapper>
@@ -48,6 +55,15 @@ function FinBtns({ username }) {
           />
           공유하기
         </IconButton>
+        <FinBtnsWrapper>
+          <IconButton
+            onClick={() =>
+              copyClipBoard(`https://airname.shop/finreport/${username}`)
+            }
+          >
+            링크복사
+          </IconButton>
+        </FinBtnsWrapper>
       </FinBtnsWrapper>
     </StyledWrapper>
   ); //255,235,0
