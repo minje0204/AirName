@@ -6,7 +6,6 @@ import styled from 'styled-components';
 const LinkButton = ({ content, to, h, w, fs, url, ...props }) => {
   return (
     <BtnStyle>
-      {console.log(url)}
       <Button
         variant="contained"
         sx={{

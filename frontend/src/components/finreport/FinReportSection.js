@@ -102,7 +102,7 @@ function FinReport() {
     axios
       .get(`${API.FINREPORT}/${username}/${birth}`)
       .then((res) => {
-        saveData(res).then(calcMainState());
+        saveData(res)
         setIsNewName(false);
       })
       .catch(setIsNewName(true));
@@ -126,6 +126,7 @@ function FinReport() {
     setEnHomeTown();
     setKoHomeTown();
     setEnMainState();
+    calcMainState();
     if (femaleState !== '') {
       setAbState(femaleState);
     } else if (maleState !== '') {
