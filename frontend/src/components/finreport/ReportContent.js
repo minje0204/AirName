@@ -16,7 +16,8 @@ function ReportContent({
   isNewName,
   nameInfo,
   femaleYear,
-  maleYear
+  maleYear,
+  mainState
 }) {
   return (
     <ReportContentItemsContainer>
@@ -32,6 +33,7 @@ function ReportContent({
         parseFeEnHome={parseFeEnHome}
         isNewName={isNewName}
         nameInfo={nameInfo}
+        mainState={mainState}
         femaleYear={femaleYear}
         maleYear={maleYear}
       ></ReportContentItems>

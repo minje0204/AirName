@@ -9,7 +9,6 @@ import FinTitle from '../finreport/FinTitle';
 import MyCard from '../finreport/MyCard';
 import ReportContent from '../finreport/ReportContent';
 import ReportFooter from 'components/finreport/ReportFooter';
-import UsaMap from './UsaMap';
 
 //데이터
 import HomeTownEn from '../finreport/HomeTownEn';
@@ -41,7 +40,6 @@ function FinReport() {
   const [parseFeEnHome, setParseFeEnHome] = useState('');
   const [parseFeKoHome, setParseFeKoHome] = useState('');
   const [parseEnMainState, setParseEnMainState] = useState('');
-  const [abState, setAbState] = useState();
 
   // 영어 이름으로 치환
   const setEnHomeTown = () => {
@@ -148,11 +146,6 @@ function FinReport() {
     setKoHomeTown();
     setEnMainState();
     calcMainState();
-    if (femaleState !== '') {
-      setAbState(femaleState);
-    } else if (maleState !== '') {
-      setAbState(maleState);
-    }
   }, [femaleState, maleState, mainState]);
 
   // birth 들어오면 getRepordata get요청
@@ -188,8 +181,9 @@ function FinReport() {
             nameInfo={nameInfo}
             femaleYear={femaleYear}
             maleYear={maleYear}
+            mainState={mainState}
           />
-          <UsaMap abState={abState} userName={username} />
+
           <FooterContainer>
             <ReportFooter />
           </FooterContainer>

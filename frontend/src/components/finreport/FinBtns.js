@@ -40,9 +40,20 @@ function FinBtns({ username, birth }) {
   return (
     <StyledWrapper>
       <FinBtnsWrapper>
-        <Link to={'/'}>
-          <button id="img-save-btn">🏠홈으로 돌아가기</button>
-        </Link>
+        <LinkButton
+          content="다시하기"
+          to="/"
+        ></LinkButton>
+      </FinBtnsWrapper>
+      <FinBtnsWrapper>
+        <LinkButton
+          content="링크 복사"
+          to=""
+          url="/Linkcopy.png"
+          onClick={() =>
+            copyClipBoard(`https://airname.shop/finreport/${username}/${birth}`)
+          }
+        ></LinkButton>
       </FinBtnsWrapper>
       <FinBtnsWrapper>
         <IconButton
@@ -64,16 +75,7 @@ function FinBtns({ username, birth }) {
           공유하기
         </IconButton>
       </FinBtnsWrapper>
-      <FinBtnsWrapper>
-        <LinkButton
-          content="링크 복사"
-          to=""
-          url="/Linkcopy.png"
-          onClick={() =>
-            copyClipBoard(`https://airname.shop/finreport/${username}/${birth}`)
-          }
-        ></LinkButton>
-      </FinBtnsWrapper>
+
     </StyledWrapper>
   );
 }

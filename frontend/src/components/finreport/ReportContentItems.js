@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import ReactApexChart from './Chart';
 
+import UsaMap from './UsaMap';
+
 // FinReport 리포트 내용 렌더링하는 컴포넌트
 function ReportContentItems({
   username,
@@ -13,6 +15,7 @@ function ReportContentItems({
   parseFeKoHome,
   parseFeEnHome,
   isNewName,
+  mainState,
   nameInfo,
   femaleYear,
   maleYear
@@ -96,7 +99,46 @@ function ReportContentItems({
         </div>
       ) : null} */}
 
-      {/* 남성주 */}
+      {/* 연도별 추이 */}
+      {(femaleYear.length > 0 && isNotZero(femaleYear)) ||
+      (maleYear.length > 0 && isNotZero(maleYear)) ? (
+        <>
+          <ContentBox>
+            <h3>📈 같은 이름을 가진 사람들이 얼마나 있을까요?</h3>
+            <ReactApexChart
+              femaleYear={femaleYear}
+              maleYear={maleYear}
+            ></ReactApexChart>
+          </ContentBox>
+        </>
+      ) : null}
+
+      {/* 이름 뜻 */}
+      {meaning.length > 0 ? (
+        <>
+          <ContentBox>
+            <h3>⚡ 이름의 뜻은 {meaning.join(', ')} 😎!</h3>
+            {username}, 당신이 선택한 이름은{' '}
+            {meaning.map((mean) => (
+              <a
+                href={`https://papago.naver.com/?sk=en&tk=ko&hn=0&st=${mean}`}
+                target="_self"
+                className="meaning-dict-link"
+                key={mean}
+              >
+                <b>{mean}</b>
+              </a>
+            ))}
+            이라는 {meaning.length}개의 뜻을 가지고 있어요!
+            <br />
+            <br />
+            이름에 대한 뜻이 조금 생소하다면, 파란색 글씨로 변한 이름 뜻을
+            클릭해보세요. 네이버 파파고가 도와줄거에요!
+          </ContentBox>
+        </>
+      ) : null}
+
+      {/* 남성 주 */}
       {maleState.length > 0 ? (
         <ContentBox>
           <h3>🏡🙍‍♂️ 남성 명예 고향은 {parseEnHome}!</h3>
@@ -137,43 +179,12 @@ function ReportContentItems({
         </ContentBox>
       ) : null}
 
-      {/* 이름뜻 */}
-      {meaning.length > 0 ? (
-        <>
-          <ContentBox>
-            <h3>⚡ 이름의 뜻은 {meaning.join(', ')} 😎!</h3>
-            {username}, 당신이 선택한 이름은{' '}
-            {meaning.map((mean) => (
-              <a
-                href={`https://papago.naver.com/?sk=en&tk=ko&hn=0&st=${mean}`}
-                target="_self"
-                className="meaning-dict-link"
-                key={mean}
-              >
-                <b>{mean}</b>
-              </a>
-            ))}
-            이라는 {meaning.length}개의 뜻을 가지고 있어요!
-            <br />
-            <br />
-            이름에 대한 뜻이 조금 생소하다면, 파란색 글씨로 변한 이름 뜻을
-            클릭해보세요. 네이버 파파고가 도와줄거에요!
-          </ContentBox>
-        </>
-      ) : null}
-
-      {/* 연도별추이 */}
-      {(femaleYear.length > 0 && isNotZero(femaleYear)) ||
-      (maleYear.length > 0 && isNotZero(maleYear)) ? (
-        <>
-          <ContentBox>
-            <h3>📈 같은 이름을 가진 사람들이 얼마나 있을까요?</h3>
-            <ReactApexChart
-              femaleYear={femaleYear}
-              maleYear={maleYear}
-            ></ReactApexChart>
-          </ContentBox>
-        </>
+      {/* 미국 지도 */}
+      {mainState.length > 0 ? (
+        <ContentBox>
+          <h3>🚩 {parseFeEnHome}의 위치</h3>
+          <UsaMap id="usa-map" abState={mainState} userName={username} />
+        </ContentBox>
       ) : null}
     </>
   );

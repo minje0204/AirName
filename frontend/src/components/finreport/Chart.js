@@ -57,7 +57,10 @@ export default class App extends Component {
               return value + 1939;
             }
           },
-          tickAmount: 10
+          tickAmount: 4
+        },
+        yaxis: {
+          tickAmount: 5
         }
       }
     };
@@ -68,7 +71,7 @@ export default class App extends Component {
         options={this.state.options}
         series={this.series}
         typs="line"
-        height={300}
+        height="100%"
       />
     );
   }
