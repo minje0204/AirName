@@ -51,18 +51,20 @@ function SurveySection() {
     };
     setSurveyRes({ ...surveyRes, ...newElement });
     if (cur < 5) setCur(cur + 1);
+    if (isLast === true) {getName()}
   };
 
+  // 이전으로 돌아가는 버튼
   const backToPre = () => {
     if (cur > 0) {
+      if (Object.entries(surveyRes).length === 6) setIsLast(false);
       const key = questions[ramdomNums[cur-1]].answerKey
-      setSurveyRes(delete surveyRes[key])
+      delete surveyRes[key]
       setCur(cur - 1)
     }
-
   } 
 
-  // 중복없는 랜덤 뽑아내는 함수
+  // 중복없는 랜덤 뽑아내는
   const selectIndex = (totalIndex, selectingNumber) => {
     let randomIndexArray = [];
     for (let i = 0; i < selectingNumber; i++) {
@@ -83,6 +85,10 @@ function SurveySection() {
 
   // isLast가 true가 되면, sendSurvey
   useEffect(() => {
+  }, [isLast]);
+
+  
+  const getName = () => {
     if (isLast) {
       const data = {
         name: nameKo,
@@ -90,11 +96,10 @@ function SurveySection() {
         birth: birth,
         attr: surveyRes
       };
-      console.log(surveyRes);
       sendSurveyGetName(data);
       navigate('/loading');
     }
-  }, [isLast]);
+  }
 
   // 첫 렌더링시 데이터 가져오기
   useEffect(() => {
