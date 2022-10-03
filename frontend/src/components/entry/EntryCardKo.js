@@ -1,61 +1,256 @@
-import React, { useState } from 'react';
-import { Container, TextField } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import {
+  Container,
+  TextField,
+  // Button,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import LinkButton from 'components/LinkButton';
 import styled from 'styled-components';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
-import SubmitBtn from './EntryCardBtn';
+
+// import postAxios from '../../lib/postAxios';
+import API from '../../config';
+
+const ValidationTextField = styled(TextField)({
+  '& input:invalid + fieldset': {
+    borderColor: 'gray',
+    borderWidth: 1
+  },
+  '& input:valid + fieldset': {
+    borderColor: 'green',
+    borderWidth: 2
+  }
+});
 
 function EntryCardKo() {
-  const [name, setName] = useState('');
+  const [nameKo, setNameKo] = useState('');
+  const [nameKoError, setNameKoError] = useState(false);
+  const [nameKoErrorMsg, setNameKoErrorMsg] = useState('');
+  const [gender, setGender] = useState('');
   const [birth, setBirth] = useState('');
+  const birthCheck = /^(19|20)\d{2}/;
+  const [birthError, setBirthError] = useState(false);
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  const navigate = useNavigate();
+  // const [isSoundError, setisSoundError] = useState(false);
+
+  const linkToSurvey = () => {
+    navigate('/survey');
+  };
+
+  const saveToStorage = (localdata) => {
+    console.log(localdata);
+    localStorage.setItem('nameKo', nameKo);
+    localStorage.removeItem('username');
+    localStorage.setItem('birth', birth);
+    localStorage.setItem('gender', gender);
+  };
+
+  const sendData = async () => {
+    const data = { name: nameKo, gender: gender, birth: birth };
+    console.log(data);
+    saveToStorage(data);
+    // axios
+    //   .post(`${API.ENTRY}`, data)
+    //   .then((res) => {
+    //     console.log(res)
+    //     saveToStorage(JSON.stringify(res.data));
+    //   })
+    //   .catch((err) => {
+    //     if (err.message = "Request failed with status code 500"){
+    //       console.log('500번 에러 ! ')
+    //     }
+    //   });
+    linkToSurvey();
+  };
+
+  const checkNameKo = async (nameKoTmp) => {
+    axios
+      .get(`${API.NAMECHECK}/${nameKoTmp}`)
+      .then((res) => {
+        const checkResult = JSON.parse(res.data);
+        if (checkResult.check === false || nameKoTmp.length < 2) {
+          setNameKoError(true);
+          setNameKoErrorMsg(checkResult.msg);
+        } else {
+          setNameKo(nameKoTmp);
+          setNameKoError(false);
+          setNameKoErrorMsg('');
+        }
+      })
+      .catch(() => {
+        setNameKoError(true);
+        setNameKoErrorMsg('다시 입력해주세요');
+      });
+  };
+
+  // useEffect(() => {
+  //   if(isError)
+  // }, [isSoundError]);
+
   return (
     <StyledWrapper>
       <div id="card">
-        <Container sx={{ bgcolor: '#F9AD33', height: '100px' }}>
+        <Container sx={{ bgcolor: 'var(--secondaryMain)', height: '100px' }}>
           <div id="title">
             <div>THE UNITED STATES OF AMERICA</div>
             <div id="title_b">ARRIVAL CARD</div>
           </div>
         </Container>
         <Container id="content" sx={{ bgcolor: '#F9F7F4', height: '60vh' }}>
-          <div className="qAndA">
-            <div className="question">Name</div>
-            <TextField
+          <div className="qAndA custom-input">
+            <div className="question to-move">Korean Name</div>
+            <ValidationTextField
               variant="outlined"
-              color="warning"
-              placeholder="한국어로 이름을 입력해주세요"
-              id="answer"
+              className="answer"
+              placeholder="한글성명 ex)홍길동"
+              inputProps={{
+                maxLength: 7,
+                style: { fontSize: 'clamp(12px,1.3vw,16px)' }
+              }}
+              error={nameKoError}
+              helperText={nameKoError ? nameKoErrorMsg : null}
+              required
               onChange={(e) => {
-                setName(e.target.value);
+                const nameKoTmp = e.target.value;
+                checkNameKo(nameKoTmp);
               }}
             />
           </div>
           <div className="qAndA">
-            <div className="question">Birth</div>
-            <TextField
+            <div className="question">Gender</div>
+            <FormControl className="answer">
+              <RadioGroup
+                aria-labelledby="demo-controlled-radio-buttons-group"
+                name="controlled-radio-buttons-group"
+                value={gender}
+                onChange={(event) => {
+                  setGender(event.target.value);
+                }}
+              >
+                <FormControlLabel
+                  value="M"
+                  control={
+                    <Radio
+                      sx={{ '&.Mui-checked': { '&': { color: 'green' } } }}
+                    />
+                  }
+                  label={
+                    <span style={{ fontSize: 'clamp(12px,1.5vw,16px)' }}>
+                      Male
+                    </span>
+                  }
+                />
+                <FormControlLabel
+                  value="F"
+                  control={
+                    <Radio
+                      sx={{ '&.Mui-checked': { '&': { color: 'green' } } }}
+                    />
+                  }
+                  label={
+                    <span style={{ fontSize: 'clamp(12px,1.5vw,16px)' }}>
+                      Female
+                    </span>
+                  }
+                />
+              </RadioGroup>
+            </FormControl>
+          </div>
+          <div className="qAndA custom-input">
+            <div className="question to-move">Birth Year</div>
+            <ValidationTextField
               variant="outlined"
-              color="warning"
-              placeholder="생년월일 8자리를 입력해주세요"
-              id="answer"
+              inputProps={{
+                maxLength: 4,
+                style: { fontSize: 'clamp(12px,1.5vw,16px)' }
+              }}
+              className="answer"
+              placeholder="태어난 해 ex)1995"
+              error={birthError}
+              helperText={
+                birthError
+                  ? '1940 ~ 2021 사이의 년도를 숫자로 입력해주세요.'
+                  : null
+              }
+              required
               onChange={(e) => {
-                setBirth(e.target.value);
+                const birthTmp = e.target.value;
+                if (
+                  !birthCheck.test(birthTmp) ||
+                  birthTmp.length < 4 ||
+                  Number(birthTmp) < 1940 ||
+                  Number(birthTmp) > 2021
+                ) {
+                  setBirthError(true);
+                } else {
+                  setBirth(birthTmp);
+                  setBirthError(false);
+                }
               }}
             />
           </div>
-          <ReadOnlyInput q="English Name" a="" />
+          <ReadOnlyInput q="English Name" a=" " />
           <ReadOnlyInput q="Airline No." a="AIR NAME A108" />
           <ReadOnlyInput q="Nationality" a="Korea" />
         </Container>
       </div>
-      <div id="btn">{name && birth.length === 8 ? <SubmitBtn /> : null}</div>
+      <div id="btn">
+        <LinkButton
+          onClick={sendData}
+          content="나와 맞는 영어 이름 찾으러 바로가기"
+          to="/survey"
+          disabled={
+            !Boolean(nameKo && !nameKoError && gender && birth && !birthError)
+          }
+          style={{ marginTop: '20px' }}
+        />
+      </div>
     </StyledWrapper>
   );
 }
 
 export default EntryCardKo;
 
+// function SubmitBtn() {
+//   return (
+//     <Button
+//       variant="contained"
+//       color="warning"
+//       size="large"
+//       component={Link}
+//       to="/survey"
+//       sx={{ margin: '10px' }}
+//     >
+//       <span style={{ fontSize: '20px' }}>영어 이름이 없는데 어떡하지?</span>
+//     </Button>
+//   );
+// }
+
 const StyledWrapper = styled.div`
+  @media (max-width: 450px) {
+    font-size: 15px;
+    #title_b {
+      font-size: 17px;
+    }
+  }
+  @media (min-width: 450px) {
+    #title_b {
+      font-size: 25px;
+    }
+  }
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   #card {
-    width: 500px;
+    width: 100%;
   }
   #title {
     display: flex;
@@ -65,27 +260,34 @@ const StyledWrapper = styled.div`
   }
   #title_b {
     font-family: 'SCDream7';
-    font-size: 25px;
   }
   #content {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    height: 450px;
   }
   .qAndA {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
   }
+  .qAndA.custom-input {
+    height: 79px !important;
+  }
+  .qAndA .to-move {
+    top: -12px;
+    position: relative;
+  }
   .question {
     width: 150px;
     margin: auto 0;
   }
-  #answer {
-    font-family: 'Daheng';
+  .answer {
     width: 200px;
   }
   #btn {
-    float: right;
+    display: flex;
+    justify-content: center;
   }
 `;

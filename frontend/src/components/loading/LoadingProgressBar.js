@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
+import styled from 'styled-components';
 import LoadBtn from './LoadingCompleteBtn';
 
 export default function ProgressBar() {
@@ -13,22 +14,35 @@ export default function ProgressBar() {
         if (oldProgress === 100) {
           setIsFull(1);
         }
+        if (
+          localStorage.getItem('rcmndNames') ||
+          localStorage.getItem('username')
+        ) {
+          setProgress(100);
+          setIsFull(1);
+        }
         const diff = Math.random() * 10;
         return Math.min(oldProgress + diff, 100);
       });
-    }, 500);
+    }, 300);
     return () => {
       clearInterval(timer);
     };
   }, []);
 
   return (
-    <Box>
-      {isFull === 1 ? (
-        <LoadBtn id="loadBtn" />
-      ) : (
+    <div>
+      <Box id="wait" sx={{ margin: '10px' }}>
         <LinearProgress variant="determinate" value={progress} />
-      )}
-    </Box>
+        <StyledWrapper>
+          {isFull === 1 ? <LoadBtn wait={false} /> : <LoadBtn wait={true} />}
+        </StyledWrapper>
+      </Box>
+    </div>
   );
 }
+
+const StyledWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;

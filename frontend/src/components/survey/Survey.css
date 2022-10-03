@@ -1,6 +1,6 @@
 .speech-bubble {
 	position: relative;
-	background: #c8dace;
+	background: rgb(191, 226, 240);
 	border-radius: .4em;
 }
 
@@ -12,9 +12,24 @@
 	width: 0;
 	height: 0;
 	border: 26px solid transparent;
-	border-right-color: #c8dace;
+	border-right-color: rgb(191, 226, 240);
+	border-right-color: rgb(239, 237, 237, 20);
 	border-left: 0;
 	border-bottom: 0;
 	margin-top: -13px;
 	margin-left: -26px;
+	
+}
+
+#svy-btn:active{
+	border-color:  var(--primaryLight);
+	background-color:  var(--primaryLight);
+}
+
+@media (min-width: 650px) {
+	#svy-btn:hover { 
+		cursor: pointer;
+    background-color: rgb(239, 237, 237, 0.4);
+    border-color:  var(--primaryMain);
+	}
 }

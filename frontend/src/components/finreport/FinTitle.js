@@ -1,18 +1,33 @@
-import React from 'react';
 import styled from 'styled-components';
-import TTSBtn from './TTSBtn';
+import TTSBtn from '../TTSBtn';
+// import {isDesktop} from 'react-device-detect';
 
-function FinTitle(props) {
+function FinTitle({ hometown, username }) {
   return (
     <StyledWrapper>
       <div id="fintitle-container">
-        <WelcomeWrapper>
-          Welcome to<HomeTownWrapper>{props.hometown}</HomeTownWrapper>,
-        </WelcomeWrapper>
+
+        {/* mainstate가 있으면 렌더링 */}
+        {hometown.length > 0 ? (
+          <WelcomeWrapper>
+            Welcome to
+            <HomeTownWrapper>{hometown},</HomeTownWrapper>
+          </WelcomeWrapper>
+        ) : null}
+
         <NameWrapper>
-          {props.username}!
-          <TTSBtn username={props.username} hometown={props.hometown} />
+          <div id="fin-username">{username}!</div>
+          {/* TTS */}
+          <div id="fin-tts">
+            <TTSBtn
+              id="fin-tts"
+              username={username}
+              hometown={hometown}
+              type="fintitle"
+            />
+          </div>
         </NameWrapper>
+        
       </div>
     </StyledWrapper>
   );
@@ -25,25 +40,38 @@ const StyledWrapper = styled.div`
   color: black;
 `;
 
-const NameWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  color: black;
-  font-size: 90px;
-  font-weight: bold;
-`;
-
 const WelcomeWrapper = styled.div`
   display: flex;
   justify-content: center;
-  color: black;
   font-size: 40px;
+  @media (max-width: 650px) {
+    font-size: 20px;
+  }
+`;
+
+const NameWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 80px;
+  font-weight: bold;
+  #fin-username {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #fin-tts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @media (max-width: 650px) {
+    font-size: 30px;
+  }
 `;
 
 const HomeTownWrapper = styled.div`
   display: flex;
   justify-content: center;
-  color: black;
-  font-size: 40px;
   margin-left: 10px;
 `;

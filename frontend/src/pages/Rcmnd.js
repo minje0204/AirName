@@ -3,23 +3,34 @@ import styled from 'styled-components';
 import RcmndGuide from '../components/rcmnd/RcmndGuide';
 import RcmndCard from '../components/rcmnd/RcmndCard';
 
+
 function Rcmnd() {
-  const names = ['Tommy', 'Lisa', 'Sally', 'Jimmy'];
   return (
-    <div>
-      <RcmndGuide names={names} />
-      <RcmndBody>
+    <RcmndContainer>
+      <RcmndGuideContainer>
+        <RcmndGuide />
+      </RcmndGuideContainer>
+      <RcmndCardContainer>
         <RcmndCard />
-      </RcmndBody>
-    </div>
+      </RcmndCardContainer>
+    </RcmndContainer>
   );
 }
 
 export default Rcmnd;
 
-const RcmndBody = styled.div`
+const RcmndContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 30px;
+  width: 1300px;
+
+  @media (max-width: 650px) {
+    width: 700px;
+
+  }
 `;
+const RcmndGuideContainer = styled.div``;
+
+const RcmndCardContainer = styled.div``;

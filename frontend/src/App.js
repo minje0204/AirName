@@ -10,8 +10,10 @@ import {
   Loading,
   NameCard,
   Rcmnd,
-  Survey
+  Survey,
+  Error404
 } from './pages';
+import FeedbackBtn from './components/feedback';
 import theme from './theme';
 
 function App() {
@@ -26,9 +28,11 @@ function App() {
           <Route path="/loading" element={<Loading />} />
           <Route path="/rcmnd" element={<Rcmnd />} />
           <Route path="/namecard" element={<NameCard />} />
-          <Route path="/finreport" element={<FinReport />} />
+          <Route path="/finreport/:username/:birth" element={<FinReport />} />
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
+      <FeedbackBtn />
     </ThemeProvider>
   );
 }

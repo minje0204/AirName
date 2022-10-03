@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import AirplaneWindow from '../components/home/AirplaneWindow';
 import StartBtn from '../components/home/StartBtn';
@@ -24,7 +23,7 @@ function Home() {
           <div>
             <StartBtn
               title="내 이름 레포트 보기"
-              subtitle="이미 영어 이름이 있어요 ! 🙆‍♂️ "
+              subtitle="이미 영어 이름이 있어요 ! 🙆‍♂️"
               to="/entry-en"
             />
           </div>
