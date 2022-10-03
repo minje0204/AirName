@@ -4,3 +4,7 @@
 backend_django/SpeakName/soundfile
 /DataSet/Processing Data/name_state.csv
 /DataSet/Processing Data/.ipynb_checkpoints
+
+*.json
+
+DataSet/Processing Data/name_state.xls
