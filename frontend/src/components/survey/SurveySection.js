@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import Fairly from '../../asset/img/survey/Fairy.svg';
 import './Survey.css';
 
+//컴포넌트
+import LinkButton from 'components/LinkButton';
+
 import questions from './Question';
 import API from '../../config';
 
@@ -50,6 +53,16 @@ function SurveySection() {
     if (cur < 5) setCur(cur + 1);
   };
 
+  const backToPre = () => {
+    if (cur > 0) {
+      const key = questions[ramdomNums[cur-1]].answerKey
+      setSurveyRes(delete surveyRes[key])
+      setCur(cur - 1)
+    }
+
+  } 
+
+  // 중복없는 랜덤 뽑아내는 함수
   const selectIndex = (totalIndex, selectingNumber) => {
     let randomIndexArray = [];
     for (let i = 0; i < selectingNumber; i++) {
@@ -71,14 +84,13 @@ function SurveySection() {
   // isLast가 true가 되면, sendSurvey
   useEffect(() => {
     if (isLast) {
-      console.log(surveyRes);
       const data = {
         name: nameKo,
         gender: gender,
         birth: birth,
         attr: surveyRes
       };
-      console.log(data);
+      console.log(surveyRes);
       sendSurveyGetName(data);
       navigate('/loading');
     }
@@ -110,7 +122,7 @@ function SurveySection() {
         <SvyBtbn id="svy-btn" className="shadow" onClick={() => handleClick(2)}>
           {questions[ramdomNums[cur]].answer[2]}
         </SvyBtbn>
-        <button>이전</button>
+        <LinkButton to="" content="이전" onClick={() => backToPre()}>이전</LinkButton>
       </SveyBody>
     </SveySectionContainer>
   );
