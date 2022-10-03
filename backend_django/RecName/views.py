@@ -46,7 +46,7 @@ class CheckName(APIView):
         #이름이 검색할 때 유효한 이름인지 판단
 
         name = kwargs['name']
-        result = CheckingRoman(name, CheckingKorean(name))
+        result = CheckingRoman(name, CheckingKorean(name), CheckingLength(name))
 
         data = json.dumps(result)
 

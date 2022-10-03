@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
 import {
   Container,
   TextField,
@@ -11,6 +10,7 @@ import {
   FormControl
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import LinkButton from 'components/LinkButton';
 import styled from 'styled-components';
 import ReadOnlyInput from './EntryCardReadOnlyInput';
 
@@ -36,6 +36,7 @@ function EntryCardKo() {
   const [birth, setBirth] = useState('');
   const birthCheck = /^(19|20)\d{2}/;
   const [birthError, setBirthError] = useState(false);
+  const [btnDisabled, setBtnDisabled] = useState(true);
   const navigate = useNavigate();
   // const [isSoundError, setisSoundError] = useState(false);
 
@@ -108,6 +109,7 @@ function EntryCardKo() {
             <ValidationTextField
               variant="outlined"
               className="answer"
+              placeholder="한글성명 ex)홍길동"
               inputProps={{
                 maxLength: 7,
                 style: { fontSize: 'clamp(12px,1.3vw,16px)' }
@@ -172,7 +174,11 @@ function EntryCardKo() {
               className="answer"
               placeholder="태어난 해 ex)1995"
               error={birthError}
-              helperText={birthError ? '다시 입력해주세요' : null}
+              helperText={
+                birthError
+                  ? '1940 ~ 2021 사이의 년도를 숫자로 입력해주세요.'
+                  : null
+              }
               required
               onChange={(e) => {
                 const birthTmp = e.target.value;
@@ -196,19 +202,15 @@ function EntryCardKo() {
         </Container>
       </div>
       <div id="btn">
-        {nameKo && !nameKoError && gender && birth && !birthError ? (
-          <button id="send-btn" onClick={sendData}>
-            영어 이름이 없는데 어떡하지?
-          </button>
-        ) : (
-          <button
-            id="send-btn"
-            onClick={sendData}
-            style={{ visibility: 'hidden' }}
-          >
-            영어 이름이 없는데 어떡하지?
-          </button>
-        )}
+        <LinkButton
+          onClick={sendData}
+          content="나와 맞는 영어 이름 찾으러 바로가기"
+          to="/survey"
+          disabled={
+            !Boolean(nameKo && !nameKoError && gender && birth && !birthError)
+          }
+          style={{ marginTop: '20px' }}
+        />
       </div>
     </StyledWrapper>
   );
@@ -237,22 +239,10 @@ const StyledWrapper = styled.div`
     #title_b {
       font-size: 17px;
     }
-    .answer {
-      font-size: 17px;
-    }
-    #send-btn {
-      font-size: 12px;
-    }
   }
   @media (min-width: 450px) {
     #title_b {
       font-size: 25px;
-    }
-    .answer {
-      font-size: 20px;
-    }
-    #send-btn {
-      font-size: 20px;
     }
   }
   display: flex;
@@ -294,18 +284,10 @@ const StyledWrapper = styled.div`
     margin: auto 0;
   }
   .answer {
-    font-family: 'Daheng';
     width: 200px;
   }
   #btn {
     display: flex;
     justify-content: center;
-  }
-  #send-btn {
-    background-color: var(--secondaryMain);
-    margin: 20px;
-    padding: 15px;
-    border: 0;
-    color: black;
   }
 `;
