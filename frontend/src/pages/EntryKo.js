@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import EntryCardKo from '../components/entry/EntryCardKo';
 
 function EntryKo() {
+  localStorage.removeItem('rcmndNames');
   return (
     <StyledWrapper>
       <div>
@@ -19,6 +20,6 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   @media (max-width: 650px) {
-    width:  95vw;
+    width: 95vw;
   }
 `;

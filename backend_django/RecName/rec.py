@@ -48,7 +48,7 @@ def JaroDistance(data, name):
     sim = jellyfish.jaro_distance(data,NysCode)
     return sim
 
-def Filter(dataframes, gender, year):
+def Filter(dataframes, gender, year, rarity):
     #성별 필터
     #설문조사에서 응답한 값에 따라 데이터셋 자체에서 필터링
     if gender == 'M':
@@ -56,16 +56,38 @@ def Filter(dataframes, gender, year):
     elif gender == 'F':
         dataframes = dataframes[(dataframes['gender']=='F') | (dataframes['gender']=='U')]
 
-    #연령대 필터
-    #같은 년도에서 사용빈도가 적으면 가중치 떨어지도록 설정
+    #희귀도 필터
+    #입력 연도에 대해
 
     #연도 데이터프레임 불러옴
     db = ConnectMongoDB()
     year_data = LoadDataframes(db, 'yearname')
-    # data = data.sort_values(year,ascending=False)
-    # print(data)
+
+    global year_length
+    year_length = len(year_data)
+    year_dataframes = year_data.sort_values(str(year),ascending=False)
+
+    year_dataframes.reset_index(drop=True, inplace=True)
+    year_dataframes_modify = year_dataframes.rename_axis('rank').reset_index()
+
+    year_dataframes_modify['rarity'] = year_dataframes_modify['rank'].apply(NameRarity)
+
+    #기존 dataframes에 rarity값을 합치도록 inner merge
+    dataframes = pd.merge(dataframes, year_dataframes_modify)
+
+    dataframes = dataframes[dataframes['rarity']==rarity]
 
     return dataframes
+
+def NameRarity(index):
+    if index < round(year_length/4):
+        rarity = 'low'
+    elif index > round(year_length/4*3):
+        rarity = 'high'
+    else:
+        rarity = 'medium'
+
+    return rarity
 
 def Recommend(kor_name, gender, year):
     #[기존 코드] 발음코드 데이터프레임 불러옴
@@ -89,15 +111,17 @@ def Recommend(kor_name, gender, year):
     #nysiis similarity 컬럼 추가한 DataFrame 생성
     df_sim = data.copy()
     df_sim['nysiis_sim'] = df_sim['nysiis'].apply(NameSimilarity)
+
+    #필터링(rarity 부분 front에서 넘어오는 값에 따라 코드 변경해야함)
+    df_sim = Filter(df_sim, gender, year, 'low')
+
     #유사도 기준 정렬
     df_sim = df_sim.sort_values('nysiis_sim',ascending=False)
-
-    #필터링(gender~rarity 부분을 설문조사 배열 형태로 넘길지 생각중)
-    df_sim = Filter(df_sim, gender, year)
 
     #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
     name_array = {}
     df_drop_dup = df_sim['nysiis'].drop_duplicates().head(4).to_numpy()
+    print(df_drop_dup)
 
     for data in df_drop_dup:
         df_new = df_sim.copy()
@@ -111,24 +135,26 @@ def AtmRecommend(AtmInput):
     db = ConnectMongoDB()
     df = LoadDataframes(db, 'atm')
     processedInput = preProcessAtmInput(AtmInput)
-    df[['score','tag']] = df.apply(lambda row : processATM(list(map(lambda x: row[x],processedInput)),processedInput), axis = 1,result_type='expand')
-    df_drop_dup=df.sort_values(by=['score'],ascending=False)['score'].drop_duplicates().head(2).to_numpy()
 
-    df_new = df[df['score']==df_drop_dup[0]]
-    if(df_new.shape[0] < 2):
-        df_random = df_new.sample(n=1)
-        df_new = df[df['score']==df_drop_dup[1]]
-        df_random = pd.concat([df_random,df_new.sample(n=1)])
-    else:
-        df_random = df_new[df_new['score']==df_drop_dup[0]].sample(n=2)
+    df[['score','tag']] = df.apply(lambda row : processATM(list(map(lambda x: row[x],processedInput)),processedInput), axis = 1,result_type='expand')
+    df_random = df.sort_values(by=['score'],ascending=False).head(2)
 
     name_array = {}
     
     for row in range(df_random.shape[0]):
         tagList = df_random.iloc[row]['tag']
         if (len(tagList) >=3):
-            tagList = random.sample(tagList, 3)
-        name_array[df_random.iloc[row]['name']] = {'type':'atm','sim':tagList}
+            tagTup = {}
+            for tag in list(tagList):
+                tagTup[tag]=df_random.iloc[row][tag]
+            rtTag = {k: v for k, v in sorted(tagTup.items(), key=lambda item: item[1], reverse=True)}
+
+            rt={}
+            for i,(k,v) in enumerate(rtTag.items()):
+                if i>=2: 
+                    break
+                rt[k]=v
+        name_array[df_random.iloc[row]['name']] = {'type':'atm','sim':rt}
     #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)    
     return name_array
 
@@ -151,7 +177,7 @@ def processATM(attrVal,attr):
     sum=0
     tag=[]
     for idx,val in enumerate(attrVal):
-        if(val==1):
+        if val>0.5:
             tag.append(attr[idx])
         sum+=val
     return sum,tag

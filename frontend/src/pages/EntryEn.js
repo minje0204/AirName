@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import EntryCardEn from '../components/entry/EntryCardEn';
 
 function EntryEn() {
+  localStorage.removeItem('rcmndNames');
   return (
     <StyledWrapper>
       <div>
