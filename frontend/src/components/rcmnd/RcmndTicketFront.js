@@ -31,7 +31,7 @@ function TicketFront({ name, type, birth }) {
                 selectName(e);
               }}
             >
-              {name} 이름 리포트 보러가기 ➡ ➡ ➡ ➡
+              ⬇⬇ {name} 이름 리포트 보러가기 ⬇⬇
             </button>
           </Link>
         </TicketBottom>
