@@ -9,6 +9,7 @@ import FinTitle from '../finreport/FinTitle';
 import MyCard from '../finreport/MyCard';
 import ReportContent from '../finreport/ReportContent';
 import ReportFooter from 'components/finreport/ReportFooter';
+import UsaMap from './UsaMap';
 
 //데이터
 import HomeTownEn from '../finreport/HomeTownEn';
@@ -17,7 +18,6 @@ import API from '../../config';
 
 function FinReport() {
   const { username, birth } = useParams();
-  
 
   // local Storage에서 가져오는 것들
   const [gender, setGender] = useState('');
@@ -38,6 +38,7 @@ function FinReport() {
   const [parseFeEnHome, setParseFeEnHome] = useState('');
   const [parseFeKoHome, setParseFeKoHome] = useState('');
   const [parseEnMainState, setParseEnMainState] = useState('');
+  const [abState, setAbState] = useState();
 
   // 영어 이름으로 치환
   const setEnHomeTown = () => {
@@ -89,6 +90,7 @@ function FinReport() {
 
   // 받아온 데이터 저장하는 함수
   const saveData = async (res) => {
+    console.log(res.data);
     const data = JSON.parse(res.data);
     setFemaleState(data.female.state);
     setMeaning(data.meaning);
@@ -114,7 +116,7 @@ function FinReport() {
 
   // 분위기 발음 데이터 받아오면 저장
   useEffect(() => {
-    if(rcmndNames){
+    if (rcmndNames) {
       setNameInfo(rcmndNames[username]);
     }
   }, [rcmndNames]);
@@ -124,6 +126,11 @@ function FinReport() {
     setEnHomeTown();
     setKoHomeTown();
     setEnMainState();
+    if (femaleState !== '') {
+      setAbState(femaleState);
+    } else if (maleState !== '') {
+      setAbState(maleState);
+    }
   }, [femaleState, maleState, mainState]);
 
   // birth 들어오면 getRepordata get요청
@@ -131,8 +138,7 @@ function FinReport() {
     if (birth) {
       getReportData();
     }
-	}, [birth]);
-
+  }, [birth]);
 
   return (
     <StyledWrapper>
@@ -158,6 +164,7 @@ function FinReport() {
             isNewName={isNewName}
             nameInfo={nameInfo}
           />
+          <UsaMap abState={abState} userName={username} />
           <FooterContainer>
             <ReportFooter />
           </FooterContainer>
@@ -189,10 +196,10 @@ const FintitleContainer = styled.div`
   }
 `;
 const FinBodyContainer = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const MyCardContainer = styled.div`
@@ -207,5 +214,4 @@ const FooterContainer = styled.div`
   padding: 20px;
   border-radius: 10px;
   color: lightgray;
-  
 `;
