@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 
-// 홈으로 돌아가기, 카카오톡 버튼 컴포넌트 
+// 홈으로 돌아가기, 카카오톡 버튼 컴포넌트
 function FinBtns({ username, birth }) {
-
   // 카카오톡 공유 함수
   const kakaoShare = (username) => {
     window.Kakao.Link.createDefaultButton({
@@ -26,7 +25,6 @@ function FinBtns({ username, birth }) {
   const copyClipBoard = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
-
       alert('복사 성공!');
     } catch (error) {
       alert('복사 실패!');
@@ -36,7 +34,7 @@ function FinBtns({ username, birth }) {
   // 실행시에 share btn 붙이기
   useEffect(() => {
     kakaoShare(username);
-  }, [username])
+  }, [username]);
 
   return (
     <StyledWrapper>
@@ -49,7 +47,7 @@ function FinBtns({ username, birth }) {
         <IconButton
           className="Kakao"
           id="kakao-link-btn"
-          // onClick={() => kakaoShare(username)}
+          onClick={() => kakaoShare(username)}
         >
           <img
             src="/kakao_logo.png"
@@ -64,15 +62,27 @@ function FinBtns({ username, birth }) {
           />
           공유하기
         </IconButton>
-        <FinBtnsWrapper>
-          <IconButton
-            onClick={() =>
-              copyClipBoard(`https://airname.shop/finreport/${username}`)
-            }
-          >
-            링크복사
-          </IconButton>
-        </FinBtnsWrapper>
+      </FinBtnsWrapper>
+      <FinBtnsWrapper>
+        <IconButton
+          onClick={() =>
+            copyClipBoard(`https://airname.shop/finreport/${username}`)
+          }
+        >
+          <img
+            src="/Linkcopy.png"
+            id="img-save-btn"
+            style={{
+              width: '20px',
+              height: '20px',
+              marginRight: '5px',
+              marginBottom: '5px',
+              position: 'relative',
+              top: '1px'
+            }}
+          />
+          링크복사
+        </IconButton>
       </FinBtnsWrapper>
     </StyledWrapper>
   );
