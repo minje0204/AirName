@@ -28,6 +28,9 @@ function FinReport() {
   const [femaleState, setFemaleState] = useState('');
   const [meaning, setMeaning] = useState('');
   const [maleState, setMaleState] = useState('');
+  const [femaleYear, setFemaleYear] = useState('');
+  const [maleYear, setMaleYear] = useState('');
+
   // 요청한 이름이 없을 때
   const [isNewName, setIsNewName] = useState(false);
 
@@ -97,6 +100,12 @@ function FinReport() {
     setMaleState(data.male.state);
   };
 
+  const saveYearData = async (res) => {
+    const data = JSON.parse(res.data);
+    setFemaleYear(data.female);
+    setMaleYear(data.male);
+  };
+
   // 리포트 데이터 요청하고 저장하는 함수
   const getReportData = () => {
     axios
@@ -106,6 +115,18 @@ function FinReport() {
         setIsNewName(false);
       })
       .catch(setIsNewName(true));
+  };
+
+  const getYearReportData = () => {
+    axios
+      .get(`${API.YEARREPORT}/${username}`)
+      .then((res) => {
+        saveYearData(res).then();
+        // setIsNewName(false);
+      })
+      .catch
+      // setIsNewName(true)
+      ();
   };
 
   // 한번만 실행되는, ComponentDidMount, gender, 추천된 이름 분위기,발음, 생일
@@ -138,6 +159,7 @@ function FinReport() {
   useEffect(() => {
     if (birth) {
       getReportData();
+      getYearReportData();
     }
   }, [birth]);
 
@@ -164,6 +186,8 @@ function FinReport() {
             parseFeEnHome={parseFeEnHome}
             isNewName={isNewName}
             nameInfo={nameInfo}
+            femaleYear={femaleYear}
+            maleYear={maleYear}
           />
           <UsaMap abState={abState} userName={username} />
           <FooterContainer>

@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import ReactApexChart from './Chart';
 
-// FinReport 리포트 내용 렌더링하는 컴포넌트 
+// FinReport 리포트 내용 렌더링하는 컴포넌트
 function ReportContentItems({
   username,
   maleState,
@@ -12,8 +13,19 @@ function ReportContentItems({
   parseFeKoHome,
   parseFeEnHome,
   isNewName,
-  nameInfo
+  nameInfo,
+  femaleYear,
+  maleYear
 }) {
+  const isNotZero = (data) => {
+    for (var i = 0; i < data.length; i++) {
+      if (data[i] != 0) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
     <>
       {/* 이름 리포트 시작 */}
@@ -23,9 +35,8 @@ function ReportContentItems({
         </ContentBox>
       ) : null}
 
-
       {/* 없는 이름 */}
-      {femaleState === "" && maleState==="" && meaning==="" ? (
+      {femaleState === '' && maleState === '' && meaning === '' ? (
         <ContentBox>
           <h3>🛬 AIR NAME에서 당신이 처음으로 사용하는 이름!</h3>
           {username}! 안타깝게도 AIRNAME 서비스에서는 없는 이름입니다😥
@@ -41,7 +52,6 @@ function ReportContentItems({
         </ContentBox>
       ) : null}
 
-
       {/* 중성적인 이름 */}
       {maleState.length > 0 && femaleState.length > 0 ? (
         <ContentBox>
@@ -52,7 +62,6 @@ function ReportContentItems({
         </ContentBox>
       ) : null}
 
-
       {/* 분위기 발음 유사도 */}
       {/* {typeof nameInfo === 'object' && Object.keys(nameInfo).length > 0 ? (
         <div>
@@ -61,29 +70,31 @@ function ReportContentItems({
               <h3>✨ {nameInfo.sim.join(', ')} ✨</h3>
               설문을 기반으로한 당신의 분위기는,
               {nameInfo.sim.map((atm) => (
-              <a
-                href={`https://en.dict.naver.com/#/search?query=${atm}`}
-                target="_self"
-                className="meaning-dict-link"
-                key={atm}
-              > 
-                <b>{atm}</b>
-              </a>
-            ))}!
+                <a
+                  href={`https://en.dict.naver.com/#/search?query=${atm}`}
+                  target="_self"
+                  className="meaning-dict-link"
+                  key={atm}
+                >
+                  <b>{atm}</b>
+                </a>
+              ))}
+              !
               <br />
-            <br />
-            분위기의 뜻의 번역이 필요하다면, 파란색 글씨의 이름 뜻을
-            클릭해보세요. 네이버 영어 사전으로 이동합니다! 
+              <br />
+              분위기의 뜻의 번역이 필요하다면, 파란색 글씨의 이름 뜻을
+              클릭해보세요. 네이버 영어 사전으로 이동합니다!
             </ContentBox>
           ) : (
             <ContentBox>
               <h3>📊 {nameInfo.sim}%의 발음 유사도 </h3>
-              AIRNAME의 발음 알고리즘에 따르면, {username}은 당신의 한국 이름과 {nameInfo.sim}%의 유사한 발음을 가지고 있어요! 어쩐지 친근한 느낌이 들지 않나요?
+              AIRNAME의 발음 알고리즘에 따르면, {username}은 당신의 한국 이름과{' '}
+              {nameInfo.sim}%의 유사한 발음을 가지고 있어요! 어쩐지 친근한
+              느낌이 들지 않나요?
             </ContentBox>
           )}
         </div>
       ) : null} */}
-
 
       {/* 남성주 */}
       {maleState.length > 0 ? (
@@ -104,7 +115,6 @@ function ReportContentItems({
           클릭해보세요! 클릭시, {parseKoHome}주의 위키피디아 링크로 연결됩니다!
         </ContentBox>
       ) : null}
-
 
       {/* 여성 주 */}
       {femaleState.length > 0 ? (
@@ -127,7 +137,6 @@ function ReportContentItems({
         </ContentBox>
       ) : null}
 
-
       {/* 이름뜻 */}
       {meaning.length > 0 ? (
         <>
@@ -149,6 +158,20 @@ function ReportContentItems({
             <br />
             이름에 대한 뜻이 조금 생소하다면, 파란색 글씨로 변한 이름 뜻을
             클릭해보세요. 네이버 파파고가 도와줄거에요!
+          </ContentBox>
+        </>
+      ) : null}
+
+      {/* 연도별추이 */}
+      {(femaleYear.length > 0 && isNotZero(femaleYear)) ||
+      (maleYear.length > 0 && isNotZero(maleYear)) ? (
+        <>
+          <ContentBox>
+            <h3>📈 같은 이름을 가진 사람들이 얼마나 있을까요?</h3>
+            <ReactApexChart
+              femaleYear={femaleYear}
+              maleYear={maleYear}
+            ></ReactApexChart>
           </ContentBox>
         </>
       ) : null}
