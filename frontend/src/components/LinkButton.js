@@ -17,7 +17,7 @@ const LinkButton = ({ content, to, h, w, fs, url, ...props }) => {
         to={to}
         {...props}
       >
-        {url === true && url.length > 0 ? (
+        {url !== undefined ? (
           <img
             src={url}
             style={{
