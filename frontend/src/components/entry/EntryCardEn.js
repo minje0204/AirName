@@ -91,7 +91,10 @@ function EntryCardEn() {
             <div id="title_b">ARRIVAL CARD</div>
           </div>
         </Container>
-        <Container id="content" sx={{ bgcolor: '#F9F7F4', height: '60vh' }}>
+        <Container
+          id="entryContentBox"
+          sx={{ bgcolor: '#F9F7F4', height: '60vh' }}
+        >
           <div className="qAndA custom-input">
             <div className="question to-move">Korean Name</div>
             <ValidationTextField
@@ -216,6 +219,7 @@ function EntryCardEn() {
       </div>
       <div id="btn">
         <LinkButton
+          id="nextBtn"
           onClick={sendData}
           content="내 영어 이름 리포트 보러 바로가기"
           to="/Loading"
@@ -282,7 +286,7 @@ const StyledWrapper = styled.div`
   #title_b {
     font-family: 'SCDream7';
   }
-  #content {
+  #entryContentBox {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
