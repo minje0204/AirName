@@ -135,24 +135,26 @@ def AtmRecommend(AtmInput):
     db = ConnectMongoDB()
     df = LoadDataframes(db, 'atm')
     processedInput = preProcessAtmInput(AtmInput)
-    df[['score','tag']] = df.apply(lambda row : processATM(list(map(lambda x: row[x],processedInput)),processedInput), axis = 1,result_type='expand')
-    df_drop_dup=df.sort_values(by=['score'],ascending=False)['score'].drop_duplicates().head(2).to_numpy()
 
-    df_new = df[df['score']==df_drop_dup[0]]
-    if(df_new.shape[0] < 2):
-        df_random = df_new.sample(n=1)
-        df_new = df[df['score']==df_drop_dup[1]]
-        df_random = pd.concat([df_random,df_new.sample(n=1)])
-    else:
-        df_random = df_new[df_new['score']==df_drop_dup[0]].sample(n=2)
+    df[['score','tag']] = df.apply(lambda row : processATM(list(map(lambda x: row[x],processedInput)),processedInput), axis = 1,result_type='expand')
+    df_random = df.sort_values(by=['score'],ascending=False).head(2)
 
     name_array = {}
     
     for row in range(df_random.shape[0]):
         tagList = df_random.iloc[row]['tag']
         if (len(tagList) >=3):
-            tagList = random.sample(tagList, 3)
-        name_array[df_random.iloc[row]['name']] = {'type':'atm','sim':tagList}
+            tagTup = {}
+            for tag in list(tagList):
+                tagTup[tag]=df_random.iloc[row][tag]
+            rtTag = {k: v for k, v in sorted(tagTup.items(), key=lambda item: item[1], reverse=True)}
+
+            rt={}
+            for i,(k,v) in enumerate(rtTag.items()):
+                if i>=2: 
+                    break
+                rt[k]=v
+        name_array[df_random.iloc[row]['name']] = {'type':'atm','sim':rt}
     #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)    
     return name_array
 
@@ -175,7 +177,7 @@ def processATM(attrVal,attr):
     sum=0
     tag=[]
     for idx,val in enumerate(attrVal):
-        if(val==1):
+        if val>0.5:
             tag.append(attr[idx])
         sum+=val
     return sum,tag
