@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
+import LinkButton from 'components/LinkButton';
 
-// 홈으로 돌아가기, 카카오톡 버튼 컴포넌트 
+// 홈으로 돌아가기, 카카오톡 버튼 컴포넌트
 function FinBtns({ username, birth }) {
-
   // 카카오톡 공유 함수
   const kakaoShare = (username) => {
     window.Kakao.Link.createDefaultButton({
@@ -23,26 +23,32 @@ function FinBtns({ username, birth }) {
       }
     });
   };
+  const copyClipBoard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert('복사 성공!');
+    } catch (error) {
+      alert('복사 실패!');
+    }
+  };
 
   // 실행시에 share btn 붙이기
   useEffect(() => {
     kakaoShare(username);
-  }, [username])
+  }, [username]);
 
   return (
     <StyledWrapper>
       <FinBtnsWrapper>
         <Link to={'/'}>
-          <button id="img-save-btn">
-            🏠홈으로 돌아가기
-          </button>
+          <button id="img-save-btn">🏠홈으로 돌아가기</button>
         </Link>
       </FinBtnsWrapper>
       <FinBtnsWrapper>
         <IconButton
           className="Kakao"
           id="kakao-link-btn"
-          // onClick={() => kakaoShare(username)}
+          onClick={() => kakaoShare(username)}
         >
           <img
             src="/kakao_logo.png"
@@ -57,6 +63,16 @@ function FinBtns({ username, birth }) {
           />
           공유하기
         </IconButton>
+      </FinBtnsWrapper>
+      <FinBtnsWrapper>
+        <LinkButton
+          content="링크 복사"
+          to=""
+          url="/Linkcopy.png"
+          onClick={() =>
+            copyClipBoard(`https://airname.shop/finreport/${username}/${birth}`)
+          }
+        ></LinkButton>
       </FinBtnsWrapper>
     </StyledWrapper>
   );
