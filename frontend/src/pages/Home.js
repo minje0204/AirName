@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import AirplaneWindow from '../components/home/AirplaneWindow';
 import StartBtn from '../components/home/StartBtn';
+import ShareBtn from 'components/home/ShareBtn';
 
 function Home() {
   return (
@@ -27,6 +28,7 @@ function Home() {
               to="/entry-en"
             />
           </div>
+          <ShareBtn />
         </div>
       </div>
     </StyledWrapper>
@@ -56,7 +58,7 @@ const StyledWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 300px;
+    height: 350px;
   }
 
   #button-container {
