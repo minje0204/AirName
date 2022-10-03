@@ -6,16 +6,16 @@ import { useNavigate } from 'react-router-dom';
 import Fairly from '../../asset/img/survey/Fairy.svg';
 import './Survey.css';
 
-import datas from './Question';
+import questions from './Question';
 import API from '../../config';
 
 function SurveySection() {
-
   const navigate = useNavigate();
 
   // 설문 계산용
   const [cur, setCur] = useState(0);
   const [isLast, setIsLast] = useState(false);
+  const [ramdomNums, setRamdomNums] = useState([11, 12]);
 
   // 최종적으로 보내줄 설문결과
   const [surveyRes, setSurveyRes] = useState({});
@@ -24,48 +24,61 @@ function SurveySection() {
   const [nameKo, setNameKo] = useState('');
   const [birth, setBirth] = useState(0);
   const [gender, setGender] = useState('');
-  
+
   // Local에서 데이터 가져오기
   const getUserInfo = () => {
     setNameKo(localStorage.getItem('nameKo'));
     setBirth(localStorage.getItem('birth'));
     setGender(localStorage.getItem('gender'));
-  }
+  };
 
-
-  
   // 이름 가져와서 Local에 저장
   const sendSurveyGetName = async (data) => {
     axios.post(`${API.GETNAME}`, data).then((res) => {
       console.log(res);
       // 이름 추천 데이터 저장
       localStorage.setItem('rcmndNames', JSON.stringify(res.data));
-    })
+    });
   };
 
   // 클릭시, 데이터 묶어서 계속 저장
   const handleClick = (input) => {
     const newElement = {
-      [datas[cur].answerKey]: input
+      [questions[ramdomNums[cur]].answerKey]: input
     };
     setSurveyRes({ ...surveyRes, ...newElement });
     if (cur < 5) setCur(cur + 1);
   };
 
-
+  const selectIndex = (totalIndex, selectingNumber) => {
+    let randomIndexArray = [];
+    for (let i = 0; i < selectingNumber; i++) {
+      let randomNum = Math.floor(Math.random() * totalIndex);
+      if (randomIndexArray.indexOf(randomNum) === -1) {
+        randomIndexArray = [...randomIndexArray, randomNum];
+      } else {
+        i--;
+      }
+    }
+    return randomIndexArray;
+  };
 
   // 서베이 데이터 보낼 항목이 모두 채워졌을 때, isLast true로 변환
   useEffect(() => {
-    if (Object.entries(surveyRes).length === 6) 
-        setIsLast(true)
+    if (Object.entries(surveyRes).length === 6) setIsLast(true);
   }, [surveyRes]);
 
   // isLast가 true가 되면, sendSurvey
   useEffect(() => {
     if (isLast) {
-      console.log(surveyRes)
-      const data = {"name": nameKo, "gender" :gender, "birth" :birth, "attr": surveyRes}
-      console.log(data)
+      console.log(surveyRes);
+      const data = {
+        name: nameKo,
+        gender: gender,
+        birth: birth,
+        attr: surveyRes
+      };
+      console.log(data);
       sendSurveyGetName(data);
       navigate('/loading');
     }
@@ -73,7 +86,8 @@ function SurveySection() {
 
   // 첫 렌더링시 데이터 가져오기
   useEffect(() => {
-    getUserInfo(); 
+    getUserInfo();
+    setRamdomNums([...ramdomNums, ...selectIndex(10, 4)]);
   }, []);
 
   return (
@@ -82,12 +96,21 @@ function SurveySection() {
         <SveyImg>
           <img id="survey-img" src={Fairly} />
         </SveyImg>
-        <SveyQuestion className="speech-bubble">{datas[cur].question}</SveyQuestion>
+        <SveyQuestion className="speech-bubble">
+          {questions[ramdomNums[cur]].question}
+        </SveyQuestion>
       </SveyHead>
       <SveyBody>
-        <SvyBtbn id="svy-btn" className="shadow" onClick={() => handleClick(0)}>{datas[cur].answer[0]}</SvyBtbn>
-         <SvyBtbn id="svy-btn" className="shadow" onClick={() => handleClick(1)}>{datas[cur].answer[1]}</SvyBtbn>
-        <SvyBtbn id="svy-btn" className="shadow" onClick={() => handleClick(2)}>{datas[cur].answer[2]}</SvyBtbn>
+        <SvyBtbn id="svy-btn" className="shadow" onClick={() => handleClick(0)}>
+          {questions[ramdomNums[cur]].answer[0]}
+        </SvyBtbn>
+        <SvyBtbn id="svy-btn" className="shadow" onClick={() => handleClick(1)}>
+          {questions[ramdomNums[cur]].answer[1]}
+        </SvyBtbn>
+        <SvyBtbn id="svy-btn" className="shadow" onClick={() => handleClick(2)}>
+          {questions[ramdomNums[cur]].answer[2]}
+        </SvyBtbn>
+        <button>이전</button>
       </SveyBody>
     </SveySectionContainer>
   );
@@ -143,14 +166,11 @@ const SveyBody = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 13px 0px;
-  
 
   border-radius: 20px;
   width: 100%;
   max-height: 400px;
   margin-top: 20px;
-
-
 `;
 
 const SvyBtbn = styled.button`
@@ -169,6 +189,6 @@ const SvyBtbn = styled.button`
   @media (max-width: 650px) {
     font-size: 16px;
     border: 3px solid;
-    border-color:  var(--primaryLight);
+    border-color: var(--primaryLight);
   }
 `;

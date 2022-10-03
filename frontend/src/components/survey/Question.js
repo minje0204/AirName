@@ -1,12 +1,6 @@
 
 const question = [
   {
-    question: '어떤 성별의 이름을 추천 받고 싶으신가요?',
-    answer: { 0: '남성적', 1: '여성적', 2: '중성적' },
-    answerKey: 'Gender'
-  },
-
-  {
     question:
       '때론 클래식한 차가 멋있을 때가 있고, 불같은 속도로 달리는 신형 차가 멋있을 때가 있어요! 당신은 어떤 것을 원하나요?',
     answer: { 0: '클래식', 1: '신형차', 2: '보통' },
@@ -81,7 +75,19 @@ const question = [
       '친구로부터 두 개의 티켓을 받았어요. 하나는 클래식한 느낌의 연극 공연 티켓, 하나는 코미디빅리그 티켓. 당신이라면 어떤 티켓을 선택할 것인가요?',
     answer: { 0: '연극', 1: '코빅', 2: '둘 다 좋다' },
     answerKey: 'Seriousness'
-  }
+  },
+
+  {
+    question: '어떤 성별의 이름을 추천 받고 싶으신가요?',
+    answer: { 0: '남성적', 1: '여성적', 2: '중성적' },
+    answerKey: 'Gender'
+  },
+
+  {
+    question: '어떤 이름을 갖고 싶으신가요?',
+    answer: { 0: '흔하지 않은 이름', 1: '중간 정도', 2: '자주 사용되는 이름' },
+    answerKey: 'Rarity'
+  },
 ];
 
 export default question;
