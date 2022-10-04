@@ -5,14 +5,23 @@ import QRImg from '../../asset/img/finreport/QRImg.png';
 import Barcode from '../../asset/img/finreport/Barcode.png';
 import Airplane from '../../asset/img/finreport/Airplane.png';
 import TicketHeadAirplane from '../../asset/img/finreport/TicketHeadAirplane.png';
+import React from 'react';
+import domtoimage from 'dom-to-image';
+import { saveAs } from 'file-saver';
 
-// 비행기 티켓 그린 컴포넌트 
+// 비행기 티켓 그린 컴포넌트
 function MyCard({ username, hometown }) {
+  const onDownloadBtn = () => {
+    domtoimage.toBlob(document.querySelector('.card')).then((blob) => {
+      saveAs(blob, 'card.png');
+    });
+  };
+
   return (
-    <TicketWrapper>
+    <TicketWrapper className="card" onClick={onDownloadBtn}>
       <TicketHead>
-        <TicketLeftHead >
-          <img id="head-img" src={TicketHeadAirplane} alt="airplane"/>
+        <TicketLeftHead>
+          <img id="head-img" src={TicketHeadAirplane} alt="airplane" />
           AIR NAME TICKET
         </TicketLeftHead>
         <TicketRightHead>BOARDING PASS</TicketRightHead>
@@ -34,18 +43,18 @@ function MyCard({ username, hometown }) {
             </Gate>
           </PassangerInfo>
           <BarcodeContainer>
-            <img id="barcode-img" src={Barcode} alt="barcode"/>
+            <img id="barcode-img" src={Barcode} alt="barcode" />
           </BarcodeContainer>
         </TicketLeft>
         <TicketRight>
           <TicketJourney>
             <Depart>KOR</Depart>
             <AirplaneImg>
-              <img id="airplane-img" src={Airplane} alt="flight"/>
+              <img id="airplane-img" src={Airplane} alt="flight" />
             </AirplaneImg>
             <Arrive>{hometown}</Arrive>
             <QR>
-              <img id="qr-img" src={QRImg} alt="qr"/>
+              <img id="qr-img" src={QRImg} alt="qr" />
             </QR>
           </TicketJourney>
         </TicketRight>
@@ -131,7 +140,6 @@ const TicketRightHead = styled.div`
     font-size: 5px;
     border-left: 0.3px dashed black;
   }
-
 `;
 
 const TicketLeft = styled.div`
@@ -232,7 +240,7 @@ const BarcodeContainer = styled.div`
   margin-top: 20px;
   @media (max-width: 650px) {
     margin-top: 0px;
-    #barcode-img{
+    #barcode-img {
       width: 80px;
     }
   }
@@ -277,5 +285,4 @@ const QR = styled.div`
       width: 30px;
     }
   }
-
 `;

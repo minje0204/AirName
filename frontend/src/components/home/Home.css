@@ -1,7 +1,7 @@
 .animated-window {
   position: relative;
-  border-radius: 110px;
-  width: 300px;
+  border-radius: 180px;
+  width: 280px;
   height: 400px;
   overflow: hidden;
 }

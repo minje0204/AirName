@@ -78,7 +78,7 @@ def CreateYearname(db, dataframes):
                 state_year = data.male['state'][state]
                 new_year = [year[i] + state_year[i] for i in range(len(year))]
                 year = new_year
-
+        
         year_table.append(year)
 
     df_year = pd.DataFrame(data=year_table, columns=year_columns)
@@ -103,33 +103,43 @@ def CreateAtmName(db,df):
     for name in df.itertuples(index=True):
         d['name'].append(name.name)
         if(len(name.female) != 0 ):
+            attrValList = list(name.female['attribute'].values())            
+            attrKeyList = list(name.female['attribute'].keys())            
             d['gender'].append('F')
             for i in range(0, len(name.female['attribute'].keys()), 2) :    
-                if(list(name.female['attribute'].values())[i] > list(name.female['attribute'].values())[i+1]):
-                    d[list(name.female['attribute'].keys())[i]].append(1)
-                    d[list(name.female['attribute'].keys())[i+1]].append(0)
+                if((attrValList[i] + attrValList[i+1]) != 0):
+                    calcVal = round(attrValList[i] / (attrValList[i] + attrValList[i+1]),2)
+                    calcVal2 = round(1- calcVal,2)
                 else:
-                    d[list(name.female['attribute'].keys())[i]].append(0)
-                    d[list(name.female['attribute'].keys())[i+1]].append(1)
+                    calcVal = 0
+                    calcVal2 = 0
+                d[attrKeyList[i]].append(calcVal)
+                d[attrKeyList[i+1]].append(calcVal2)
+
         elif(len(name.male) != 0 ):
+            attrValList = list(name.male['attribute'].values())            
+            attrKeyList = list(name.male['attribute'].keys())            
             d['gender'].append('M')
             for i in range(0, len(name.male['attribute'].keys()), 2) :    
-                if(list(name.male['attribute'].values())[i] > list(name.male['attribute'].values())[i+1]):
-                    d[list(name.male['attribute'].keys())[i]].append(1)
-                    d[list(name.male['attribute'].keys())[i+1]].append(0)
+                if((attrValList[i] + attrValList[i+1]) != 0):
+                    calcVal = round(attrValList[i] / (attrValList[i] + attrValList[i+1]),2)
+                    calcVal2 = round(1- calcVal,2)
                 else:
-                    d[list(name.male['attribute'].keys())[i]].append(0)
-                    d[list(name.male['attribute'].keys())[i+1]].append(1)
-    
+                    calcVal = 0
+                    calcVal2 = 0
+                d[attrKeyList[i]].append(calcVal)
+                d[attrKeyList[i+1]].append(1-calcVal)
+
+    print(pd.DataFrame(data=d))
     SaveDataframes(db, pd.DataFrame(data=d), 'atm')
 
 def main():
-    # db = ConnectMongoDB()
-    # df = LoadDataframes(db, 'rawdata')
+    db = ConnectMongoDB()
+    df = LoadDataframes(db, 'rawdata')
     #
     # CreateCodename(db, df)
     # CreateYearname(db, df)
-    # CreateAtmName(db,df)
+    CreateAtmName(db,df)
     print(CheckingKorean("김상협"))
 
     #[기존 코드] json 읽어서 dataframe 생성했던 코드
