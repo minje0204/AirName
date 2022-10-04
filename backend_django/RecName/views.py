@@ -24,14 +24,14 @@ from rest_framework import exceptions
 class NameList(APIView):
     def post(self, request):
         #발음 추천
-        sound_arr = Recommend(request.data['name'], request.data['gender'], request.data['birth'])
+        sound_arr = Recommend(request.data)
 
-        #로마자 변환 불가능한 이름이 입력되면 NameUnavailable에러를 발생
-        if sound_arr == 404:
-            raise NameUnavailable()
+        #로마자 변환 불가능한 이름이 입력되면 NameUnavailable에러를 발생 > 현재 CheckName으로 별도처리
+        # if sound_arr == 404:
+        #     raise NameUnavailable()
 
         #분위기 추천
-        atm_arr = AtmRecommend(request.data['attr'])
+        atm_arr = AtmRecommend(request.data)
 
         #리스트의 dict화
         result_arr = NameFormating(atm_arr,sound_arr)
