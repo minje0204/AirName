@@ -21,7 +21,8 @@ function SurveySection() {
   // 설문 계산용
   const [cur, setCur] = useState(0);
   const [isLast, setIsLast] = useState(false);
-  const [ramdomNums, setRamdomNums] = useState([10, 11]);
+  const [rarity, setRarity] = useState(0);
+  const [ramdomNums, setRamdomNums] = useState([11, 12]);
 
   // 최종적으로 보내줄 설문결과
   const [surveyRes, setSurveyRes] = useState({});
@@ -52,7 +53,13 @@ function SurveySection() {
     const newElement = {
       [questions[ramdomNums[cur]].answerKey]: input
     };
-    setSurveyRes({ ...surveyRes, ...newElement });
+    if(questions[ramdomNums[cur]].answerKey == 'Rarity'){
+      setRarity(input)
+    }
+    else{
+      setSurveyRes({ ...surveyRes, ...newElement });
+    }
+    
     if (cur === N - 1) {  
       getName();
     }
@@ -86,12 +93,15 @@ function SurveySection() {
   };
 
   const getName = () => {
+
     const data = {
       name: nameKo,
       gender: gender,
       birth: birth,
+      rarity: rarity,
       attr: surveyRes
     };
+    console.log(data)
     sendSurveyGetName(data);
     navigate('/loading');
   };
