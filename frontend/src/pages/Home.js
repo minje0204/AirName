@@ -10,19 +10,20 @@ function Home() {
       <div id="left-container">
         <AirplaneWindow />
       </div>
-      <div id="right-container">
-        {/* <div>
+      <div id="right-container" >
+        <div >
           <img src="/logo.png" alt="logo" id="logo" />
-        </div> */}
-        <div id="button-container">
+        </div>
+        <div >
           <div>
             <StartBtn
+            
               title="영어 이름 추천받기"
               subtitle="영어 이름이 없다면? 🙅‍♀️"
               to="/entry-ko"
             />
           </div>
-          <div>
+          <div id="start-btn-shadow">
             <StartBtn
               title="내 이름 레포트 보기"
               subtitle="이미 영어 이름이 있어요 ! 🙆‍♂️"
@@ -51,8 +52,8 @@ export default Home;
 
 const StyledWrapper = styled.div`
   width: 100vw;
-
   min-height: 100vh;
+  color: rgba(255, 255, 255, 0.7);
   background-color: rgba(0, 0, 0, 0.8);
   font-size: 13px;
   @media (min-width: 650px) {
@@ -61,15 +62,18 @@ const StyledWrapper = styled.div`
   @media (max-width: 650px) {
     flex-direction: column;
     justify-content: space-evenly;
-    // #left-container {
-    //   display: none;
-    // }
+    #left-container {
+      display: none;
+    }
   }
   #logo {
     width: min(80vw, 280px);
+    margin-bottom: 20px;
+    
   }
   StartBtn {
     width: min(80vw, 280px);
+    
   }
   display: flex;
   height: 100vh;
@@ -82,6 +86,8 @@ const StyledWrapper = styled.div`
     justify-content: center;
     height: 350px;
   }
+
+
 
   #button-container {
     height: 250px;
