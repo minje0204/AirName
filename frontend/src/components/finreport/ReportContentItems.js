@@ -4,9 +4,6 @@ import ReactApexChart from './Chart';
 import IconButton from '@mui/material/IconButton';
 import HelpIcon from '@mui/icons-material/Help';
 import UsaMap from './UsaMap';
-import { Box } from '@mui/system';
-import { Tab, Tabs } from '@mui/material';
-
 
 // FinReport 리포트 내용 렌더링하는 컴포넌트
 function ReportContentItems({
@@ -25,7 +22,9 @@ function ReportContentItems({
   maleYear,
   parseEnMainState,
   maleCelebrity,
-  femaleCelebrity
+  femaleCelebrity,
+  maleCharacter,
+  femaleCharacter
 }) {
   const isNotZero = (data) => {
     for (var i = 0; i < data.length; i++) {
@@ -215,37 +214,57 @@ function ReportContentItems({
       ) : null}
 
       {/* 남자 유명인 */}
-      {maleCelebrity.length > 0 ? (
+      {typeof maleCelebrity === 'object' &&
+      Object.keys(maleCelebrity).length > 0 ? (
         <ContentBox>
-          <h3>🚩 유명 연예인</h3>
+          <h3>🙍‍♂️ 같은 이름을 가진 남자 유명인!</h3>
+          {Object.entries(maleCelebrity).map(([k, v]) => (
+            <>
+              {k} <br />
+            </>
+          ))}
         </ContentBox>
       ) : null}
-      {console.log(femaleCelebrity)}
+
       {/* 여자 유명인 */}
       {typeof femaleCelebrity === 'object' &&
       Object.keys(femaleCelebrity).length > 0 ? (
-        
         <ContentBox>
-          
-          <h3>🚩 유명연예인</h3>
+          <h3>🙍‍♀️ 같은 이름을 가진 여자 유명인!</h3>
           {Object.entries(femaleCelebrity).map(([k, v]) => (
             <>
-              {k}, {v}
+              {k}<br />
             </>
           ))}
-
         </ContentBox>
-        
       ) : null}
 
-<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-  <Tabs value="1" onChange="" aria-label="basic tabs example">
-    <Tab label="Item One" femaleCelebrity />
-    <Tab label="Item Two" femaleCelebrity />
-    <Tab label="Item Three" femaleCelebrity />
-  </Tabs>
-</Box>
-
+      
+      {/* 남자 캐릭터 */}
+      {typeof maleCharacter === 'object' &&
+      Object.keys(maleCharacter).length > 0 ? (
+        <ContentBox>
+          <h3>🙍‍♂️ 같은 이름을 가진 남자 캐릭터!</h3>
+          {Object.entries(maleCharacter).map(([k, v]) => (
+            <>
+              {k} <br />
+            </>
+          ))}
+        </ContentBox>
+      ) : null}
+      
+      {/* 여자 캐릭터 */}
+      {typeof femaleCharacter === 'object' &&
+      Object.keys(femaleCharacter).length > 0 ? (
+        <ContentBox>
+          <h3>🙍‍♀️ 같은 이름을 가진 여자 캐릭터!</h3>
+          {Object.entries(femaleCharacter).map(([k, v]) => (
+            <>
+              {k}<br />
+            </>
+          ))}
+        </ContentBox>
+      ) : null}
     </>
   );
 }
