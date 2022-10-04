@@ -65,7 +65,7 @@ function FinReport() {
     });
   };
 
-  // Main State 치환
+  // Main State 영어로 치환
   const setEnMainState = () => {
     Object.entries(HomeTownEn).map(([k, v]) => {
       if (k === mainState) {
@@ -82,11 +82,15 @@ function FinReport() {
       } else {
         setMainState(maleState);
       }
-    } else if (femaleState) {
-      setMainState(femaleState);
-    } else if (maleState) {
-      setMainState(maleState);
+    } else{
+      if (femaleState) {
+        setMainState(femaleState);
+      } 
+      if (maleState) {
+        setMainState(maleState);
+      }
     }
+  
   };
 
   // 받아온 데이터 저장하는 함수
@@ -182,6 +186,7 @@ function FinReport() {
             femaleYear={femaleYear}
             maleYear={maleYear}
             mainState={mainState}
+            parseEnMainState={parseEnMainState}
           />
 
           <FooterContainer>

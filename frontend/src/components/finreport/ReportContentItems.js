@@ -19,7 +19,8 @@ function ReportContentItems({
   mainState,
   nameInfo,
   femaleYear,
-  maleYear
+  maleYear,
+  parseEnMainState
 }) {
   const isNotZero = (data) => {
     for (var i = 0; i < data.length; i++) {
@@ -203,7 +204,7 @@ function ReportContentItems({
       {/* 미국 지도 */}
       {mainState.length > 0 ? (
         <ContentBox>
-          <h3>🚩 {parseFeEnHome}의 위치</h3>
+          <h3>🚩 당신의 명예고향, {parseEnMainState}의 위치</h3>
           <UsaMap id="usa-map" abState={mainState} userName={username} />
         </ContentBox>
       ) : null}

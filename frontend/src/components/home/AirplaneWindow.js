@@ -33,12 +33,12 @@ const Step1 = styled.div`
   border-bottom-left-radius: 150px;
   border-bottom-right-radius: 150px;
   border-style: solid;
-  border-color: rgba(255, 255, 255, 0.2);
-  border-width: 1.5px;
+  border-color: rgba(255, 255, 255, 0.05);
+  border-width: 2px;
   box-shadow:inset 5px 5px 70px rgba(0, 0, 0, 0.2);
   
   .animated-window{
-    box-shadow: 20px 70px 40px 25px rgba(255, 255, 255, 0.9);
+    box-shadow: 20px 50px 25px 10px rgba(255, 255, 255, 0.9);
   }
 
 `;
