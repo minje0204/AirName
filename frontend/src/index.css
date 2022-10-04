@@ -2,8 +2,8 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgba(0, 0, 0, 0.2);
-}
+  background-color: #efeff7;
+}z
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

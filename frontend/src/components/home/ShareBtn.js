@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import IconButton from '@mui/material/IconButton';
+import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 // 홈으로 돌아가기, 카카오톡 버튼 컴포넌트
-function ShareBtn({ username, birth }) {
+function ShareBtn({ username, birth, content, to, h, w, fs, ...props }) {
   // 카카오톡 공유 함수
   const kakaoShare = () => {
     window.Kakao.Link.createDefaultButton({
@@ -25,15 +26,25 @@ function ShareBtn({ username, birth }) {
   // 실행시에 share btn 붙이기
   useEffect(() => {
     kakaoShare(username);
-  }, [username]);
+  }, []);
 
   return (
     <StyledWrapper>
       <FinBtnsWrapper>
-        <IconButton className="Kakao" id="kakao-link-btn">
+        <Button
+          id="kakao-link-btn"
+          variant="contained"
+          sx={{
+            bgcolor: '#ffff3d',
+            height: `${h ? h : '44px'}`,
+            width: `${w}`
+          }}
+          component={Link}
+          to={to}
+          {...props}
+        >
           <img
-            src="/kakao_logo.png"
-            alt="카카오 로고"
+            src="/kakao.png"
             style={{
               width: '20px',
               height: '20px',
@@ -41,9 +52,11 @@ function ShareBtn({ username, birth }) {
               position: 'relative',
               top: '1px'
             }}
-          />
-          공유하기
-        </IconButton>
+          ></img>
+          <span id="content" style={{ fontSize: `${fs ? fs : '14px'}` }}>
+            {content}
+          </span>
+        </Button>
       </FinBtnsWrapper>
     </StyledWrapper>
   );
@@ -68,18 +81,16 @@ const FinBtnsWrapper = styled.div`
     height: 45px;
     color: black;
     &:hover {
-      background-color: var(--primaryMain);
+      background-color: #abab52;
       cursor: pointer;
     }
   }
   #kakao-link-btn {
-    background-color: rgba(255, 235, 0, 100);
-    border: 0;
-    padding: 10px;
-    border-radius: 10px;
-    color: rgba(60, 30, 30, 100);
-    font-size: 13px;
-    height: 45px;
+    font-family: 'SCDream7';
+    &:hover {
+      background-color: #abab52;
+      cursor: pointer;
+    }
   }
   @media (max-width: 650px) {
     margin: 2px;
