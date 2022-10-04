@@ -60,7 +60,7 @@ const Step2 = styled.div`
   // border-color: rgba(0, 0, 0, 0.2);
   // border-width: 1px;
   border: none;
-  box-shadow: 50px 50px 50px -10px rgba(255, 255, 255, 0.5);
+  box-shadow: 40px 40px 50px 0px rgba(255, 255, 255, 0.5);
 `;
 
 
