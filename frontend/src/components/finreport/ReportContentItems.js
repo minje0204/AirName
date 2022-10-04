@@ -20,7 +20,11 @@ function ReportContentItems({
   nameInfo,
   femaleYear,
   maleYear,
-  parseEnMainState
+  parseEnMainState,
+  maleCelebrity,
+  femaleCelebrity,
+  maleCharacter,
+  femaleCharacter
 }) {
   const isNotZero = (data) => {
     for (var i = 0; i < data.length; i++) {
@@ -206,6 +210,59 @@ function ReportContentItems({
         <ContentBox>
           <h3>🚩 당신의 명예고향, {parseEnMainState}의 위치</h3>
           <UsaMap id="usa-map" abState={mainState} userName={username} />
+        </ContentBox>
+      ) : null}
+
+      {/* 남자 유명인 */}
+      {typeof maleCelebrity === 'object' &&
+      Object.keys(maleCelebrity).length > 0 ? (
+        <ContentBox>
+          <h3>🙍‍♂️ 같은 이름을 가진 남자 유명인!</h3>
+          {Object.entries(maleCelebrity).map(([k, v]) => (
+            <>
+              {k} <br />
+            </>
+          ))}
+        </ContentBox>
+      ) : null}
+
+      {/* 여자 유명인 */}
+      {typeof femaleCelebrity === 'object' &&
+      Object.keys(femaleCelebrity).length > 0 ? (
+        <ContentBox>
+          <h3>🙍‍♀️ 같은 이름을 가진 여자 유명인!</h3>
+          {Object.entries(femaleCelebrity).map(([k, v]) => (
+            <>
+              {k}<br />
+            </>
+          ))}
+        </ContentBox>
+      ) : null}
+
+      
+      {/* 남자 캐릭터 */}
+      {typeof maleCharacter === 'object' &&
+      Object.keys(maleCharacter).length > 0 ? (
+        <ContentBox>
+          <h3>🙍‍♂️ 같은 이름을 가진 남자 캐릭터!</h3>
+          {Object.entries(maleCharacter).map(([k, v]) => (
+            <>
+              {k} <br />
+            </>
+          ))}
+        </ContentBox>
+      ) : null}
+      
+      {/* 여자 캐릭터 */}
+      {typeof femaleCharacter === 'object' &&
+      Object.keys(femaleCharacter).length > 0 ? (
+        <ContentBox>
+          <h3>🙍‍♀️ 같은 이름을 가진 여자 캐릭터!</h3>
+          {Object.entries(femaleCharacter).map(([k, v]) => (
+            <>
+              {k}<br />
+            </>
+          ))}
         </ContentBox>
       ) : null}
     </>

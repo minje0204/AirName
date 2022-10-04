@@ -29,6 +29,10 @@ function FinReport() {
   const [maleState, setMaleState] = useState('');
   const [femaleYear, setFemaleYear] = useState('');
   const [maleYear, setMaleYear] = useState('');
+  const [maleCelebrity, setMaleCelebrity] = useState({});
+  const [femaleCelebrity, setFemaleCelebrity] = useState({});
+  const [maleCharacter, setMaleCharacter] = useState({});
+  const [femaleCharacter, setFemaleCharacter] = useState({});
 
   // 요청한 이름이 없을 때
   const [isNewName, setIsNewName] = useState(false);
@@ -100,6 +104,10 @@ function FinReport() {
     setFemaleState(data.female.state);
     setMeaning(data.meaning);
     setMaleState(data.male.state);
+    setFemaleCelebrity(data.female.celebrity);
+    setMaleCelebrity(data.male.celebrity);
+    setMaleCharacter(data.male.character);
+    setFemaleCharacter(data.female.character);
   };
 
   const saveYearData = async (res) => {
@@ -187,6 +195,10 @@ function FinReport() {
             maleYear={maleYear}
             mainState={mainState}
             parseEnMainState={parseEnMainState}
+            maleCelebrity={maleCelebrity}
+            femaleCelebrity={femaleCelebrity}
+            maleCharacter={maleCharacter}
+            femaleCharacter={femaleCharacter}
           />
 
           <FooterContainer>
