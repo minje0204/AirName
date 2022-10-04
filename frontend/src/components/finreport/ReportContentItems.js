@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import ReactApexChart from './Chart';
-
+import IconButton from '@mui/material/IconButton';
+import HelpIcon from '@mui/icons-material/Help';
 import UsaMap from './UsaMap';
 
 // FinReport 리포트 내용 렌더링하는 컴포넌트
@@ -141,7 +142,17 @@ function ReportContentItems({
       {/* 남성 주 */}
       {maleState.length > 0 ? (
         <ContentBox>
-          <h3>🏡🙍‍♂️ 남성 명예 고향은 {parseEnHome}!</h3>
+          <h3>
+            🏡🙍‍♂️ 남성{' '}
+            <span className="tooltip">
+              명예 고향
+              <IconButton className="help-icon">
+                <HelpIcon color="primary" />
+              </IconButton>
+              <span className="tooltip-text">{`미국 50개의 주에서 "${username}"가 제일 많이 쓰인곳이에요`}</span>
+            </span>
+            은 {parseEnHome}!
+          </h3>
           {username}은 남성의 이름일 때, 통계적으로 미국의
           <a
             href={`https://ko.wikipedia.org/wiki/${parseKoHome}주`}
@@ -161,7 +172,17 @@ function ReportContentItems({
       {/* 여성 주 */}
       {femaleState.length > 0 ? (
         <ContentBox>
-          <h3>🏡🙍‍♀️ 여성 명예 고향은 {parseFeEnHome}!</h3>
+          <h3>
+            🏡🙍‍♀️ 여성{' '}
+            <span className="tooltip">
+              명예 고향
+              <IconButton className="help-icon">
+                <HelpIcon color="primary" />
+              </IconButton>
+              <span className="tooltip-text">{`미국 50개의 주에서 "${username}"가 제일 많이 쓰인곳이에요`}</span>
+            </span>
+            은 {parseFeEnHome}!
+          </h3>
           {username}은 여성의 이름일 때, 통계적으로 미국의
           <a
             href={`https://ko.wikipedia.org/wiki/${parseFeKoHome}주`}
@@ -200,12 +221,43 @@ const ContentBox = styled.div`
   border-radius: 10px;
   width: 650px;
 }
+.help-icon{
+  padding:0px !important;
+  top:-11px;
+  position:relative;
+  svg{
+    width:15px !important;
+    color: var(--primaryDark)
+  }
+}
 .meaning-dict-link{
   margin: 5px;
   text-decoration-line: none;
   text-decoration-color: none;
   color: var(--primaryDark);
   font-family: 'SCDream7';
+}
+#hometown-tooltip{
+  postion:relative;
+}
+.tooltip {
+  display: inline-block;
+  color: var(--primaryDark);
+  font-weight: bold;
+  cursor: pointer;
+}
+.tooltip-text {
+  display: none;
+  position: absolute;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 0.8em;
+  color: white;
+  background: var(--primaryDark);
+}
+.tooltip:hover .tooltip-text {
+  display: block;
 }
 @media (max-width: 650px) {
   width: 250px;
