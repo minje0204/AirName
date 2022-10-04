@@ -54,7 +54,8 @@ const StyledWrapper = styled.div`
   width: 100vw;
   min-height: 100vh;
   color: rgba(255, 255, 255, 0.7);
-  background-color: rgba(0, 0, 0, 0.8);
+  // background-color: rgba(0, 0, 0, 0.8);
+  background: linear-gradient( 45deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.65) );
   font-size: 13px;
   @media (min-width: 650px) {
     min-width: 630px;
