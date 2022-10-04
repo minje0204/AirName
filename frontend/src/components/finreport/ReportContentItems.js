@@ -220,47 +220,48 @@ const ContentBox = styled.div`
   color: black;
   border-radius: 10px;
   width: 650px;
-}
-.help-icon{
-  padding:0px !important;
-  top:-11px;
-  position:relative;
-  svg{
-    width:15px !important;
-    color: var(--primaryDark)
+
+  .help-icon {
+    padding: 0px !important;
+    top: -11px;
+    position: relative;
+    svg {
+      width: 15px !important;
+      color: var(--primaryDark);
+    }
   }
-}
-.meaning-dict-link{
-  margin: 5px;
-  text-decoration-line: none;
-  text-decoration-color: none;
-  color: var(--primaryDark);
-  font-family: 'SCDream7';
-}
-#hometown-tooltip{
-  postion:relative;
-}
-.tooltip {
-  display: inline-block;
-  color: var(--primaryDark);
-  font-weight: bold;
-  cursor: pointer;
-}
-.tooltip-text {
-  display: none;
-  position: absolute;
-  border: 1px solid;
-  border-radius: 5px;
-  padding: 5px;
-  font-size: 0.8em;
-  color: white;
-  background: var(--primaryDark);
-}
-.tooltip:hover .tooltip-text {
-  display: block;
-}
-@media (max-width: 650px) {
-  width: 250px;
-  font-size: 12px;
-  padding-top: 15px;
+  .meaning-dict-link {
+    margin: 5px;
+    text-decoration-line: none;
+    text-decoration-color: none;
+    color: var(--primaryDark);
+    font-family: 'SCDream7';
+  }
+  #hometown-tooltip {
+    postion: relative;
+  }
+  .tooltip {
+    display: inline-block;
+    color: var(--primaryDark);
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .tooltip-text {
+    display: none;
+    position: absolute;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 0.8em;
+    color: white;
+    background: var(--primaryDark);
+  }
+  .tooltip:hover .tooltip-text {
+    display: block;
+  }
+  @media (max-width: 650px) {
+    width: 250px;
+    font-size: 12px;
+    padding-top: 15px;
+  }
 `;
