@@ -4,6 +4,9 @@ import ReactApexChart from './Chart';
 import IconButton from '@mui/material/IconButton';
 import HelpIcon from '@mui/icons-material/Help';
 import UsaMap from './UsaMap';
+import { Box } from '@mui/system';
+import { Tab, Tabs } from '@mui/material';
+
 
 // FinReport 리포트 내용 렌더링하는 컴포넌트
 function ReportContentItems({
@@ -20,7 +23,9 @@ function ReportContentItems({
   nameInfo,
   femaleYear,
   maleYear,
-  parseEnMainState
+  parseEnMainState,
+  maleCelebrity,
+  femaleCelebrity
 }) {
   const isNotZero = (data) => {
     for (var i = 0; i < data.length; i++) {
@@ -208,6 +213,39 @@ function ReportContentItems({
           <UsaMap id="usa-map" abState={mainState} userName={username} />
         </ContentBox>
       ) : null}
+
+      {/* 남자 유명인 */}
+      {maleCelebrity.length > 0 ? (
+        <ContentBox>
+          <h3>🚩 유명 연예인</h3>
+        </ContentBox>
+      ) : null}
+      {console.log(femaleCelebrity)}
+      {/* 여자 유명인 */}
+      {typeof femaleCelebrity === 'object' &&
+      Object.keys(femaleCelebrity).length > 0 ? (
+        
+        <ContentBox>
+          
+          <h3>🚩 유명연예인</h3>
+          {Object.entries(femaleCelebrity).map(([k, v]) => (
+            <>
+              {k}, {v}
+            </>
+          ))}
+
+        </ContentBox>
+        
+      ) : null}
+
+<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+  <Tabs value="1" onChange="" aria-label="basic tabs example">
+    <Tab label="Item One" femaleCelebrity />
+    <Tab label="Item Two" femaleCelebrity />
+    <Tab label="Item Three" femaleCelebrity />
+  </Tabs>
+</Box>
+
     </>
   );
 }
