@@ -6,16 +6,17 @@ import API from '../config';
 
 function TTSBtn({ hometown, username, type }) {
 	const [audioSource, setAudioSource] = useState('');
-	
+
 	const requestAudioFile = async () => {
 
-		const requireMsg = username;
+		let requireMsg = username;
 
 		if (type === 'fintitle' && hometown.length > 0) {
-			requireMsg = "Welcome to " + hometown + " " +username;
+			console.log('fin: '+requireMsg)
+			requireMsg = `Welcome to ${hometown}, ${username}`;
+		} else { 
+			requireMsg = username;
 		}
-
-		console.log(requireMsg);
 
 		const response = await axios.get(`${API.SPEAKING}/${requireMsg}`,{
 			responseType: 'arraybuffer',
