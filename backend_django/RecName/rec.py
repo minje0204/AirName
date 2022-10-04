@@ -48,7 +48,7 @@ def JaroDistance(data, name):
     sim = jellyfish.jaro_distance(data,NysCode)
     return sim
 
-def Filter(dataframes, gender, year, rarity):
+def GenderFilter(dataframes, gender):
     #성별 필터
     #설문조사에서 응답한 값에 따라 데이터셋 자체에서 필터링
     if gender == 'M':
@@ -56,16 +56,19 @@ def Filter(dataframes, gender, year, rarity):
     elif gender == 'F':
         dataframes = dataframes[(dataframes['gender']=='F') | (dataframes['gender']=='U')]
 
-    #희귀도 필터
-    #입력 연도에 대해
+    return dataframes
 
+def RarityFilter(dataframes, year, rarity):
+    #희귀도 필터(입력 연도에 대해)
     #연도 데이터프레임 불러옴
     db = ConnectMongoDB()
     year_data = LoadDataframes(db, 'yearname')
 
-    global year_length
-    year_length = len(year_data)
     year_dataframes = year_data.sort_values(str(year),ascending=False)
+
+    year_dataframes = year_dataframes[year_dataframes[str(year)]>0]
+    global year_length
+    year_length = len(year_dataframes)
 
     year_dataframes.reset_index(drop=True, inplace=True)
     year_dataframes_modify = year_dataframes.rename_axis('rank').reset_index()
@@ -75,7 +78,14 @@ def Filter(dataframes, gender, year, rarity):
     #기존 dataframes에 rarity값을 합치도록 inner merge
     dataframes = pd.merge(dataframes, year_dataframes_modify)
 
-    dataframes = dataframes[dataframes['rarity']==rarity]
+    if rarity==0:
+        level='high'
+    elif rarity==1:
+        level='medium'
+    else:
+        level='low'
+
+    dataframes = dataframes[dataframes['rarity']==level]
 
     return dataframes
 
@@ -89,9 +99,21 @@ def NameRarity(index):
 
     return rarity
 
-def Recommend(kor_name, gender, year):
+def Ranking(name):
+    rank = 0
+
+
+    return rank
+
+def Recommend(rcm_data):
     #[기존 코드] 발음코드 데이터프레임 불러옴
     #data = LoadDataframes("code_dump")
+
+    kor_name = rcm_data['name']
+    gender = rcm_data['gender']
+    year = rcm_data['birth']
+    rarity = rcm_data['rarity']
+    # attr =
 
     db = ConnectMongoDB()
     #codename collection에서 가져옴
@@ -112,8 +134,9 @@ def Recommend(kor_name, gender, year):
     df_sim = data.copy()
     df_sim['nysiis_sim'] = df_sim['nysiis'].apply(NameSimilarity)
 
-    #필터링(rarity 부분 front에서 넘어오는 값에 따라 코드 변경해야함)
-    df_sim = Filter(df_sim, gender, year, 'low')
+    #필터링
+    df_sim = GenderFilter(df_sim, gender)
+    df_sim = RarityFilter(df_sim, year, rarity)
 
     #유사도 기준 정렬
     df_sim = df_sim.sort_values('nysiis_sim',ascending=False)
@@ -121,26 +144,31 @@ def Recommend(kor_name, gender, year):
     #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
     name_array = {}
     df_drop_dup = df_sim['nysiis'].drop_duplicates().head(4).to_numpy()
-    print(df_drop_dup)
 
     for data in df_drop_dup:
         df_new = df_sim.copy()
 
         df_random = df_new[df_new['nysiis']==data].sample(n=1).to_numpy()
-        name_array[df_random[0][1]] = {'type':'sound','sim':round(df_random[0][4]*100)}
+        name_array[df_random[0][1]] = {'type':'sound','sim':round(df_random[0][4]*100),
+                                       'rank':df_random[0][5],'percent':round(df_random[0][5]/year_length*100)}
 
     return name_array
 
-def AtmRecommend(AtmInput):
+def AtmRecommend(rcm_data):
+    AtmInput = rcm_data['attr']
+    year = rcm_data['birth']
+    rarity = rcm_data['rarity']
+
     db = ConnectMongoDB()
     df = LoadDataframes(db, 'atm')
+
     processedInput = preProcessAtmInput(AtmInput)
 
     df[['score','tag']] = df.apply(lambda row : processATM(list(map(lambda x: row[x],processedInput)),processedInput), axis = 1,result_type='expand')
+    df = RarityFilter(df, year, rarity)
     df_random = df.sort_values(by=['score'],ascending=False).head(2)
-
     name_array = {}
-    
+
     for row in range(df_random.shape[0]):
         tagList = df_random.iloc[row]['tag']
         if (len(tagList) >=3):
@@ -154,7 +182,8 @@ def AtmRecommend(AtmInput):
                 if i>=2: 
                     break
                 rt[k]=v
-        name_array[df_random.iloc[row]['name']] = {'type':'atm','sim':rt}
+        name_array[df_random.iloc[row]['name']] = {'type':'atm','sim':rt,'rank':str(df_random.iloc[row]['rank']),'percent':str(round(df_random.iloc[row]['rank']/year_length*100))}
+
     #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)    
     return name_array
 
