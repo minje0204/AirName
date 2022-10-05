@@ -155,7 +155,6 @@ def AtmRecommend(rcm_data):
 
     db = ConnectMongoDB()
     df = LoadDataframes(db, 'atm')
-
     processedInput = preProcessAtmInput(AtmInput)
 
     df[['score','tag']] = df.apply(lambda row : processATM(list(map(lambda x: row[x],processedInput)),processedInput), axis = 1,result_type='expand')
@@ -165,18 +164,17 @@ def AtmRecommend(rcm_data):
 
     for row in range(df_random.shape[0]):
         tagList = df_random.iloc[row]['tag']
+        tagTup = {}
+        for tag in list(tagList):
+            tagTup[tag]=df_random.iloc[row][tag]
+        rtTag = {k: v for k, v in sorted(tagTup.items(), key=lambda item: item[1], reverse=True)}
         rt={}
-        if (len(tagList) >=3):
-            tagTup = {}
-            for tag in list(tagList):
-                tagTup[tag]=df_random.iloc[row][tag]
-            rtTag = {k: v for k, v in sorted(tagTup.items(), key=lambda item: item[1], reverse=True)}
-
-            for i,(k,v) in enumerate(rtTag.items()):
-                if i>=2: 
-                    break
-                rt[k]=v
-        name_array[df_random.iloc[row]['name']] = {'type':'atm','sim':rt,'rank':str(df_random.iloc[row]['rank']),'percent':str(round(df_random.iloc[row]['rank']/year_length*100))}
+        for i,(k,v) in enumerate(rtTag.items()):
+            if i>=2: 
+                break
+            rt[k]=v
+        
+        name_array[df_random.iloc[row]['name']] = {'type':'atm','sim':str(rt),'rank':str(df_random.iloc[row]['rank']),'percent':str(round(df_random.iloc[row]['rank']/year_length*100,2))}
 
     #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)    
     return name_array
