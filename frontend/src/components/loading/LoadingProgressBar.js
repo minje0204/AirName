@@ -1,25 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import styled from 'styled-components';
 import LoadBtn from './LoadingCompleteBtn';
+import { IsFillContext } from 'hooks/useIsFillContext';
 
 export default function ProgressBar() {
   const [progress, setProgress] = useState(0);
-  const [isFull, setIsFull] = useState(0);
+  const { isFill } = useContext(IsFillContext);
 
   React.useEffect(() => {
     const timer = setInterval(() => {
       setProgress((oldProgress) => {
-        if (oldProgress === 100) {
-          setIsFull(1);
-        }
         if (
           localStorage.getItem('rcmndNames') ||
           localStorage.getItem('username')
         ) {
           setProgress(100);
-          setIsFull(1);
         }
         const diff = Math.random() * 10;
         return Math.min(oldProgress + diff, 100);
@@ -35,7 +32,7 @@ export default function ProgressBar() {
       <Box id="wait" sx={{ margin: '10px' }}>
         <LinearProgress variant="determinate" value={progress} />
         <StyledWrapper>
-          {isFull === 1 ? <LoadBtn wait={false} /> : <LoadBtn wait={true} />}
+          {isFill ? <LoadBtn wait={false} /> : <LoadBtn wait={true} />}
         </StyledWrapper>
       </Box>
     </div>
