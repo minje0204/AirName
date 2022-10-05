@@ -143,10 +143,8 @@ def Recommend(rcm_data):
         df_new = df_sim.copy()
 
         df_random = df_new[df_new['nysiis']==data].sample(n=1).to_numpy()
-
         name_array[df_random[0][1]] = {'type':'sound','sim':round(df_random[0][4]*100),
-                                       'rank':str(df_random[0][5]),'percent':str(round(df_random[0][5]/year_length*100)),
-                                       'pop':str(df_random[0][year-1934])}
+                                       'rank':str(df_random[0][5]),'percent':str(round(df_random[0][5]/year_length*100))}
 
     return name_array
 
@@ -176,7 +174,7 @@ def AtmRecommend(rcm_data):
                 break
             rt[k]=v
         
-        name_array[df_random.iloc[row]['name']] = {'type':'atm','sim':str(rt),'rank':str(df_random.iloc[row]['rank']),'percent':str(round(df_random.iloc[row]['rank']/year_length*100,2)), 'pop':str(df_random.iloc[row][str(year)])}
+        name_array[df_random.iloc[row]['name']] = {'type':'atm','sim':str(rt),'rank':str(df_random.iloc[row]['rank']),'percent':str(round(df_random.iloc[row]['rank']/year_length*100,2))}
 
     #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)    
     return name_array
