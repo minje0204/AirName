@@ -71,6 +71,10 @@
   text-align: center;
 }
 
+.info-font-bold{
+  color: red;
+}
+
 .vibration {
   animation: vibration 0.5s infinite;
 }
@@ -129,6 +133,7 @@
     font-family: 'SCDream7';
   }
   .info-body-font {
-    font-size: 12px;
+    font-size: 10px;
   }
+
 }

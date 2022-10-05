@@ -1,11 +1,17 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import TicketHeadAirplane from '../../asset/img/rcmnd/TicketHeadAirplane.png';
 import { enToKoAttribute } from '../loading/attributeDictionary';
 import './Rcmnd.css';
 
-function TicketFront({ name, type, sim }) {
+function TicketFront({ name, type, sim, rank, percent }) {
   // 대문자이름
   let uppername = name.toUpperCase();
+  const [birth, setBirth] = useState('');
+
+  useEffect(() => {
+    setBirth(localStorage.getItem('birth'));
+  }, []);
 
   return (
     <div>
@@ -21,9 +27,13 @@ function TicketFront({ name, type, sim }) {
                 <div id="info-container">
                   <div className="info-head-font">{sim}%</div>
                   <div className="info-body-font">
-                    당신의 이름과 {sim}% 유사한 발음을
+                    당신의 이름과 {sim}% 유사한 발음을 가지고있어요!
                     <br />
-                    가지고 있는 이름 {name}을 선택해보세요!
+                    {birth}년, 
+                    {name}는<b>{rank}번째로</b> 많이 사용되었습니다. <br />
+                    그리고, 그 해{' '}
+                    <b>100개의 이름 중 {Math.round(percent)}번째로</b> 많이
+                    선택한 거죠!
                   </div>
                 </div>
               ) : (
@@ -33,16 +43,34 @@ function TicketFront({ name, type, sim }) {
                       <>
                         {Object.entries(enToKoAttribute).map(([k, v]) => (
                           <>
-                            {att === k ? <>{v} : {value * 100}%{' '}</> : null}
+                            {att == k ? (
+                              <b>
+                                {v} : {Math.round(value) * 100}%{' '}
+                              </b>
+                            ) : null}
                           </>
                         ))}
                       </>
                     ))}
                   </div>
                   <div className="info-body-font">
-                    당신을 표현할 수 있는 단어인
-                    <br /> "{Object.keys(sim).join(', ')}"의
-                    <br /> 분위기를 가지고 있는 이름이에요!
+                    {sim === '{}' ? (
+                      <>
+                        설문을 통해 성격을 알 수 없어서 랜덤으로 추천된
+                        이름이에요.
+                      </>
+                    ) : (
+                      <>
+                        설문을 통해 알 수 있는 성격 기반으로 추천된 이름이에요🎠
+                      </>
+                    )}
+                    <br />
+                    {birth}년, {name}는<b>{rank}번째로</b> 많이 사용되었습니다.
+                    <br />
+                    <b>
+                      그 해, 100개의 이름 중 {Math.round(percent)}번째로
+                    </b>{' '}
+                    많이 선택되었어요!
                   </div>
                   <div className="info-body-font"></div>
                 </div>
