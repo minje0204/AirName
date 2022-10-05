@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8d031b73-f762-475b-9200-1d15ae4c106b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/backend_django/RecName/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend_django/RecName/connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend_django/RecName/rec.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend_django/RecName/rec.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,12 +14,12 @@
     <session id="-1321436432">
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="2" />
+          <entry key="py" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="2" />
+          <entry key="Python" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -40,7 +40,7 @@
         <entry file="file://$PROJECT_DIR$/backend_django/SpeakName/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
-              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -51,8 +51,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend_django/RecName/rec.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="146" column="120" selection-start-line="146" selection-start-column="120" selection-end-line="146" selection-end-column="120" />
+            <state relative-caret-position="153">
+              <caret line="80" column="17" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -61,7 +61,16 @@
         <entry file="file://$PROJECT_DIR$/backend_django/RecName/connection.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
-              <caret line="10" column="15" lean-forward="true" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
+              <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend_django/YourName/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-877">
+              <caret line="88" column="40" selection-start-line="88" selection-start-column="40" selection-end-line="88" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -96,9 +105,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="595" />
-    <option name="y" value="46" />
+    <option name="y" value="45" />
     <option name="width" value="980" />
     <option name="height" value="1050" />
   </component>
@@ -108,7 +117,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -127,10 +135,17 @@
               <item name="backend_django" type="462c0819:PsiDirectoryNode" />
               <item name="RecName" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="back_airname" type="b2602c69:ProjectViewProjectNode" />
+              <item name="back_airname" type="462c0819:PsiDirectoryNode" />
+              <item name="backend_django" type="462c0819:PsiDirectoryNode" />
+              <item name="YourName" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="ProjectViewState">
@@ -217,8 +232,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend_django/YourName/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="94" column="4" lean-forward="true" selection-start-line="94" selection-start-column="6" selection-end-line="94" selection-end-column="83" />
+        <state relative-caret-position="-877">
+          <caret line="88" column="40" selection-start-line="88" selection-start-column="40" selection-end-line="88" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -271,7 +286,7 @@
     <entry file="file://$PROJECT_DIR$/backend_django/SpeakName/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
@@ -280,15 +295,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend_django/RecName/rec.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="146" column="120" selection-start-line="146" selection-start-column="120" selection-end-line="146" selection-end-column="120" />
+        <state relative-caret-position="153">
+          <caret line="80" column="17" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend_django/RecName/connection.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="10" column="15" lean-forward="true" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
+          <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
         </state>
       </provider>
     </entry>
