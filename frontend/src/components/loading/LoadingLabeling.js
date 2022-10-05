@@ -58,11 +58,14 @@ export default function Labeling() {
     <StyledWrapper>
       <Container className="explain">
         <Box className="explain">
-          <Box id="title">이미지게임</Box>
-          <Box className="question">
+          <Box id="mainTitle">이미지게임</Box>
+          <Box className="SubTitle">
             다른 사람은 이 이름에 대해 어떻게 생각할까요?
           </Box>
-          <Box className="question">아래 카드를 누르면 결과가 나와요.</Box>
+          <Box className="SubTitle">아래 카드를 누르면 결과가 나와요.</Box>
+          <Box id="loadingExplain">
+            발음과 답변을 분석 중입니다. 곧 이름을 추천해드릴게요.
+          </Box>
         </Box>
         {!isImgLoaded ? (
           <>
@@ -149,9 +152,16 @@ const StyledWrapper = styled.div`
     align-items: center;
     justify-content: center;
   }
-  #title {
+  #mainTitle {
     font-family: SCDream7;
     font-size: 36px;
+  }
+  .SubTitle {
+    font-size: clamp(14px, 1.6vw, 17px);
+  }
+  #loadingExplain {
+    color: gray;
+    font-size: 12px;
   }
   #progress-container {
     position: relative;
