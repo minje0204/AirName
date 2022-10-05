@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import LabelingResult from './LoadingResult';
 import API from '../../config';
 import { enToKoAttribute, koToEnAttribute } from './attributeDictionary';
+import TTSBtn from 'components/TTSBtn';
 
 export default function Labeling() {
   const [name, setName] = useState('');
@@ -74,6 +75,7 @@ export default function Labeling() {
           <>
             <Box id="name" sx={{ margin: '10px' }}>
               {name}
+              <TTSBtn username={name} type="rcmnd" />
             </Box>
             <Box>
               {result ? (
