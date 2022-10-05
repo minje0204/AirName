@@ -250,7 +250,7 @@ const StyledWrapper = styled.div`
     position: absolute;
     top: 0px;
     overflow: hidden;
-    height: 600px;
+    height: 400px;
     width: 100%;
     transition: background 250ms;
     #background-img {
