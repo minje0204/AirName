@@ -11,8 +11,8 @@ function Home() {
         <AirplaneWindow />
       </div>
       <div id="right-container" >
-        <div >
-          <img src="/logo.png" alt="logo" id="logo" />
+        <div id="home-img-container">
+          <img src="/logo2.svg" alt="logo" id="logo" />
         </div>
         <div >
           <div>
@@ -86,6 +86,12 @@ const StyledWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     height: 350px;
+  }
+
+  #home-img-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
 
