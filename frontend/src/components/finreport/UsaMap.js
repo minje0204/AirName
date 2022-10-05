@@ -37,7 +37,13 @@ const UsaMap = ({ abState, userName }) => {
 
   return (
     <StyledWrapper>
-      <USAMap id="usa-map" customize={statesFilling()} width="100%" height="100%" onClick={mapHandler} />
+      <USAMap
+        id="usa-map"
+        customize={statesFilling()}
+        width="100%"
+        height="100%"
+        onClick={mapHandler}
+      />
     </StyledWrapper>
   );
 };

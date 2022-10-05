@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import AirplaneWindow from '../components/home/AirplaneWindow';
 import StartBtn from '../components/home/StartBtn';
 import ShareBtn from 'components/home/ShareBtn';
+import LinkButton from '../components/LinkButton';
 
 function Home() {
   return (
@@ -9,26 +10,38 @@ function Home() {
       <div id="left-container">
         <AirplaneWindow />
       </div>
-      <div id="right-container">
-        <div>
-          <img src="/logo.png" alt="logo" width="300px" />
+      <div id="right-container" >
+        <div id="home-img-container">
+          <img src="/logo2.svg" alt="logo" id="logo" />
         </div>
-        <div id="button-container">
+        <div >
           <div>
             <StartBtn
+            
               title="영어 이름 추천받기"
               subtitle="영어 이름이 없다면? 🙅‍♀️"
               to="/entry-ko"
             />
           </div>
-          <div>
+          <div id="start-btn-shadow">
             <StartBtn
               title="내 이름 레포트 보기"
               subtitle="이미 영어 이름이 있어요 ! 🙆‍♂️"
               to="/entry-en"
             />
           </div>
-          <ShareBtn />
+          <div>
+            친구랑 같이 하기🖐
+            {/* <LinkButton
+              content="카카오톡으로 공유"
+              to=""
+              h="50px"
+              w="300px"
+              fs="20px"
+            /> */}
+                <ShareBtn to="" content="카카오톡으로 공유"  h="50px" w="300px" fs="20px" />
+          </div>
+
         </div>
       </div>
     </StyledWrapper>
@@ -38,6 +51,12 @@ function Home() {
 export default Home;
 
 const StyledWrapper = styled.div`
+  width: 100vw;
+  min-height: 100vh;
+  color: rgba(255, 255, 255, 0.7);
+  // background-color: rgba(0, 0, 0, 0.8);
+  background: linear-gradient( 45deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.65) );
+  font-size: 13px;
   @media (min-width: 650px) {
     min-width: 630px;
   }
@@ -48,23 +67,40 @@ const StyledWrapper = styled.div`
       display: none;
     }
   }
-
+  #logo {
+    width: min(80vw, 280px);
+    margin-bottom: 20px;
+    
+  }
+  StartBtn {
+    width: min(80vw, 280px);
+    
+  }
   display: flex;
   height: 100vh;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   #right-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     height: 350px;
   }
+
+  #home-img-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
 
   #button-container {
     height: 250px;
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
+    color: rgba(255, 255, 255, 0.7);
   }
 `;

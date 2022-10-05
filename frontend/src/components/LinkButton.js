@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import styled from 'styled-components';
 
-const LinkButton = ({ content, to, h, w, fs, url, ...props }) => {
+const LinkButton = ({ content, to, h, w, fs, url, children, ...props }) => {
   return (
     <BtnStyle>
       <Button
@@ -29,6 +29,7 @@ const LinkButton = ({ content, to, h, w, fs, url, ...props }) => {
             }}
           ></img>
         ) : null}
+        {children}
         <span id="linkBtnContent" style={{ fontSize: `${fs ? fs : '14px'}` }}>
           {content}
         </span>

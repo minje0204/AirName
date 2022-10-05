@@ -30,7 +30,7 @@ class RcmndCardItems extends React.Component {
             <RcmndTicketFront name={name} type={info.type} birth={birth} />
           </FRONT_COMPONENT>
           <BACK_COMPONENT onClick={this.handleClick}>
-            <RcmndTicketBack name={name} type={info.type} sim={info.sim} />
+            <RcmndTicketBack name={name} type={info.type} sim={info.sim} rank={info.rank} percent={info.percent} />
           </BACK_COMPONENT>
         </ReactCardFlip>
       </EachTicketContainer>

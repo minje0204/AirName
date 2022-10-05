@@ -21,7 +21,8 @@ function SurveySection() {
   // 설문 계산용
   const [cur, setCur] = useState(0);
   const [isLast, setIsLast] = useState(false);
-  const [ramdomNums, setRamdomNums] = useState([10, 11]);
+  const [rarity, setRarity] = useState(0);
+  const [ramdomNums, setRamdomNums] = useState([11, 12]);
 
   // 최종적으로 보내줄 설문결과
   const [surveyRes, setSurveyRes] = useState({});
@@ -41,10 +42,15 @@ function SurveySection() {
   // 이름 가져와서 Local에 저장
   const sendSurveyGetName = async (data) => {
     console.log(data);
-    axios.post(`${API.GETNAME}`, data).then((res) => {
-      // 이름 추천 데이터 저장
-      localStorage.setItem('rcmndNames', JSON.stringify(res.data));
-    });
+    axios
+      .post(`${API.GETNAME}`, data)
+      .then((res) => {
+        // 이름 추천 데이터 저장
+        console.log(data);
+        console.log('success');
+        localStorage.setItem('rcmndNames', JSON.stringify(res.data));
+      })
+      .catch(console.log('error'));
   };
 
   // 클릭시, 데이터 묶어서 계속 저장
@@ -52,24 +58,52 @@ function SurveySection() {
     const newElement = {
       [questions[ramdomNums[cur]].answerKey]: input
     };
-    setSurveyRes({ ...surveyRes, ...newElement });
-    if (cur === N - 1) {  
-      getName();
+
+    if (questions[ramdomNums[cur]].answerKey == 'Rarity') {
+      setRarity(input);
+    } else {
+      setSurveyRes({ ...surveyRes, ...newElement });
     }
-    else{
-      setCur(cur + 1);
-      
-    }
+
+    if (cur < 5) setCur(cur + 1);
   };
 
   // 이전으로 돌아가는 버튼
   const backToPre = () => {
     if (cur > 0) {
-      const key = questions[ramdomNums[cur - 1]].answerKey;
-      delete surveyRes[key];
       setCur(cur - 1);
+      let key = questions[ramdomNums[cur - 1]].answerKey;
+      console.log(key);
+
+      delete surveyRes[key];
+
+      setIsLast(false);
+      console.log(isLast);
     }
   };
+
+  useEffect(() => {
+    if (Object.entries(surveyRes).length === 5) setIsLast(true);
+    console.log(surveyRes);
+    console.log(isLast);
+  }, [surveyRes]);
+
+  useEffect(() => {
+    if (isLast) {
+      console.log(surveyRes);
+      console.log('isLast!');
+      const data = {
+        name: nameKo,
+        gender: gender,
+        birth: birth,
+        attr: surveyRes,
+        rarity: rarity
+      };
+      console.log(data);
+      sendSurveyGetName(data);
+      navigate('/loading');
+    }
+  }, [isLast]);
 
   // 중복없는 랜덤 뽑아내는
   const selectIndex = (totalIndex, selectingNumber) => {
@@ -85,16 +119,18 @@ function SurveySection() {
     return randomIndexArray;
   };
 
-  const getName = () => {
-    const data = {
-      name: nameKo,
-      gender: gender,
-      birth: birth,
-      attr: surveyRes
-    };
-    sendSurveyGetName(data);
-    navigate('/loading');
-  };
+  // const getName = () => {
+  //   const data = {
+  //     name: nameKo,
+  //     gender: gender,
+  //     birth: birth,
+  //     rarity: rarity,
+  //     attr: surveyRes
+  //   };
+  //   console.log(data)
+  //   sendSurveyGetName(data);
+  //   navigate('/loading');
+  // };
 
   // 첫 렌더링시 데이터 가져오기
   useEffect(() => {
@@ -129,10 +165,12 @@ function SurveySection() {
         <SvyBtbn id="svy-btn" className="shadow" onClick={() => handleClick(2)}>
           {questions[ramdomNums[cur]].answer[2]}
         </SvyBtbn>
-
       </SveyBody>
-      { cur === 0 ? <LinkButton to="" img="" content="이전" disabled={!Boolean(cur)} />: <LinkButton to="" content="이전" onClick={() => backToPre()} />  }
-        
+      {cur === 0 ? (
+        <LinkButton to="" img="" content="이전" disabled={!Boolean(cur)} />
+      ) : (
+        <LinkButton to="" content="이전" onClick={() => backToPre()} />
+      )}
     </SveySectionContainer>
   );
 }

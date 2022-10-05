@@ -68,7 +68,18 @@
 
 .info-body-font {
   font-size: 20px;
-  text-align: center;
+  text-align: left;
+}
+
+.info-font-bold{
+  font-weight: bold;
+}
+
+.info-font-bold-red{
+  color:#e3369d;
+  font-style: italic;
+  text-decoration:underline;
+ 
 }
 
 .vibration {
@@ -129,6 +140,7 @@
     font-family: 'SCDream7';
   }
   .info-body-font {
-    font-size: 12px;
+    font-size: 10px;
   }
+
 }

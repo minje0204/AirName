@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import TTSBtn from '../TTSBtn';
 // import {isDesktop} from 'react-device-detect';
 
-function FinTitle({ hometown, username }) {
+function FinTitle({ hometown, username, isNewName }) {
   return (
     <StyledWrapper>
       <div id="fintitle-container">
@@ -10,14 +10,15 @@ function FinTitle({ hometown, username }) {
         {/* mainstate가 있으면 렌더링 */}
         {hometown.length > 0 ? (
           <WelcomeWrapper>
-            Welcome to
-            <HomeTownWrapper>{hometown},</HomeTownWrapper>
+            <b>Welcome to{' '}
+            {hometown},</b>
           </WelcomeWrapper>
         ) : null}
 
         <NameWrapper>
           <div id="fin-username">{username}!</div>
-          {/* TTS */}
+          
+          {isNewName === true? null:
           <div id="fin-tts">
             <TTSBtn
               id="fin-tts"
@@ -26,6 +27,7 @@ function FinTitle({ hometown, username }) {
               type="fintitle"
             />
           </div>
+          }
         </NameWrapper>
         
       </div>
@@ -38,6 +40,9 @@ const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
   color: black;
+  text-shadow: 0 0 7px  rgba(255,255,255), 0 0 10px rgba(255,255,255), 0 0 21px rgba(255,255,255), 0 0 42px rgba(255,255,255),
+  0 0 82px rgba(255,255,255), 0 0 92px rgba(255,255,255), 0 0 102px rgba(255,255,255), 0 0 151px rgba(255,255,255);
+ 
 `;
 
 const WelcomeWrapper = styled.div`
