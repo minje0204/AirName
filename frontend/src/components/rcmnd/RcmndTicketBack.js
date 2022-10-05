@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import TicketHeadAirplane from '../../asset/img/rcmnd/TicketHeadAirplane.png';
-// import {isAndroid} from 'react-device-detect';
+import { enToKoAttribute } from '../loading/attributeDictionary';
 import './Rcmnd.css';
 
 function TicketFront({ name, type, sim }) {
@@ -29,21 +29,22 @@ function TicketFront({ name, type, sim }) {
               ) : (
                 <div id="info-container">
                   <div className="info-head-font">
-                    
-                    {Object.entries(sim).map(([k, v]) => (
+                    {Object.entries(sim).map(([att, value]) => (
                       <>
-                      {k} : {v*100}% {' '}
+                        {Object.entries(enToKoAttribute).map(([k, v]) => (
+                          <>
+                            {att === k ? <>{v} : {value * 100}%{' '}</> : null}
+                          </>
+                        ))}
                       </>
-                  ))}
+                    ))}
                   </div>
                   <div className="info-body-font">
                     당신을 표현할 수 있는 단어인
                     <br /> "{Object.keys(sim).join(', ')}"의
                     <br /> 분위기를 가지고 있는 이름이에요!
                   </div>
-                  <div className="info-body-font">
- 
-                  </div>
+                  <div className="info-body-font"></div>
                 </div>
               )}
             </TickeNameContainer>
