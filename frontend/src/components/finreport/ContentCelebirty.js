@@ -64,7 +64,9 @@ function ContentCelebirty({ maleCelebrity, femaleCelebrity }) {
           {typeof femaleCelebrity === 'object' &&
           Object.keys(femaleCelebrity).length > 0 ? (
             <Tab label="🙍‍♀️ 여자 유명인" {...a11yProps(1)} />
-          ) : <Tab label="🙍‍♀️ 여자 유명인" {...a11yProps(1)} disabled/>}
+          ) : (
+            <Tab label="🙍‍♀️ 여자 유명인" {...a11yProps(1)} disabled />
+          )}
         </Tabs>
 
         <TabPanel value={value} index={0}>
@@ -96,9 +98,6 @@ function ContentCelebirty({ maleCelebrity, femaleCelebrity }) {
               ))}
             </>
           ) : null}
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          Item Three
         </TabPanel>
       </div>
     </>

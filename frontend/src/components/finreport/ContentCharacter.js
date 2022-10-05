@@ -100,13 +100,7 @@ function ContentCharacter({ username, maleCharacter, femaleCharacter }) {
               ))}
             </>
           </TabPanel>
-        ) : (
-          null
-        )}
-
-        <TabPanel value={value} index={2}>
-          Item Three
-        </TabPanel>
+        ) : null}
       </div>
     </>
   );
