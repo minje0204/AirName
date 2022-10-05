@@ -38,6 +38,7 @@ function FeedbackBtn() {
 export default FeedbackBtn;
 
 const StyledWrapper = styled.div`
+  z-index: 2;
   #elfImg {
     height: 7vmin;
     min-height: 20px;

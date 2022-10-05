@@ -181,12 +181,12 @@ function FinReport() {
               src={`${stateDescObj[2]}`}
               alt="state-background-img"
             />
-            <div id="state-text-container">
+            {/* <div id="state-text-container">
               <span id="state-title">
                 <strong>{stateDescObj[0]}</strong>
               </span>
               <span id="state-desc">{stateDescObj[1]}</span>
-            </div>
+            </div> */}
           </div>
         ) : (
           <div></div>
@@ -202,18 +202,20 @@ function FinReport() {
             </MyCardContainer>
             <ReportContent
               username={username}
-              hometown={mainState}
-              maleState={maleState}
-              femaleState={femaleState}
               meaning={meaning}
-              parseKoHome={parseKoHome}
-              parseEnHome={parseEnHome}
-              parseFeKoHome={parseFeKoHome}
-              parseFeEnHome={parseFeEnHome}
+
               isNewName={isNewName}
               nameInfo={nameInfo}
               femaleYear={femaleYear}
               maleYear={maleYear}
+
+              maleState={maleState}
+              femaleState={femaleState}
+              parseKoHome={parseKoHome}
+              parseEnHome={parseEnHome}
+              parseFeKoHome={parseFeKoHome}
+              parseFeEnHome={parseFeEnHome}
+
               mainState={mainState}
               parseEnMainState={parseEnMainState}
               maleCelebrity={maleCelebrity}
