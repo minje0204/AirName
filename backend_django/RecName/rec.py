@@ -99,12 +99,6 @@ def NameRarity(index):
 
     return rarity
 
-def Ranking(name):
-    rank = 0
-
-
-    return rank
-
 def Recommend(rcm_data):
     #[기존 코드] 발음코드 데이터프레임 불러옴
     #data = LoadDataframes("code_dump")
@@ -150,7 +144,7 @@ def Recommend(rcm_data):
 
         df_random = df_new[df_new['nysiis']==data].sample(n=1).to_numpy()
         name_array[df_random[0][1]] = {'type':'sound','sim':round(df_random[0][4]*100),
-                                       'rank':df_random[0][5],'percent':round(df_random[0][5]/year_length*100)}
+                                       'rank':str(df_random[0][5]),'percent':str(round(df_random[0][5]/year_length*100))}
 
     return name_array
 
