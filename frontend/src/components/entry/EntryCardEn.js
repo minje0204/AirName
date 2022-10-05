@@ -120,7 +120,7 @@ function EntryCardEn() {
                   <ValidationTextField
                     variant="standard"
                     className="answer"
-                    placeholder="한글성명 ex)홍길동"
+                    placeholder="한글성명 ex) 홍길동"
                     inputProps={{
                       maxLength: 7,
                       style: { fontSize: 'clamp(14px, 1.6vw, 18px)' }
@@ -146,7 +146,7 @@ function EntryCardEn() {
                   <ValidationTextField
                     variant="standard"
                     className="answer"
-                    placeholder="영어 이름 ex)Alex"
+                    placeholder="영어 이름 ex) alex"
                     inputProps={{
                       style: { fontSize: 'clamp(14px, 1.6vw, 18px)' }
                     }}
@@ -181,7 +181,7 @@ function EntryCardEn() {
                       style: { fontSize: 'clamp(14px, 1.6vw, 18px)' }
                     }}
                     className="answer"
-                    placeholder="태어난 해 ex)1995"
+                    placeholder="태어난 해 ex) 1995"
                     error={birthError}
                     helperText={
                       birthError
@@ -404,7 +404,7 @@ const StyledWrapper = styled.div`
     color: rgba(150, 150, 150, 80);
   }
   .necessaryInput {
-    color: #c76870;
+    color: red;
   }
   .fixedAnswer {
     text-align: center;

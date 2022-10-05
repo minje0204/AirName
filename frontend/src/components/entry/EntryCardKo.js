@@ -367,7 +367,7 @@ const StyledWrapper = styled.div`
     color: rgba(150, 150, 150, 80);
   }
   .necessaryInput {
-    color: #c76870;
+    color: red;
   }
   .fixedAnswer {
     text-align: center;

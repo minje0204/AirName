@@ -56,6 +56,7 @@ function TTSBtn({ hometown, username, type }) {
       <div>
         <Button
           onClick={(e) => {
+						e.stopPropagation();
 						requestAudioFile();
           }}
         >

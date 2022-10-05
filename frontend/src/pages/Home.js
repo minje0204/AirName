@@ -12,7 +12,8 @@ function Home() {
       </div>
       <div id="right-container" >
         <div id="home-img-container">
-          <img src="/logo2.svg" alt="logo" id="logo" />
+          {/* <img src="/logo2.svg" alt="logo" id="logo" /> */}
+          AIR NAME
         </div>
         <div >
           <div>
@@ -92,6 +93,12 @@ const StyledWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 60px;
+    font-weight: 700;
+    font-style: italic;
+    color: white;
+    margin-bottom: 20px;
+    font-family: 'SCDream7';
   }
 
 
