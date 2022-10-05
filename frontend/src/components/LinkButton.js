@@ -30,7 +30,7 @@ const LinkButton = ({ content, to, h, w, fs, url, children, ...props }) => {
           ></img>
         ) : null}
         {children}
-        <span id="content" style={{ fontSize: `${fs ? fs : '14px'}` }}>
+        <span id="linkBtnContent" style={{ fontSize: `${fs ? fs : '14px'}` }}>
           {content}
         </span>
       </Button>
@@ -42,7 +42,7 @@ export default LinkButton;
 
 const BtnStyle = styled.div`
   border-radius: 20px;
-  #content {
+  #linkBtnContent {
     font-family: 'SCDream5';
     color: white;
   }

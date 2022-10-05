@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import Grid from '@mui/material/Unstable_Grid2';
 import {
   Container,
   TextField,
-  // Button,
   Radio,
   RadioGroup,
   FormControlLabel,
-  FormControl
+  FormControl,
+  Box
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import LinkButton from 'components/LinkButton';
 import styled from 'styled-components';
-import ReadOnlyInput from './EntryCardReadOnlyInput';
-
-// import postAxios from '../../lib/postAxios';
 import API from '../../config';
 
 const ValidationTextField = styled(TextField)({
@@ -36,16 +34,13 @@ function EntryCardKo() {
   const [birth, setBirth] = useState('');
   const birthCheck = /^(19|20)\d{2}/;
   const [birthError, setBirthError] = useState(false);
-  const [btnDisabled, setBtnDisabled] = useState(true);
   const navigate = useNavigate();
-  // const [isSoundError, setisSoundError] = useState(false);
 
   const linkToSurvey = () => {
     navigate('/survey');
   };
 
   const saveToStorage = (localdata) => {
-    console.log(localdata);
     localStorage.setItem('nameKo', nameKo);
     localStorage.removeItem('username');
     localStorage.setItem('birth', birth);
@@ -54,19 +49,7 @@ function EntryCardKo() {
 
   const sendData = async () => {
     const data = { name: nameKo, gender: gender, birth: birth };
-    console.log(data);
     saveToStorage(data);
-    // axios
-    //   .post(`${API.ENTRY}`, data)
-    //   .then((res) => {
-    //     console.log(res)
-    //     saveToStorage(JSON.stringify(res.data));
-    //   })
-    //   .catch((err) => {
-    //     if (err.message = "Request failed with status code 500"){
-    //       console.log('500번 에러 ! ')
-    //     }
-    //   });
     linkToSurvey();
   };
 
@@ -90,115 +73,213 @@ function EntryCardKo() {
       });
   };
 
-  // useEffect(() => {
-  //   if(isError)
-  // }, [isSoundError]);
-
   return (
     <StyledWrapper>
       <div id="card">
-        <Container sx={{ bgcolor: 'var(--secondaryMain)', height: '100px' }}>
+        <Container
+          id="titleBox"
+          sx={{
+            bgcolor: '#fcf8d2',
+            height: '80px'
+          }}
+        >
           <div id="title">
-            <div>THE UNITED STATES OF AMERICA</div>
-            <div id="title_b">ARRIVAL CARD</div>
+            <div id="title_a">THE UNITED STATES OF AMERICA</div>
+            <div id="title_b">ARRIVAL CARD 입국카드</div>
           </div>
+          <div id="title_explain">*은 필수항목입니다</div>
         </Container>
-        <Container id="content" sx={{ bgcolor: '#F9F7F4', height: '60vh' }}>
-          <div className="qAndA custom-input">
-            <div className="question to-move">Korean Name</div>
-            <ValidationTextField
-              variant="outlined"
-              className="answer"
-              placeholder="한글성명 ex)홍길동"
-              inputProps={{
-                maxLength: 7,
-                style: { fontSize: 'clamp(12px,1.3vw,16px)' }
-              }}
-              error={nameKoError}
-              helperText={nameKoError ? nameKoErrorMsg : null}
-              required
-              onChange={(e) => {
-                const nameKoTmp = e.target.value;
-                checkNameKo(nameKoTmp);
-              }}
-            />
-          </div>
-          <div className="qAndA">
-            <div className="question">Gender</div>
-            <FormControl className="answer">
-              <RadioGroup
-                aria-labelledby="demo-controlled-radio-buttons-group"
-                name="controlled-radio-buttons-group"
-                value={gender}
-                onChange={(event) => {
-                  setGender(event.target.value);
-                }}
-              >
-                <FormControlLabel
-                  value="M"
-                  control={
-                    <Radio
-                      sx={{ '&.Mui-checked': { '&': { color: 'green' } } }}
-                    />
-                  }
-                  label={
-                    <span style={{ fontSize: 'clamp(12px,1.5vw,16px)' }}>
-                      Male
-                    </span>
-                  }
-                />
-                <FormControlLabel
-                  value="F"
-                  control={
-                    <Radio
-                      sx={{ '&.Mui-checked': { '&': { color: 'green' } } }}
-                    />
-                  }
-                  label={
-                    <span style={{ fontSize: 'clamp(12px,1.5vw,16px)' }}>
-                      Female
-                    </span>
-                  }
-                />
-              </RadioGroup>
-            </FormControl>
-          </div>
-          <div className="qAndA custom-input">
-            <div className="question to-move">Birth Year</div>
-            <ValidationTextField
-              variant="outlined"
-              inputProps={{
-                maxLength: 4,
-                style: { fontSize: 'clamp(12px,1.5vw,16px)' }
-              }}
-              className="answer"
-              placeholder="태어난 해 ex)1995"
-              error={birthError}
-              helperText={
-                birthError
-                  ? '1940 ~ 2021 사이의 년도를 숫자로 입력해주세요.'
-                  : null
-              }
-              required
-              onChange={(e) => {
-                const birthTmp = e.target.value;
-                if (
-                  !birthCheck.test(birthTmp) ||
-                  birthTmp.length < 4 ||
-                  Number(birthTmp) < 1940 ||
-                  Number(birthTmp) > 2021
-                ) {
-                  setBirthError(true);
-                } else {
-                  setBirth(birthTmp);
-                  setBirthError(false);
+        <Container
+          id="entryContentBox"
+          sx={{ bgcolor: '#FCF8D2', height: '60vh' }}
+        >
+          <Box>
+            <Grid
+              container
+              spacing={1.5}
+              sx={{
+                border: '2px solid',
+                borderColor: 'gray',
+                '& > div': {
+                  borderRight: '1px solid',
+                  borderBottom: '1px solid',
+                  borderColor: 'black'
                 }
               }}
-            />
-          </div>
-          <ReadOnlyInput q="English Name" a=" " />
-          <ReadOnlyInput q="Airline No." a="AIR NAME A108" />
-          <ReadOnlyInput q="Nationality" a="Korea" />
+            >
+              <Grid {...{ xs: 6 }}>
+                <div className="qAndA custom-input">
+                  <div className="question to-move">
+                    <span className="questionA necessaryInput">*한글성명</span>
+                    <span className="questionB necessaryInput">
+                      Korean Name
+                    </span>
+                  </div>
+                  <ValidationTextField
+                    variant="standard"
+                    className="answer"
+                    placeholder="한글성명 ex)홍길동"
+                    inputProps={{
+                      maxLength: 7,
+                      style: { fontSize: 'clamp(14px, 1.6vw, 18px)' }
+                    }}
+                    error={nameKoError}
+                    helperText={nameKoError ? nameKoErrorMsg : null}
+                    required
+                    onChange={(e) => {
+                      const nameKoTmp = e.target.value;
+                      checkNameKo(nameKoTmp);
+                    }}
+                  />
+                </div>
+              </Grid>
+              <Grid {...{ xs: 6 }}>
+                <div className="qAndA custom-not-input">
+                  <div className="question to-move">
+                    <span className="questionA">여행목적</span>
+                    <span className="questionB">Purpose of visit</span>
+                  </div>
+                  <div className="fixedAnswer">관광 Tourism</div>
+                </div>
+              </Grid>
+              <Grid {...{ xs: 6 }}>
+                <div className="qAndA custom-input">
+                  <div className="question to-move">
+                    <span className="questionA necessaryInput">*생년</span>
+                    <span className="questionB necessaryInput">Birth Year</span>
+                  </div>
+                  <ValidationTextField
+                    variant="standard"
+                    inputProps={{
+                      maxLength: 4,
+                      style: { fontSize: 'clamp(14px, 1.6vw, 18px)' }
+                    }}
+                    className="answer"
+                    placeholder="태어난 해 ex)1995"
+                    error={birthError}
+                    helperText={
+                      birthError
+                        ? '1940 ~ 2021년 사이를 숫자로 입력해주세요'
+                        : null
+                    }
+                    required
+                    onChange={(e) => {
+                      const birthTmp = e.target.value;
+                      if (
+                        !birthCheck.test(birthTmp) ||
+                        birthTmp.length < 4 ||
+                        Number(birthTmp) < 1940 ||
+                        Number(birthTmp) > 2021
+                      ) {
+                        setBirthError(true);
+                      } else {
+                        setBirth(birthTmp);
+                        setBirthError(false);
+                      }
+                    }}
+                  />
+                </div>
+              </Grid>
+              <Grid {...{ xs: 6 }}>
+                <div className="qAndA custom-not-input">
+                  <div className="question to-move">
+                    <span className="questionA necessaryInput">*성별</span>
+                    <span className="questionB necessaryInput">Gender</span>
+                  </div>
+                  <FormControl className="answer">
+                    <RadioGroup
+                      row
+                      aria-labelledby="demo-controlled-radio-buttons-group"
+                      name="controlled-radio-buttons-group"
+                      value={gender}
+                      onChange={(event) => {
+                        setGender(event.target.value);
+                      }}
+                    >
+                      <FormControlLabel
+                        value="M"
+                        control={
+                          <Radio
+                            sx={{
+                              '&.Mui-checked': { '&': { color: 'green' } }
+                            }}
+                            style={{ marginLeft: '3px' }}
+                          />
+                        }
+                        label={
+                          <span
+                            style={{
+                              fontSize: '14px',
+                              marginRight: '27px'
+                            }}
+                          >
+                            Male
+                          </span>
+                        }
+                      />
+                      <FormControlLabel
+                        value="F"
+                        control={
+                          <Radio
+                            sx={{
+                              '&.Mui-checked': { '&': { color: 'green' } }
+                            }}
+                            style={{ marginLeft: '3px' }}
+                          />
+                        }
+                        label={
+                          <span
+                            style={{
+                              fontSize: '14px',
+                              marginRight: '27px'
+                            }}
+                          >
+                            Female
+                          </span>
+                        }
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </div>
+              </Grid>
+              <Grid {...{ xs: 6 }}>
+                <div className="qAndA custom-not-input">
+                  <div className="question to-move">
+                    <span className="questionA">여권번호</span>
+                    <span className="questionB">Passport No.</span>
+                  </div>
+                  <div className="fixedAnswer">M15883357</div>
+                </div>
+              </Grid>
+              <Grid {...{ xs: 6 }}>
+                <div className="qAndA custom-not-input">
+                  <div className="question to-move">
+                    <span className="questionA">출발지</span>
+                    <span className="questionB">Last City</span>
+                  </div>
+                  <div className="fixedAnswer">Korea</div>
+                </div>
+              </Grid>
+              <Grid {...{ xs: 6 }}>
+                <div className="qAndA custom-not-input">
+                  <div className="question to-move">
+                    <span className="questionA">국적</span>
+                    <span className="questionB">Nationality</span>
+                  </div>
+                  <div className="fixedAnswer">Korea</div>
+                </div>
+              </Grid>
+              <Grid {...{ xs: 6 }}>
+                <div className="qAndA custom-not-input">
+                  <div className="question to-move">
+                    <span className="questionA">입국편명</span>
+                    <span className="questionB">Flight No.</span>
+                  </div>
+                  <div className="fixedAnswer">AIR Name A108</div>
+                </div>
+              </Grid>
+            </Grid>
+          </Box>
         </Container>
       </div>
       <div id="btn">
@@ -215,42 +296,15 @@ function EntryCardKo() {
     </StyledWrapper>
   );
 }
-
 export default EntryCardKo;
-
-// function SubmitBtn() {
-//   return (
-//     <Button
-//       variant="contained"
-//       color="warning"
-//       size="large"
-//       component={Link}
-//       to="/survey"
-//       sx={{ margin: '10px' }}
-//     >
-//       <span style={{ fontSize: '20px' }}>영어 이름이 없는데 어떡하지?</span>
-//     </Button>
-//   );
-// }
-
 const StyledWrapper = styled.div`
-  @media (max-width: 450px) {
-    font-size: 15px;
-    #title_b {
-      font-size: 17px;
-    }
-  }
-  @media (min-width: 450px) {
-    #title_b {
-      font-size: 25px;
-    }
-  }
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   #card {
     width: 100%;
+    box-shadow: 20px 40px 50px -30px rgba(0, 0, 0, 0.2);
   }
   #title {
     display: flex;
@@ -258,36 +312,66 @@ const StyledWrapper = styled.div`
     justify-content: center;
     height: 100%;
   }
+  #titleBox {
+    background: linear-gradient(-135deg, transparent 15px, #fedbb9 0);
+  }
+  #title_a {
+    font-size: clamp(13px, 2.2vw, 17px);
+  }
   #title_b {
     font-family: 'SCDream7';
+    font-size: clamp(20px, 3vw, 25px);
   }
-  #content {
+  #title_explain {
+    color: #c76870;
+    position: relative;
+    font-size: 8px;
+    bottom: 18px;
+    text-align: right;
+  }
+  #entryContentBox {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    height: 450px;
+    height: 350px;
   }
   .qAndA {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-direction: column;
   }
   .qAndA.custom-input {
     height: 79px !important;
   }
   .qAndA .to-move {
-    top: -12px;
     position: relative;
-  }
-  .question {
-    width: 150px;
-    margin: auto 0;
+    top: -5px;
   }
   .answer {
-    width: 200px;
+    position: relative;
+    left: 3px;
+    width: 100%;
   }
   #btn {
     display: flex;
     justify-content: center;
+  }
+  .questionA {
+    font-family: 'SCDream3';
+    margin-right: 8px;
+    font-size: clamp(12px, 1.3vw, 16px);
+    color: rgba(150, 150, 150, 80);
+  }
+  .questionB {
+    font-family: 'SCDream4';
+    font-size: clamp(12px, 1.3vw, 16px);
+    color: rgba(150, 150, 150, 80);
+  }
+  .necessaryInput {
+    color: #c76870;
+  }
+  .fixedAnswer {
+    text-align: center;
+    font-size: clamp(14px, 1.6vw, 18px);
+    color: rgba(150, 150, 150, 80);
   }
 `;
