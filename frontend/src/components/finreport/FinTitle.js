@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import TTSBtn from '../TTSBtn';
 // import {isDesktop} from 'react-device-detect';
 
-function FinTitle({ hometown, username }) {
+function FinTitle({ hometown, username, isNewName }) {
   return (
     <StyledWrapper>
       <div id="fintitle-container">
@@ -17,7 +17,8 @@ function FinTitle({ hometown, username }) {
 
         <NameWrapper>
           <div id="fin-username">{username}!</div>
-          {/* TTS */}
+          
+          {isNewName === true? null:
           <div id="fin-tts">
             <TTSBtn
               id="fin-tts"
@@ -26,6 +27,7 @@ function FinTitle({ hometown, username }) {
               type="fintitle"
             />
           </div>
+          }
         </NameWrapper>
         
       </div>

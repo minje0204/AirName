@@ -193,7 +193,7 @@ function FinReport() {
         )}
         <div id="content-main-sector">
           <FintitleContainer>
-            <FinTitle username={username} hometown={parseEnMainState} />
+            <FinTitle username={username} hometown={parseEnMainState} isNewName={isNewName}/>
           </FintitleContainer>
           <FinBodyContainer>
             <FinBtns username={username} birth={birth} />
