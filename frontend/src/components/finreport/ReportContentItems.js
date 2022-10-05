@@ -4,6 +4,7 @@ import ReactApexChart from './Chart';
 import IconButton from '@mui/material/IconButton';
 import HelpIcon from '@mui/icons-material/Help';
 import UsaMap from './UsaMap';
+import statesDesNImg from './stateDecNImg.json';
 
 // FinReport 리포트 내용 렌더링하는 컴포넌트
 function ReportContentItems({
@@ -130,7 +131,7 @@ function ReportContentItems({
                 href={`https://papago.naver.com/?sk=en&tk=ko&hn=0&st=${mean}`}
                 target="_self"
                 className="meaning-dict-link"
-                key={mean}
+                key={`name-meaning-${mean}`}
               >
                 <b>{mean}</b>
               </a>
@@ -168,6 +169,20 @@ function ReportContentItems({
           </a>
           에서 가장 많이 사용되고 있어요!
           <br />
+          {maleState ? (
+            <>
+              <br />
+              <div id="state-text-mobile-container">
+                <span id="state-title">
+                  <strong>{statesDesNImg[maleState][0]}</strong>
+                </span>
+                <br />
+                <span id="state-desc">{statesDesNImg[maleState][1]}</span>
+              </div>
+            </>
+          ) : (
+            <div></div>
+          )}
           <br />
           {parseKoHome}에 대한 자세한 정보가 궁금하다면 파란색 글씨를
           클릭해보세요! 클릭시, {parseKoHome}주의 위키피디아 링크로 연결됩니다!
@@ -219,9 +234,9 @@ function ReportContentItems({
         <ContentBox>
           <h3>🙍‍♂️ 같은 이름을 가진 남자 유명인!</h3>
           {Object.entries(maleCelebrity).map(([k, v]) => (
-            <>
+            <div key={k}>
               {k} <br />
-            </>
+            </div>
           ))}
         </ContentBox>
       ) : null}
@@ -232,36 +247,37 @@ function ReportContentItems({
         <ContentBox>
           <h3>🙍‍♀️ 같은 이름을 가진 여자 유명인!</h3>
           {Object.entries(femaleCelebrity).map(([k, v]) => (
-            <>
-              {k}<br />
-            </>
+            <div key={k}>
+              {k}
+              <br />
+            </div>
           ))}
         </ContentBox>
       ) : null}
 
-      
       {/* 남자 캐릭터 */}
       {typeof maleCharacter === 'object' &&
       Object.keys(maleCharacter).length > 0 ? (
         <ContentBox>
           <h3>🙍‍♂️ 같은 이름을 가진 남자 캐릭터!</h3>
           {Object.entries(maleCharacter).map(([k, v]) => (
-            <>
+            <div key={k}>
               {k} <br />
-            </>
+            </div>
           ))}
         </ContentBox>
       ) : null}
-      
+
       {/* 여자 캐릭터 */}
       {typeof femaleCharacter === 'object' &&
       Object.keys(femaleCharacter).length > 0 ? (
         <ContentBox>
           <h3>🙍‍♀️ 같은 이름을 가진 여자 캐릭터!</h3>
           {Object.entries(femaleCharacter).map(([k, v]) => (
-            <>
-              {k}<br />
-            </>
+            <div key={k}>
+              {k}
+              <br />
+            </div>
           ))}
         </ContentBox>
       ) : null}
@@ -278,47 +294,48 @@ const ContentBox = styled.div`
   color: black;
   border-radius: 10px;
   width: 650px;
-}
-.help-icon{
-  padding:0px !important;
-  top:-11px;
-  position:relative;
-  svg{
-    width:15px !important;
-    color: var(--primaryDark)
+
+  .help-icon {
+    padding: 0px !important;
+    top: -11px;
+    position: relative;
+    svg {
+      width: 15px !important;
+      color: var(--primaryDark);
+    }
   }
-}
-.meaning-dict-link{
-  margin: 5px;
-  text-decoration-line: none;
-  text-decoration-color: none;
-  color: var(--primaryDark);
-  font-family: 'SCDream7';
-}
-#hometown-tooltip{
-  postion:relative;
-}
-.tooltip {
-  display: inline-block;
-  color: var(--primaryDark);
-  font-weight: bold;
-  cursor: pointer;
-}
-.tooltip-text {
-  display: none;
-  position: absolute;
-  border: 1px solid;
-  border-radius: 5px;
-  padding: 5px;
-  font-size: 0.8em;
-  color: white;
-  background: var(--primaryDark);
-}
-.tooltip:hover .tooltip-text {
-  display: block;
-}
-@media (max-width: 650px) {
-  width: 250px;
-  font-size: 12px;
-  padding-top: 15px;
+  .meaning-dict-link {
+    margin: 5px;
+    text-decoration-line: none;
+    text-decoration-color: none;
+    color: var(--primaryDark);
+    font-family: 'SCDream7';
+  }
+  #hometown-tooltip {
+    postion: relative;
+  }
+  .tooltip {
+    display: inline-block;
+    color: var(--primaryDark);
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .tooltip-text {
+    display: none;
+    position: absolute;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 0.8em;
+    color: white;
+    background: var(--primaryDark);
+  }
+  .tooltip:hover .tooltip-text {
+    display: block;
+  }
+  @media (max-width: 650px) {
+    width: 250px;
+    font-size: 12px;
+    padding-top: 15px;
+  }
 `;
