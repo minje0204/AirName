@@ -165,13 +165,13 @@ def AtmRecommend(rcm_data):
 
     for row in range(df_random.shape[0]):
         tagList = df_random.iloc[row]['tag']
+        rt={}
         if (len(tagList) >=3):
             tagTup = {}
             for tag in list(tagList):
                 tagTup[tag]=df_random.iloc[row][tag]
             rtTag = {k: v for k, v in sorted(tagTup.items(), key=lambda item: item[1], reverse=True)}
 
-            rt={}
             for i,(k,v) in enumerate(rtTag.items()):
                 if i>=2: 
                     break
