@@ -4,6 +4,7 @@ import ReactApexChart from './Chart';
 import IconButton from '@mui/material/IconButton';
 import HelpIcon from '@mui/icons-material/Help';
 import UsaMap from './UsaMap';
+import statesDesNImg from './stateDecNImg.json';
 
 // FinReport 리포트 내용 렌더링하는 컴포넌트
 function ReportContentItems({
@@ -19,7 +20,12 @@ function ReportContentItems({
   mainState,
   nameInfo,
   femaleYear,
-  maleYear
+  maleYear,
+  parseEnMainState,
+  maleCelebrity,
+  femaleCelebrity,
+  maleCharacter,
+  femaleCharacter
 }) {
   const isNotZero = (data) => {
     for (var i = 0; i < data.length; i++) {
@@ -125,7 +131,7 @@ function ReportContentItems({
                 href={`https://papago.naver.com/?sk=en&tk=ko&hn=0&st=${mean}`}
                 target="_self"
                 className="meaning-dict-link"
-                key={mean}
+                key={`name-meaning-${mean}`}
               >
                 <b>{mean}</b>
               </a>
@@ -163,6 +169,20 @@ function ReportContentItems({
           </a>
           에서 가장 많이 사용되고 있어요!
           <br />
+          {maleState ? (
+            <>
+              <br />
+              <div id="state-text-mobile-container">
+                <span id="state-title">
+                  <strong>{statesDesNImg[maleState][0]}</strong>
+                </span>
+                <br />
+                <span id="state-desc">{statesDesNImg[maleState][1]}</span>
+              </div>
+            </>
+          ) : (
+            <div></div>
+          )}
           <br />
           {parseKoHome}에 대한 자세한 정보가 궁금하다면 파란색 글씨를
           클릭해보세요! 클릭시, {parseKoHome}주의 위키피디아 링크로 연결됩니다!
@@ -203,8 +223,62 @@ function ReportContentItems({
       {/* 미국 지도 */}
       {mainState.length > 0 ? (
         <ContentBox>
-          <h3>🚩 {parseFeEnHome}의 위치</h3>
+          <h3>🚩 당신의 명예고향, {parseEnMainState}의 위치</h3>
           <UsaMap id="usa-map" abState={mainState} userName={username} />
+        </ContentBox>
+      ) : null}
+
+      {/* 남자 유명인 */}
+      {typeof maleCelebrity === 'object' &&
+      Object.keys(maleCelebrity).length > 0 ? (
+        <ContentBox>
+          <h3>🙍‍♂️ 같은 이름을 가진 남자 유명인!</h3>
+          {Object.entries(maleCelebrity).map(([k, v]) => (
+            <div key={k}>
+              {k} <br />
+            </div>
+          ))}
+        </ContentBox>
+      ) : null}
+
+      {/* 여자 유명인 */}
+      {typeof femaleCelebrity === 'object' &&
+      Object.keys(femaleCelebrity).length > 0 ? (
+        <ContentBox>
+          <h3>🙍‍♀️ 같은 이름을 가진 여자 유명인!</h3>
+          {Object.entries(femaleCelebrity).map(([k, v]) => (
+            <div key={k}>
+              {k}
+              <br />
+            </div>
+          ))}
+        </ContentBox>
+      ) : null}
+
+      {/* 남자 캐릭터 */}
+      {typeof maleCharacter === 'object' &&
+      Object.keys(maleCharacter).length > 0 ? (
+        <ContentBox>
+          <h3>🙍‍♂️ 같은 이름을 가진 남자 캐릭터!</h3>
+          {Object.entries(maleCharacter).map(([k, v]) => (
+            <div key={k}>
+              {k} <br />
+            </div>
+          ))}
+        </ContentBox>
+      ) : null}
+
+      {/* 여자 캐릭터 */}
+      {typeof femaleCharacter === 'object' &&
+      Object.keys(femaleCharacter).length > 0 ? (
+        <ContentBox>
+          <h3>🙍‍♀️ 같은 이름을 가진 여자 캐릭터!</h3>
+          {Object.entries(femaleCharacter).map(([k, v]) => (
+            <div key={k}>
+              {k}
+              <br />
+            </div>
+          ))}
         </ContentBox>
       ) : null}
     </>

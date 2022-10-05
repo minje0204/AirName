@@ -30,6 +30,10 @@ function FinReport() {
   const [maleState, setMaleState] = useState('');
   const [femaleYear, setFemaleYear] = useState('');
   const [maleYear, setMaleYear] = useState('');
+  const [maleCelebrity, setMaleCelebrity] = useState({});
+  const [femaleCelebrity, setFemaleCelebrity] = useState({});
+  const [maleCharacter, setMaleCharacter] = useState({});
+  const [femaleCharacter, setFemaleCharacter] = useState({});
 
   // 요청한 이름이 없을 때
   const [isNewName, setIsNewName] = useState(false);
@@ -67,7 +71,7 @@ function FinReport() {
     });
   };
 
-  // Main State 치환
+  // Main State 영어로 치환
   const setEnMainState = () => {
     Object.entries(HomeTownEn).map(([k, v]) => {
       if (k === mainState) {
@@ -98,18 +102,17 @@ function FinReport() {
     setFemaleState(data.female.state);
     setMeaning(data.meaning);
     setMaleState(data.male.state);
+    setFemaleCelebrity(data.female.celebrity);
+    setMaleCelebrity(data.male.celebrity);
+    setMaleCharacter(data.male.character);
+    setFemaleCharacter(data.female.character);
   };
 
   useEffect(() => {
-    if (maleState !== '' && femaleState !== '') {
-      console.log(maleState);
-      setStateDescObj(
-        maleState.length > 0
-          ? statesDesNImg[maleState]
-          : statesDesNImg[femaleState]
-      );
+    if (mainState) {
+      setStateDescObj(statesDesNImg[mainState]);
     }
-  }, [maleState, femaleState]);
+  }, [mainState]);
   const saveYearData = async (res) => {
     const data = JSON.parse(res.data);
     setFemaleYear(data.female);
@@ -212,6 +215,11 @@ function FinReport() {
               femaleYear={femaleYear}
               maleYear={maleYear}
               mainState={mainState}
+              parseEnMainState={parseEnMainState}
+              maleCelebrity={maleCelebrity}
+              femaleCelebrity={femaleCelebrity}
+              maleCharacter={maleCharacter}
+              femaleCharacter={femaleCharacter}
             />
 
             <FooterContainer>
@@ -241,7 +249,9 @@ const StyledWrapper = styled.div`
     overflow: hidden;
     height: 650px;
     width: 100%;
+    transition: background 250ms;
     #background-img {
+      transition: background 250ms;
       opacity: 0.6;
       position: absolute;
       left: 0;
@@ -261,10 +271,12 @@ const StyledWrapper = styled.div`
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 50px;
-    left: 0px;
+    bottom: 0px;
+    right: 0px;
     margin: 0 0 15px 30px;
     width: 300px;
+    align-items: flex-end;
+    margin-right: 10px;
     #state-title {
       margin-bottom: 10px;
       font-weight: 400;
