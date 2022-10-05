@@ -102,6 +102,7 @@ function ReportContentItems({
 
       {/* 동명 캐릭터 */}
       <ContentCharacter
+        username={username}
         maleCharacter={maleCharacter}
         femaleCharacter={femaleCharacter}
       />
