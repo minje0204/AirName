@@ -20,6 +20,9 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   @media (max-width: 650px) {
-    width: 95vw;
+    width: 90vw;
+  }
+  @media (min-width: 650px) {
+    width: 550px;
   }
 `;
