@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import IconButton from '@mui/material/IconButton';
 import LinkButton from 'components/LinkButton';
+import domtoimage from 'dom-to-image';
+import { saveAs } from 'file-saver';
+import LinkIcon from '@mui/icons-material/Link';
 
 // 홈으로 돌아가기, 카카오톡 버튼 컴포넌트
 function FinBtns({ username, birth }) {
@@ -37,23 +40,32 @@ function FinBtns({ username, birth }) {
     kakaoShare(username);
   }, [username]);
 
+  const onDownloadBtn = () => {
+    domtoimage.toBlob(document.querySelector('.card')).then((blob) => {
+      saveAs(blob, 'card.png');
+    });
+  };
+
   return (
     <StyledWrapper>
       <FinBtnsWrapper>
-        <LinkButton
-          content="다시하기"
-          to="/"
-        ></LinkButton>
+        <LinkButton content="티켓저장" to="" onClick={onDownloadBtn}>
+          <SaveAltIcon id="save-icon" sx={{ color: '#fff' }} />
+        </LinkButton>
+      </FinBtnsWrapper>
+      <FinBtnsWrapper>
+        <LinkButton content="다시하기" to="/"></LinkButton>
       </FinBtnsWrapper>
       <FinBtnsWrapper>
         <LinkButton
           content="링크 복사"
           to=""
-          url="/Linkcopy.png"
           onClick={() =>
             copyClipBoard(`https://airname.shop/finreport/${username}/${birth}`)
           }
-        ></LinkButton>
+        >
+          <LinkIcon id="save-icon" sx={{ color: '#fff' }} />
+        </LinkButton>
       </FinBtnsWrapper>
       <FinBtnsWrapper>
         <IconButton
@@ -75,7 +87,6 @@ function FinBtns({ username, birth }) {
           공유하기
         </IconButton>
       </FinBtnsWrapper>
-
     </StyledWrapper>
   );
 }
@@ -88,6 +99,9 @@ const StyledWrapper = styled.div`
   margin: 0 20px;
   @media (max-width: 650px) {
     flex-wrap: wrap;
+  }
+  #save-icon {
+    margin-right: 5px;
   }
 `;
 
