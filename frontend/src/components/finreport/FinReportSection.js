@@ -240,6 +240,9 @@ const StyledWrapper = styled.div`
     #state-text-container {
       display: none !important;
     }
+    .img-container {
+      height: 350px !important;
+    }
   }
   width: 100vw;
   margin-bottom: 30px;
@@ -247,7 +250,7 @@ const StyledWrapper = styled.div`
     position: absolute;
     top: 0px;
     overflow: hidden;
-    height: 650px;
+    height: 600px;
     width: 100%;
     transition: background 250ms;
     #background-img {
