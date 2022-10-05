@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-
+import { IsFillContext } from 'hooks/useIsFillContext';
 // 그림, css
 import Fairly from '../../asset/img/survey/Fairy.svg';
 import Stick from '../../asset/img/survey/Stick.png';
@@ -17,7 +17,7 @@ import API from '../../config';
 function SurveySection() {
   const navigate = useNavigate();
   const N = 6;
-
+  const { setIsFill } = useContext(IsFillContext);
   // 설문 계산용
   const [cur, setCur] = useState(0);
   const [isLast, setIsLast] = useState(false);
@@ -49,6 +49,7 @@ function SurveySection() {
         console.log(data);
         console.log('success');
         localStorage.setItem('rcmndNames', JSON.stringify(res.data));
+        setIsFill(true);
       })
       .catch(console.log('error'));
   };
