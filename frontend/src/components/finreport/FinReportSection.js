@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
+import statesDesNImg from './stateDecNImg.json';
 
 //컴포넌트
 import FinBtns from '../finreport/FinBtns';
@@ -44,6 +45,7 @@ function FinReport() {
   const [parseFeEnHome, setParseFeEnHome] = useState('');
   const [parseFeKoHome, setParseFeKoHome] = useState('');
   const [parseEnMainState, setParseEnMainState] = useState('');
+  const [stateDescObj, setStateDescObj] = useState();
 
   // 영어 이름으로 치환
   const setEnHomeTown = () => {
@@ -86,15 +88,11 @@ function FinReport() {
       } else {
         setMainState(maleState);
       }
-    } else{
-      if (femaleState) {
-        setMainState(femaleState);
-      } 
-      if (maleState) {
-        setMainState(maleState);
-      }
+    } else if (femaleState) {
+      setMainState(femaleState);
+    } else if (maleState) {
+      setMainState(maleState);
     }
-  
   };
 
   // 받아온 데이터 저장하는 함수
@@ -110,6 +108,11 @@ function FinReport() {
     setFemaleCharacter(data.female.character);
   };
 
+  useEffect(() => {
+    if (mainState) {
+      setStateDescObj(statesDesNImg[mainState]);
+    }
+  }, [mainState]);
   const saveYearData = async (res) => {
     const data = JSON.parse(res.data);
     setFemaleYear(data.female);
@@ -121,7 +124,7 @@ function FinReport() {
     axios
       .get(`${API.FINREPORT}/${username}/${birth}`)
       .then((res) => {
-        saveData(res)
+        saveData(res);
         setIsNewName(false);
       })
       .catch(setIsNewName(true));
@@ -171,40 +174,59 @@ function FinReport() {
   return (
     <StyledWrapper>
       <FinReportContentContainer>
-        <FintitleContainer>
-          <FinTitle username={username} hometown={parseEnMainState} />
-        </FintitleContainer>
-        <FinBodyContainer>
-          <FinBtns username={username} birth={birth} />
-          <MyCardContainer>
-            <MyCard username={username} hometown={mainState} />
-          </MyCardContainer>
-          <ReportContent
-            username={username}
-            hometown={mainState}
-            maleState={maleState}
-            femaleState={femaleState}
-            meaning={meaning}
-            parseKoHome={parseKoHome}
-            parseEnHome={parseEnHome}
-            parseFeKoHome={parseFeKoHome}
-            parseFeEnHome={parseFeEnHome}
-            isNewName={isNewName}
-            nameInfo={nameInfo}
-            femaleYear={femaleYear}
-            maleYear={maleYear}
-            mainState={mainState}
-            parseEnMainState={parseEnMainState}
-            maleCelebrity={maleCelebrity}
-            femaleCelebrity={femaleCelebrity}
-            maleCharacter={maleCharacter}
-            femaleCharacter={femaleCharacter}
-          />
+        {stateDescObj ? (
+          <div className="img-container">
+            <img
+              id="background-img"
+              src={`${stateDescObj[2]}`}
+              alt="state-background-img"
+            />
+            <div id="state-text-container">
+              <span id="state-title">
+                <strong>{stateDescObj[0]}</strong>
+              </span>
+              <span id="state-desc">{stateDescObj[1]}</span>
+            </div>
+          </div>
+        ) : (
+          <div></div>
+        )}
+        <div id="content-main-sector">
+          <FintitleContainer>
+            <FinTitle username={username} hometown={parseEnMainState} />
+          </FintitleContainer>
+          <FinBodyContainer>
+            <FinBtns username={username} birth={birth} />
+            <MyCardContainer>
+              <MyCard username={username} hometown={mainState} />
+            </MyCardContainer>
+            <ReportContent
+              username={username}
+              hometown={mainState}
+              maleState={maleState}
+              femaleState={femaleState}
+              meaning={meaning}
+              parseKoHome={parseKoHome}
+              parseEnHome={parseEnHome}
+              parseFeKoHome={parseFeKoHome}
+              parseFeEnHome={parseFeEnHome}
+              isNewName={isNewName}
+              nameInfo={nameInfo}
+              femaleYear={femaleYear}
+              maleYear={maleYear}
+              mainState={mainState}
+              parseEnMainState={parseEnMainState}
+              maleCelebrity={maleCelebrity}
+              femaleCelebrity={femaleCelebrity}
+              maleCharacter={maleCharacter}
+              femaleCharacter={femaleCharacter}
+            />
 
-          <FooterContainer>
-            <ReportFooter />
-          </FooterContainer>
-        </FinBodyContainer>
+            <FooterContainer>
+              <ReportFooter />
+            </FooterContainer>
+          </FinBodyContainer>
+        </div>
       </FinReportContentContainer>
     </StyledWrapper>
   );
@@ -212,8 +234,58 @@ function FinReport() {
 
 export default FinReport;
 
+// filter: brightness(60%);
 const StyledWrapper = styled.div`
+  @media (max-width: 1023px) {
+    #state-text-container {
+      display: none !important;
+    }
+    .img-container {
+      height: 350px !important;
+    }
+  }
+  width: 100vw;
   margin-bottom: 30px;
+  .img-container {
+    position: absolute;
+    top: 0px;
+    overflow: hidden;
+    height: 600px;
+    width: 100%;
+    transition: background 250ms;
+    #background-img {
+      transition: background 250ms;
+      opacity: 0.6;
+      position: absolute;
+      left: 0;
+      min-height: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100% !important;
+      object-fit: cover;
+    }
+  }
+  #content-main-sector {
+    margin-top: 30px;
+    z-index: 2;
+  }
+
+  #state-text-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    margin: 0 0 15px 30px;
+    width: 300px;
+    align-items: flex-end;
+    margin-right: 10px;
+    #state-title {
+      margin-bottom: 10px;
+      font-weight: 400;
+      font-size: 30px;
+    }
+  }
 `;
 
 const FinReportContentContainer = styled.div`
@@ -221,12 +293,12 @@ const FinReportContentContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 30px;
   margin-bottom: 50px;
 `;
 
 const FintitleContainer = styled.div`
   min-height: 150px;
+  color: white;
   @media (max-width: 650px) {
     min-height: 50px;
   }
