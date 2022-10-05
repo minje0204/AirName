@@ -25,52 +25,64 @@ function TicketFront({ name, type, sim, rank, percent }) {
             <TickeNameContainer>
               {type === 'sound' ? (
                 <div id="info-container">
-                  <div className="info-head-font">{sim}%</div>
+                  <div className="info-head-font"></div>
                   <div className="info-body-font">
-                    당신의 이름과 {sim}% 유사한 발음을 가지고있어요!
+                    <span className="info-font-bold">[발음 유사도]</span> <br />
+                    당신의 이름과 {sim}% 유사한 발음!
                     <br />
-                    {birth}년, 
-                    {name}는<b>{rank}번째로</b> 많이 사용되었습니다. <br />
-                    그리고, 그 해{' '}
-                    <b>100개의 이름 중 {Math.round(percent)}번째로</b> 많이
-                    선택한 거죠!
+                    <span className="info-font-bold">
+                      [{birth}년에 얼마나 사용되었을까?]
+                    </span>
+                    <br />
+                    {name}는{' '}
+                    <span className="info-font-bold-red">{rank}등</span>
+                    (상위{Math.round(percent)}%)으로 많이 사용되었습니다. <br />
                   </div>
                 </div>
               ) : (
                 <div id="info-container">
-                  <div className="info-head-font">
-                    {Object.entries(sim).map(([att, value]) => (
-                      <>
-                        {Object.entries(enToKoAttribute).map(([k, v]) => (
-                          <>
-                            {att == k ? (
-                              <b>
-                                {v} : {Math.round(value) * 100}%{' '}
-                              </b>
-                            ) : null}
-                          </>
-                        ))}
-                      </>
-                    ))}
-                  </div>
+                  <div className="info-head-font"></div>
                   <div className="info-body-font">
                     {sim === '{}' ? (
                       <>
-                        설문을 통해 성격을 알 수 없어서 랜덤으로 추천된
+                        🎠설문을 통해 성격을 알 수 없어서 랜덤으로 추천된
                         이름이에요.
                       </>
                     ) : (
                       <>
-                        설문을 통해 알 수 있는 성격 기반으로 추천된 이름이에요🎠
+                        🎠설문을 통해 알 수 있는 성격 기반으로 추천된 이름이에요
                       </>
                     )}
                     <br />
-                    {birth}년, {name}는<b>{rank}번째로</b> 많이 사용되었습니다.
+                    <span className="info-font-bold">
+                      [이름이 가지고 있는 분위기]<br/>
+                    </span>
+                    
+                    {/* userInput기반 */}
+                    {Object.entries(sim.userInput).map(([att, value]) => (
+                      <>
+                        {Object.entries(enToKoAttribute).map(([k, v]) => (
+                          <>{att == k ? <span className="info-font-bold-red">{'#'}{v}{'  '}</span> : null}</>
+                        ))}
+                      </>
+                    ))}
+
+                    {/* 기본 이름이 가지고 있는 분위기 */}
+                    {Object.entries(sim.other).map(([att, value]) => (
+                      <>
+                        {Object.entries(enToKoAttribute).map(([k, v]) => (
+                          <>{att == k ? <>{'#'}{v}{'  '}</> : null}</>
+                        ))}
+                      </>
+                    ))}
                     <br />
-                    <b>
-                      그 해, 100개의 이름 중 {Math.round(percent)}번째로
-                    </b>{' '}
-                    많이 선택되었어요!
+                    <span className="info-font-bold">
+                      [{birth}년에 얼마나 사용되었을까?]
+                    </span>
+                    <br />
+                    {name}는{' '}
+                    <span className="info-font-bold-red">{rank}등</span>
+                    (상위{Math.round(percent)}%)으로 많이 사용되었습니다. <br />
                   </div>
                   <div className="info-body-font"></div>
                 </div>
