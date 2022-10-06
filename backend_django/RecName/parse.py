@@ -120,7 +120,8 @@ def CreateAtmName(db,df):
             attrValList = list(name.male['attribute'].values())            
             attrKeyList = list(name.male['attribute'].keys())            
             d['gender'].append('M')
-            for i in range(0, len(name.male['attribute'].keys()), 2) :    
+            for i in range(0, len(name.male['attribute'].keys()), 2):
+                
                 if((attrValList[i] + attrValList[i+1]) != 0):
                     calcVal = round(attrValList[i] / (attrValList[i] + attrValList[i+1]),2)
                     calcVal2 = round(1- calcVal,2)
@@ -128,18 +129,18 @@ def CreateAtmName(db,df):
                     calcVal = 0
                     calcVal2 = 0
                 d[attrKeyList[i]].append(calcVal)
-                d[attrKeyList[i+1]].append(1-calcVal)
+                d[attrKeyList[i+1]].append(calcVal2)
 
     print(pd.DataFrame(data=d))
     SaveDataframes(db, pd.DataFrame(data=d), 'atm')
 
 def main():
-    # db = ConnectMongoDB()
-    # df = LoadDataframes(db, 'rawdata')
+    db = ConnectMongoDB()
+    df = LoadDataframes(db, 'rawdata')
     #
     # CreateCodename(db, df)
     # CreateYearname(db, df)
-    # CreateAtmName(db,df)
+    CreateAtmName(db,df)
     print(CheckingKorean("김상협"))
 
     #[기존 코드] json 읽어서 dataframe 생성했던 코드
