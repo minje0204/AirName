@@ -187,6 +187,7 @@ const StyledWrapper = styled.div`
     justify-content: space-around;
     flex-direction: row;
     height: 160px;
+    width: 400px;
     align-items: center;
   }
   .choice {
@@ -196,6 +197,7 @@ const StyledWrapper = styled.div`
     font-family: SCDream7;
     font-size: clamp(12px, 3vw, 24px);
     height: clamp(60px, 15vw, 120px);
+    // width: clamp(60px, 15vw, 120px);
     margin: 10px;
   }
   #resultBox {

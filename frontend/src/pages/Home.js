@@ -62,10 +62,7 @@ const StyledWrapper = styled.div`
   // background-color: rgba(0, 0, 0, 0.8);
   background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.65));
   font-size: 13px;
-  @media (min-width: 650px) {
-    min-width: 630px;
-  }
-  @media (max-width: 650px) {
+  @media (max-width: 800px) {
     flex-direction: column;
     justify-content: space-evenly;
     #left-container {
