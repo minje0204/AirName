@@ -50,25 +50,25 @@ function ReportContentItems({
 
       {/* 중성적인 이름 */}
       {maleState.length > 0 && femaleState.length > 0 ? (
-        <ContentBox>
+        <div className="fin-content">
           <h3>💌 중성적인 이름, {username}!</h3>이 이름은 남녀 성별 모두 자주
           사용되는 이름으로, 중성적인 느낌을 가지고 있어요!
           <br />
           모든 성별에서의 이름의 정보를 모두 보여드릴게요 :D
-        </ContentBox>
+        </div>
       ) : null}
 
       {/* 연도별 추이 */}
       {(femaleYear.length > 0 && isNotZero(femaleYear)) ||
       (maleYear.length > 0 && isNotZero(maleYear)) ? (
         <>
-          <ContentBox>
+          <div className="fin-content">
             <h3>📈 같은 이름을 가진 사람들이 얼마나 있을까요?</h3>
             <ReactApexChart
               femaleYear={femaleYear}
               maleYear={maleYear}
             ></ReactApexChart>
-          </ContentBox>
+          </div>
         </>
       ) : null}
 
@@ -91,10 +91,10 @@ function ReportContentItems({
 
       {/* 미국 지도 */}
       {mainState.length > 0 ? (
-        <ContentBox>
+        <div className="fin-content">
           <h3>🚩 당신의 명예고향, {parseEnMainState}의 위치</h3>
           <UsaMap id="usa-map" abState={mainState} userName={username} />
-        </ContentBox>
+        </div>
       ) : null}
 
       {/* 동명 유명인 */}
@@ -123,15 +123,15 @@ function ReportContentItems({
 export default ReportContentItems;
 
 const ContentBox = styled.div`
-  margin: 10px;
   padding: 30px;
   background-color: #f9f7f4;
   color: black;
   border-radius: 10px;
   width: 650px;
+  font-size: 20px;
 
   @media (max-width: 650px) {
-    width: 80%;
+    width: 90%;
     font-size: 12px;
     padding-top: 15px;
   }

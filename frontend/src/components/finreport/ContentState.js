@@ -81,7 +81,7 @@ function ContentState({
 
       {/* 남성 주 */}
       {maleState.length > 0 ? (
-        <TabPanel value={value} index={0}>
+        <TabPanel id="tab-content" value={value} index={0}>
           <h3>
             남성{' '}
             <span className="tooltip">

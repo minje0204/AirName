@@ -1,18 +1,30 @@
 .fin-content {
-  margin: 10px;
   padding: 30px;
   background-color: #f9f7f4;
   color: black;
   border-radius: 10px;
   width: 650px;
   font-size: 1rem;
-  
+  margin: 10px 0px;
+}
+/* .tab-body{
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 10px;
+  background-color: #f9f7f4;
+  max-width: 650px;
+} */
+#tab-content{
+  font-size: 20px;
+  border-radius: 10px;
+  background-color: transparent;
+  font-size: 20px;
+  width: 100%;
 }
 @media (max-width: 650px) {
   .fin-content {
     width: 90%;
-
-    padding: 15px;
+    padding: 20px;
   }
 }
 
