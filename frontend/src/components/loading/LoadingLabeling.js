@@ -13,6 +13,7 @@ export default function Labeling() {
   const [attributeName, setAttributeName] = useState([]);
   const [attributePercentage, setAttributePercentage] = useState([]);
   const [result, setResult] = useState('');
+  const [resultIdx, setResultIdx] = useState(0);
   const [refresh, setRefresh] = useState(false);
   const [isImgLoaded, setIsImgLoaded] = useState(false);
 
@@ -23,6 +24,7 @@ export default function Labeling() {
       const data = JSON.parse(res.data);
       setName(data.name);
       setGender(data.gender);
+
       setAttributeName([
         enToKoAttribute[data.attribute_name[0]],
         enToKoAttribute[data.attribute_name[1]]
@@ -92,7 +94,7 @@ export default function Labeling() {
                 <Container id="resultBox">
                   <Box>'{result}'을 선택했어요</Box>
                   <LabelingResult
-                    result={result}
+                    resultIdx={resultIdx}
                     personalityZero={attributeName[0]}
                     personalityOne={attributeName[1]}
                     attributePercentage={attributePercentage}
@@ -119,6 +121,7 @@ export default function Labeling() {
                     className="choice"
                     color="primary"
                     onClick={() => {
+                      setResultIdx(0);
                       setResult(attributeName[0]);
                       sendChoosedAttr(koToEnAttribute[attributeName[0]]);
                     }}
@@ -130,6 +133,7 @@ export default function Labeling() {
                     className="choice"
                     color="warning"
                     onClick={() => {
+                      setResultIdx(1);
                       setResult(attributeName[1]);
                       sendChoosedAttr(koToEnAttribute[attributeName[1]]);
                     }}
