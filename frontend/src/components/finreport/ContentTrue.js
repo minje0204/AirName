@@ -5,7 +5,7 @@ function ContentTrue({username, isNewName}) {
     <>
       {username.length > 0 && isNewName === false ? (
         <div className="fin-content">
-          <h3>🛬 AIRNAME에서 "{username}"에 대한 이름 리포트를 준비했어요!</h3>
+          <h3>🛬 AIRNAME에서 "{username}"의 이름 리포트를 준비했어요!</h3>
         </div>
       ) : (
         <div className="fin-content">

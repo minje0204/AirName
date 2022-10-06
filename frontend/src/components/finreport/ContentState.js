@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 
 //mui
 import PropTypes from 'prop-types';
@@ -52,11 +52,13 @@ function ContentState({
   parseFeKoHome,
   parseFeEnHome
 }) {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   return (
     <div className="fin-content">
       <Tabs
@@ -67,13 +69,13 @@ function ContentState({
         {maleState.length > 0 ? (
           <Tab label="🏡🙍‍♂️ 남성 명예고향" {...a11yProps(0)} />
         ) : (
-          <Tab label="🏡🙍‍♂️ 남성 명예고향" {...a11yProps(0)} disabled />
+          <Tab label="🏡🙍‍♂️ 남성 명예고향" {...a11yProps(0)}  />
         )}
 
         {femaleState.length > 0 ? (
           <Tab label="🏡🙍‍♀️ 여성 명예고향" {...a11yProps(1)} />
         ) : (
-          <Tab label="🏡🙍‍♀️ 여성 명예고향" {...a11yProps(1)} disabled />
+          <Tab label="🏡🙍‍♀️ 여성 명예고향" {...a11yProps(1)}  />
         )}
       </Tabs>
 
@@ -112,7 +114,7 @@ function ContentState({
           {parseKoHome}에 대한 자세한 정보가 궁금하다면 파란색 글씨를
           클릭해보세요! 클릭시, {parseKoHome}주의 위키피디아 링크로 연결됩니다!
         </TabPanel>
-      ) : null}
+      ) : <TabPanel value={value} index={0}>남성 명예고향이 없습니다😥</TabPanel>}
 
       {/* 여성 주 */}
       {femaleState.length > 0 ? (
@@ -143,7 +145,7 @@ function ContentState({
           클릭해보세요! 클릭시, {parseFeKoHome}주의 위키피디아 링크로
           연결됩니다!
         </TabPanel>
-      ) : null}
+      ) : <TabPanel value={value} index={1}> 여성 명예고향이 없습니다😥</TabPanel>}
     </div>
   );
 }

@@ -80,12 +80,12 @@ function ContentCharacter({ username, maleCharacter, femaleCharacter }) {
             <h3>같은 이름을 가진 남자 캐릭터</h3>
             {Object.entries(maleCharacter).map(([k, v]) => (
               <div key={k}>
-                - {k} :  <br />
+                <strong>{k}</strong><br/>{v}
               </div>
             ))}
           </TabPanel>
         ) : (
-          <></>
+          <TabPanel value={value} index={0}>남성 캐릭터가 없습니다😥</TabPanel>
         )}
 
         {/* 여자 캐릭터 */}
@@ -96,13 +96,13 @@ function ContentCharacter({ username, maleCharacter, femaleCharacter }) {
               <h3>같은 이름을 가진 여자 캐릭터</h3>
               {Object.entries(femaleCharacter).map(([k, v]) => (
                 <div key={k}>
-                  - {k} : 
+                  <strong>{k}</strong><br/>{v}
                   <br />
                 </div>
               ))}
             </>
           </TabPanel>
-        ) : null}
+        ) : <TabPanel value={value} index={1}> 여성 캐릭터가 없습니다😥</TabPanel>}
       </div>
     </>
   );
