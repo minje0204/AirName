@@ -31,14 +31,6 @@ function Home() {
             />
           </div>
           <div>
-            친구랑 같이 하기🖐
-            {/* <LinkButton
-              content="카카오톡으로 공유"
-              to=""
-              h="50px"
-              w="300px"
-              fs="20px"
-            /> */}
             <ShareBtn
               to=""
               content="카카오톡으로 공유"

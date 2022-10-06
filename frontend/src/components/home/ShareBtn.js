@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
+import { Box } from '@mui/material';
 
 // 홈으로 돌아가기, 카카오톡 버튼 컴포넌트
 function ShareBtn({ username, birth, content, to, h, w, fs, ...props }) {
@@ -30,71 +31,50 @@ function ShareBtn({ username, birth, content, to, h, w, fs, ...props }) {
 
   return (
     <StyledWrapper>
-      <FinBtnsWrapper>
-        <Button
-          id="kakao-link-btn"
-          variant="contained"
-          sx={{
-            bgcolor: '#ffff3d',
-            height: `${h ? h : '44px'}`,
-            width: `${w}`,
-            marginLeft: '0px'
+      <Box sx={{ marginBottom: 0.5 }}>친구랑 같이 하기🖐</Box>
+      <Button
+        id="kakao-link-btn"
+        variant="contained"
+        sx={{
+          bgcolor: '#ffff3d',
+          height: `${h ? h : '44px'}`,
+          width: `${w}`,
+          marginLeft: '0px'
+        }}
+        component={Link}
+        to={to}
+        {...props}
+      >
+        <img
+          src="/kakao.png"
+          style={{
+            width: '20px',
+            height: '20px',
+            marginRight: '5px',
+            position: 'relative',
+            top: '1px'
           }}
-          component={Link}
-          to={to}
-          {...props}
-        >
-          <img
-            src="/kakao.png"
-            style={{
-              width: '20px',
-              height: '20px',
-              marginRight: '5px',
-              position: 'relative',
-              top: '1px'
-            }}
-          ></img>
-          <span id="content" style={{ fontSize: `${fs ? fs : '14px'}` }}>
-            {content}
-          </span>
-        </Button>
-      </FinBtnsWrapper>
+        ></img>
+        <span id="linkBtnContent" style={{ fontSize: `${fs ? fs : '14px'}` }}>
+          {content}
+        </span>
+      </Button>
     </StyledWrapper>
   );
 }
 
 export default ShareBtn;
 const StyledWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  color: blue;
-  @media (max-width: 650px) {
-    flex-wrap: wrap;
-  }
-`;
-
-const FinBtnsWrapper = styled.div`
-  #img-save-btn {
-    background-color: var(--primaryLight);
-    border: 0;
-    padding: 10px;
-    border-radius: 10px;
-    height: 45px;
+  border-radius: 20px;
+  #linkBtnContent {
+    font-family: 'SCDream5';
     color: black;
-    &:hover {
-      background-color: #abab52;
-      cursor: pointer;
-    }
   }
   #kakao-link-btn {
     font-family: 'SCDream7';
     &:hover {
       background-color: #abab52;
       cursor: pointer;
-    }
-  }
-  @media (max-width: 650px) {
-    #kakao-link-btn {
     }
   }
 `;
