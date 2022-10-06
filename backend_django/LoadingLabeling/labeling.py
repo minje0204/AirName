@@ -49,8 +49,12 @@ def GetRandomName():
         attribute_right = random_key[choice_index]
         attribute_left = random_key[choice_index-1]
     
-    left_percent = round(random_attribute[attribute_left]/(random_attribute[attribute_left]+random_attribute[attribute_right])*100)
-    right_percent = round(random_attribute[attribute_right]/(random_attribute[attribute_left]+random_attribute[attribute_right])*100)
+    left_percent = 0
+    right_percent = 0
+    if random_attribute[attribute_left] != 0 :
+        left_percent = round(random_attribute[attribute_left]/(random_attribute[attribute_left]+random_attribute[attribute_right])*100)
+    if random_attribute[attribute_right]!=0 :
+        right_percent = round(random_attribute[attribute_right]/(random_attribute[attribute_left]+random_attribute[attribute_right])*100)
     operationTime =time.time()-start
 
     report['name'] =random_name
