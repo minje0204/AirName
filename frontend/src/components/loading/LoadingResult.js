@@ -13,7 +13,7 @@ function LabelingResult({
   return (
     <StyledWrapper>
       <Container id="ans">
-        <Box sx={{ color: 'primary.main' }} className="cho">
+        <Box sx={{ color: 'var(--primaryMain)' }} className="cho">
           <Box>{personalityZero}</Box>
           <Box>
             {attributePercentage[0] === 0 &&
@@ -35,7 +35,7 @@ function LabelingResult({
               : attributePercentage[0]
           }
         />
-        <Box sx={{ color: 'warning.main' }} className="cho">
+        <Box sx={{ color: 'var(--secondaryMain)' }} className="cho">
           <Box>{personalityOne}</Box>
           <Box>
             {attributePercentage[0] === 0 &&
@@ -62,6 +62,12 @@ const StyledWrapper = styled.div`
   }
   #bar {
     width: 80%;
+  }
+  #bar > * {
+    background-color: var(--primaryMain);
+  }
+  #bar {
+    background-color: var(--secondaryMain);
   }
   .cho {
     width: 180px;
