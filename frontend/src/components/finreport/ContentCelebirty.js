@@ -59,14 +59,14 @@ function ContentCelebirty({ maleCelebrity, femaleCelebrity }) {
           Object.keys(maleCelebrity).length > 0 ? (
             <Tab label="🙍‍♂️ 남자 유명인" {...a11yProps(0)} />
           ) : (
-            <Tab label="🙍‍♂️ 남자 유명인" {...a11yProps(0)} disabled />
+            <Tab label="🙍‍♂️ 남자 유명인" {...a11yProps(0)}  />
           )}
 
           {typeof femaleCelebrity === 'object' &&
           Object.keys(femaleCelebrity).length > 0 ? (
             <Tab label="🙍‍♀️ 여자 유명인" {...a11yProps(1)} />
           ) : (
-            <Tab label="🙍‍♀️ 여자 유명인" {...a11yProps(1)} disabled />
+            <Tab label="🙍‍♀️ 여자 유명인" {...a11yProps(1)}  />
           )}
         </Tabs>
 
@@ -94,7 +94,7 @@ function ContentCelebirty({ maleCelebrity, femaleCelebrity }) {
                 </div>
               ))}
             </>
-          ) : null}
+          ) : <TabPanel value={value} index={0}>남성 유명인이 없습니다😥</TabPanel>}
         </TabPanel>
 
         <TabPanel value={value} index={1}>
@@ -126,7 +126,6 @@ function ContentCelebirty({ maleCelebrity, femaleCelebrity }) {
                       </div>
                       <div id="celeb-info-container">
                         <span id="celeb-head">{k}</span>
-
                         <br />
                         <span id="celeb-body">{v[0]}</span>
                       </div>
@@ -135,7 +134,7 @@ function ContentCelebirty({ maleCelebrity, femaleCelebrity }) {
                 </div>
               ))}
             </>
-          ) : null}
+          ) : <TabPanel value={value} index={1}> 여성 유명인이 없습니다😥</TabPanel>}
         </TabPanel>
       </div>
     </>
@@ -152,20 +151,22 @@ const EachCelebContainer = styled.div`
   padding: 0px;
 
   #celeb-img-container {
-    height: 200px;
     width: 200px;
+    aspect-ratio: 1;
     overflow: hidden;
-    border-radius: 10em;
+    border-radius: 50%;
     margin-right: 30px;
   }
   #celeb-img {
     width: 200px;
-
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
   }
   #celeb-info-container {
+    width: 50%;
   }
   #celeb-head {
     font-size: 30px;
