@@ -37,7 +37,8 @@ function ShareBtn({ username, birth, content, to, h, w, fs, ...props }) {
           sx={{
             bgcolor: '#ffff3d',
             height: `${h ? h : '44px'}`,
-            width: `${w}`
+            width: `${w}`,
+            marginLeft: '0px'
           }}
           component={Link}
           to={to}
