@@ -93,7 +93,6 @@ const FinBtnsWrapper = styled.div`
     }
   }
   @media (max-width: 650px) {
-    margin: 2px;
     #kakao-link-btn {
     }
   }

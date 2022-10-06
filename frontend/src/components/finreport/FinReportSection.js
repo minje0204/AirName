@@ -196,10 +196,10 @@ function FinReport() {
             <FinTitle username={username} hometown={parseEnMainState} isNewName={isNewName}/>
           </FintitleContainer>
           <FinBodyContainer>
-            <FinBtns username={username} birth={birth} />
             <MyCardContainer>
               <MyCard username={username} hometown={mainState} />
             </MyCardContainer>
+            <FinBtns username={username} birth={birth} />
             <ReportContent
               username={username}
               meaning={meaning}
@@ -316,6 +316,7 @@ const MyCardContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 30px;
 `;
 
 const FooterContainer = styled.div`

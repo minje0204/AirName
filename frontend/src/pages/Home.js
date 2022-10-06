@@ -10,15 +10,14 @@ function Home() {
       <div id="left-container">
         <AirplaneWindow />
       </div>
-      <div id="right-container" >
+      <div id="right-container">
         <div id="home-img-container">
           {/* <img src="/logo2.svg" alt="logo" id="logo" /> */}
           AIR NAME
         </div>
-        <div >
+        <div>
           <div>
             <StartBtn
-            
               title="영어 이름 추천받기"
               subtitle="영어 이름이 없다면? 🙅‍♀️"
               to="/entry-ko"
@@ -40,9 +39,14 @@ function Home() {
               w="300px"
               fs="20px"
             /> */}
-                <ShareBtn to="" content="카카오톡으로 공유"  h="50px" w="300px" fs="20px" />
+            <ShareBtn
+              to=""
+              content="카카오톡으로 공유"
+              h="50px"
+              w="300px"
+              fs="20px"
+            />
           </div>
-
         </div>
       </div>
     </StyledWrapper>
@@ -56,12 +60,9 @@ const StyledWrapper = styled.div`
   min-height: 100vh;
   color: rgba(255, 255, 255, 0.7);
   // background-color: rgba(0, 0, 0, 0.8);
-  background: linear-gradient( 45deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.65) );
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.65));
   font-size: 13px;
-  @media (min-width: 650px) {
-    min-width: 630px;
-  }
-  @media (max-width: 650px) {
+  @media (max-width: 800px) {
     flex-direction: column;
     justify-content: space-evenly;
     #left-container {
@@ -71,11 +72,9 @@ const StyledWrapper = styled.div`
   #logo {
     width: min(80vw, 280px);
     margin-bottom: 20px;
-    
   }
   StartBtn {
     width: min(80vw, 280px);
-    
   }
   display: flex;
   height: 100vh;
@@ -89,7 +88,7 @@ const StyledWrapper = styled.div`
     height: 350px;
   }
 
-  #home-img-container{
+  #home-img-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -100,8 +99,6 @@ const StyledWrapper = styled.div`
     margin-bottom: 20px;
     font-family: 'SCDream7';
   }
-
-
 
   #button-container {
     height: 250px;
