@@ -98,12 +98,12 @@ function EntryCardKo() {
               container
               spacing={1.5}
               sx={{
-                border: '2px solid',
-                borderColor: 'gray',
+                '--Grid-borderStyle': '1px solid #9B9A9A',
+                borderLeft: 'var(--Grid-borderStyle)',
+                borderTop: 'var(--Grid-borderStyle)',
                 '& > div': {
-                  borderRight: '1px solid',
-                  borderBottom: '1px solid',
-                  borderColor: 'black'
+                  borderRight: 'var(--Grid-borderStyle)',
+                  borderBottom: 'var(--Grid-borderStyle)'
                 }
               }}
             >

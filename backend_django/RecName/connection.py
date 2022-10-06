@@ -18,6 +18,15 @@ def LoadDataframes(db, collection_name):
     del df['_id']
     return df
 
+def LoadNewDataframes(db, collection_name):
+    cursor = db[collection_name].find()
+    df = pd.DataFrame(list(cursor))
+    # _id 컬럼 삭제
+    del df['_id']
+    # level_0 컬럼 삭제
+    del df['level_0']
+    return df
+
 def SaveDataframes(db, dataframes, collection_name):
     collection = db[collection_name]
     dataframes.reset_index(inplace=True)

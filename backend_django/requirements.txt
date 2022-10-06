@@ -17,4 +17,5 @@ sqlparse==0.4.2
 tzdata==2022.2
 django-debug-toolbar==3.7.0
 gtts==2.2.4
+soynlp==0.0.493
 

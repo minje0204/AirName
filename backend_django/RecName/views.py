@@ -35,7 +35,7 @@ class NameList(APIView):
 
         #리스트의 dict화
         result_arr = NameFormating(atm_arr,sound_arr)
-
+        
         #dict를 json으로 변환
         data = json.dumps(result_arr)
 

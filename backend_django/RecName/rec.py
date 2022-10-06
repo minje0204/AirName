@@ -10,6 +10,7 @@ from .connection import *
 from pymongo import MongoClient
 import random
 import re
+from soynlp.hangle import jamo_levenshtein
 
 def Romanization(input):
     kor_name = urllib.parse.quote(input)
@@ -43,6 +44,10 @@ def NameSimilarity(name):
     sim = jellyfish.jaro_distance(name,nys_name)
     return sim
 
+def KorSimilarity(pron):
+    sim = jamo_levenshtein(pron,kor_code)
+    return sim
+
 def JaroDistance(data, name):
     NysCode = jellyfish.nysiis(name)
     sim = jellyfish.jaro_distance(data,NysCode)
@@ -58,7 +63,7 @@ def GenderFilter(dataframes, gender):
 
     return dataframes
 
-def RarityFilter(dataframes, year, rarity):
+def RarityFilter(dataframes, year, rarity, type):
     #희귀도 필터(입력 연도에 대해)
     #연도 데이터프레임 불러옴
     db = ConnectMongoDB()
@@ -78,14 +83,15 @@ def RarityFilter(dataframes, year, rarity):
     #기존 dataframes에 rarity값을 합치도록 inner merge
     dataframes = pd.merge(dataframes, year_dataframes_modify)
 
-    if rarity==0:
-        level='high'
-    elif rarity==1:
-        level='medium'
-    else:
-        level='low'
+    if type=='original':
+        if rarity==0:
+            level='high'
+        elif rarity==1:
+            level='medium'
+        else:
+            level='low'
 
-    dataframes = dataframes[dataframes['rarity']==level]
+        dataframes = dataframes[dataframes['rarity']==level]
 
     return dataframes
 
@@ -111,7 +117,7 @@ def Recommend(rcm_data):
 
     db = ConnectMongoDB()
     #codename collection에서 가져옴
-    data = LoadDataframes(db, 'codename')
+    data = LoadNewDataframes(db, 'codename')
 
     #로마화
     rom_name = Romanization(kor_name)
@@ -124,27 +130,53 @@ def Recommend(rcm_data):
     global nys_name
     nys_name = jellyfish.nysiis(rom_name)
 
-    #nysiis similarity 컬럼 추가한 DataFrame 생성
     df_sim = data.copy()
-    df_sim['nysiis_sim'] = df_sim['nysiis'].apply(NameSimilarity)
 
     #필터링
     df_sim = GenderFilter(df_sim, gender)
-    df_sim = RarityFilter(df_sim, year, rarity)
+    df_sim = RarityFilter(df_sim, year, rarity, 'original')
 
-    #유사도 기준 정렬
-    df_sim = df_sim.sort_values('nysiis_sim',ascending=False)
+    global kor_code
+    kor_code = kor_name[1:]
 
-    #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
-    name_array = {}
-    df_drop_dup = df_sim['nysiis'].drop_duplicates().head(4).to_numpy()
+    df_kor_sim = data.copy()
 
-    for data in df_drop_dup:
-        df_new = df_sim.copy()
+    # nysiis similarity 컬럼 추가한 DataFrame 생성
+    df_kor_sim['kor_sim'] = df_kor_sim['pron'].apply(KorSimilarity)
+    df_kor_sim = df_kor_sim.sort_values('kor_sim', ascending=True)
 
-        df_random = df_new[df_new['nysiis']==data].sample(n=1).to_numpy()
-        name_array[df_random[0][1]] = {'type':'sound','sim':round(df_random[0][4]*100),
-                                       'rank':str(df_random[0][5]),'percent':str(round(df_random[0][5]/year_length*100))}
+    cut = df_kor_sim.head(1).to_numpy()
+
+    if cut[0][5] > 0.68:
+        # nysiis similarity 컬럼 추가한 DataFrame 생성
+        df_sim['nysiis_sim'] = df_sim['nysiis'].apply(NameSimilarity)
+
+        #유사도 기준 정렬
+        df_sim = df_sim.sort_values('nysiis_sim',ascending=False)
+
+        #dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
+        name_array = {}
+        df_drop_dup = df_sim['nysiis'].drop_duplicates().head(4).to_numpy()
+
+        for data in df_drop_dup:
+            df_new = df_sim.copy()
+            df_random = df_new[df_new['nysiis']==data].sample(n=1).to_numpy()
+
+            name_array[df_random[0][1]] = {'type':'sound','sim':round(df_random[0][89]*100),
+                                           'rank':str(df_random[0][5]),'percent':str(round(df_random[0][5]/year_length*100))}
+
+    else:
+        # dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
+        name_array = {}
+
+        # 필터링
+        df_kor_sim = RarityFilter(df_kor_sim, year, rarity, 'kor')
+
+        for data in df_kor_sim.head(4).to_numpy():
+            name_array[data[1]] = {'type': 'sound', 'sim': round((2.0-data[5])/2.0 * 100),
+                                           'rank': str(data[6]),
+                                           'percent': str(round(data[6] / year_length * 100))}
+
 
     return name_array
 
@@ -158,7 +190,7 @@ def AtmRecommend(rcm_data):
     processedInput = preProcessAtmInput(AtmInput)
 
     df[['score','tag']] = df.apply(lambda row : processATM(list(map(lambda x: row[x],processedInput)),processedInput), axis = 1,result_type='expand')
-    df = RarityFilter(df, year, rarity)
+    df = RarityFilter(df, year, rarity, 'original')
     df_random = df.sort_values(by=['score'],ascending=False).head(2)
     name_array = {}
 

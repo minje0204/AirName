@@ -6,6 +6,7 @@ import LinkButton from 'components/LinkButton';
 import domtoimage from 'dom-to-image';
 import { saveAs } from 'file-saver';
 import LinkIcon from '@mui/icons-material/Link';
+import { toast } from 'react-toastify';
 
 // 홈으로 돌아가기, 카카오톡 버튼 컴포넌트
 function FinBtns({ username, birth }) {
@@ -29,9 +30,9 @@ function FinBtns({ username, birth }) {
   const copyClipBoard = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
-      alert('복사 성공!');
+      toast.success('복사 성공!', { position: 'top-center' });
     } catch (error) {
-      alert('복사 실패!');
+      toast.error('복사 실패!', { position: 'top-center' });
     }
   };
 

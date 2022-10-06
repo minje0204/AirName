@@ -92,6 +92,9 @@ const StyledWrapper = styled.div`
   #tmiContent {
     font-size: 18px;
     margin: 10px;
+    display: flex;
+    justify-content: center;
+    margin: auto 0;
   }
   #anotherTMI {
     display: flex;
