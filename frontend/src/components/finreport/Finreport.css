@@ -5,17 +5,20 @@
   color: black;
   border-radius: 10px;
   width: 650px;
-
-
+  font-size: 1rem;
+  
 }
-
 @media (max-width: 650px) {
   .fin-content {
-    width: 250px;
-    font-size: 12px;
-    padding-top: 15px;
+    width: 90%;
+
+    padding: 15px;
   }
 }
+
+/* .fin-content-font{
+  font-size: 15px;
+} */
 
 
 .help-icon {

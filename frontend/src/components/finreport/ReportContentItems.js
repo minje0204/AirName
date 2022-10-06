@@ -72,9 +72,12 @@ function ReportContentItems({
         </>
       ) : null}
 
-      <ContentMeaning meaning={meaning} username={username} />
 
-      {/* 주관련 정보 */}
+      {/* 이름 뜻 */}
+      <ContentMeaning meaning={meaning} username={username} isNewName={isNewName} />
+      
+      {/* 명예고향 */}
+      {maleState.length > 0 || femaleState.length > 0 ? 
       <ContentState
         statesDesNImg={statesDesNImg}
         username={username}
@@ -84,7 +87,7 @@ function ReportContentItems({
         parseEnHome={parseEnHome}
         parseFeKoHome={parseFeKoHome}
         parseFeEnHome={parseFeEnHome}
-      />
+      /> : null}
 
       {/* 미국 지도 */}
       {mainState.length > 0 ? (
@@ -95,16 +98,24 @@ function ReportContentItems({
       ) : null}
 
       {/* 동명 유명인 */}
+      {typeof maleCharacter === 'object' &&
+      (Object.keys(maleCelebrity).length > 0 ||
+        Object.keys(femaleCelebrity).length > 0) ? (
       <ContentCelebirty
         maleCelebrity={maleCelebrity}
         femaleCelebrity={femaleCelebrity}
       />
+      ) : null}
 
-      {/* 동명 캐릭터 */}
-      <ContentCharacter
-        maleCharacter={maleCharacter}
-        femaleCharacter={femaleCharacter}
-      />
+      {typeof maleCharacter === 'object' &&
+      (Object.keys(maleCharacter).length > 0 ||
+        Object.keys(femaleCharacter).length > 0) ? (
+        <ContentCharacter
+          username={username}
+          maleCharacter={maleCharacter}
+          femaleCharacter={femaleCharacter}
+        />
+      ) : null}
     </>
   );
 }
@@ -120,7 +131,7 @@ const ContentBox = styled.div`
   width: 650px;
 
   @media (max-width: 650px) {
-    width: 250px;
+    width: 80%;
     font-size: 12px;
     padding-top: 15px;
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 
-function ContentMeaning({meaning, username}) {
+
+function ContentMeaning({ meaning, username, isNewName }) {
   return (
     <>
       {/* 이름 뜻 */}
@@ -26,6 +27,22 @@ function ContentMeaning({meaning, username}) {
             클릭해보세요. 네이버 파파고가 도와줄거에요!
           </div>
         </>
+      ) : null}
+
+      {/* 새로운 이름은 아닌데 이름 뜻이 없을 때 */}
+      {meaning.length < 0 && isNewName === false ? (
+        <div className="fin-content">
+          안타깝게도 AIRNAME 서비스에서 이름을 찾을 수 없어요😥
+          <br />
+          특별한 뜻이 있는 이름을 추천받고 싶다면?{' '}
+          <a
+            href={`https://airname.shop/entry-ko`}
+            target="_self"
+            className="meaning-dict-link"
+          >
+            [클릭] AIRNAME 추천 서비스 다시하기!
+          </a>
+        </div>
       ) : null}
     </>
   );
