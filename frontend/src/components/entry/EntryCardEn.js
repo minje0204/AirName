@@ -99,13 +99,12 @@ function EntryCardEn() {
               container
               spacing={1.5}
               sx={{
-                '--Grid-borderWidth': '1px',
-                border: '2px solid',
-                borderColor: 'gray',
+                '--Grid-borderStyle': '1px solid #9B9A9A',
+                borderLeft: 'var(--Grid-borderStyle)',
+                borderTop: 'var(--Grid-borderStyle)',
                 '& > div': {
-                  borderRight: 'var(--Grid-borderWidth) solid',
-                  borderBottom: 'var(--Grid-borderWidth) solid',
-                  borderColor: 'black'
+                  borderRight: 'var(--Grid-borderStyle)',
+                  borderBottom: 'var(--Grid-borderStyle)'
                 }
               }}
             >
