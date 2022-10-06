@@ -46,4 +46,7 @@ const BtnStyle = styled.div`
     font-family: 'SCDream5';
     color: white;
   }
+  @media (max-width: 650px) {
+    width: 20px;
+  }
 `;

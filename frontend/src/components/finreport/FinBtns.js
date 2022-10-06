@@ -49,7 +49,7 @@ function FinBtns({ username, birth }) {
   return (
     <StyledWrapper>
       <FinBtnsWrapper>
-        <LinkButton content="티켓저장" to="" onClick={onDownloadBtn}>
+        <LinkButton content="저장" to="" onClick={onDownloadBtn}>
           <SaveAltIcon id="save-icon" sx={{ color: '#fff' }} />
         </LinkButton>
       </FinBtnsWrapper>
@@ -58,7 +58,7 @@ function FinBtns({ username, birth }) {
       </FinBtnsWrapper>
       <FinBtnsWrapper>
         <LinkButton
-          content="링크 복사"
+          content="복사"
           to=""
           onClick={() =>
             copyClipBoard(`https://airname.shop/finreport/${username}/${birth}`)
