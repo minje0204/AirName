@@ -74,7 +74,7 @@ function ReportContentItems({
 
 
       {/* 이름 뜻 */}
-      <ContentMeaning meaning={meaning} username={username} />
+      <ContentMeaning meaning={meaning} username={username} isNewName={isNewName} />
       
       {/* 명예고향 */}
       {maleState.length > 0 || femaleState.length > 0 ? 
