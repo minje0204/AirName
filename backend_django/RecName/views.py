@@ -30,11 +30,12 @@ class NameList(APIView):
         # if sound_arr == 404:
         #     raise NameUnavailable()
 
-        #분위기 추천
-        atm_arr = AtmRecommend(request.data)
-
-        #리스트의 dict화
-        result_arr = NameFormating(atm_arr,sound_arr)
+        # #분위기 추천
+        # atm_arr = AtmRecommend(request.data)
+        #
+        # #리스트의 dict화
+        # result_arr = NameFormating(atm_arr,sound_arr)
+        result_arr = sound_arr
 
         #dict를 json으로 변환
         data = json.dumps(result_arr)
