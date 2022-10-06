@@ -160,6 +160,10 @@ const EachCelebContainer = styled.div`
   }
   #celeb-img {
     width: 200px;
+
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
   }
   #celeb-info-container {
   }
@@ -172,6 +176,9 @@ const EachCelebContainer = styled.div`
   @media (max-width: 650px) {
     #celeb-img {
       width: 100px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
     #celeb-img-container {
       height: 100px;
