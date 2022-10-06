@@ -15,17 +15,6 @@ import LinkButton from 'components/LinkButton';
 import styled from 'styled-components';
 import API from '../../config';
 
-const ValidationTextField = styled(TextField)({
-  '& input:invalid + fieldset': {
-    borderColor: 'gray',
-    borderWidth: 1
-  },
-  '& input:valid + fieldset': {
-    borderColor: 'green',
-    borderWidth: 2
-  }
-});
-
 function EntryCardEn() {
   const [nameKo, setNameKo] = useState('');
   const [nameKoError, setNameKoError] = useState(false);
@@ -116,7 +105,7 @@ function EntryCardEn() {
                       Korean Name
                     </span>
                   </div>
-                  <ValidationTextField
+                  <TextField
                     variant="standard"
                     className="answer"
                     placeholder="한글성명 ex) 홍길동"
@@ -124,6 +113,8 @@ function EntryCardEn() {
                       maxLength: 7,
                       style: { fontSize: 'clamp(14px, 1.6vw, 18px)' }
                     }}
+                    color={nameKo ? 'checkedGreen' : 'warning'}
+                    focused={nameKo ? true : false}
                     error={nameKoError}
                     helperText={nameKoError ? nameKoErrorMsg : null}
                     required
@@ -142,13 +133,15 @@ function EntryCardEn() {
                       English Name
                     </span>
                   </div>
-                  <ValidationTextField
+                  <TextField
                     variant="standard"
                     className="answer"
                     placeholder="영어 이름 ex) alex"
                     inputProps={{
                       style: { fontSize: 'clamp(14px, 1.6vw, 18px)' }
                     }}
+                    color={nameEn ? 'checkedGreen' : 'warning'}
+                    focused={nameEn ? true : false}
                     error={nameEnError}
                     helperText={nameEnError ? '영어이름을 입력해주세요' : null}
                     required
@@ -173,7 +166,7 @@ function EntryCardEn() {
                     <span className="questionA necessaryInput">*생년</span>
                     <span className="questionB necessaryInput">Birth Year</span>
                   </div>
-                  <ValidationTextField
+                  <TextField
                     variant="standard"
                     inputProps={{
                       maxLength: 4,
@@ -181,6 +174,8 @@ function EntryCardEn() {
                     }}
                     className="answer"
                     placeholder="태어난 해 ex) 1995"
+                    color={birth ? 'checkedGreen' : 'warning'}
+                    focused={birth ? true : false}
                     error={birthError}
                     helperText={
                       birthError

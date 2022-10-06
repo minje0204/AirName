@@ -19,6 +19,9 @@ const theme = createTheme({
       light: '#FFFCBF',
       main: '#F9F7F4',
       dark: '#C2D1C7'
+    },
+    checkedGreen: {
+      main: '#008000'
     }
   }
 });
