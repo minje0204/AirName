@@ -359,7 +359,7 @@ const StyledWrapper = styled.div`
     font-size: clamp(20px, 3vw, 25px);
   }
   #title_explain {
-    color: #c76870;
+    color: red;
     position: relative;
     font-size: 8px;
     bottom: 18px;
