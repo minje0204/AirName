@@ -71,9 +71,12 @@ class ReactionTimeTest extends Component {
     return (
       <StyledWrapper>
         <Box className="explain">
-          <Box id="title">반응속도 테스트</Box>
-          <Box className="question">나의 평균 반응속도는?</Box>
-          <Box className="question">초록색으로 바뀌면 클릭해주세요</Box>
+          <Box id="mainTitle">반응속도 테스트</Box>
+          <Box className="SubTitle">나의 평균 반응속도는?</Box>
+          <Box className="SubTitle">초록색으로 바뀌면 클릭해주세요</Box>
+          <Box id="loadingExplain">
+            발음과 답변을 분석 중입니다. 곧 이름을 추천해드릴게요.
+          </Box>
         </Box>
         <Box id="testBox">
           <span id="time">{this.renderAvg()}</span>
@@ -100,7 +103,6 @@ class ReactionTimeTest extends Component {
 export default ReactionTimeTest;
 
 const StyledWrapper = styled.div`
-  font-size: clamp(13px, 1.5vw, 18px);
   .explain {
     display: flex;
     flex-direction: column;
@@ -108,9 +110,16 @@ const StyledWrapper = styled.div`
     justify-content: center;
     margin-bottom: 10px;
   }
-  #title {
+  #mainTitle {
     font-family: SCDream7;
     font-size: 36px;
+  }
+  .SubTitle {
+    font-size: 17px;
+  }
+  #loadingExplain {
+    color: gray;
+    font-size: 12px;
   }
   #testBox {
     background-color: #f9f7f4;

@@ -26,29 +26,37 @@ export default function LoadingTMI() {
   const [num, setNum] = useState(0);
   return (
     <StyledWrapper>
+      <Box className="explain">
+        <Box id="mainTitle">
+          TMI #{num < 9 ? 0 + String(num + 1) : String(num + 1)}
+        </Box>
+        <Box className="SubTitle">이름과 관련된 흥미로운 TMI입니다.</Box>
+        <Box id="loadingExplain">
+          발음과 답변을 분석 중입니다. 곧 이름을 추천해드릴게요.
+        </Box>
+      </Box>
       <Box
+        id="ContentBox"
         sx={{
           bgcolor: '#F9F7F4',
           marginBottom: '10px',
-          padding: '10px'
+          padding: '10px',
+          minHeight: '160px'
         }}
       >
-        <Box id="title" sx={{ margin: '10px' }}>
-          TMI #{num + 1}
-        </Box>
-        <Box id="content" sx={{ margin: '10px' }}>
-          {infos[num]}
-        </Box>
-        <Button
-          id="anotherTMI"
-          variant="contained"
-          onClick={() => {
-            randomNum();
-          }}
-          color="secondary"
-        >
-          <span style={{ color: 'white' }}>다른 TMI</span>
-        </Button>
+        <Box id="tmiContent">{infos[num]}</Box>
+
+        <div id="anotherTMI">
+          <Button
+            variant="contained"
+            onClick={() => {
+              randomNum();
+            }}
+            color="secondary"
+          >
+            <span id="anotherTMIContent">다른 TMI</span>
+          </Button>
+        </div>
       </Box>
     </StyledWrapper>
   );
@@ -58,12 +66,39 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  #title {
+  .explain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  #mainTitle {
     font-family: SCDream7;
     font-size: 36px;
   }
+  .SubTitle {
+    font-size: 16px;
+  }
+  #loadingExplain {
+    color: gray;
+    font-size: 12px;
+  }
+  #ContentBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  #tmiContent {
+    font-size: 18px;
+    margin: 10px;
+  }
   #anotherTMI {
     display: flex;
-    margin: 10px auto 0;
+    flex-direction: column;
+    align-items: center;
+  }
+  #anotherTMIContent {
+    color: white;
   }
 `;

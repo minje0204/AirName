@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import LabelingResult from './LoadingResult';
 import API from '../../config';
 import { enToKoAttribute, koToEnAttribute } from './attributeDictionary';
+import TTSBtn from 'components/TTSBtn';
 
 export default function Labeling() {
   const [name, setName] = useState('');
@@ -57,11 +58,17 @@ export default function Labeling() {
     <StyledWrapper>
       <Container className="explain">
         <Box className="explain">
-          <Box id="title">이미지게임</Box>
-          <Box className="question">
+          <Box id="mainTitle">이미지게임</Box>
+          <Box className="SubTitle">
             다른 사람은 이 이름에 대해 어떻게 생각할까요?
           </Box>
-          <Box className="question">아래 카드를 누르면 결과가 나와요.</Box>
+          <Box className="SubTitle">스피커 아이콘을 눌러 발음을 들어보고</Box>
+          <Box className="SubTitle">
+            더 가까워보이는 특성을 선택하면 결과가 나와요.
+          </Box>
+          <Box id="loadingExplain">
+            발음과 답변을 분석 중입니다. 곧 이름을 추천해드릴게요.
+          </Box>
         </Box>
         {!isImgLoaded ? (
           <>
@@ -74,6 +81,11 @@ export default function Labeling() {
           <>
             <Box id="name" sx={{ margin: '10px' }}>
               {name}
+              <TTSBtn
+                username={name}
+                type="rcmnd"
+                iconSize="clamp(16px, 4vw, 32px)"
+              />
             </Box>
             <Box>
               {result ? (
@@ -147,9 +159,16 @@ const StyledWrapper = styled.div`
     align-items: center;
     justify-content: center;
   }
-  #title {
+  #mainTitle {
     font-family: SCDream7;
     font-size: 36px;
+  }
+  .SubTitle {
+    font-size: clamp(14px, 1.6vw, 17px);
+  }
+  #loadingExplain {
+    color: gray;
+    font-size: 12px;
   }
   #progress-container {
     position: relative;
@@ -159,7 +178,7 @@ const StyledWrapper = styled.div`
     background-color: var(--infoMain);
     padding: 20px 40px;
     font-family: SCDream7;
-    font-size: clamp(1rem, 4vw, 2rem);
+    font-size: clamp(16px, 4vw, 32px);
     display: flex;
     justify-content: center;
   }
@@ -167,13 +186,16 @@ const StyledWrapper = styled.div`
     display: flex;
     justify-content: space-around;
     flex-direction: row;
+    height: 160px;
+    align-items: center;
   }
   .choice {
     radius: 10px;
     padding: 15px 30px;
     background-color: var(--infoMain);
     font-family: SCDream7;
-    font-size: clamp(0.7rem, 3vw, 1.5rem);
+    font-size: clamp(12px, 3vw, 24px);
+    height: clamp(60px, 15vw, 120px);
     margin: 10px;
   }
   #resultBox {
@@ -183,5 +205,8 @@ const StyledWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 160px;
+    justify-content: center;
+  }
   }
 `;
