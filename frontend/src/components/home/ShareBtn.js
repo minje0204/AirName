@@ -14,7 +14,7 @@ function ShareBtn({ username, birth, content, to, h, w, fs, ...props }) {
       content: {
         title: `Hi! What's your name?`,
         description: `🔽알잘딱깔센 영어이름 찾으러 AIR Name 바로가기🧚‍♀️🔽`,
-        imageUrl: `https://ifh.cc/g/PBX9v2.png`,
+        imageUrl: `https://i.imgur.com/izAKrmQ.png`,
         link: {
           mobileWebUrl: `https://airname.shop`,
           webUrl: `https://airname.shop`

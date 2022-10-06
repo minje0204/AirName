@@ -1,4 +1,6 @@
 import * as React from 'react';
+
+//mui
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -78,7 +80,7 @@ function ContentCharacter({ username, maleCharacter, femaleCharacter }) {
             <h3>같은 이름을 가진 남자 캐릭터</h3>
             {Object.entries(maleCharacter).map(([k, v]) => (
               <div key={k}>
-                {k} : {v} <br />
+                {k} :  <br />
               </div>
             ))}
           </TabPanel>
@@ -94,7 +96,7 @@ function ContentCharacter({ username, maleCharacter, femaleCharacter }) {
               <h3>같은 이름을 가진 여자 캐릭터</h3>
               {Object.entries(femaleCharacter).map(([k, v]) => (
                 <div key={k}>
-                  {k} : {v}
+                  {k} : 
                   <br />
                 </div>
               ))}

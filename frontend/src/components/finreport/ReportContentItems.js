@@ -121,7 +121,7 @@ const ContentBox = styled.div`
   width: 650px;
 
   @media (max-width: 650px) {
-    width: 250px;
+    width: 80%;
     font-size: 12px;
     padding-top: 15px;
   }
