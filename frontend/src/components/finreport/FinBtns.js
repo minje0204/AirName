@@ -18,7 +18,7 @@ function FinBtns({ username, birth }) {
       content: {
         title: `Hi! My name is ${username}😎`,
         description: `${username}의 🔽리포트 보러가기🔽`,
-        imageUrl: `https://ifh.cc/g/PBX9v2.png`,
+        imageUrl: `https://i.imgur.com/izAKrmQ.png`,
         link: {
           mobileWebUrl: `https://airname.shop/finreport/${username}/${birth}`,
           webUrl: `https://airname.shop/finreport/${username}/${birth}`

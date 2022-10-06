@@ -11,9 +11,10 @@
 
 @media (max-width: 650px) {
   .fin-content {
-    width: 250px;
+    width: 90%;
     font-size: 12px;
-    padding-top: 15px;
+
+    padding: 15px;
   }
 }
 

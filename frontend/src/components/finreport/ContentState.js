@@ -1,6 +1,46 @@
-import React from 'react';
+import * as React from 'react';
+
+//mui
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import HelpIcon from '@mui/icons-material/Help';
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`
+  };
+}
 
 function ContentState({
   maleState,
@@ -12,13 +52,36 @@ function ContentState({
   parseFeKoHome,
   parseFeEnHome
 }) {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   return (
-    <>
+    <div className="fin-content">
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        aria-label="basic tabs example"
+      >
+        {maleState.length > 0 ? (
+          <Tab label="🏡🙍‍♂️ 남성 명예고향" {...a11yProps(0)} />
+        ) : (
+          <Tab label="🏡🙍‍♂️ 남성 명예고향" {...a11yProps(0)} disabled />
+        )}
+
+        {femaleState.length > 0 ? (
+          <Tab label="🏡🙍‍♀️ 여성 명예고향" {...a11yProps(1)} />
+        ) : (
+          <Tab label="🏡🙍‍♀️ 여성 명예고향" {...a11yProps(1)} disabled />
+        )}
+      </Tabs>
+
       {/* 남성 주 */}
       {maleState.length > 0 ? (
-        <div className="fin-content">
+        <TabPanel value={value} index={0}>
           <h3>
-            🏡🙍‍♂️ 남성{' '}
+            남성{' '}
             <span className="tooltip">
               명예 고향
               <IconButton className="help-icon">
@@ -36,18 +99,11 @@ function ContentState({
           >
             {parseKoHome}주
           </a>
-          에서 가장 많이 사용되고 있어요!
-          <br />
+          에서 가장 많이 사용되고 있어요!{' '}
           {maleState ? (
             <>
-              <br />
-              <div id="state-text-mobile-container">
-                <span id="state-title">
-                  <strong>{statesDesNImg[maleState][0]}</strong>
-                </span>
-                <br />
-                <span id="state-desc">{statesDesNImg[maleState][1]}</span>
-              </div>
+              <strong>{statesDesNImg[maleState][0]}</strong>는
+              <span id="state-desc">{statesDesNImg[maleState][1]}</span>입니다.
             </>
           ) : (
             <div></div>
@@ -55,14 +111,14 @@ function ContentState({
           <br />
           {parseKoHome}에 대한 자세한 정보가 궁금하다면 파란색 글씨를
           클릭해보세요! 클릭시, {parseKoHome}주의 위키피디아 링크로 연결됩니다!
-        </div>
+        </TabPanel>
       ) : null}
 
       {/* 여성 주 */}
       {femaleState.length > 0 ? (
-        <div className="fin-content">
+        <TabPanel value={value} index={1}>
           <h3>
-            🏡🙍‍♀️ 여성{' '}
+            여성{' '}
             <span className="tooltip">
               명예 고향
               <IconButton className="help-icon">
@@ -86,9 +142,9 @@ function ContentState({
           {parseFeKoHome}에 대한 더 많은 정보가 궁금하다면 파란색 글씨를
           클릭해보세요! 클릭시, {parseFeKoHome}주의 위키피디아 링크로
           연결됩니다!
-        </div>
+        </TabPanel>
       ) : null}
-    </>
+    </div>
   );
 }
 
