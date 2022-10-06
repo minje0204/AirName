@@ -49,16 +49,16 @@ function FinBtns({ username, birth }) {
   return (
     <StyledWrapper>
       <FinBtnsWrapper>
-        <LinkButton content="저장" to="" onClick={onDownloadBtn}>
+        <LinkButton content="다시하기" to="/"></LinkButton>
+      </FinBtnsWrapper>
+      <FinBtnsWrapper>
+        <LinkButton content="" to="" onClick={onDownloadBtn}>
           <SaveAltIcon id="save-icon" sx={{ color: '#fff' }} />
         </LinkButton>
       </FinBtnsWrapper>
       <FinBtnsWrapper>
-        <LinkButton content="다시하기" to="/"></LinkButton>
-      </FinBtnsWrapper>
-      <FinBtnsWrapper>
         <LinkButton
-          content="복사"
+          content=""
           to=""
           onClick={() =>
             copyClipBoard(`https://airname.shop/finreport/${username}/${birth}`)
@@ -80,11 +80,12 @@ function FinBtns({ username, birth }) {
               width: '20px',
               height: '20px',
               marginRight: '5px',
+              marginLeft: '5px',
               position: 'relative',
               top: '1px'
             }}
           />
-          공유하기
+
         </IconButton>
       </FinBtnsWrapper>
     </StyledWrapper>
@@ -95,29 +96,18 @@ export default FinBtns;
 const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
-  color: blue;
-  margin: 0 20px;
+  width: 100%;
+  margin: 20px 0px;
   @media (max-width: 650px) {
     flex-wrap: wrap;
   }
-  #save-icon {
-    margin-right: 5px;
-  }
+
+
 `;
 
 const FinBtnsWrapper = styled.div`
-  margin: 20px;
-  #img-save-btn {
-    background-color: var(--primaryLight);
-    border: 0;
-    padding: 10px;
-    border-radius: 10px;
-    height: 45px;
-    color: black;
-    &:hover {
-      background-color: var(--primaryMain);
-      cursor: pointer;
-    }
+  margin: 10px;
+
   }
   #kakao-link-btn {
     background-color: rgba(255, 235, 0, 100);
@@ -129,7 +119,7 @@ const FinBtnsWrapper = styled.div`
     height: 45px;
   }
   @media (max-width: 650px) {
-    margin: 2px;
+    margin: 5px 25px;
     #kakao-link-btn {
     }
   }
