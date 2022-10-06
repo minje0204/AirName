@@ -136,9 +136,6 @@ def Recommend(rcm_data):
     df_sim = GenderFilter(df_sim, gender)
     df_sim = RarityFilter(df_sim, year, rarity, 'original')
 
-    # nysiis similarity 컬럼 추가한 DataFrame 생성
-    df_sim['nysiis_sim'] = df_sim['nysiis'].apply(NameSimilarity)
-
     global kor_code
     kor_code = kor_name[1:]
 
@@ -151,6 +148,9 @@ def Recommend(rcm_data):
     cut = df_kor_sim.head(1).to_numpy()
 
     if cut[0][5] > 0.68:
+        # nysiis similarity 컬럼 추가한 DataFrame 생성
+        df_sim['nysiis_sim'] = df_sim['nysiis'].apply(NameSimilarity)
+
         #유사도 기준 정렬
         df_sim = df_sim.sort_values('nysiis_sim',ascending=False)
 
@@ -160,10 +160,10 @@ def Recommend(rcm_data):
 
         for data in df_drop_dup:
             df_new = df_sim.copy()
-
             df_random = df_new[df_new['nysiis']==data].sample(n=1).to_numpy()
-            name_array[df_random[0][1]] = {'type':'sound','sim':round(df_random[0][5]*100),
-                                           'rank':str(df_random[0][6]),'percent':str(round(df_random[0][6]/year_length*100))}
+
+            name_array[df_random[0][1]] = {'type':'sound','sim':round(df_random[0][89]*100),
+                                           'rank':str(df_random[0][5]),'percent':str(round(df_random[0][5]/year_length*100))}
 
     else:
         # dict형태로 만들어야 Json으로 변환할 수 있다. (Front에 Json으로 리턴해주기 위함)
