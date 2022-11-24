@@ -8,3 +8,6 @@ backend_django/SpeakName/statefile
 /DataSet/Processing Data/.ipynb_checkpoints
 
 DataSet/Processing Data/name_state.xls
+
+## big data ##
+exec/Dump.json
