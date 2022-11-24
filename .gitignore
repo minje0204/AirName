@@ -11,3 +11,8 @@ DataSet/Processing Data/name_state.xls
 
 ## big data ##
 exec/Dump.json
+DataSet/Processing Data/.ipynb_checkpoints/name_state-checkpoint.csv
+DataSet/.ipynb_checkpoints/mvpNameSet_Behind_Fin_with_default_state-checkpoint.json
+backend_django/DataName/rawdata.json
+DataSet/Processing Data/mvpNameSet_normalWithNoneState.json
+DataSet/Process Finished Data/.ipynb_checkpoints/mvpNameSet_Behind_Fin_with_count_state-checkpoint.json
