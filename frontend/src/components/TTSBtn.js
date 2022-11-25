@@ -72,40 +72,6 @@ function TTSBtn({ hometown, username, type, iconSize }) {
   );
 }
 
-// // tts file 직접 사용
-// function TTSBtn({ hometown, username, type }) {
-//   const ttsSrc =
-//     'https://airname.s3.ap-northeast-2.amazonaws.com/sound/' +
-//     JSON.stringify(username).replaceAll('"', '') +
-// 		'.mp3';
-
-//   const audioPlayer = useRef();
-
-// 	const play = (e) => {
-//     e.stopPropagation();
-//     audioPlayer.current.play();
-//   };
-
-//   return (
-// 		<>
-//       <audio ref={audioPlayer}>
-// 				<source type="audio/mp3" src={ttsSrc} />
-//         <code>audio</code> element.
-//       </audio>
-//       <div>
-//         <Button
-//           onClick={(e) => {
-// 						play(e);
-// 						// requestAudioFile();
-//           }}
-//         >
-//           <SpeakerImgTag src={SpeakerImg} alt="TTSspeaker" />
-//         </Button>
-//       </div>
-//     </>
-//   );
-// }
-
 export default TTSBtn;
 
 const Button = styled.button`
