@@ -17,30 +17,29 @@
 
 - **FrontEnd**
     
-    <div style="display: flex; align-items: flex-start;"><img src="[https://techstack-generator.vercel.app/js-icon.svg](https://techstack-generator.vercel.app/js-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/react-icon.svg](https://techstack-generator.vercel.app/react-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/prettier-icon.svg](https://techstack-generator.vercel.app/prettier-icon.svg)" width="100" height="100"><img src="./images/materialUI_icon.svg" width="100" height="100"><img src="./images/GA_icon.svg" width="100" height="100"></div>
+    <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/js-icon.svg" width="100" height="100"><img src="https://techstack-generator.vercel.app/react-icon.svg" width="100" height="100"><img src="https://techstack-generator.vercel.app/prettier-icon.svg" width="100" height="100"><img src="./images/materialUI_icon.svg" width="100" height="100"><img src="./images/GA_icon.svg" width="100" height="100"></div>
     
 - **BackEnd**
     
-    <div style="display: flex; align-items: flex-start;"><img src="[https://techstack-generator.vercel.app/python-icon.svg](https://techstack-generator.vercel.app/js-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/django-icon.svg](https://techstack-generator.vercel.app/ts-icon.svg)" width="100" height="100"><img src="./images/mongodb_icon.svg" width="100" height="100"></div>
+    <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/python-icon.svg" width="100" height="100"><img src="https://techstack-generator.vercel.app/django-icon.svg" width="100" height="100"><img src="./images/mongodb_icon.svg" width="100" height="100"></div>
     
 - **CI/CD**
     
-    <div style="display: flex; align-items: flex-start;"><img src="[https://techstack-generator.vercel.app/docker-icon.svg](https://techstack-generator.vercel.app/js-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/nginx-icon.svg](https://techstack-generator.vercel.app/ts-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/aws-icon.svg](https://techstack-generator.vercel.app/ts-icon.svg)" width="100" height="100"><img src="[https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Jenkins_logo.svg/339px-Jenkins_logo.svg.png?20120629215426](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Jenkins_logo.svg/339px-Jenkins_logo.svg.png?20120629215426)" width="100" height="100"></div>
+    <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/docker-icon.svg" width="100" height="100"><img src="https://techstack-generator.vercel.app/nginx-icon.svg" width="100" height="100"><img src="https://techstack-generator.vercel.app/aws-icon.svg" width="100" height="100"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Jenkins_logo.svg/339px-Jenkins_logo.svg.png?20120629215426" width="100" height="100"></div>
     
 
 ---
 
 ### 아키텍쳐
 
-<img src="./images/arc.png" width="100" height="100">
+<img src="./images/arc.png" width="100%" height="100%">
 
 ---
 
 ### 서비스 소개
 
 1. 메인 화면
-
-<img src="./images/service1.gif" width="100" height="100">
+<img src="./images/service1.gif" width="100%" height="100%">
 
 ```
 > 여행을 컨셉으로 하여 비행기 안에서 창문 밖을 바라보는 컨셉으로 메인 화면을 디자인
@@ -58,7 +57,7 @@
 
 1. 기본 정보 기입
 
-<img src="./images/service2.gif" width="100" height="100">
+<img src="./images/service2.gif" width="100%" height="100%">
 
 ```jsx
 > 사용자의 기본 정보를 받아오는 것이 착륙 시 적는 입국카드와 유사하다고
@@ -74,7 +73,7 @@
 
 1. 설문 조사
 
-<img src="./images/service3.gif" width="100" height="100">
+<img src="./images/service3.gif" width="100%" height="100%">
 
 ```
 > 입국 심사할 때 질문을 받는 컨셉으로 설문 조사 기능을 디자인
@@ -96,7 +95,7 @@
 
 1. 영어 이름 추천
 
-<img src="./images/service5.gif" width="100" height="100">
+<img src="./images/service5.gif" width="100%" height="100%">
 
 ```
 > 자신의 한글 이름 발음을 기반으로 비슷한 영어 발음을 가지는 이름 2가지와
@@ -108,7 +107,7 @@
 
 1. 이름 리포트
 
-<img src="./images/service6.gif" width="100" height="100">
+<img src="./images/service6.gif" width="100%" height="100%">
 
 ```
 > 비행기 티켓 컨셉으로 이름 리포트 페이지를 구현
@@ -126,12 +125,11 @@
 ---
 
 ### 산출물
-
-| API 명세서 |
+|산출물 링크 목록|
 | --- |
-| 와이어프레임 |
-| UCC |
-| Figma |
+| [](./exec/API.md) |
+| [](https://www.figma.com/file/I0epgC5hybkQafS89sycjy/%EC%97%AD%EC%82%BC%EC%B2%A0%ED%95%99%EA%B4%80?t=IMkPoKZhuJFIOQS8-6) |
+| [](./exec/ucc.mp4) |
 
 ---
 
