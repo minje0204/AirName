@@ -122,7 +122,7 @@
 | --- |
 | [API 명세서](./exec/API.md) |
 | [와이어프레임](https://www.figma.com/file/I0epgC5hybkQafS89sycjy/%EC%97%AD%EC%82%BC%EC%B2%A0%ED%95%99%EA%B4%80?t=IMkPoKZhuJFIOQS8-6) |
-| [UCC](./exec/ucc.mp4) |
+| [UCC](https://youtu.be/fuUY-pTk9FE) |
 
 ---
 
